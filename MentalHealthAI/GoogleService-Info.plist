@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>301801642733-a3q2llojhmif2dksd7uadcdtqs46fnj6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.301801642733-a3q2llojhmif2dksd7uadcdtqs46fnj6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAgaeUz0qGQxzpdLncOVxhKc-1R63gW-Po</string>
+	<key>GCM_SENDER_ID</key>
+	<string>301801642733</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.MentalHealthAI</string>
+	<key>PROJECT_ID</key>
+	<string>introspection-a6d72</string>
+	<key>STORAGE_BUCKET</key>
+	<string>introspection-a6d72.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:301801642733:ios:682ce7cb5f792e156d4ae4</string>
+	<key>DATABASE_URL</key>
+	<string>https://introspection-a6d72.firebaseio.com</string>
+</dict>
+</plist>
