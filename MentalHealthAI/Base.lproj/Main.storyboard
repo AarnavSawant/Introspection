@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ukn-ES-yzC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qqp-mG-yO0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -784,6 +784,53 @@
             </objects>
             <point key="canvasLocation" x="-41" y="717"/>
         </scene>
+        <!--Monthly View Controller-->
+        <scene sceneID="CSH-k7-TaU">
+            <objects>
+                <viewController id="UUl-Ok-XGX" customClass="MonthlyViewController" customModule="MentalHealthAI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yge-EP-oaO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7jz-dq-GXU" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="238" width="414" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="Dj0-Fn-I6r"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go Pack Go!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G15-sm-itk">
+                                <rect key="frame" x="0.0" y="223" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="E1T-xo-4aC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="G15-sm-itk" firstAttribute="leading" secondItem="DXb-wn-lkU" secondAttribute="leading" id="8MV-aL-jOd"/>
+                            <constraint firstItem="7jz-dq-GXU" firstAttribute="leading" secondItem="Yge-EP-oaO" secondAttribute="leading" id="DqQ-EM-UsZ"/>
+                            <constraint firstItem="G15-sm-itk" firstAttribute="centerY" secondItem="Yge-EP-oaO" secondAttribute="centerY" constant="-200" id="H9Z-g3-31i"/>
+                            <constraint firstItem="G15-sm-itk" firstAttribute="centerX" secondItem="Yge-EP-oaO" secondAttribute="centerX" id="Vfe-Qn-NxJ"/>
+                            <constraint firstAttribute="trailing" secondItem="G15-sm-itk" secondAttribute="trailing" id="VsM-Uo-pJa"/>
+                            <constraint firstItem="DXb-wn-lkU" firstAttribute="trailing" secondItem="7jz-dq-GXU" secondAttribute="trailing" id="hLy-8V-kdi"/>
+                            <constraint firstItem="7jz-dq-GXU" firstAttribute="top" secondItem="DXb-wn-lkU" secondAttribute="top" constant="150" id="tqd-Xg-9ea"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DXb-wn-lkU"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="YkZ-Xx-beH"/>
+                    <connections>
+                        <outlet property="monthLabel" destination="G15-sm-itk" id="Kah-f9-31o"/>
+                        <outlet property="pieChartView" destination="7jz-dq-GXU" id="1lx-rt-mnJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zX8-RV-S3B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2174" y="-105"/>
+        </scene>
         <!--Reflect-->
         <scene sceneID="gS7-Qb-RoK">
             <objects>
@@ -1083,6 +1130,7 @@
                                         </state>
                                         <connections>
                                             <action selector="didClickYearlyButton:" destination="ql7-XL-tRP" eventType="touchUpInside" id="hrc-0N-85l"/>
+                                            <segue destination="0Cg-7f-nXG" kind="show" id="bEv-D5-UrG"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVg-qk-rmW">
@@ -1097,6 +1145,7 @@
                                         </state>
                                         <connections>
                                             <action selector="MonthlyButton:" destination="ql7-XL-tRP" eventType="touchUpInside" id="fL0-Xu-yjN"/>
+                                            <segue destination="UUl-Ok-XGX" kind="show" id="jKQ-lr-98O"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lWR-IQ-Rkw">
@@ -1177,6 +1226,53 @@
             </objects>
             <point key="canvasLocation" x="1403" y="-395"/>
         </scene>
+        <!--Yearly View Controller-->
+        <scene sceneID="mfp-gw-IUF">
+            <objects>
+                <viewController id="0Cg-7f-nXG" customClass="YearlyViewController" customModule="MentalHealthAI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tx1-A0-Trz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j6y-UV-qvC" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="238" width="414" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="lKQ-Gx-guc"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go Pack Go!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvu-ni-DcE">
+                                <rect key="frame" x="0.0" y="173" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Arb-E3-C1v"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Fvu-ni-DcE" firstAttribute="centerY" secondItem="tx1-A0-Trz" secondAttribute="centerY" constant="-250" id="0Eb-hN-J65"/>
+                            <constraint firstAttribute="trailing" secondItem="j6y-UV-qvC" secondAttribute="trailing" id="1yP-kU-JMM"/>
+                            <constraint firstItem="j6y-UV-qvC" firstAttribute="top" secondItem="ryy-DT-aOF" secondAttribute="top" constant="150" id="8ZA-pj-CcA"/>
+                            <constraint firstItem="Fvu-ni-DcE" firstAttribute="leading" secondItem="tx1-A0-Trz" secondAttribute="leading" id="CDC-3o-I5v"/>
+                            <constraint firstItem="Fvu-ni-DcE" firstAttribute="centerX" secondItem="tx1-A0-Trz" secondAttribute="centerX" id="KGK-Wu-rPu"/>
+                            <constraint firstAttribute="trailing" secondItem="Fvu-ni-DcE" secondAttribute="trailing" id="iYN-hQ-2j8"/>
+                            <constraint firstItem="j6y-UV-qvC" firstAttribute="leading" secondItem="ryy-DT-aOF" secondAttribute="leading" id="mIw-pq-NDH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ryy-DT-aOF"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="k8i-HP-evI"/>
+                    <connections>
+                        <outlet property="pieChartView" destination="j6y-UV-qvC" id="jO0-eF-ndl"/>
+                        <outlet property="yearLabel" destination="Fvu-ni-DcE" id="YDd-vl-Sev"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ROB-mQ-TNw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2526" y="-787"/>
+        </scene>
         <!--Weekly View Controller-->
         <scene sceneID="gAe-c9-6Gm">
             <objects>
@@ -1192,11 +1288,24 @@
                                     <constraint firstAttribute="height" constant="300" id="bSf-0r-Pli"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Breakdown of your Emotions in the Last Week" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ES-2P-peX">
+                                <rect key="frame" x="0.0" y="223" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="amn-XE-wnX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="bnV-N4-CZM" firstAttribute="trailing" secondItem="Etc-Tj-5av" secondAttribute="trailing" id="9Qe-rm-4cD"/>
                             <constraint firstItem="Etc-Tj-5av" firstAttribute="leading" secondItem="bnV-N4-CZM" secondAttribute="leading" id="Hyh-zc-0D2"/>
+                            <constraint firstItem="2ES-2P-peX" firstAttribute="centerY" secondItem="tyT-5a-GJu" secondAttribute="centerY" constant="-200" id="Z1i-Hz-He3"/>
+                            <constraint firstItem="2ES-2P-peX" firstAttribute="centerX" secondItem="tyT-5a-GJu" secondAttribute="centerX" id="atY-tl-1dY"/>
+                            <constraint firstItem="2ES-2P-peX" firstAttribute="leading" secondItem="tyT-5a-GJu" secondAttribute="leading" id="d02-5Q-6Rx"/>
+                            <constraint firstAttribute="trailing" secondItem="2ES-2P-peX" secondAttribute="trailing" id="s1e-mD-GKM"/>
                             <constraint firstItem="Etc-Tj-5av" firstAttribute="top" secondItem="bnV-N4-CZM" secondAttribute="top" constant="150" id="vRu-Xi-WzF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bnV-N4-CZM"/>
@@ -1208,7 +1317,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFE-T8-vjz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2261" y="-724"/>
+            <point key="canvasLocation" x="2142" y="-1543"/>
         </scene>
     </scenes>
     <resources>

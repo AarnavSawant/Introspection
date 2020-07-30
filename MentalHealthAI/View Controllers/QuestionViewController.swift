@@ -29,6 +29,9 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     override func viewDidLoad() {
         print(email)
+        let timestamp = NSDate().timeIntervalSince1970
+        print(timestamp)
+        print(timestamp)
         stopButton.isHidden = true
         stopButton.isEnabled = false
         SpeakButton.isHidden = false

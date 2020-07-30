@@ -9,7 +9,9 @@
 import UIKit
 import CoreML
 import CoreData
+import NaturalLanguage
 import Firebase
+import Foundation
 import FirebaseFirestore
 class ConfirmViewController: UIViewController {
     var predictedClass = String()
@@ -170,60 +172,21 @@ class ConfirmViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
         let email = UserDefaults.standard.string(forKey: "emailAddress")
 //        print(tabBarController.selectedIndex)
-//        tabBarController.selectedIndex = 0
+        let tabBarController = self.presentingViewController as? MainTabBarController
+        tabBarController!.selectedIndex = 0
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy MM dd"
-                let dateString = dateFormatter.string(from: Date())
-                let date = dateFormatter.date(from: dateString)
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-                let managedContext = appDelegate.persistentContainer.viewContext
-                let readContext = appDelegate.persistentContainer.viewContext
-                let entity = NSEntityDescription.entity(forEntityName: "Entity", in: managedContext)
-                let newEntity = NSManagedObject(entity: entity!, insertInto: managedContext)
-                let entity2 = Entity()
-                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
-                request.returnsObjectsAsFaults = false
-                var sentiment_dict = [Date : Emotion]()
-                var list = [[Date : Emotion]]()
-                do {
-                    let result = try readContext.fetch(request) as![NSManagedObject]
-        //            print("Result", result)
-                    print(result.count)
-                    for data in result {
-        //                print("DATA", data.value(forKey: "sentiment"))
-                        if (data.value(forKey: "emotionDict") != nil) {
-                            sentiment_dict = (data.value(forKey: "emotionDict") as? [Date : Emotion])!
-                            list.append(sentiment_dict)
-                        }
-                        break
-                    }
-                } catch {
-                    print("FAILED")
-                }
-                print("List Count", list.count)
-                for x in list {
-                    print("Dictionary", x)
-                }
-                let sentiment = Emotion(text: TranscribedText.text, emotion: predictedClass)
-                sentiment_dict[date!] = sentiment
-                print("Sentiment Dictionary: ", sentiment_dict)
-        //        print(sentiment_list!.emotions.count)
-                newEntity.setValue(sentiment_dict, forKey: "emotionDict")
-                do {
-                    try managedContext.save()
-                    print("SAVED!!!!!!!!!!!!!!!!!!")
-                } catch {
-                    print("NO")
-                }
-            let db = Firestore.firestore()
+        let db = Firestore.firestore()
         let calendar = Calendar.current
-        let current_year = calendar.component(.year, from: Date())
-        let current_month = calendar.component(.month, from: Date())
-        let current_day = calendar.component(.day, from: Date())
+        let testdate = dateFormatter.date(from: "2020 07 24")!
+        let current_year = calendar.component(.year, from: testdate)
+        let current_month = calendar.component(.month, from: testdate)
+        let current_day = calendar.component(.day, from: testdate)
         let day_of_week_formatter = DateFormatter()
+        let timestamp = testdate.timeIntervalSince1970 as! Double
         day_of_week_formatter.dateFormat = "EEEE"
         let dayOfTheWeekString = day_of_week_formatter.string(from: Date())
-        db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : TranscribedText.text, "emotion" : predictedClass])
+        db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: testdate )).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : TranscribedText.text, "emotion" : predictedClass, "timestamp" : timestamp])
             }
 @IBAction func didPressRedo(_ sender: Any) {
 //        self.dismiss(animated: true, completion: {

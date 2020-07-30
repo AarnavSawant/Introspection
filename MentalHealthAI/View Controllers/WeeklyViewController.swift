@@ -38,19 +38,32 @@ class WeeklyViewController: UIViewController {
         day_of_week_formatter.dateFormat = "EEEE"
         var emotionList = [String] ()
         let dayOfTheWeekString = day_of_week_formatter.string(from: lastSundayDate!)
-        let response = db.collection("users").document(email!).collection("user_sentiment").whereField("year", isEqualTo: current_year).whereField("month", isEqualTo: current_month).whereField("day", isGreaterThanOrEqualTo: current_day).getDocuments { (querySnapshot, error) in
+        let timeSundayTimeStamp = lastSundayDate?.timeIntervalSince1970 as! Double
+        let response = db.collection("users").document(email!).collection("user_sentiment").whereField("timestamp", isGreaterThanOrEqualTo: timeSundayTimeStamp).getDocuments { (querySnapshot, error) in
             if error != nil {
                 print("Error retrieving querries")
             } else {
                 for document in querySnapshot!.documents {
                     let data = document.data()
+
                     let emotion = data["emotion"] as! String
+                    print(emotion)
                     emotionList.append(emotion)
+                    print(emotionList)
                 }
+                var emotionCount = [String : Int]()
+                print("CheeseHead", emotionList)
+                for emotion in emotionList {
+                    if emotionCount[emotion] != nil {
+                        emotionCount[emotion] = emotionCount[emotion]! + 1
+                    } else {
+                        emotionCount[emotion] = 1
+                    }
+                }
+                self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
             }
         }
-        print("CheeseHead", emotionList)
-        setCharts(emotionLabels: ["joy", "sadness"], emotionCount: [50, 50])
+//        print("CheeseHead", emotionList)
     }
     
     func setCharts(emotionLabels :[String], emotionCount: [Int]) {
@@ -64,7 +77,7 @@ class WeeklyViewController: UIViewController {
         }
         print(dataEntries[1].data)
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "Number of Days")
-        pieChartDataSet.colors = [.systemYellow, .systemBlue]
+        pieChartDataSet.colors = [.systemYellow, .systemBlue, .systemGray, .systemRed, .systemPurple]
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         pieView.data = pieChartData
         

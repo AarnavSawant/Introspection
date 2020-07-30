@@ -19,6 +19,8 @@
 		84571F2A24D134C8004AE9A3 /* stackedGRUModelv2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84571F2924D134C8004AE9A3 /* stackedGRUModelv2.mlmodel */; };
 		84571F2C24D1461A004AE9A3 /* ReflectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F2B24D1461A004AE9A3 /* ReflectViewController.swift */; };
 		84571F2E24D16721004AE9A3 /* Contants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F2D24D16721004AE9A3 /* Contants.swift */; };
+		84571F3024D2B8BF004AE9A3 /* MonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F2F24D2B8BF004AE9A3 /* MonthlyViewController.swift */; };
+		84571F3224D2BA47004AE9A3 /* YearlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F3124D2BA47004AE9A3 /* YearlyViewController.swift */; };
 		845E267F24BDB6CB00615B4B /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E267E24BDB6CB00615B4B /* DayCell.swift */; };
 		847D870624C2D87F000254D9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870524C2D87F000254D9 /* SignUpViewController.swift */; };
 		847D870C24C2DA12000254D9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870B24C2DA12000254D9 /* SignInViewController.swift */; };
@@ -78,6 +80,8 @@
 		84571F2924D134C8004AE9A3 /* stackedGRUModelv2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = stackedGRUModelv2.mlmodel; sourceTree = "<group>"; };
 		84571F2B24D1461A004AE9A3 /* ReflectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectViewController.swift; sourceTree = "<group>"; };
 		84571F2D24D16721004AE9A3 /* Contants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contants.swift; sourceTree = "<group>"; };
+		84571F2F24D2B8BF004AE9A3 /* MonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyViewController.swift; sourceTree = "<group>"; };
+		84571F3124D2BA47004AE9A3 /* YearlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlyViewController.swift; sourceTree = "<group>"; };
 		845E267E24BDB6CB00615B4B /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		847D870524C2D87F000254D9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		847D870B24C2DA12000254D9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 				84571F1B24D019DB004AE9A3 /* PopUpViewController.swift */,
 				84571F1D24D02388004AE9A3 /* FeedbackViewController.swift */,
 				84571F1F24D02ECB004AE9A3 /* UserFeedbackViewController.swift */,
+				84571F2F24D2B8BF004AE9A3 /* MonthlyViewController.swift */,
+				84571F3124D2BA47004AE9A3 /* YearlyViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -520,7 +526,9 @@
 				84571F2024D02ECB004AE9A3 /* UserFeedbackViewController.swift in Sources */,
 				844E845324BBD0CA00A336EC /* ConfirmViewController.swift in Sources */,
 				8498B21924ADD0F10083E8A7 /* SceneDelegate.swift in Sources */,
+				84571F3024D2B8BF004AE9A3 /* MonthlyViewController.swift in Sources */,
 				848A38FC24CD487000769850 /* stackedGRUModel.mlmodel in Sources */,
+				84571F3224D2BA47004AE9A3 /* YearlyViewController.swift in Sources */,
 				84571F1C24D019DB004AE9A3 /* PopUpViewController.swift in Sources */,
 				847D870624C2D87F000254D9 /* SignUpViewController.swift in Sources */,
 				844E845524BD64DC00A336EC /* ResultsViewController.swift in Sources */,
