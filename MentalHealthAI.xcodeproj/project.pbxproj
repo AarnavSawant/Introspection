@@ -15,12 +15,13 @@
 		84571F1C24D019DB004AE9A3 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F1B24D019DB004AE9A3 /* PopUpViewController.swift */; };
 		84571F1E24D02388004AE9A3 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F1D24D02388004AE9A3 /* FeedbackViewController.swift */; };
 		84571F2024D02ECB004AE9A3 /* UserFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F1F24D02ECB004AE9A3 /* UserFeedbackViewController.swift */; };
-		84571F2824D134C0004AE9A3 /* july_28_v2.json in Resources */ = {isa = PBXBuildFile; fileRef = 84571F2724D134C0004AE9A3 /* july_28_v2.json */; };
-		84571F2A24D134C8004AE9A3 /* stackedGRUModelv2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84571F2924D134C8004AE9A3 /* stackedGRUModelv2.mlmodel */; };
 		84571F2C24D1461A004AE9A3 /* ReflectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F2B24D1461A004AE9A3 /* ReflectViewController.swift */; };
 		84571F2E24D16721004AE9A3 /* Contants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F2D24D16721004AE9A3 /* Contants.swift */; };
 		84571F3024D2B8BF004AE9A3 /* MonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F2F24D2B8BF004AE9A3 /* MonthlyViewController.swift */; };
 		84571F3224D2BA47004AE9A3 /* YearlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F3124D2BA47004AE9A3 /* YearlyViewController.swift */; };
+		84571F3424D3E8C8004AE9A3 /* BreakdownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F3324D3E8C8004AE9A3 /* BreakdownViewController.swift */; };
+		84571F3824D3F26D004AE9A3 /* july_30_v24.json in Resources */ = {isa = PBXBuildFile; fileRef = 84571F3724D3F26D004AE9A3 /* july_30_v24.json */; };
+		84571F3A24D3F5B4004AE9A3 /* StackedGRUModelv24.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84571F3924D3F5B4004AE9A3 /* StackedGRUModelv24.mlmodel */; };
 		845E267F24BDB6CB00615B4B /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E267E24BDB6CB00615B4B /* DayCell.swift */; };
 		847D870624C2D87F000254D9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870524C2D87F000254D9 /* SignUpViewController.swift */; };
 		847D870C24C2DA12000254D9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870B24C2DA12000254D9 /* SignInViewController.swift */; };
@@ -38,8 +39,6 @@
 		8498B22324ADD0F60083E8A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8498B22124ADD0F60083E8A7 /* LaunchScreen.storyboard */; };
 		8498B22E24ADD0F60083E8A7 /* MentalHealthAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B22D24ADD0F60083E8A7 /* MentalHealthAITests.swift */; };
 		8498B23924ADD0F60083E8A7 /* MentalHealthAIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B23824ADD0F60083E8A7 /* MentalHealthAIUITests.swift */; };
-		84A42D7524C10A5E00A4F77C /* GRUModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84A42D7424C10A5E00A4F77C /* GRUModel.mlmodel */; };
-		84A42D7724C10A6900A4F77C /* july_16_word_index.json in Resources */ = {isa = PBXBuildFile; fileRef = 84A42D7624C10A6900A4F77C /* july_16_word_index.json */; };
 		AA54D36FC879392BE83A80BA /* Pods_MentalHealthAI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21EA894DBC1319397F6112 /* Pods_MentalHealthAI.framework */; };
 		DC24E6931197577AC7C487F8 /* Pods_MentalHealthAI_MentalHealthAIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5D11EAA186FAF7DF6BD5436 /* Pods_MentalHealthAI_MentalHealthAIUITests.framework */; };
 		F94A44D1A62E171E2FBB24EE /* Pods_MentalHealthAITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F35534C0B0E26ED19A6ACBA3 /* Pods_MentalHealthAITests.framework */; };
@@ -76,12 +75,13 @@
 		84571F1B24D019DB004AE9A3 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		84571F1D24D02388004AE9A3 /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		84571F1F24D02ECB004AE9A3 /* UserFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedbackViewController.swift; sourceTree = "<group>"; };
-		84571F2724D134C0004AE9A3 /* july_28_v2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_28_v2.json; sourceTree = "<group>"; };
-		84571F2924D134C8004AE9A3 /* stackedGRUModelv2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = stackedGRUModelv2.mlmodel; sourceTree = "<group>"; };
 		84571F2B24D1461A004AE9A3 /* ReflectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectViewController.swift; sourceTree = "<group>"; };
 		84571F2D24D16721004AE9A3 /* Contants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contants.swift; sourceTree = "<group>"; };
 		84571F2F24D2B8BF004AE9A3 /* MonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyViewController.swift; sourceTree = "<group>"; };
 		84571F3124D2BA47004AE9A3 /* YearlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlyViewController.swift; sourceTree = "<group>"; };
+		84571F3324D3E8C8004AE9A3 /* BreakdownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownViewController.swift; sourceTree = "<group>"; };
+		84571F3724D3F26D004AE9A3 /* july_30_v24.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_30_v24.json; sourceTree = "<group>"; };
+		84571F3924D3F5B4004AE9A3 /* StackedGRUModelv24.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = StackedGRUModelv24.mlmodel; sourceTree = "<group>"; };
 		845E267E24BDB6CB00615B4B /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		847D870524C2D87F000254D9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		847D870B24C2DA12000254D9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -105,8 +105,6 @@
 		8498B23424ADD0F60083E8A7 /* MentalHealthAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MentalHealthAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8498B23824ADD0F60083E8A7 /* MentalHealthAIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentalHealthAIUITests.swift; sourceTree = "<group>"; };
 		8498B23A24ADD0F60083E8A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84A42D7424C10A5E00A4F77C /* GRUModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GRUModel.mlmodel; sourceTree = "<group>"; };
-		84A42D7624C10A6900A4F77C /* july_16_word_index.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_16_word_index.json; sourceTree = "<group>"; };
 		8C9EB5FC4EA3143652C3A67B /* Pods-MentalHealthAI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAI.debug.xcconfig"; path = "Target Support Files/Pods-MentalHealthAI/Pods-MentalHealthAI.debug.xcconfig"; sourceTree = "<group>"; };
 		C6AFE8B45B4E8ABB7EB8F1F6 /* Pods-MentalHealthAI-MentalHealthAIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAI-MentalHealthAIUITests.release.xcconfig"; path = "Target Support Files/Pods-MentalHealthAI-MentalHealthAIUITests/Pods-MentalHealthAI-MentalHealthAIUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E5D11EAA186FAF7DF6BD5436 /* Pods_MentalHealthAI_MentalHealthAIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MentalHealthAI_MentalHealthAIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +179,7 @@
 				84571F1F24D02ECB004AE9A3 /* UserFeedbackViewController.swift */,
 				84571F2F24D2B8BF004AE9A3 /* MonthlyViewController.swift */,
 				84571F3124D2BA47004AE9A3 /* YearlyViewController.swift */,
+				84571F3324D3E8C8004AE9A3 /* BreakdownViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -188,9 +187,8 @@
 		847D870124C2CF91000254D9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				84571F2924D134C8004AE9A3 /* stackedGRUModelv2.mlmodel */,
+				84571F3924D3F5B4004AE9A3 /* StackedGRUModelv24.mlmodel */,
 				848A38FB24CD486F00769850 /* stackedGRUModel.mlmodel */,
-				84A42D7424C10A5E00A4F77C /* GRUModel.mlmodel */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -198,9 +196,8 @@
 		847D870224C2CFA8000254D9 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				84571F2724D134C0004AE9A3 /* july_28_v2.json */,
+				84571F3724D3F26D004AE9A3 /* july_30_v24.json */,
 				848A38FD24CD487F00769850 /* july_24_v4.json */,
-				84A42D7624C10A6900A4F77C /* july_16_word_index.json */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -376,11 +373,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84571F2824D134C0004AE9A3 /* july_28_v2.json in Resources */,
+				84571F3824D3F26D004AE9A3 /* july_30_v24.json in Resources */,
 				8498B22324ADD0F60083E8A7 /* LaunchScreen.storyboard in Resources */,
 				84571F1A24CE9590004AE9A3 /* GoogleService-Info.plist in Resources */,
 				848A38FE24CD488000769850 /* july_24_v4.json in Resources */,
-				84A42D7724C10A6900A4F77C /* july_16_word_index.json in Resources */,
 				8498B22024ADD0F60083E8A7 /* Assets.xcassets in Resources */,
 				8498B21E24ADD0F10083E8A7 /* Main.storyboard in Resources */,
 			);
@@ -511,18 +507,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				847D870C24C2DA12000254D9 /* SignInViewController.swift in Sources */,
-				84A42D7524C10A5E00A4F77C /* GRUModel.mlmodel in Sources */,
 				84571F2C24D1461A004AE9A3 /* ReflectViewController.swift in Sources */,
 				844E845F24BD9A2F00A336EC /* RecapViewController.swift in Sources */,
 				84571F1E24D02388004AE9A3 /* FeedbackViewController.swift in Sources */,
 				845E267F24BDB6CB00615B4B /* DayCell.swift in Sources */,
 				848A38F824C6D62800769850 /* AnalyticsHomeViewController.swift in Sources */,
 				8498B21B24ADD0F10083E8A7 /* QuestionViewController.swift in Sources */,
-				84571F2A24D134C8004AE9A3 /* stackedGRUModelv2.mlmodel in Sources */,
+				84571F3424D3E8C8004AE9A3 /* BreakdownViewController.swift in Sources */,
 				84571F2E24D16721004AE9A3 /* Contants.swift in Sources */,
 				8498B21724ADD0F10083E8A7 /* AppDelegate.swift in Sources */,
 				848A38F624C6740300769850 /* DataModel.xcdatamodeld in Sources */,
 				841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */,
+				84571F3A24D3F5B4004AE9A3 /* StackedGRUModelv24.mlmodel in Sources */,
 				84571F2024D02ECB004AE9A3 /* UserFeedbackViewController.swift in Sources */,
 				844E845324BBD0CA00A336EC /* ConfirmViewController.swift in Sources */,
 				8498B21924ADD0F10083E8A7 /* SceneDelegate.swift in Sources */,

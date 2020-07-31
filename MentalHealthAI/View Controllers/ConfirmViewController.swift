@@ -34,9 +34,9 @@ class ConfirmViewController: UIViewController {
             return ["Error": 505]
         }
         func pad_sequences(arr: [Double]) -> MLMultiArray {
-            let mlArray = try? MLMultiArray(shape: [40, 1, 1], dataType: MLMultiArrayDataType.double)
+            let mlArray = try? MLMultiArray(shape: [35, 1, 1], dataType: MLMultiArrayDataType.double)
             var new_arr = arr
-            let num_zeros = 40 - new_arr.count
+            let num_zeros = 35 - new_arr.count
             if num_zeros < 0 {
                 new_arr = Array(new_arr[0...(new_arr.count + num_zeros - 1)])
             } else {
@@ -103,12 +103,14 @@ class ConfirmViewController: UIViewController {
             var cleanedTextArray = [String]()
             let fullText = textArray.joined(separator: " ")
             cleanedTextArray = fullText.lowercased().components(separatedBy: CharacterSet.punctuationCharacters).joined().components(separatedBy: " ")
+            print(cleanedTextArray)
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
                 if (dict[textArray[i]] != nil) {
                     sequenceArray.append(dict[cleanedTextArray[i]] as! Double)
                 }
             }
+            print(sequenceArray)
             return pad_sequences(arr: sequenceArray)
     }
     override func viewDidLoad() {
@@ -118,11 +120,11 @@ class ConfirmViewController: UIViewController {
         RedoButton.layer.cornerRadius = 0.5 * RedoButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "july_24_v4")
+        let dictionary = readJSONFromFile(filename: "july_30_v24")
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = stackedGRUModel()
-        if let predictions = try? new_model.predictions(inputs: [stackedGRUModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = StackedGRUModelv24()
+        if let predictions = try? new_model.predictions(inputs: [StackedGRUModelv24Input(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
@@ -141,7 +143,7 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.7 {
+            if max_pred < 0.55 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {

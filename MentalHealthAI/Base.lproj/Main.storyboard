@@ -1160,6 +1160,7 @@
                                         </state>
                                         <connections>
                                             <action selector="didClickBreakdownButton:" destination="ql7-XL-tRP" eventType="touchUpInside" id="i8b-4f-war"/>
+                                            <segue destination="jSE-7d-4OT" kind="show" id="HVw-AE-vKr"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1226,6 +1227,91 @@
             </objects>
             <point key="canvasLocation" x="1403" y="-395"/>
         </scene>
+        <!--Breakdown View Controller-->
+        <scene sceneID="1rj-H1-fnY">
+            <objects>
+                <viewController id="jSE-7d-4OT" customClass="BreakdownViewController" customModule="MentalHealthAI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FJU-5q-Bo3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ebb-oT-wUM">
+                                <rect key="frame" x="15" y="163" width="384" height="31"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="NHn-zW-4kG"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Mon"/>
+                                    <segment title="Tue"/>
+                                    <segment title="Wed"/>
+                                    <segment title="Thurs"/>
+                                    <segment title="Fri"/>
+                                    <segment title="Sat"/>
+                                    <segment title="Sun"/>
+                                </segments>
+                                <color key="tintColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="didChangeValue:" destination="jSE-7d-4OT" eventType="valueChanged" id="Pis-V3-ZWi"/>
+                                </connections>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U4Z-hf-ZCS" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="238" width="414" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="Oxk-2C-tpL"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Breakdown of your Emotions by Weekday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wm1-wH-Z2H">
+                                <rect key="frame" x="20.5" y="128" width="373.5" height="17.5"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data to Show" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1K4-lT-wGC">
+                                <rect key="frame" x="135" y="439.5" width="144.5" height="17.5"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VlL-ox-41V">
+                                <rect key="frame" x="186" y="588" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Wm1-wH-Z2H" firstAttribute="centerX" secondItem="FJU-5q-Bo3" secondAttribute="centerX" id="0iw-B3-Bh5"/>
+                            <constraint firstAttribute="trailing" secondItem="U4Z-hf-ZCS" secondAttribute="trailing" id="83w-Ix-Cy3"/>
+                            <constraint firstItem="AeB-k9-BaZ" firstAttribute="trailing" secondItem="Ebb-oT-wUM" secondAttribute="trailing" constant="15" id="Ds5-9y-wFO"/>
+                            <constraint firstItem="VlL-ox-41V" firstAttribute="top" secondItem="U4Z-hf-ZCS" secondAttribute="bottom" constant="50" id="FCr-mI-Rk9"/>
+                            <constraint firstItem="U4Z-hf-ZCS" firstAttribute="top" secondItem="AeB-k9-BaZ" secondAttribute="top" constant="150" id="Gld-Hm-Opl"/>
+                            <constraint firstItem="VlL-ox-41V" firstAttribute="centerX" secondItem="FJU-5q-Bo3" secondAttribute="centerX" id="MVI-Vk-PIo"/>
+                            <constraint firstItem="Ebb-oT-wUM" firstAttribute="leading" secondItem="AeB-k9-BaZ" secondAttribute="leading" constant="15" id="W2x-cW-Jqw"/>
+                            <constraint firstItem="U4Z-hf-ZCS" firstAttribute="leading" secondItem="AeB-k9-BaZ" secondAttribute="leading" id="bxT-KK-IbX"/>
+                            <constraint firstItem="1K4-lT-wGC" firstAttribute="centerX" secondItem="FJU-5q-Bo3" secondAttribute="centerX" id="dtx-2g-Qt2"/>
+                            <constraint firstItem="Ebb-oT-wUM" firstAttribute="top" secondItem="AeB-k9-BaZ" secondAttribute="top" constant="75" id="iQq-ne-1yi"/>
+                            <constraint firstItem="Ebb-oT-wUM" firstAttribute="centerX" secondItem="FJU-5q-Bo3" secondAttribute="centerX" id="ky8-nh-MJi"/>
+                            <constraint firstItem="1K4-lT-wGC" firstAttribute="centerY" secondItem="FJU-5q-Bo3" secondAttribute="centerY" id="tpf-ao-Cah"/>
+                            <constraint firstItem="U4Z-hf-ZCS" firstAttribute="centerX" secondItem="FJU-5q-Bo3" secondAttribute="centerX" id="wgj-VF-odX"/>
+                            <constraint firstItem="Wm1-wH-Z2H" firstAttribute="top" secondItem="AeB-k9-BaZ" secondAttribute="top" constant="40" id="zF9-6x-LJE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AeB-k9-BaZ"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="YOw-9O-XYx"/>
+                    <connections>
+                        <outlet property="captionLabel" destination="VlL-ox-41V" id="PDJ-ff-zAz"/>
+                        <outlet property="noDataLabel" destination="1K4-lT-wGC" id="AYh-gQ-JkM"/>
+                        <outlet property="pieChartView" destination="U4Z-hf-ZCS" id="cZc-un-sia"/>
+                        <outlet property="segmentedControl" destination="Ebb-oT-wUM" id="8Xw-4q-O0x"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="naa-Eq-nh6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2923" y="-727"/>
+        </scene>
         <!--Yearly View Controller-->
         <scene sceneID="mfp-gw-IUF">
             <objects>
@@ -1271,7 +1357,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROB-mQ-TNw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2526" y="-787"/>
+            <point key="canvasLocation" x="2203" y="-1034"/>
         </scene>
         <!--Weekly View Controller-->
         <scene sceneID="gAe-c9-6Gm">
@@ -1317,7 +1403,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFE-T8-vjz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2142" y="-1543"/>
+            <point key="canvasLocation" x="1301" y="-1628"/>
         </scene>
     </scenes>
     <resources>

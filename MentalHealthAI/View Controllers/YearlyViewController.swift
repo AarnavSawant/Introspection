@@ -61,19 +61,36 @@ class YearlyViewController: UIViewController {
         }
         
         func setCharts(emotionLabels :[String], emotionCount: [Int]) {
-            var dataEntries: [ChartDataEntry] = []
-            for i in 0...emotionLabels.count - 1 {
-                print(emotionCount[i])
-                let dataEntry = PieChartDataEntry()
-                dataEntry.y = Double(emotionCount[i])
-                dataEntry.label = emotionLabels[i]
-                dataEntries.append(dataEntry)
-            }
-            print(dataEntries[1].data)
-            let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "Number of Days")
-            pieChartDataSet.colors = [.systemYellow, .systemBlue, .systemGray, .systemRed, .systemPurple]
-            let pieChartData = PieChartData(dataSet: pieChartDataSet)
-            pieChartView.data = pieChartData
+         var dataEntries: [ChartDataEntry] = []
+                    var colorList = [UIColor]()
+                    for i in 0...emotionLabels.count - 1 {
+                        print(emotionCount[i])
+                        let dataEntry = PieChartDataEntry()
+                        if emotionCount[i] != 0 {
+                            dataEntry.y = Double(emotionCount[i])
+                            dataEntry.label = emotionLabels[i]
+                            if emotionLabels[i] == "joy" {
+                                colorList.append(UIColor.systemYellow)
+                            } else if emotionLabels[i] == "sadness" {
+                                colorList.append(UIColor.systemBlue)
+                            } else if emotionLabels[i] == "fear" {
+                                colorList.append(UIColor.systemPurple)
+                            } else if emotionLabels[i] == "neutral" {
+                                colorList.append(UIColor.systemGray)
+                            } else {
+                                colorList.append(UIColor.systemRed)
+                            }
+                            dataEntries.append(dataEntry)
+                        }
+                    }
+            //        print(dataEntries[1].data)
+                    let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "Number of Days")
+                    let noZeroFormatter = NumberFormatter()
+                    noZeroFormatter.zeroSymbol = ""
+                    pieChartDataSet.valueFormatter = DefaultValueFormatter(formatter: noZeroFormatter)
+                    pieChartDataSet.colors = colorList
+                    let pieChartData = PieChartData(dataSet: pieChartDataSet)
+                    pieChartView.data = pieChartData
             
         }
         
