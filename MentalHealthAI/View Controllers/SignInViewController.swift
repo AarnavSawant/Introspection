@@ -46,6 +46,7 @@ class SignInViewController: UIViewController {
             if error != nil {
                 self.errorLabel.text = error!.localizedDescription
             }
+                UserDefaults.standard.set(self.emailTextField.text, forKey: "emailAddress")
             self.transitionToHomeScreen()
             }
         }
@@ -53,7 +54,6 @@ class SignInViewController: UIViewController {
     
     func transitionToHomeScreen() {
         let vc = storyboard?.instantiateViewController(identifier: "tabbar") as? MainTabBarController
-        UserDefaults.standard.set(emailTextField.text, forKey: "emailAddress")
         view.window?.rootViewController = vc
         view.window?.makeKeyAndVisible()
         

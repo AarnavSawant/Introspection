@@ -143,7 +143,7 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.55 {
+            if max_pred < 0.7 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
@@ -187,8 +187,12 @@ class ConfirmViewController: UIViewController {
         let day_of_week_formatter = DateFormatter()
         let timestamp = testdate.timeIntervalSince1970 as! Double
         day_of_week_formatter.dateFormat = "EEEE"
+        print(email)
         let dayOfTheWeekString = day_of_week_formatter.string(from: Date())
-        db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: testdate )).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : TranscribedText.text, "emotion" : predictedClass, "timestamp" : timestamp])
+        db.collection("users").document(email!).collection("user_sentiment").document().setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : TranscribedText.text, "emotion" : predictedClass, "timestamp" : timestamp])
+        UserDefaults.standard.set(predictedClass, forKey: "lastEmotion")
+        UserDefaults.standard.set(Date(), forKey: "lastDate")
+        UserDefaults.standard.set(true, forKey: "shouldSearch")
             }
 @IBAction func didPressRedo(_ sender: Any) {
 //        self.dismiss(animated: true, completion: {

@@ -9,7 +9,8 @@
 import UIKit
 import Speech
 import CoreML
-
+import Firebase
+import FirebaseFirestore
 class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     private var speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))
     
@@ -28,7 +29,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     
     override func viewDidLoad() {
-        print(email)
+        print(UserDefaults.standard.object(forKey: "emailAddress"))
         let timestamp = NSDate().timeIntervalSince1970
         print(timestamp)
         print(timestamp)

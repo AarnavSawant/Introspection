@@ -24,6 +24,10 @@ class SignUpViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+    }
+    
 
     /*
     // MARK: - Navigation
@@ -35,7 +39,7 @@ class SignUpViewController: UIViewController {
     }
     */
     func isPasswordValid(_ password: String) -> Bool {
-        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$")
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9]).{8,}$")
         return passwordTest.evaluate(with: password)
     }
     func validateFields() -> String? {
@@ -44,7 +48,7 @@ class SignUpViewController: UIViewController {
         }
         let cleanedPassword = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         if !isPasswordValid(cleanedPassword!) {
-            return "Password has to be at least 8 characters long and contains 2 uppercase letters, 1 special case letter, 2 digits, and 3 lowercase letters."
+            return "Password has to be at least 8 characters long and contains 2 uppercase letters, 1 special case letter, and 2 digits."
         }
         return nil
     }
@@ -71,6 +75,8 @@ class SignUpViewController: UIViewController {
                             print("Name not captured")
                         }
                     }
+                    UserDefaults.standard.set(true, forKey: "signed_in")
+                    UserDefaults.standard.set(self.emailTextField.text, forKey: "emailAddress")
                     self.transitionToHomeScreen()
                     
                 }
@@ -81,6 +87,7 @@ class SignUpViewController: UIViewController {
     
     
     func showError(_ message: String) {
+//        erro
         errorLabel.text = message
         errorLabel.alpha = 1
     }
@@ -88,7 +95,6 @@ class SignUpViewController: UIViewController {
     func transitionToHomeScreen() {
 //        let constants = Constants()
 //        Constants.emailAddress = emailTextField.text
-        UserDefaults.standard.set(emailTextField.text, forKey: "emailAddress")
         let vc = storyboard?.instantiateViewController(identifier: "tabbar") as? MainTabBarController
 //        vc!.emailAddress = emailTextField.text
 //        let question_vc = storyboard?.instantiateViewController(identifier: "question") as? QuestionViewController

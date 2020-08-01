@@ -18,6 +18,20 @@ class FirstViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if UserDefaults.standard.bool(forKey: "signed_in") {
+            transitionToHomeScreen()
+        }
+    }
+    
+    func transitionToHomeScreen() {
+        let vc = storyboard?.instantiateViewController(identifier: "tabbar") as? MainTabBarController
+//        UserDefaults.standard.set(emailTextField.text, forKey: "emailAddress")
+        view.window?.rootViewController = vc
+        view.window?.makeKeyAndVisible()
+        
+        
+    }
 
     /*
     // MARK: - Navigation

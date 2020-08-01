@@ -22,5 +22,6 @@ pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'Firebase/Core'
+pod 'SwiftGifOrigin', '~> 1.7.0'
 
 end
