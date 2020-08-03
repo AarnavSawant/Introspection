@@ -50,14 +50,24 @@ class BreakdownViewController: UIViewController {
                 self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0], day: day)
                 let maxEmotionValue = emotionCount.values.max()
                 var maxEmotionKeys = [String]()
+                if maxEmotionValue != 0 {
                 for key in emotionCount.keys {
                     if emotionCount[key] == maxEmotionValue {
                         maxEmotionKeys.append(key)
                     }
                 }
                 self.noDataLabel.isHidden = true
-                self.captionLabel.text = "On \(day)s, you typically seem \(maxEmotionKeys.joined(separator: ", "))"
+                if maxEmotionKeys.count > 2 {
+                     self.captionLabel.text = "On \(day)s, you have mixed emotions."
+                } else if maxEmotionKeys.count == 2 {
+                    self.captionLabel.text = "On \(day)s, you typically seem to be \(maxEmotionKeys[0]) and \(maxEmotionKeys[1]) "
+                } else {
+                    self.captionLabel.text = "On \(day)s, you typically seem to be \(maxEmotionKeys[0])"
                 }
+                } else {
+                    self.captionLabel.text = ""
+                }
+            }
     
         }
                 

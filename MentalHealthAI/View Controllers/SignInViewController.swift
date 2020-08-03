@@ -9,17 +9,33 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-
-class SignInViewController: UIViewController {
-
+import GoogleSignIn
+import FirebaseFirestore
+class SignInViewController: UIViewController, GIDSignInDelegate {
+   
+    @IBOutlet weak var signInButton: GIDSignInButton!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+
+        // Automatically sign in the user.
+        
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        GIDSignIn.sharedInstance()?.delegate = self
+                GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("Signed In", UserDefaults.standard.bool(forKey: "signed_in"))
+        if UserDefaults.standard.bool(forKey: "signed_in") {
+            transitionToHomeScreen()
+        }
     }
     func isPasswordValid(_ password: String) -> Bool {
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$")
@@ -60,6 +76,45 @@ class SignInViewController: UIViewController {
         
     }
     
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+          // ...
+          if let error = error {
+            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+              print("The user has not signed in before or they have since signed out.")
+            } else {
+              print("\(error.localizedDescription)")
+            }
+            return
+          }
+
+          guard let authentication = user.authentication else { return }
+          let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                            accessToken: authentication.accessToken)
+            Auth.auth().signIn(with: credential) { (authResult, error) in
+                if let error = error {
+                    print("Error occurs when authenticate with Firebase: \(error.localizedDescription)")
+                }
+                let db = Firestore.firestore()
+                if let authResult = authResult {
+    //                let user = authResult.user
+                    
+                    let first_name = user.profile.givenName
+                    let last_name = user.profile.familyName
+                    let email = user.profile.email
+                    UserDefaults.standard.set(email!, forKey: "emailAddress")
+                    UserDefaults.standard.set(true, forKey: "signed_in")
+    //                UserDefaults.standard.set(
+                //                        if user.isEmailVerified {
+                    db.collection("users").document(email!).setData(["first_name" : first_name, "last_name" : last_name, "uid" : authResult.user.uid]) { (error) in
+                        if error != nil {
+                            print("Name not captured")
+                        }
+                    }
+                    self.transitionToHomeScreen()
+
+            }
+        }
+        }
 
     /*
     // MARK: - Navigation
@@ -71,4 +126,5 @@ class SignInViewController: UIViewController {
     }
     */
 
+    
 }

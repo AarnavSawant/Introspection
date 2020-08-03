@@ -13,6 +13,7 @@ class DayCell: JTACDayCell {
     @IBOutlet weak var colorSelectedView: UIView!
     @IBOutlet weak var selectedView: UIView!
     public var textForTheDay = String()
+//    public var gifURL = String()
     public var emotionForTheDay = String()
     
 }

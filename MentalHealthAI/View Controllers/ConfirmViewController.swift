@@ -15,6 +15,8 @@ import Foundation
 import FirebaseFirestore
 class ConfirmViewController: UIViewController {
     var predictedClass = String()
+    var gifs = [Gif]()
+    var network = GifNetwork()
     let emailAddress = UserDefaults.standard.string(forKey: "emailAddress")
     public var text: String?
     @IBOutlet weak var emotionLabel: UILabel!
@@ -120,11 +122,11 @@ class ConfirmViewController: UIViewController {
         RedoButton.layer.cornerRadius = 0.5 * RedoButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "july_30_v24")
+        let dictionary = readJSONFromFile(filename: "july_31_v2")
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = StackedGRUModelv24()
-        if let predictions = try? new_model.predictions(inputs: [StackedGRUModelv24Input(tokenizedString: sequenceArray)]) {
+        let new_model = GRUModel()
+        if let predictions = try? new_model.predictions(inputs: [GRUModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
@@ -135,19 +137,19 @@ class ConfirmViewController: UIViewController {
         }
         print(predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.7 {
+            if max_pred < 0.6 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
-            if max_pred < 0.85 {
+            if max_pred < 0.6 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.7 {
+            if max_pred < 0.6 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
-            if max_pred < 0.9 {
+            if max_pred < 0.8 {
                 predictedClass = "neutral"
             }
         }
@@ -175,24 +177,37 @@ class ConfirmViewController: UIViewController {
         let email = UserDefaults.standard.string(forKey: "emailAddress")
 //        print(tabBarController.selectedIndex)
         let tabBarController = self.presentingViewController as? MainTabBarController
-        tabBarController!.selectedIndex = 0
+        tabBarController!.selectedIndex = 4
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy MM dd"
         let db = Firestore.firestore()
         let calendar = Calendar.current
-        let testdate = dateFormatter.date(from: "2020 07 24")!
-        let current_year = calendar.component(.year, from: testdate)
-        let current_month = calendar.component(.month, from: testdate)
-        let current_day = calendar.component(.day, from: testdate)
+        let testdate = dateFormatter.date(from: "2020 08 04")!
+        let current_year = calendar.component(.year, from: Date())
+        let current_month = calendar.component(.month, from: Date())
+        let current_day = calendar.component(.day, from: Date())
         let day_of_week_formatter = DateFormatter()
-        let timestamp = testdate.timeIntervalSince1970 as! Double
+        let timestamp = Date().timeIntervalSince1970 as! Double
         day_of_week_formatter.dateFormat = "EEEE"
         print(email)
-        let dayOfTheWeekString = day_of_week_formatter.string(from: Date())
-        db.collection("users").document(email!).collection("user_sentiment").document().setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : TranscribedText.text, "emotion" : predictedClass, "timestamp" : timestamp])
+        let dayOfTheWeekString = day_of_week_formatter.string(from: testdate)
+        let lastEmotion = predictedClass
+        if lastEmotion == "joy" {
+                    db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                } else if lastEmotion == "sadness" {
+                            db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                } else if lastEmotion == "anger" {
+                            db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                } else if lastEmotion == "fear" {
+                    db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                } else {
+
+                            db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                }
         UserDefaults.standard.set(predictedClass, forKey: "lastEmotion")
         UserDefaults.standard.set(Date(), forKey: "lastDate")
         UserDefaults.standard.set(true, forKey: "shouldSearch")
+        Analytics.logEvent("press_save_button", parameters: ["emotion" : predictedClass])
             }
 @IBAction func didPressRedo(_ sender: Any) {
 //        self.dismiss(animated: true, completion: {
@@ -200,6 +215,26 @@ class ConfirmViewController: UIViewController {
 //        })
     }
     
+    func searchGifs(for searchText: String, gifCompletionHandler : @escaping (String?, Error?) -> Void) {
+            var gifURL = String()
+            network.fetchGIFs(searchTerm: searchText) { gifArray in
+                if gifArray != nil {
+                    print(gifArray!.gifs.count)
+                    self.gifs = gifArray!.gifs
+                    print(gifArray!.gifs)
+                    gifURL = self.gifs[0].getGIFURL()
+                    gifCompletionHandler(gifURL, nil)
+    //                UserDefaults.standard.set(gifURL, forKey: "lastGIF")
+    //                UserDefaults.standard.set(false, forKey: "shouldSearch")
+    //                let gifURL = UserDefaults.standard.string(forKey: "lastGIF")
+    //                if UserDefaults.standard.url(forKey: "lastGIF") != nil {
+    //                    self.gifView.image = UIImage.gif(url: gifURL)
+    //                }
+                }
+            }
+//        print("GIFURLAFTER:", Date().timeIntervalSince1970)
+//            return gifURL
+        }
 
    
 

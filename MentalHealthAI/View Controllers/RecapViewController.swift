@@ -12,8 +12,9 @@ import CoreData
 import Firebase
 import FirebaseFirestore
 class RecapViewController: UIViewController {
-    var emotion_dict = [Date: Emotion]()
-    @IBOutlet weak var emotionLabel: UILabel!
+    @IBOutlet weak var gifView: UIImageView!
+    @IBOutlet weak var feelingsLabel: UILabel!
+//    var emotion_dict = [Date: Emotion]()
     @IBOutlet weak var textForTheDayView: UITextView!
     let formatter = DateFormatter()
     var date_to_sentiment_dict = [Date : String]()
@@ -22,42 +23,13 @@ class RecapViewController: UIViewController {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var calendarView: JTACMonthView!
     override func viewDidLoad() {
-        
         self.tabBarController?.selectedIndex = 1
         calendarView.scrollDirection = .horizontal
         super.viewDidLoad()
-        setupCalendarView()
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        date_to_sentiment_dict.removeAll()
-        date_to_text_dict.removeAll()
-        calendarView.reloadData()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy MM dd"
-        let dateString = formatter.string(from: Date())
-        let date = formatter.date(from: dateString)
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
-        do {
-            let result = try context.fetch(request) as! [NSManagedObject]
-            for data in result {
-                if (data.value(forKey: "emotionDict") != nil) {
-                    emotion_dict = (data.value(forKey: "emotionDict") as! [Date : Emotion])
-//                    if emotion_dict != nil {
-//                        for i in emotion_dict {
-////                        print(data, i, i.text)
-//                    }
-//                    }
-                }
-            }
-        } catch {
-            print("Failed")
-        }
 //        if emotion_dict != nil {
 //            for emotion in emotion_list {
 ////                print(emotion.date, emotion.emotion, emotion.text)
@@ -66,9 +38,18 @@ class RecapViewController: UIViewController {
 //            }
 //        }
 //        print("Seahawks", date_to_sentiment_dict)
+        textForTheDayView.text = ""
+        feelingsLabel.text = ""
+        gifView.image = UIImage()
+        setupCalendarView()
+        calendarView.reloadData()
         calendarView.scrollingMode = .stopAtEachCalendarFrame
         calendarView.scrollToDate(Date())
-        calendarView.selectDates([Date()])
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.calendarView.selectDates(from: Date(), to: Date())
+        }
+//        calendarView.selectDates([Date()])
+        print("Calendar", calendarView.selectedDates)
     
     }
     
@@ -76,6 +57,7 @@ class RecapViewController: UIViewController {
         let visibleDates = calendarView.visibleDates{ (visibleDate) in
             self.setupCalendarMonthYear(from: visibleDate)
         }
+//        calendarView.selectedDates.
         
     }
     
@@ -106,6 +88,7 @@ class RecapViewController: UIViewController {
             cell.colorSelectedView.isHidden = true
             cell.dateLabel.textColor = .gray
         }
+//        cell.gifImage = UIImage.gif(url: url as! String)!
         let newformatter = DateFormatter()
         newformatter.dateFormat = "yyyy MM dd"
         let db = Firestore.firestore()
@@ -117,7 +100,8 @@ class RecapViewController: UIViewController {
         day_of_week_formatter.dateFormat = "EEEE"
         let dayOfTheWeekString = day_of_week_formatter.string(from: cellState.date)
 //        let
-        let response = db.collection("users").document(email!).collection("user_sentiment").whereField("year", isEqualTo: current_year).whereField("month", isEqualTo: current_month).whereField("day", isEqualTo: current_day).getDocuments { (querySelector, error) in
+        if cellState.dateBelongsTo == .thisMonth {
+        db.collection("users").document(email!).collection("user_sentiment").whereField("year", isEqualTo: current_year).whereField("month", isEqualTo: current_month).whereField("day", isEqualTo: current_day).getDocuments { (querySelector, error) in
             if error != nil {
                 print("There was an error retrieving data")
             } else if (querySelector != nil && !querySelector!.isEmpty) {
@@ -125,6 +109,9 @@ class RecapViewController: UIViewController {
                 let data = document.last!.data()
                 let emotion = data["emotion"] as! String
                 let text = data["text"] as! String
+                let url = data["gifURL"]
+//                cell.gifURL = url as! String
+                cell.emotionForTheDay = emotion
                 cell.textForTheDay = text
                 if emotion != nil {
                             if emotion == "sadness" {
@@ -144,6 +131,7 @@ class RecapViewController: UIViewController {
                             cell.backgroundColor = .none
                         }
                   
+            }
             }
         }
 //        print(emotion ?? "Nope")
@@ -178,9 +166,6 @@ extension RecapViewController: JTACMonthViewDelegate {
         } else {
             cell.colorSelectedView.isHidden = true
         }
-        if cellState.date == Date() {
-            cell.backgroundColor = .yellow
-        }
         self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
         return cell
     }
@@ -191,21 +176,35 @@ extension RecapViewController: JTACMonthViewDelegate {
         guard let newcell = cell as? DayCell else {
             return
         }
+         newcell.colorSelectedView.isHidden = false
+        print("Lala", cellState.date)
         textForTheDayView.text = newcell.textForTheDay
-        emotionLabel.text = newcell.emotionForTheDay
+        feelingsLabel.text = newcell.emotionForTheDay
+        gifView.image = UIImage()
+//        feelingsLabel.isHidden = false
         if newcell.emotionForTheDay == "joy" {
-            emotionLabel.textColor = .yellow
+            feelingsLabel.textColor = .yellow
+            feelingsLabel.text =  "You were happy on this day"
         } else if newcell.emotionForTheDay == "anger" {
-            emotionLabel.textColor = .red
+           feelingsLabel.textColor = .red
+            feelingsLabel.text =  "You were angry on this day"
         } else if newcell.emotionForTheDay == "fear" {
-            emotionLabel.textColor = .purple
-        } else {
-            emotionLabel.textColor = .blue
+            feelingsLabel.textColor = .purple
+            feelingsLabel.text =  "You were scared on this day"
+        } else if newcell.emotionForTheDay == "sadness" {
+            feelingsLabel.textColor = .blue
+            feelingsLabel.text =  "You were sad on this day"
+        } else if newcell.emotionForTheDay == "neutral" {
+            feelingsLabel.textColor = .gray
+            feelingsLabel.text =  "You were okay on this day"
         }
+//        let queue = DispatchQueue(label: "gif-queue")
+//        DispatchQueue.main.async {
+//            self.gifView.image = UIImage.gif(url: newcell.gifURL)
+//        }
         
 //        print(emotionForTheDay)
 //        print(newcell.selectedView.isHidden)
-        newcell.colorSelectedView.isHidden = false
 //        newcell.selectedView.backgroundColor = .orange
     }
     

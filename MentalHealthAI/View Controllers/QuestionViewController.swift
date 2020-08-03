@@ -146,6 +146,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     }
     
     @IBAction func DidTapRecordButton(_ sender: Any) {
+        Analytics.logEvent("press_record_button", parameters: nil)
 //        print("Dictionary", UserDefaults.standard.object(forKey: "sentiment_dict")!)
         print("hello")
         isStillRunning = true

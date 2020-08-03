@@ -12,6 +12,7 @@ import CoreData
 import Firebase
 import FirebaseFirestore
 class WeeklyViewController: UIViewController {
+    @IBOutlet weak var captionLabel: UILabel!
     let email = UserDefaults.standard.string(forKey: "emailAddress")
     @IBOutlet weak var pieView: PieChartView!
     var date_to_sentiment_dict = [Date : String] ()
@@ -21,31 +22,31 @@ class WeeklyViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let dateFormatter = DateFormatter()
-        let lastSundayDate = Calendar.current.date(byAdding: .day, value: -Calendar.current.component(.weekday, from: Date()) + 1, to: Date())
+        var lastSundayDate = Calendar.current.date(byAdding: .day, value: -Calendar.current.component(.weekday, from: Date()) + 1, to: Date())
 //        for key in date_to_sentiment_dict.keys {
 //            if key > lastSundayDate! {
 //                print(date_to_sentiment_dict[key])
 //            }
 //        }
-        print(lastSundayDate)
-        let db = Firestore.firestore()
+        var components = Calendar.current.dateComponents([.day, .year, .month, .hour, .minute, .second], from: lastSundayDate!)
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
         let calendar = Calendar.current
-        let current_year = calendar.component(.year, from: lastSundayDate!)
-        let current_month = calendar.component(.month, from: lastSundayDate!)
-        let current_day = calendar.component(.day, from: lastSundayDate!)
+        lastSundayDate = calendar.date(from: components)
+        let db = Firestore.firestore()
         let day_of_week_formatter = DateFormatter()
         day_of_week_formatter.dateFormat = "EEEE"
         var emotionList = [String] ()
-        let dayOfTheWeekString = day_of_week_formatter.string(from: lastSundayDate!)
         let timeSundayTimeStamp = lastSundayDate?.timeIntervalSince1970 as! Double
-        let response = db.collection("users").document(email!).collection("user_sentiment").whereField("timestamp", isGreaterThanOrEqualTo: timeSundayTimeStamp).getDocuments { (querySnapshot, error) in
+        db.collection("users").document(email!).collection("user_sentiment").whereField("timestamp", isGreaterThanOrEqualTo: timeSundayTimeStamp).getDocuments { (querySnapshot, error) in
             if error != nil {
                 print("Error retrieving querries")
             } else {
+                print("CheesyPoof")
                 for document in querySnapshot!.documents {
                     let data = document.data()
-
+//                    print
                     let emotion = data["emotion"] as! String
                     print(emotion)
                     emotionList.append(emotion)
@@ -61,6 +62,27 @@ class WeeklyViewController: UIViewController {
                     }
                 }
                 self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
+                let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
+                let maxEmotionValue = emotionCount.values.max()
+                var maxEmotionKeys = [String]()
+                if maxEmotionValue != 0 {
+                for key in emotionCount.keys {
+                    if emotionCount[key] == maxEmotionValue {
+                        maxEmotionKeys.append(key)
+                    }
+                }
+//                print("Emotion CemotionCount)
+                print("Max Emotion Keys", maxEmotionKeys)
+                if maxEmotionKeys.count > 2 {
+                     self.captionLabel.text = "This week, you have been feeling mix of emotions."
+                } else if maxEmotionKeys.count == 2 {
+                    self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!) and \(grammarDict[maxEmotionKeys[1]]!) "
+                } else {
+                    self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                }
+                } else {
+                    self.captionLabel.text = ""
+                }
             }
         }
 //        print("CheeseHead", emotionList)

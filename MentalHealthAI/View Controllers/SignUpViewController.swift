@@ -38,17 +38,10 @@ class SignUpViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    func isPasswordValid(_ password: String) -> Bool {
-        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9]).{8,}$")
-        return passwordTest.evaluate(with: password)
-    }
+    
     func validateFields() -> String? {
         if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
             return "Please enter all fields"
-        }
-        let cleanedPassword = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !isPasswordValid(cleanedPassword!) {
-            return "Password has to be at least 8 characters long and contains 2 uppercase letters, 1 special case letter, and 2 digits."
         }
         return nil
     }
@@ -56,6 +49,9 @@ class SignUpViewController: UIViewController {
     
     
     @IBAction func didClickSignUpButton(_ sender: Any) {
+        Analytics.logEvent(AnalyticsEventSignUp, parameters: [
+            AnalyticsParameterMethod: method
+        ])
         let error = validateFields()
         if error != nil {
             showError(error!)
@@ -70,11 +66,17 @@ class SignUpViewController: UIViewController {
                     self.showError("Error creating User")
                 } else {
                     let db = Firestore.firestore()
-                    db.collection("users").document(email).setData(["first_name" : first_name, "last_name" : last_name, "uid" : result?.user.uid]) { (err) in
-                        if err != nil {
-                            print("Name not captured")
+                    if let result = result {
+//                        if user.isEmailVerified {
+                            db.collection("users").document(email).setData(["first_name" : first_name, "last_name" : last_name, "uid" : result.user.uid]) { (error) in
+                            if error != nil {
+                                print("Name not captured")
+                            }
                         }
-                    }
+//                    }
+                        
+                }
+                    
                     UserDefaults.standard.set(true, forKey: "signed_in")
                     UserDefaults.standard.set(self.emailTextField.text, forKey: "emailAddress")
                     self.transitionToHomeScreen()

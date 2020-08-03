@@ -12,6 +12,7 @@ import FirebaseFirestore
 import Firebase
 class YearlyViewController: UIViewController {
 
+    @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
     let email = UserDefaults.standard.string(forKey: "emailAddress")
@@ -55,7 +56,27 @@ class YearlyViewController: UIViewController {
                         }
                     }
                     self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
+                    let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
+                    let maxEmotionValue = emotionCount.values.max()
+                    var maxEmotionKeys = [String]()
+                    if maxEmotionValue != 0 {
+                    for key in emotionCount.keys {
+                        if emotionCount[key] == maxEmotionValue {
+                            maxEmotionKeys.append(key)
+                        }
+                    }
+                    if maxEmotionKeys.count > 2 {
+                        self.captionLabel.text = "In \(components.year!), you have been feeling mix of emotions."
+                    } else if maxEmotionKeys.count == 2 {
+                        self.captionLabel.text = "This \(components.year!), you typically seem to be \(grammarDict[maxEmotionKeys[0]]!) and \(grammarDict[maxEmotionKeys[1]]!) "
+                    } else {
+                        self.captionLabel.text = "This \(components.year!), you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                    }
+                    } else {
+                        self.captionLabel.text = ""
+                    }
                 }
+                
             }
     //        print("CheeseHead", emotionList)
         }
