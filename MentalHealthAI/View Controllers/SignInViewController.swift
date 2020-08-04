@@ -8,11 +8,15 @@
 
 import UIKit
 import Firebase
+import CryptoKit
 import FirebaseAuth
 import GoogleSignIn
+import AuthenticationServices
 import FirebaseFirestore
-class SignInViewController: UIViewController, GIDSignInDelegate {
-   
+class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorizationControllerPresentationContextProviding {
+    
+    var currentNonce: String?
+    @IBOutlet weak var appleButton: ASAuthorizationAppleIDButton!
     @IBOutlet weak var signInButton: GIDSignInButton!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var logInButton: UIButton!
@@ -27,8 +31,28 @@ class SignInViewController: UIViewController, GIDSignInDelegate {
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         GIDSignIn.sharedInstance()?.delegate = self
                 GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-
+        appleButton.translatesAutoresizingMaskIntoConstraints = false
+        appleButton.addTarget(self, action: #selector(appleSignInTapped), for: .touchUpInside)
         // Do any additional setup after loading the view.
+    }
+    
+//    func setupView() {
+//        let
+//    }
+    @objc func appleSignInTapped() {
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        self.currentNonce = randomNonceString()
+        request.nonce = sha256(currentNonce!)
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.presentationContextProvider = self
+        authorizationController.delegate = self
+        authorizationController.performRequests()
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -114,7 +138,49 @@ class SignInViewController: UIViewController, GIDSignInDelegate {
 
             }
         }
+    }
+    private func randomNonceString(length: Int = 32) -> String {
+        precondition(length > 0)
+        let charset: Array<Character> =
+            Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        var result = ""
+        var remainingLength = length
+        
+        while remainingLength > 0 {
+            let randoms: [UInt8] = (0 ..< 16).map { _ in
+                var random: UInt8 = 0
+                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+                if errorCode != errSecSuccess {
+                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+                }
+                return random
+            }
+            
+            randoms.forEach { random in
+                if remainingLength == 0 {
+                    return
+                }
+                
+                if random < charset.count {
+                    result.append(charset[Int(random)])
+                    remainingLength -= 1
+                }
+            }
         }
+        
+        return result
+    }
+
+    private func sha256(_ input: String) -> String {
+        let inputData = Data(input.utf8)
+        let hashedData = SHA256.hash(data: inputData)
+        let hashString = hashedData.compactMap {
+            return String(format: "%02x", $0)
+        }.joined()
+        
+        return hashString
+    }
+
 
     /*
     // MARK: - Navigation
@@ -127,4 +193,49 @@ class SignInViewController: UIViewController, GIDSignInDelegate {
     */
 
     
+}
+
+extension SignInViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("Authentication Error")
+        guard let error = error as? ASAuthorizationError else {
+            return
+        }
+        switch error.code {
+            case .canceled:
+                print("User pressed Cancel")
+            case .unknown:
+                print("Unknown Error")
+            case .invalidResponse:
+                print("Invalid Response")
+            case .notHandled:
+                print("Not Handled")
+            case .failed:
+                print("Authentication Failed")
+        @unknown default:
+                print("Default Error")
+        }
+    }
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let credential = authorization.credential as? ASAuthorizationAppleIDCredential{
+            UserDefaults.standard.set(credential.user, forKey: "appleIDUserCredential")
+            guard let nonce = currentNonce else {
+                fatalError("Login Callback Received, but No Login Request")
+            }
+            guard let idToken = credential.identityToken else {
+                print("Failed to get ID Token")
+                return
+            }
+            guard let idTokenString = String(data: idToken, encoding: .utf8)  else {
+                print("Failed to get ID Token")
+                return
+            }
+            let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+            Auth.auth().signIn(with: firebaseCredential) { (result, err) in
+                if err != nil {
+                    print("Created User")
+                }
+            }
+        }
+    }
 }

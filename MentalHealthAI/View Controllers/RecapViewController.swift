@@ -45,7 +45,7 @@ class RecapViewController: UIViewController {
         calendarView.reloadData()
         calendarView.scrollingMode = .stopAtEachCalendarFrame
         calendarView.scrollToDate(Date())
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.calendarView.selectDates(from: Date(), to: Date())
         }
 //        calendarView.selectDates([Date()])

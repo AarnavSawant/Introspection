@@ -774,22 +774,33 @@
                                     <constraint firstAttribute="height" constant="30" id="ONo-Wd-cUq"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKI-7F-EJj" customClass="ASAuthorizationAppleIDButton">
+                                <rect key="frame" x="30" y="583" width="354" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="AnC-mY-3dW"/>
+                                </constraints>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="e9m-9w-T2V" firstAttribute="centerX" secondItem="caK-pS-2jy" secondAttribute="centerX" id="3CC-dF-HV6"/>
+                            <constraint firstItem="lKI-7F-EJj" firstAttribute="centerX" secondItem="caK-pS-2jy" secondAttribute="centerX" id="5PD-D2-Kt8"/>
                             <constraint firstItem="gWE-R0-Aph" firstAttribute="centerY" secondItem="caK-pS-2jy" secondAttribute="centerY" constant="100" id="AXa-gb-bDJ"/>
+                            <constraint firstItem="5KC-Ff-wGj" firstAttribute="trailing" secondItem="lKI-7F-EJj" secondAttribute="trailing" constant="30" id="E8Y-VK-lVd"/>
                             <constraint firstItem="e9m-9w-T2V" firstAttribute="top" secondItem="jQw-HJ-Luc" secondAttribute="bottom" constant="50" id="LeP-8x-Mu2"/>
                             <constraint firstItem="ayG-Vg-Gmr" firstAttribute="top" secondItem="5KC-Ff-wGj" secondAttribute="top" constant="25" id="TCU-kj-dvu"/>
+                            <constraint firstItem="lKI-7F-EJj" firstAttribute="top" secondItem="gWE-R0-Aph" secondAttribute="bottom" constant="20" id="U7H-Qk-6hZ"/>
                             <constraint firstItem="jQw-HJ-Luc" firstAttribute="top" secondItem="ayG-Vg-Gmr" secondAttribute="bottom" constant="50" id="Zxb-Xy-XFr"/>
                             <constraint firstItem="jQw-HJ-Luc" firstAttribute="centerX" secondItem="caK-pS-2jy" secondAttribute="centerX" id="eol-0a-nra"/>
                             <constraint firstItem="gWE-R0-Aph" firstAttribute="centerX" secondItem="caK-pS-2jy" secondAttribute="centerX" id="jjM-Nc-ImH"/>
+                            <constraint firstItem="lKI-7F-EJj" firstAttribute="leading" secondItem="5KC-Ff-wGj" secondAttribute="leading" constant="30" id="tBv-3K-KMU"/>
                             <constraint firstItem="ayG-Vg-Gmr" firstAttribute="centerX" secondItem="caK-pS-2jy" secondAttribute="centerX" id="yew-88-otD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5KC-Ff-wGj"/>
                     </view>
                     <navigationItem key="navigationItem" id="kAP-7g-B39"/>
                     <connections>
+                        <outlet property="appleButton" destination="lKI-7F-EJj" id="Zvf-Jn-aYL"/>
                         <outlet property="emailTextField" destination="jrJ-78-Rr6" id="IyU-B5-amL"/>
                         <outlet property="errorLabel" destination="e9m-9w-T2V" id="M6S-ar-Ieb"/>
                         <outlet property="logInButton" destination="jQw-HJ-Luc" id="DKb-pF-8ce"/>
@@ -799,7 +810,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3k7-fb-x2h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1762" y="790"/>
+            <point key="canvasLocation" x="-1762.3188405797102" y="789.50892857142856"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="g5P-A5-kdD">
