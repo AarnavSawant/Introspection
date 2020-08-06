@@ -256,6 +256,7 @@
 		8498B21524ADD0F10083E8A7 /* MentalHealthAI */ = {
 			isa = PBXGroup;
 			children = (
+				84EF337A24DAAF3100C4A06B /* Resources */,
 				8437D9EC24D956D400D0FDB3 /* MentalHealthAI.entitlements */,
 				84571F3D24D55FCE004AE9A3 /* Swift Files */,
 				847D870224C2CFA8000254D9 /* JSON */,
@@ -293,6 +294,13 @@
 				8498B23A24ADD0F60083E8A7 /* Info.plist */,
 			);
 			path = MentalHealthAIUITests;
+			sourceTree = "<group>";
+		};
+		84EF337A24DAAF3100C4A06B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

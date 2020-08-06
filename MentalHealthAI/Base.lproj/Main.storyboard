@@ -16,49 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1p-Ek-n59">
-                                <rect key="frame" x="167" y="723" width="80" height="80"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="9dV-GR-e1H"/>
-                                    <constraint firstAttribute="height" constant="80" id="N0a-kx-Gz3"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <state key="normal" image="mic.fill" catalog="system">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="DidTapRecordButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KaA-Fd-Bap"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="How was your day today?" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cj-41-54t">
-                                <rect key="frame" x="87" y="213" width="240" height="300"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="Vvz-qq-V91"/>
-                                    <constraint firstAttribute="width" constant="240" id="je3-L3-4He"/>
-                                </constraints>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" name="Copperplate-Light" family="Copperplate" pointSize="24"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Introspection" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="D4j-My-0be">
-                                <rect key="frame" x="0.0" y="88" width="414" height="75"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="spG-6B-9PR"/>
-                                </constraints>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="35"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CC2-Ve-kZ4">
                                 <rect key="frame" x="167" y="723" width="80" height="80"/>
                                 <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,26 +29,87 @@
                                     <segue destination="fo3-tF-6tZ" kind="presentation" identifier="confirm" id="TBg-08-yjY"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3A-kF-jhf">
+                                <rect key="frame" x="187.5" y="667.5" width="39" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Emotions" translatesAutoresizingMaskIntoConstraints="NO" id="TwX-bI-fwy">
+                                <rect key="frame" x="71" y="169.5" width="272" height="182.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="182.66999999999999" id="XCd-jH-qzh"/>
+                                    <constraint firstAttribute="width" constant="271.86000000000001" id="b8R-af-C7G"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFU-RZ-9tF">
+                                <rect key="frame" x="183" y="602" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="ujp-BX-IgN"/>
+                                    <constraint firstAttribute="width" constant="48" id="x9e-l1-BCa"/>
+                                </constraints>
+                                <state key="normal" image="RecordButton"/>
+                                <connections>
+                                    <action selector="didTapSpeakButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c1K-Cn-WfV"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GV0-PD-cp8">
+                                <rect key="frame" x="48.5" y="456" width="317" height="83"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="83" id="5YB-qE-TZ2"/>
+                                    <constraint firstAttribute="width" constant="317" id="s67-0a-ihl"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answering this question will let us assess your stress level." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1e-Vs-JoT">
+                                <rect key="frame" x="63.5" y="471" width="287" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="L76-5J-MHy"/>
+                                    <constraint firstAttribute="width" constant="287" id="gO3-QR-cct"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phK-i1-dj4">
+                                <rect key="frame" x="75" y="364" width="264" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="264" id="bpX-bH-UbG"/>
+                                    <constraint firstAttribute="height" constant="67" id="jZK-Rd-BYl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="34"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="D4j-My-0be" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5C4-nv-Ysb"/>
-                            <constraint firstItem="D4j-My-0be" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="OgO-qL-8JA"/>
+                            <constraint firstItem="phK-i1-dj4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7oi-Ha-xNU"/>
+                            <constraint firstItem="mFU-RZ-9tF" firstAttribute="top" secondItem="GV0-PD-cp8" secondAttribute="bottom" constant="63" id="8ed-xA-ZwT"/>
+                            <constraint firstItem="p1e-Vs-JoT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CsG-Qa-egd"/>
+                            <constraint firstItem="mFU-RZ-9tF" firstAttribute="top" secondItem="TwX-bI-fwy" secondAttribute="bottom" constant="250" id="NTW-iM-5O6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="J3A-kF-jhf" secondAttribute="bottom" constant="125" id="Nfn-bZ-Iw1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mFU-RZ-9tF" secondAttribute="bottom" constant="163" id="Oa5-tt-jsg"/>
+                            <constraint firstItem="TwX-bI-fwy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OoW-72-A09"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CC2-Ve-kZ4" secondAttribute="bottom" constant="10" id="Vws-dV-wRy"/>
+                            <constraint firstItem="GV0-PD-cp8" firstAttribute="top" secondItem="phK-i1-dj4" secondAttribute="bottom" constant="25" id="Wqj-9q-NtW"/>
                             <constraint firstItem="CC2-Ve-kZ4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YfB-VN-mAS"/>
-                            <constraint firstItem="H1p-Ek-n59" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eUH-4G-D6n"/>
-                            <constraint firstAttribute="trailing" secondItem="D4j-My-0be" secondAttribute="trailing" id="frR-Rp-UAX"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="H1p-Ek-n59" secondAttribute="bottom" constant="10" id="hY1-tl-jv0"/>
-                            <constraint firstItem="1cj-41-54t" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jfz-yQ-kdh"/>
-                            <constraint firstItem="1cj-41-54t" firstAttribute="top" secondItem="D4j-My-0be" secondAttribute="bottom" constant="50" id="z1y-Af-nit"/>
+                            <constraint firstItem="mFU-RZ-9tF" firstAttribute="top" secondItem="p1e-Vs-JoT" secondAttribute="bottom" constant="67" id="bYo-a2-pwD"/>
+                            <constraint firstItem="GV0-PD-cp8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bfX-vy-WEE"/>
+                            <constraint firstItem="mFU-RZ-9tF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fQj-GU-a5x"/>
+                            <constraint firstItem="J3A-kF-jhf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rIu-Pm-ETC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="No3-if-inz"/>
                     <connections>
-                        <outlet property="SpeakButton" destination="H1p-Ek-n59" id="GJ2-VQ-tuj"/>
-                        <outlet property="TranscribedText" destination="1cj-41-54t" id="seS-qK-cpB"/>
+                        <outlet property="SpeakButton" destination="mFU-RZ-9tF" id="sun-Vj-S81"/>
+                        <outlet property="TranscribedText" destination="p1e-Vs-JoT" id="Nro-aJ-hhn"/>
+                        <outlet property="howWasYourDayLabel" destination="phK-i1-dj4" id="H6Z-yB-jpK"/>
+                        <outlet property="mainImageView" destination="TwX-bI-fwy" id="2cp-KW-Ejf"/>
                         <outlet property="stopButton" destination="CC2-Ve-kZ4" id="Gna-n8-JVP"/>
+                        <outlet property="tapToRecordButton" destination="J3A-kF-jhf" id="CA3-2B-zAd"/>
+                        <outlet property="transcribedTextView" destination="GV0-PD-cp8" id="nuz-XW-kbF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -820,8 +838,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9Ku-uR-1iM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="RzX-y2-rX5" kind="relationship" relationship="viewControllers" id="qZy-Wb-RBW"/>
@@ -906,9 +923,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="scf-TO-0hJ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
+                        <outlet property="navigationBar" destination="scf-TO-0hJ" id="XER-VG-zFX"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="a3E-YG-MvS"/>
                     </connections>
                 </navigationController>
@@ -1688,15 +1707,16 @@
     </scenes>
     <resources>
         <image name="Anger" width="1000" height="824"/>
+        <image name="Emotions" width="272" height="183"/>
         <image name="Fear" width="910" height="900"/>
         <image name="Happy" width="920" height="960"/>
         <image name="Neutral" width="600" height="600"/>
+        <image name="RecordButton" width="48" height="48"/>
         <image name="Sad" width="300" height="300"/>
         <image name="Sunset" width="1600" height="1200"/>
         <image name="doc.fill" catalog="system" width="115" height="128"/>
         <image name="doc.on.clipboard.fill" catalog="system" width="117" height="128"/>
         <image name="lightbulb.fill" catalog="system" width="113" height="128"/>
-        <image name="mic.fill" catalog="system" width="108" height="128"/>
         <image name="number.square.fill" catalog="system" width="128" height="114"/>
         <image name="smiley" catalog="system" width="128" height="121"/>
         <image name="trash.fill" catalog="system" width="121" height="128"/>

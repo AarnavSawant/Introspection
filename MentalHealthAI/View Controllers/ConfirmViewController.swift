@@ -190,7 +190,7 @@ class ConfirmViewController: UIViewController {
         let timestamp = Date().timeIntervalSince1970 as! Double
         day_of_week_formatter.dateFormat = "EEEE"
         print(email)
-        let dayOfTheWeekString = day_of_week_formatter.string(from: testdate)
+        let dayOfTheWeekString = day_of_week_formatter.string(from: Date())
         let lastEmotion = predictedClass
         if lastEmotion == "joy" {
                     db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])

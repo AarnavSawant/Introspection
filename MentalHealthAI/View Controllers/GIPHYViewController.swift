@@ -57,23 +57,34 @@ class GIPHYViewController: UIViewController {
         } else if lastEmotion == "fear" {
 //            searchGifs(for: "ocean")
             emotionLabel.text = "You seem to be feeling afraid today!"
-            cheerLabel.text = "So let's calm your apprehensions with a blissful Ocean GIF!"
+            cheerLabel.text = "So let's calm your apprehensions with a blissful Lakes GIF!"
         } else {
 //            searchGifs(for: "Packers")
             emotionLabel.text = "You seem to be feeling okay today!"
             cheerLabel.text = "So let's see if you can crack a smile with this Packers GIF!"
         }
+        var term: String?
         if shouldSearch {
             if lastEmotion == "joy" {
-                searchGifs(for: "pandas")
+                let joyGifs = ["rabbits", "MickeyMouse", "Hamsters", "Pandas"]
+                term = joyGifs[Int.random(in: 0...joyGifs.count-1)]
+                searchGifs(for: term!)
             } else if lastEmotion == "sadness" {
-                searchGifs(for: "dogs")
+                let sadGifs = ["Minions", "Hamsters", "Dogs", "Snoopy"]
+                term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                searchGifs(for: term!)
             } else if lastEmotion == "anger" {
-                searchGifs(for: "nature")
+                let sadGifs = ["Northern Lights", "Glaciers", "Forrests", "GrandCanyon"]
+                term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                searchGifs(for: term!)
             } else if lastEmotion == "fear" {
-                searchGifs(for: "ocean")
+                let sadGifs = ["Sunsets", "Clouds", "BugsBunny", "ToyStory"]
+                term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                searchGifs(for: term!)
             } else {
-                searchGifs(for: "Packers")
+                let sadGifs = ["Geysers", "roadrunner", "NiagaraFalls", "madagascar"]
+                term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                searchGifs(for: term!)
             }
         } else {
             let gifURL = UserDefaults.standard.string(forKey: "lastGIF")
@@ -89,7 +100,8 @@ class GIPHYViewController: UIViewController {
             if gifArray != nil {
                 print(gifArray!.gifs.count)
                 self.gifs = gifArray!.gifs
-                let gifURL = self.gifs[0].getGIFURL()
+                let randomNumber = Int.random(in: 0..<gifArray!.gifs.count)
+                let gifURL = self.gifs[randomNumber].getGIFURL()
                 UserDefaults.standard.set(gifURL, forKey: "lastGIF")
                 UserDefaults.standard.set(false, forKey: "shouldSearch")
 //                let gifURL = UserDefaults.standard.string(forKey: "lastGIF")

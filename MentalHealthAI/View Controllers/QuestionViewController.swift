@@ -12,14 +12,19 @@ import CoreML
 import Firebase
 import FirebaseFirestore
 class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
+    
+    @IBOutlet weak var howWasYourDayLabel: UILabel!
+    @IBOutlet weak var TranscribedText: UILabel!
+    @IBOutlet weak var transcribedTextView: UIView!
+    @IBOutlet weak var SpeakButton: UIButton!
+    @IBOutlet weak var mainImageView: UIImageView!
     private var speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))
     
+    @IBOutlet weak var tapToRecordButton: UILabel!
     public var email: String?
     var isStillRunning:Bool?
     @IBOutlet weak var SubmitButton: UIButton!
-    @IBOutlet weak var TranscribedText: UITextView!
     @IBOutlet weak var UserSentenceLabel: UILabel!
-    @IBOutlet weak var SpeakButton: UIButton!
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private let audioEngine = AVAudioEngine()
   
@@ -33,13 +38,88 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         let timestamp = NSDate().timeIntervalSince1970
         print(timestamp)
         print(timestamp)
+        
+        //UI Stuff
+//        SpeakButton.frame = CGRect(x: 0, y: 0, width: 48, height: 48)
+        SpeakButton.backgroundColor = .white
+        SpeakButton.translatesAutoresizingMaskIntoConstraints = false
+        SpeakButton.widthAnchor.constraint(equalToConstant: 48).isActive = true
+        let parent = self.view!
+        SpeakButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+//        stopButton.backgroundColor = .systemRed
+//        SpeakButton.translatesAutoresizingMaskIntoConstraints = false
+//        stopButton.widthAnchor.constraint(equalToConstant: 48).isActive = true
+//        let parent = self.view!
+//        stopButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+//        SpeakButton.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 164).isActive = true
+//        SpeakButton.topAnchor.constraint(equalTo: parent.topAnchor, constant: 589).isActive = true
+        tapToRecordButton.frame = CGRect(x: 0, y: 0, width: 116, height: 64)
+        tapToRecordButton.backgroundColor = .white
+
+        tapToRecordButton.alpha = 0.6
+        tapToRecordButton.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
+        tapToRecordButton.font = UIFont(name: "SFProText-Medium", size: 18)
+        var paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 2.96
+
+        // Line height: 63 pt
+        // (identical to box height)
+
+        tapToRecordButton.textAlignment = .center
+        tapToRecordButton.attributedText = NSMutableAttributedString(string: "Tap to answer", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        mainImageView.frame = CGRect(x: 0, y: 0, width: 271.86, height: 182.67)
+        mainImageView.backgroundColor = .white
+
+        mainImageView.layer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor
+        mainImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        transcribedTextView.backgroundColor = .white
+
+        transcribedTextView.alpha = 0.05
+        transcribedTextView.layer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        transcribedTextView.layer.cornerRadius = 11
+        
+        TranscribedText.frame = CGRect(x: 0, y: 0, width: 287, height: 64)
+        TranscribedText.backgroundColor = .none
+        TranscribedText.alpha = 0.6
+        TranscribedText.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
+        TranscribedText.font = UIFont(name: "Helvetica", size: 18)
+        TranscribedText.numberOfLines = 2
+        TranscribedText.lineBreakMode = .byWordWrapping
+        paragraphStyle.lineHeightMultiple = 1.19
+
+        // Line height: 25 pt
+
+        TranscribedText.textAlignment = .center
+//        TranscribedText.attributedText = NSMutableAttributedString(string: "Answering this question will let us assess your stress level.", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
+
+        howWasYourDayLabel.frame = CGRect(x: 0, y: 0, width: 267, height: 64)
+        howWasYourDayLabel.backgroundColor = .white
+
+        howWasYourDayLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
+        howWasYourDayLabel.font = UIFont(name: "Helvetica Bold", size: 28)
+//        var paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.66
+
+        // Line height: 63 pt
+        // (identical to box height)
+
+        howWasYourDayLabel.textAlignment = .center
+        howWasYourDayLabel.attributedText = NSMutableAttributedString(string: "How was your day?", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        howWasYourDayLabel.heightAnchor.constraint(equalToConstant: 64).isActive = true
+//        view.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -379).isActive = true
+        
+        
+
+
+        
+        
         stopButton.isHidden = true
         stopButton.isEnabled = false
         SpeakButton.isHidden = false
         SpeakButton.isEnabled = true
         stopButton.layer.cornerRadius = 0.5 * stopButton.frame.width
         SpeakButton.layer.cornerRadius = 0.5 * SpeakButton.frame.width
-        TranscribedText.isEditable = false
         SpeakButton.isEnabled = false
         speechRecognizer?.delegate = self
         SFSpeechRecognizer.requestAuthorization {
@@ -145,18 +225,21 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         }
     }
     
-    @IBAction func DidTapRecordButton(_ sender: Any) {
+
+    @IBAction func didTapSpeakButton(_ sender: Any) {
         Analytics.logEvent("press_record_button", parameters: nil)
-//        print("Dictionary", UserDefaults.standard.object(forKey: "sentiment_dict")!)
-        print("hello")
-        isStillRunning = true
-        SpeakButton.setTitle("Stop", for: .normal)
-        SpeakButton.layer.cornerRadius = 0.5 * SpeakButton.frame.width
-        startRecording()
-        stopButton.isHidden = false
-        stopButton.isEnabled = true
-        SpeakButton.isHidden = true
-        SpeakButton.isEnabled = false
+        //        print("Dictionary", UserDefaults.standard.object(forKey: "sentiment_dict")!)
+                print("hello")
+                isStillRunning = true
+                SpeakButton.setTitle("Stop", for: .normal)
+                SpeakButton.layer.cornerRadius = 0.5 * SpeakButton.frame.width
+                startRecording()
+                stopButton.isHidden = false
+                stopButton.isEnabled = true
+                SpeakButton.isHidden = true
+                SpeakButton.isEnabled = false
+    
+    
     }
     
     public func switchToCalendar() {
@@ -171,8 +254,8 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     }
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "confirm" {
-            let words = TranscribedText.text.components(separatedBy: " ").count
-                       print(TranscribedText.text.count)
+            let words = TranscribedText.text!.components(separatedBy: " ").count
+            print(TranscribedText.text!.count)
                        if words > 8 {
                            audioEngine.stop()
                            recognitionRequest?.endAudio()
