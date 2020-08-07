@@ -10,11 +10,39 @@ import UIKit
 import Firebase
 import CryptoKit
 import FirebaseAuth
+import FBSDKCoreKit
+import FirebaseCore
 import GoogleSignIn
 import AuthenticationServices
 import FirebaseFirestore
-class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorizationControllerPresentationContextProviding {
+import FBSDKLoginKit
+import FBSDKCoreKit
+class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorizationControllerPresentationContextProviding, FBSDKLoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        
+    }
     
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: (FBSDKAccessToken.current()?.tokenString)!)
+        let db = Firestore.firestore()
+        Auth.auth().signIn(with: credential) { (authResult, err) in
+            if err != nil {
+                print("Firebase Log In Done Successful")
+                db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
+                    if error != nil {
+                        print("Name not captured")
+                    }
+                }
+                self.transitionToHomeScreen()
+            } else {
+                print("Error", err!.localizedDescription)
+            }
+        }
+    }
+    
+    
+    
+//    @IBOutlet weak var FBloginButton: FBLoginButton!
     var currentNonce: String?
     @IBOutlet weak var appleButton: ASAuthorizationAppleIDButton!
     @IBOutlet weak var signInButton: GIDSignInButton!
@@ -23,11 +51,14 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     override func viewDidLoad() {
+
         super.viewDidLoad()
         GIDSignIn.sharedInstance()?.presentingViewController = self
 
         // Automatically sign in the user.
-        
+        let loginButton = FBSDKLoginButton()
+        loginButton.center = view.center
+        view.addSubview(loginButton)
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         GIDSignIn.sharedInstance()?.delegate = self
                 GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
@@ -54,6 +85,8 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         print("Signed In", UserDefaults.standard.bool(forKey: "signed_in"))
@@ -124,12 +157,12 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                     
                     let first_name = user.profile.givenName
                     let last_name = user.profile.familyName
-                    let email = user.profile.email
-                    UserDefaults.standard.set(email!, forKey: "emailAddress")
+//                    let email = user.profile.email
+                    UserDefaults.standard.set(authResult.user.uid, forKey: "uid")
                     UserDefaults.standard.set(true, forKey: "signed_in")
     //                UserDefaults.standard.set(
                 //                        if user.isEmailVerified {
-                    db.collection("users").document(email!).setData(["first_name" : first_name, "last_name" : last_name, "uid" : authResult.user.uid]) { (error) in
+                    db.collection("users").document(authResult.user.uid).setData(["first_name" : first_name, "last_name" : last_name, "uid" : authResult.user.uid]) { (error) in
                         if error != nil {
                             print("Name not captured")
                         }
@@ -201,6 +234,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
         guard let error = error as? ASAuthorizationError else {
             return
         }
+        print(error.localizedDescription)
         switch error.code {
             case .canceled:
                 print("User pressed Cancel")
@@ -217,6 +251,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
         }
     }
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        print("The BEARS STILL SUCK")
         if let credential = authorization.credential as? ASAuthorizationAppleIDCredential{
             UserDefaults.standard.set(credential.user, forKey: "appleIDUserCredential")
             guard let nonce = currentNonce else {
@@ -230,12 +265,23 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                 print("Failed to get ID Token")
                 return
             }
+            let db = Firestore.firestore()
             let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+            
             Auth.auth().signIn(with: firebaseCredential) { (result, err) in
+                UserDefaults.standard.set(result!.user.uid, forKey: "uid")
+                UserDefaults.standard.set(true, forKey: "signed_in")
+                db.collection("users").document(result!.user.uid).setData(["first_name" : credential.fullName!.givenName, "last_name" : credential.fullName!.familyName, "uid" : result!.user.uid]) { (error) in
+                    if error != nil {
+                        print("Name not captured")
+                    }
+                }
                 if err != nil {
                     print("Created User")
                 }
             }
+            transitionToHomeScreen()
         }
+        
     }
 }

@@ -99,9 +99,9 @@ class RecapViewController: UIViewController {
         let day_of_week_formatter = DateFormatter()
         day_of_week_formatter.dateFormat = "EEEE"
         let dayOfTheWeekString = day_of_week_formatter.string(from: cellState.date)
-//        let
+        let uid = UserDefaults.standard.string(forKey: "uid")
         if cellState.dateBelongsTo == .thisMonth {
-        db.collection("users").document(email!).collection("user_sentiment").whereField("year", isEqualTo: current_year).whereField("month", isEqualTo: current_month).whereField("day", isEqualTo: current_day).getDocuments { (querySelector, error) in
+        db.collection("users").document(uid!).collection("user_sentiment").whereField("year", isEqualTo: current_year).whereField("month", isEqualTo: current_month).whereField("day", isEqualTo: current_day).getDocuments { (querySelector, error) in
             if error != nil {
                 print("There was an error retrieving data")
             } else if (querySelector != nil && !querySelector!.isEmpty) {

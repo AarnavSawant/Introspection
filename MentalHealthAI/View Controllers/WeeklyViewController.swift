@@ -39,7 +39,8 @@ class WeeklyViewController: UIViewController {
         day_of_week_formatter.dateFormat = "EEEE"
         var emotionList = [String] ()
         let timeSundayTimeStamp = lastSundayDate?.timeIntervalSince1970 as! Double
-        db.collection("users").document(email!).collection("user_sentiment").whereField("timestamp", isGreaterThanOrEqualTo: timeSundayTimeStamp).getDocuments { (querySnapshot, error) in
+        let uid = UserDefaults.standard.string(forKey: "uid")
+        db.collection("users").document(uid!).collection("user_sentiment").whereField("timestamp", isGreaterThanOrEqualTo: timeSundayTimeStamp).getDocuments { (querySnapshot, error) in
             if error != nil {
                 print("Error retrieving querries")
             } else {

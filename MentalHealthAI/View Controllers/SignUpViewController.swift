@@ -65,10 +65,11 @@ class SignUpViewController: UIViewController {
                     print(err?.localizedDescription)
                     self.showError("Error creating User")
                 } else {
+                    let uid = UserDefaults.standard.string(forKey: "uid")
                     let db = Firestore.firestore()
                     if let result = result {
 //                        if user.isEmailVerified {
-                            db.collection("users").document(email).setData(["first_name" : first_name, "last_name" : last_name, "uid" : result.user.uid]) { (error) in
+                            db.collection("users").document(uid!).setData(["first_name" : first_name, "last_name" : last_name, "uid" : result.user.uid]) { (error) in
                             if error != nil {
                                 print("Name not captured")
                             }

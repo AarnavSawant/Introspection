@@ -30,7 +30,8 @@ class BreakdownViewController: UIViewController {
         let day = days[index]
         let db = Firestore.firestore()
         var emotionList = [String] ()
-        let response = db.collection("users").document(email!).collection("user_sentiment").whereField("day_of_the_week", isEqualTo: day).getDocuments { (querySnapshot, error) in
+        let uid = UserDefaults.standard.string(forKey: "uid")
+        db.collection("users").document(uid!).collection("user_sentiment").whereField("day_of_the_week", isEqualTo: day).getDocuments { (querySnapshot, error) in
             if error != nil {
                 print("Error retrieving querries")
             } else {

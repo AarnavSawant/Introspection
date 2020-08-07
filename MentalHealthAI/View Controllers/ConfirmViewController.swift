@@ -192,17 +192,18 @@ class ConfirmViewController: UIViewController {
         print(email)
         let dayOfTheWeekString = day_of_week_formatter.string(from: Date())
         let lastEmotion = predictedClass
+        let uid = UserDefaults.standard.string(forKey: "uid")
         if lastEmotion == "joy" {
-                    db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                    db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
                 } else if lastEmotion == "sadness" {
-                            db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                            db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
                 } else if lastEmotion == "anger" {
-                            db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                            db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
                 } else if lastEmotion == "fear" {
-                    db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                    db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
                 } else {
 
-                            db.collection("users").document(email!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                            db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
                 }
         UserDefaults.standard.set(predictedClass, forKey: "lastEmotion")
         UserDefaults.standard.set(Date(), forKey: "lastDate")
