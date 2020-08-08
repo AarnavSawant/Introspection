@@ -39,8 +39,6 @@
     <string>Introspection</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
-      <key>LSApplicationQueriesSchemes</key>
-      <array>
               <string>fbapi</string>
               <string>fbapi20130214</string>
               <string>fbapi20130410</string>
@@ -52,16 +50,38 @@
               <string>fbapi20150313</string>
               <string>fbapi20150629</string>
               <string>fbapi20160328</string>
+              <string>fbauth</string>
+              <string>fb-messenger-share-api</string>
               <string>fbauth2</string>
-              <string>fb-messenger-api20140430</string>
-              <string>fb-messenger-platform-20150128</string>
-              <string>fb-messenger-platform-20150218</string>
-              <string>fb-messenger-platform-20150305</string>
-              <string>fbapi</string>
-              <string>fb-messenger-api</string>
               <string>fbshareextension</string>
-      </array>
     </array>
+<!--    <key>NSAppTransportSecurity</key>-->
+<!--    <dict>-->
+<!--        <key>NSExceptionDomains</key>-->
+<!--        <dict>-->
+<!--            <key>facebook.com</key>-->
+<!--            <dict>-->
+<!--                <key>NSIncludesSubdomains</key>-->
+<!--                <true/>-->
+<!--                <key>NSExceptionRequiresForwardSecrecy</key>-->
+<!--                <false/>-->
+<!--            </dict>-->
+<!--            <key>fbcdn.net</key>-->
+<!--            <dict>-->
+<!--                <key>NSIncludesSubdomains</key>-->
+<!--                <true/>-->
+<!--                <key>NSExceptionRequiresForwardSecrecy</key>-->
+<!--                <false/>-->
+<!--            </dict>-->
+<!--            <key>akamaihd.net</key>-->
+<!--            <dict>-->
+<!--                <key>NSIncludesSubdomains</key>-->
+<!--                <true/>-->
+<!--                <key>NSExceptionRequiresForwardSecrecy</key>-->
+<!--                <false/>-->
+<!--            </dict>-->
+<!--        </dict>-->
+<!--    </dict>-->
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>

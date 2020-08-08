@@ -28,18 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        FBSDKApplicationDelegate.sharedInstance().application(
+        ApplicationDelegate.shared.application(
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
         return true
     }
 
-    @available(iOS 9.0, *)
-    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+   
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:])
       -> Bool {
         print("URL", url)
-        return FBSDKApplicationDelegate.sharedInstance().application(
+        return ApplicationDelegate.shared.application(
             application,
             open: url,
             sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
@@ -47,11 +47,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ) || GIDSignIn.sharedInstance().handle(url)
     }
     
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-            print("URL", url)
-            return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) ||
-            GIDSignIn.sharedInstance().handle(url)
-    }
+//    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+//            print("URL", url)
+//            return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) ||
+//            GIDSignIn.sharedInstance().handle(url)
+//    }
     
     // MARK: UISceneSession Lifecycle
 

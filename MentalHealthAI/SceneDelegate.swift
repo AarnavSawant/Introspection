@@ -13,16 +13,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 //    
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        print("49ers")
         guard let url = URLContexts.first?.url else {
             return
         }
+        print(url)
 
-        FBSDKApplicationDelegate.sharedInstance().application(
+        let b = ApplicationDelegate.shared.application(
             UIApplication.shared,
             open: url,
             sourceApplication: nil,
             annotation: [UIApplication.OpenURLOptionsKey.annotation]
         )
+        print(b)
     }
 
 
@@ -63,4 +66,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
+
 

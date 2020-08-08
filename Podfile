@@ -24,7 +24,7 @@ pod 'Firebase/Firestore'
 pod 'Firebase/Core'
 pod 'SwiftGifOrigin', '~> 1.7.0'
 pod 'GoogleSignIn'
-pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
+pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'
 end

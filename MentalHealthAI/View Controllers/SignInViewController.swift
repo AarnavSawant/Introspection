@@ -17,28 +17,7 @@ import AuthenticationServices
 import FirebaseFirestore
 import FBSDKLoginKit
 import FBSDKCoreKit
-class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorizationControllerPresentationContextProviding, FBSDKLoginButtonDelegate {
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        
-    }
-    
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        let credential = FacebookAuthProvider.credential(withAccessToken: (FBSDKAccessToken.current()?.tokenString)!)
-        let db = Firestore.firestore()
-        Auth.auth().signIn(with: credential) { (authResult, err) in
-            if err != nil {
-                print("Firebase Log In Done Successful")
-                db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
-                    if error != nil {
-                        print("Name not captured")
-                    }
-                }
-                self.transitionToHomeScreen()
-            } else {
-                print("Error", err!.localizedDescription)
-            }
-        }
-    }
+class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorizationControllerPresentationContextProviding, LoginButtonDelegate {
     
     
     
@@ -56,8 +35,9 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
         GIDSignIn.sharedInstance()?.presentingViewController = self
 
         // Automatically sign in the user.
-        let loginButton = FBSDKLoginButton()
+        let loginButton = FBLoginButton()
         loginButton.center = view.center
+        loginButton.delegate = self
         view.addSubview(loginButton)
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         GIDSignIn.sharedInstance()?.delegate = self
@@ -107,6 +87,31 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
             return "Password has to be at least 8 characters long and contains 2 uppercase letters, 1 special case letter, 2 digits, and 3 lowercase letters."
         }
         return nil
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        print("User Logged Out")
+        
+    }
+    
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        
+//        print("Real Madrid", error!.localizedDescription)
+        let credential = FacebookAuthProvider.credential(withAccessToken: (AccessToken.current?.tokenString)!)
+        let db = Firestore.firestore()
+        Auth.auth().signIn(with: credential) { (authResult, err) in
+            if err == nil {
+                print("Firebase Log In Done Successful")
+                db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
+                    if error != nil {
+                        print("Name not captured")
+                    }
+                }
+                self.transitionToHomeScreen()
+            } else {
+                print("Error", err!.localizedDescription)
+            }
+        }
     }
     @IBAction func didClickLogInButton(_ sender: Any) {
         let error = validateFields()
