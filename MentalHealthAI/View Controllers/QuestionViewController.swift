@@ -16,8 +16,12 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     @IBOutlet weak var howWasYourDayLabel: UILabel!
     @IBOutlet weak var TranscribedText: UILabel!
     @IBOutlet weak var transcribedTextView: UIView!
+    
     @IBOutlet weak var SpeakButton: UIButton!
+
     @IBOutlet weak var mainImageView: UIImageView!
+    
+    var timer: Timer?
     private var speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))
     
     @IBOutlet weak var tapToRecordButton: UILabel!
@@ -32,7 +36,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     private var recognitionTask: SFSpeechRecognitionTask?
     public var completionHandler: ((String) -> Void)?
     
-    
+    var number: Int?
     override func viewDidLoad() {
         print(UserDefaults.standard.object(forKey: "emailAddress"))
         let timestamp = NSDate().timeIntervalSince1970
@@ -61,6 +65,38 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         tapToRecordButton.font = UIFont(name: "SFProText-Medium", size: 18)
         var paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 2.96
+        
+        let navView = UIView()
+
+        // Create the label
+        let label = UILabel()
+        label.text = "introspection"
+        label.sizeToFit()
+        label.center = navView.frame.origin
+//        label.textAlignment = NSTextAlignment.center
+
+        // Create the image view
+        let image = UIImageView()
+        image.image = UIImage(named: "Infinity")
+        label.frame.size.width = 150
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        // To maintain the image's aspect ratio:
+        label.font = UIFont(name: "SFProDisplay-Heavy", size: 18)
+        // Setting the image frame so that it's immediately before the text:
+//        image.contentMode = .center
+        image.frame = CGRect(x: navView.center.x, y: navView.center.y - 20, width: 22.73, height: 11.04)
+        view.backgroundColor = .white
+        image.contentMode = UIView.ContentMode.scaleAspectFit
+
+        // Add both the label and image view to the navView
+        navView.addSubview(label)
+        navView.addSubview(image)
+
+        // Set the navigation bar's navigation item's titleView to the navView
+        self.navigationItem.titleView = navView
+
+        // Set the navView's frame to fit within the titleView
+        navView.sizeToFit()
 
         // Line height: 63 pt
         // (identical to box height)
@@ -83,7 +119,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         TranscribedText.backgroundColor = .none
         TranscribedText.alpha = 0.6
         TranscribedText.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
-        TranscribedText.font = UIFont(name: "Helvetica", size: 18)
+        TranscribedText.font = UIFont(name: "SFProText-Regular", size: 18)
         TranscribedText.numberOfLines = 2
         TranscribedText.lineBreakMode = .byWordWrapping
         paragraphStyle.lineHeightMultiple = 1.19
@@ -93,20 +129,20 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         TranscribedText.textAlignment = .center
 //        TranscribedText.attributedText = NSMutableAttributedString(string: "Answering this question will let us assess your stress level.", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
 
-        howWasYourDayLabel.frame = CGRect(x: 0, y: 0, width: 267, height: 64)
+//        howWasYourDayLabel.frame = CGRect(x: 0, y: 0, width: 267, height: 64)
         howWasYourDayLabel.backgroundColor = .white
 
         howWasYourDayLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
-        howWasYourDayLabel.font = UIFont(name: "Helvetica Bold", size: 28)
+//        howWasYourDayLabel.font = UIFont(name: "SFProDisplay-Semibold", size: 32)
 //        var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.66
+//        paragraphStyle.lineHeightMultiple = 1.66
 
         // Line height: 63 pt
         // (identical to box height)
 
-        howWasYourDayLabel.textAlignment = .center
-        howWasYourDayLabel.attributedText = NSMutableAttributedString(string: "How was your day?", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
-        howWasYourDayLabel.heightAnchor.constraint(equalToConstant: 64).isActive = true
+//        howWasYourDayLabel.textAlignment = .center
+//        howWasYourDayLabel.attributedText = NSMutableAttributedString(string: "How was your day?", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
+//        howWasYourDayLabel.heightAnchor.constraint(equalToConstant: 64).isActive = true
 //        view.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -379).isActive = true
         
         
@@ -149,7 +185,8 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
 //        SpeakButton.layer.cornerRadius = 0.5 * SpeakButton.bounds.size.width
         super.viewDidLoad()
 //        Sp
-        
+//        let image = UIImage(named: "Infinity")
+//        navigationItem.titleView = UIImageView(image: image)
 //        print(dictionary)
 //        print(sequenceArray)
         
@@ -158,6 +195,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        number = 0
         
     }
     func startRecording() {
@@ -225,22 +263,60 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         }
     }
     
-
-    @IBAction func didTapSpeakButton(_ sender: Any) {
-        Analytics.logEvent("press_record_button", parameters: nil)
-        //        print("Dictionary", UserDefaults.standard.object(forKey: "sentiment_dict")!)
-                print("hello")
-                isStillRunning = true
-                SpeakButton.setTitle("Stop", for: .normal)
-                SpeakButton.layer.cornerRadius = 0.5 * SpeakButton.frame.width
-                startRecording()
-                stopButton.isHidden = false
-                stopButton.isEnabled = true
-                SpeakButton.isHidden = true
-                SpeakButton.isEnabled = false
-    
-    
+    @objc func changeTimerNumber() {
+        print("Boooooyah")
+        number = number! + 1
+        self.tapToRecordButton.text = "\(20 - number!)"
+        if number == 20 {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+            self.timer!.invalidate()
+            self.number = 0
+            self.tapToRecordButton.text = "Tap to Record"
+            if self.audioEngine.isRunning {
+                self.isStillRunning = false
+                   }
+                self.stopButton.isHidden = true
+//                self.stopButton.isEnabled = false
+                self.SpeakButton.isHidden = false
+//                self.SpeakButton.isEnabled = true
+            let words = self.TranscribedText.text!.components(separatedBy: " ").count
+            print(self.TranscribedText.text!.count)
+                if words > 8 {
+                    self.audioEngine.stop()
+                    self.recognitionRequest?.endAudio()
+                    self.SpeakButton.isEnabled = true
+                    let vc = storyboard?.instantiateViewController(identifier: "confirm") as! ConfirmViewController
+                    vc.modalPresentationStyle = .fullScreen
+                    vc.text = TranscribedText.text
+                    present(vc, animated: true)
+                    self.SpeakButton.setTitle("Start", for: .normal)
+                } else {
+                    self.audioEngine.stop()
+                    self.recognitionRequest?.endAudio()
+                    self.SpeakButton.isEnabled = true
+                    print("Yay")
+                    self.SpeakButton.setTitle("Start", for: .normal)
+                    self.TranscribedText.text = "Tell me a bit more about your day!"
+                }
+        }
+//        }
     }
+    @IBAction func didTapRecordButton(_ sender: Any) {
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(changeTimerNumber), userInfo: nil, repeats: true)
+                print(timer)
+                Analytics.logEvent("press_record_button", parameters: nil)
+                //        print("Dictionary", UserDefaults.standard.object(forKey: "sentiment_dict")!)
+                        print("hello")
+                        isStillRunning = true
+        //                SpeakButton.setTitle("Stop", for: .normal)
+                        SpeakButton.layer.cornerRadius = 0.5 * SpeakButton.frame.width
+                        startRecording()
+                        stopButton.isHidden = false
+                        stopButton.isEnabled = true
+                        SpeakButton.isHidden = true
+                        SpeakButton.isEnabled = false
+    }
+    
     
     public func switchToCalendar() {
         self.tabBarController?.selectedIndex = 2
@@ -260,10 +336,6 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
                            audioEngine.stop()
                            recognitionRequest?.endAudio()
                            SpeakButton.isEnabled = true
-//                           let vc = storyboard?.instantiateViewController(identifier: "confirm") as! ConfirmViewController
-//                           vc.modalPresentationStyle = .fullScreen
-//                           vc.text = TranscribedText.text
-//                           present(vc, animated: true)
                            SpeakButton.setTitle("Start", for: .normal)
                             return true
                        } else {
@@ -278,6 +350,9 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
             return false
     }
     @IBAction func didClickStopButton(_ sender: Any) {
+        number = 0
+        timer!.invalidate()
+        tapToRecordButton.text = "Tap to Record"
         if audioEngine.isRunning {
             isStillRunning = false
         }

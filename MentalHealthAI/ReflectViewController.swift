@@ -27,6 +27,7 @@ class ReflectViewController: UINavigationController {
         navigationBar.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 0).isActive = true
         navigationBar.trailingAnchor.constraint(equalTo: parent.trailingAnchor, constant: 0).isActive = true
         navigationBar.topAnchor.constraint(equalTo: parent.topAnchor, constant: 0).isActive = true
+
         navigationBar.topItem?.title = "Introspection"
 //        var view = UILabel()
         navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 18)!, NSAttributedString.Key.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1)]

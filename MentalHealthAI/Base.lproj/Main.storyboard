@@ -7,6 +7,14 @@
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Display-Semibold.otf">
+            <string>SFProDisplay-Semibold</string>
+        </array>
+        <array key="SF-Pro.ttf">
+            <string>SFPro-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Question View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -29,32 +37,14 @@
                                     <segue destination="fo3-tF-6tZ" kind="presentation" identifier="confirm" id="TBg-08-yjY"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3A-kF-jhf">
-                                <rect key="frame" x="187.5" y="667.5" width="39" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Record!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3A-kF-jhf">
+                                <rect key="frame" x="151.5" y="667.5" width="111" height="20.5"/>
+                                <fontDescription key="fontDescription" name="SFPro-Regular" family="SF Pro" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Emotions" translatesAutoresizingMaskIntoConstraints="NO" id="TwX-bI-fwy">
-                                <rect key="frame" x="71" y="169.5" width="272" height="182.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="182.66999999999999" id="XCd-jH-qzh"/>
-                                    <constraint firstAttribute="width" constant="271.86000000000001" id="b8R-af-C7G"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFU-RZ-9tF">
-                                <rect key="frame" x="183" y="602" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="ujp-BX-IgN"/>
-                                    <constraint firstAttribute="width" constant="48" id="x9e-l1-BCa"/>
-                                </constraints>
-                                <state key="normal" image="RecordButton"/>
-                                <connections>
-                                    <action selector="didTapSpeakButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c1K-Cn-WfV"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GV0-PD-cp8">
-                                <rect key="frame" x="48.5" y="456" width="317" height="83"/>
+                                <rect key="frame" x="48.5" y="454" width="317" height="83"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="83" id="5YB-qE-TZ2"/>
@@ -62,51 +52,70 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answering this question will let us assess your stress level." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1e-Vs-JoT">
-                                <rect key="frame" x="63.5" y="471" width="287" height="64"/>
+                                <rect key="frame" x="63.5" y="469" width="287" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="L76-5J-MHy"/>
                                     <constraint firstAttribute="width" constant="287" id="gO3-QR-cct"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="SFPro-Regular" family="SF Pro" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phK-i1-dj4">
-                                <rect key="frame" x="75" y="364" width="264" height="67"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How was your day today?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phK-i1-dj4">
+                                <rect key="frame" x="0.0" y="362" width="414" height="67"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="264" id="bpX-bH-UbG"/>
                                     <constraint firstAttribute="height" constant="67" id="jZK-Rd-BYl"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="34"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Semibold" family="SF Pro Display" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5JZ-bS-ffD">
+                                <rect key="frame" x="183" y="600" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="FIB-HC-Jju"/>
+                                    <constraint firstAttribute="width" constant="48" id="ufg-oY-D59"/>
+                                </constraints>
+                                <state key="normal" image="RecordButton"/>
+                                <connections>
+                                    <action selector="didTapRecordButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nkf-0U-wJs"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Emotions" translatesAutoresizingMaskIntoConstraints="NO" id="rrJ-SZ-HgE">
+                                <rect key="frame" x="71" y="167.5" width="272" height="182.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="182.66999999999999" id="fzJ-Ek-TZn"/>
+                                    <constraint firstAttribute="width" constant="271.86000000000001" id="kXZ-IT-G3u"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="phK-i1-dj4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4Qb-lA-xta"/>
+                            <constraint firstItem="5JZ-bS-ffD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7ld-8z-9Lz"/>
                             <constraint firstItem="phK-i1-dj4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7oi-Ha-xNU"/>
-                            <constraint firstItem="mFU-RZ-9tF" firstAttribute="top" secondItem="GV0-PD-cp8" secondAttribute="bottom" constant="63" id="8ed-xA-ZwT"/>
                             <constraint firstItem="p1e-Vs-JoT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CsG-Qa-egd"/>
-                            <constraint firstItem="mFU-RZ-9tF" firstAttribute="top" secondItem="TwX-bI-fwy" secondAttribute="bottom" constant="250" id="NTW-iM-5O6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="J3A-kF-jhf" secondAttribute="bottom" constant="125" id="Nfn-bZ-Iw1"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mFU-RZ-9tF" secondAttribute="bottom" constant="163" id="Oa5-tt-jsg"/>
-                            <constraint firstItem="TwX-bI-fwy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OoW-72-A09"/>
+                            <constraint firstItem="rrJ-SZ-HgE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Sbr-aJ-9d2"/>
+                            <constraint firstItem="5JZ-bS-ffD" firstAttribute="top" secondItem="rrJ-SZ-HgE" secondAttribute="bottom" constant="250" id="T80-Bh-QZc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CC2-Ve-kZ4" secondAttribute="bottom" constant="10" id="Vws-dV-wRy"/>
                             <constraint firstItem="GV0-PD-cp8" firstAttribute="top" secondItem="phK-i1-dj4" secondAttribute="bottom" constant="25" id="Wqj-9q-NtW"/>
                             <constraint firstItem="CC2-Ve-kZ4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YfB-VN-mAS"/>
-                            <constraint firstItem="mFU-RZ-9tF" firstAttribute="top" secondItem="p1e-Vs-JoT" secondAttribute="bottom" constant="67" id="bYo-a2-pwD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="phK-i1-dj4" secondAttribute="trailing" id="al8-yx-d6O"/>
                             <constraint firstItem="GV0-PD-cp8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bfX-vy-WEE"/>
-                            <constraint firstItem="mFU-RZ-9tF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fQj-GU-a5x"/>
+                            <constraint firstItem="5JZ-bS-ffD" firstAttribute="top" secondItem="GV0-PD-cp8" secondAttribute="bottom" constant="63" id="eKS-Qr-AZh"/>
+                            <constraint firstItem="5JZ-bS-ffD" firstAttribute="top" secondItem="p1e-Vs-JoT" secondAttribute="bottom" constant="67" id="jTe-zq-yvz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5JZ-bS-ffD" secondAttribute="bottom" constant="165" id="lHD-9b-olb"/>
                             <constraint firstItem="J3A-kF-jhf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rIu-Pm-ETC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="No3-if-inz"/>
                     <connections>
-                        <outlet property="SpeakButton" destination="mFU-RZ-9tF" id="sun-Vj-S81"/>
+                        <outlet property="SpeakButton" destination="5JZ-bS-ffD" id="u9x-Ly-3I4"/>
                         <outlet property="TranscribedText" destination="p1e-Vs-JoT" id="Nro-aJ-hhn"/>
                         <outlet property="howWasYourDayLabel" destination="phK-i1-dj4" id="H6Z-yB-jpK"/>
-                        <outlet property="mainImageView" destination="TwX-bI-fwy" id="2cp-KW-Ejf"/>
+                        <outlet property="mainImageView" destination="rrJ-SZ-HgE" id="xCg-uN-p8Y"/>
                         <outlet property="stopButton" destination="CC2-Ve-kZ4" id="Gna-n8-JVP"/>
                         <outlet property="tapToRecordButton" destination="J3A-kF-jhf" id="CA3-2B-zAd"/>
                         <outlet property="transcribedTextView" destination="GV0-PD-cp8" id="nuz-XW-kbF"/>

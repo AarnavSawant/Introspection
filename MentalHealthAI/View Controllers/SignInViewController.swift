@@ -70,9 +70,9 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     
     override func viewDidAppear(_ animated: Bool) {
         print("Signed In", UserDefaults.standard.bool(forKey: "signed_in"))
-        if UserDefaults.standard.bool(forKey: "signed_in") {
-            transitionToHomeScreen()
-        }
+//        if UserDefaults.standard.bool(forKey: "signed_in") {
+//            transitionToHomeScreen()
+//        }
     }
     func isPasswordValid(_ password: String) -> Bool {
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$")
@@ -107,6 +107,8 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                         print("Name not captured")
                     }
                 }
+                UserDefaults.standard.set(authResult!.user.uid, forKey: "uid")
+                UserDefaults.standard.set(true, forKey: "signed_in")
                 self.transitionToHomeScreen()
             } else {
                 print("Error", err!.localizedDescription)

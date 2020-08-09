@@ -357,6 +357,7 @@ PODS:
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
   - JTAppleCalendar (8.0.3)
+  - Kafka (0.1)
   - leveldb-library (1.22)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
@@ -377,6 +378,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - GoogleSignIn
   - JTAppleCalendar
+  - Kafka
   - SwiftGifOrigin (~> 1.7.0)
 
 SPEC REPOS:
@@ -404,6 +406,7 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - JTAppleCalendar
+    - Kafka
     - leveldb-library
     - nanopb
     - PromisesObjC
@@ -433,11 +436,12 @@ SPEC CHECKSUMS:
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   JTAppleCalendar: 932cadea40b1051beab10f67843451d48ba16c99
+  Kafka: da9be2f676eae000ad29a7fdc2b97b73099bb744
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   SwiftGifOrigin: fbd6cf37afcfcf97a5c3db996ddc0492e5c5c145
 
-PODFILE CHECKSUM: 4c645510dfb928843240d40d5e5d4d3e8049c598
+PODFILE CHECKSUM: bd6cd2d82f14f150518042055ad334ee3fe6f770
 
 COCOAPODS: 1.9.3

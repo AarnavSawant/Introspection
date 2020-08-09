@@ -7,12 +7,27 @@
 //
 
 import UIKit
-
+import CoreML
+import NaturalLanguage
 class FirstViewController: UIViewController {
 
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var logInButton: UIButton!
     override func viewDidLoad() {
+//        print("I am happy")
+//        let entities = ["negations" : ["not", "never", "no"]]
+//        let tagger = NLTagger(tagSchemes: [.lexicalClass])
+////        let gazetter = try! NLGazetteer(dictionary: entities, language: .english)
+////        tagger.setGazetteers([gazetter], for: .nameTypeOrLexicalClass)
+//        tagger.string = "As I was leaving, I ate food"
+//        
+//        tagger.enumerateTags(in: tagger.string!.startIndex..<tagger.string!.endIndex, unit: .word, scheme: .lexicalClass, options: [.omitWhitespace, .omitPunctuation]) { (tag, range) -> Bool in
+//            if tag != nil {
+//                print("Tag", tag)
+//            }
+//            return true
+//        }
+            
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -20,6 +35,7 @@ class FirstViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if UserDefaults.standard.bool(forKey: "signed_in") {
+            print("JUICE WRLD")
             transitionToHomeScreen()
         }
     }
