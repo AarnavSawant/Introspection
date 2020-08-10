@@ -12,6 +12,8 @@ import CoreData
 import Firebase
 import FirebaseFirestore
 class RecapViewController: UIViewController {
+    
+    @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var gifView: UIImageView!
     @IBOutlet weak var feelingsLabel: UILabel!
 //    var emotion_dict = [Date: Emotion]()
@@ -53,6 +55,12 @@ class RecapViewController: UIViewController {
     
     }
     
+    @IBAction func didClickShareButton(_ sender: Any) {
+        let vc = UIActivityViewController(activityItems: ["Check out Introspection in the App Store"], applicationActivities: nil)
+        vc.modalPresentationStyle = .popover
+        self.present(vc, animated: true, completion: nil)
+        
+    }
     func setupCalendarView() {
         let visibleDates = calendarView.visibleDates{ (visibleDate) in
             self.setupCalendarMonthYear(from: visibleDate)
@@ -223,4 +231,6 @@ extension RecapViewController: JTACMonthViewDelegate {
         monthLabel.text = formatter.string(from: date!)
 
     }
+    
+    
 }

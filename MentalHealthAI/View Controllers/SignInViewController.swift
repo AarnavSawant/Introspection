@@ -95,23 +95,24 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     }
     
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
-        
+        if !result!.isCancelled {
 //        print("Real Madrid", error!.localizedDescription)
-        let credential = FacebookAuthProvider.credential(withAccessToken: (AccessToken.current?.tokenString)!)
-        let db = Firestore.firestore()
-        Auth.auth().signIn(with: credential) { (authResult, err) in
-            if err == nil {
-                print("Firebase Log In Done Successful")
-                db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
-                    if error != nil {
-                        print("Name not captured")
+            let credential = FacebookAuthProvider.credential(withAccessToken: (AccessToken.current?.tokenString)!)
+            let db = Firestore.firestore()
+            Auth.auth().signIn(with: credential) { (authResult, err) in
+                if err == nil {
+                    print("Firebase Log In Done Successful")
+                    db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
+                        if error != nil {
+                            print("Name not captured")
+                        }
                     }
+                    UserDefaults.standard.set(authResult!.user.uid, forKey: "uid")
+                    UserDefaults.standard.set(true, forKey: "signed_in")
+                    self.transitionToHomeScreen()
+                } else {
+                    print("Error", err!.localizedDescription)
                 }
-                UserDefaults.standard.set(authResult!.user.uid, forKey: "uid")
-                UserDefaults.standard.set(true, forKey: "signed_in")
-                self.transitionToHomeScreen()
-            } else {
-                print("Error", err!.localizedDescription)
             }
         }
     }

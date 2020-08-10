@@ -958,31 +958,31 @@
                                     <constraint firstAttribute="height" constant="300" id="yHV-rO-GkP"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gr1-ta-0RG">
-                                <rect key="frame" x="30" y="225" width="354" height="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gr1-ta-0RG">
+                                <rect key="frame" x="30" y="248" width="354" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="July" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZd-HQ-yGv">
-                                <rect key="frame" x="30" y="243" width="354" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZd-HQ-yGv">
+                                <rect key="frame" x="30" y="273" width="354" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpX-s8-D2w">
-                                <rect key="frame" x="30" y="265.5" width="354" height="32.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpX-s8-D2w">
+                                <rect key="frame" x="30" y="298" width="354" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today you seemed to be sad." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHr-W5-guL">
-                                <rect key="frame" x="30" y="317" width="354" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHr-W5-guL">
+                                <rect key="frame" x="30" y="338" width="354" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="So let's cheer you up with a Cute Dog GIF!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYP-Hi-ICb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYP-Hi-ICb">
                                 <rect key="frame" x="30" y="698" width="354" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ghf-hW-rml"/>
@@ -1256,6 +1256,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfO-WI-khf">
+                                <rect key="frame" x="348" y="108" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.09290045291" green="0.91039042429999995" blue="0.98884795979999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="8U8-31-sIN"/>
+                                    <constraint firstAttribute="height" constant="30" id="Cls-uZ-NFx"/>
+                                </constraints>
+                                <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="didClickShareButton:" destination="g6s-Zx-brn" eventType="touchUpInside" id="f3q-tQ-tP8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.6857223854657355" green="0.84803471242532313" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -1264,8 +1276,10 @@
                             <constraint firstItem="zm3-gF-9RP" firstAttribute="leading" secondItem="ZIL-55-1mv" secondAttribute="leading" id="7hh-M7-6c4"/>
                             <constraint firstItem="pqR-so-uea" firstAttribute="centerX" secondItem="zwX-mA-kYl" secondAttribute="centerX" id="8FB-dA-AwW"/>
                             <constraint firstItem="ZIL-55-1mv" firstAttribute="bottom" secondItem="Fz5-vh-dys" secondAttribute="bottom" constant="30" id="BiY-eS-cAX"/>
+                            <constraint firstItem="ZIL-55-1mv" firstAttribute="trailing" secondItem="bfO-WI-khf" secondAttribute="trailing" constant="20" id="Bul-TA-IcT"/>
                             <constraint firstItem="KYo-I3-Yw0" firstAttribute="centerX" secondItem="zwX-mA-kYl" secondAttribute="centerX" id="DNZ-kb-IkS"/>
                             <constraint firstItem="KYo-I3-Yw0" firstAttribute="top" secondItem="cce-zp-dGF" secondAttribute="bottom" constant="10" id="FjZ-Pv-0hO"/>
+                            <constraint firstItem="bfO-WI-khf" firstAttribute="top" secondItem="ZIL-55-1mv" secondAttribute="top" constant="20" id="Mcx-W7-X8o"/>
                             <constraint firstItem="0Y4-xs-2bf" firstAttribute="leading" secondItem="ZIL-55-1mv" secondAttribute="leading" id="NzT-jF-f2e"/>
                             <constraint firstItem="cce-zp-dGF" firstAttribute="centerX" secondItem="zwX-mA-kYl" secondAttribute="centerX" id="TdN-TJ-Ie0"/>
                             <constraint firstItem="ZIL-55-1mv" firstAttribute="trailing" secondItem="zm3-gF-9RP" secondAttribute="trailing" id="bNr-26-tIH"/>
@@ -1285,6 +1299,7 @@
                         <outlet property="feelingsLabel" destination="Fz5-vh-dys" id="gFx-Cg-gKA"/>
                         <outlet property="gifView" destination="KYo-I3-Yw0" id="w4X-fb-L95"/>
                         <outlet property="monthLabel" destination="hZf-fc-1mS" id="UI4-yn-FBt"/>
+                        <outlet property="shareButton" destination="bfO-WI-khf" id="Uuu-dB-br5"/>
                         <outlet property="textForTheDayView" destination="cce-zp-dGF" id="Mhc-37-vlo"/>
                         <outlet property="yearLabel" destination="Qj1-Gd-jRu" id="1hP-XW-ubs"/>
                     </connections>

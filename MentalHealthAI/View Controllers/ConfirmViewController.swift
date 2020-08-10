@@ -16,6 +16,7 @@ import FirebaseFirestore
 class ConfirmViewController: UIViewController {
     var predictedClass = String()
     var gifs = [Gif]()
+    var returnString:String?
     var network = GifNetwork()
     let emailAddress = UserDefaults.standard.string(forKey: "emailAddress")
     public var text: String?
@@ -122,11 +123,11 @@ class ConfirmViewController: UIViewController {
         RedoButton.layer.cornerRadius = 0.5 * RedoButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "july_31_v2")
+        let dictionary = readJSONFromFile(filename: "august_9_final")
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = GRUModel()
-        if let predictions = try? new_model.predictions(inputs: [GRUModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = EmotionGRUModel()
+        if let predictions = try? new_model.predictions(inputs: [EmotionGRUModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
@@ -141,7 +142,7 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
-            if max_pred < 0.6 {
+            if max_pred < 0.8 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
@@ -173,13 +174,10 @@ class ConfirmViewController: UIViewController {
         }
     }
     @IBAction func didPressResults(_ sender: Any)  {
-        self.dismiss(animated: true, completion: nil)
         let email = UserDefaults.standard.string(forKey: "emailAddress")
 //        print(tabBarController.selectedIndex)
-        let tabBarController = self.presentingViewController as? MainTabBarController
-        tabBarController!.selectedIndex = 4
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy MM dd"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy MM dd"
         let db = Firestore.firestore()
         let calendar = Calendar.current
         let testdate = dateFormatter.date(from: "2020 08 04")!
@@ -193,22 +191,64 @@ class ConfirmViewController: UIViewController {
         let dayOfTheWeekString = day_of_week_formatter.string(from: Date())
         let lastEmotion = predictedClass
         let uid = UserDefaults.standard.string(forKey: "uid")
+        var term: String?
         if lastEmotion == "joy" {
-                    db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                    let joyGifs = ["Rabbit", "MickeyMouse", "Hamsters", "Pandas"]
+                    term = joyGifs[Int.random(in: 0...joyGifs.count-1)]
+                    searchGifs(for: term!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            let gifURL = self.returnString!
+                            db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp, "gif_term" : term, "gif_url" : gifURL])
+                self.dismiss(animated: true, completion: nil)
+                let tabBarController = self.presentingViewController as? MainTabBarController
+                tabBarController!.selectedIndex = 4
+                    }
                 } else if lastEmotion == "sadness" {
-                            db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                        let sadGifs = ["Minions", "Hamsters", "Dogs", "Snoopy"]
+                        term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                        searchGifs(for: term!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            let gifURL = self.returnString!
+                            db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp, "gif_term" : term, "gif_url" : gifURL])
+                self.dismiss(animated: true, completion: nil)
+                let tabBarController = self.presentingViewController as? MainTabBarController
+                tabBarController!.selectedIndex = 4
+                    }
                 } else if lastEmotion == "anger" {
-                            db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                        let sadGifs = ["NorthernLights", "Glaciers", "Forrests", "GrandCanyon"]
+                        term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                           searchGifs(for: term!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                let gifURL = self.returnString!
+                                    db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp, "gif_term" : term, "gif_url" : gifURL])
+                self.dismiss(animated: true, completion: nil)
+                let tabBarController = self.presentingViewController as? MainTabBarController
+                tabBarController!.selectedIndex = 4
+                            }
                 } else if lastEmotion == "fear" {
-                    db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
-                } else {
-
-                            db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp])
+                    let sadGifs = ["Sunsets", "Clouds", "BugsBunny", "ToyStory"]
+                    term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                    searchGifs(for: term!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            let gifURL = self.returnString!
+                            db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp, "gif_term" : term, "gif_url" : gifURL])
+                self.dismiss(animated: true, completion: nil)
+                let tabBarController = self.presentingViewController as? MainTabBarController
+                tabBarController!.selectedIndex = 4
+                    }
+                } else if lastEmotion == "neutral" {
+                    let sadGifs = ["Geysers", "roadrunner", "waterfall", "madagascar"]
+                    term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                    searchGifs(for:  term!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            let gifURL = self.returnString!
+                            db.collection("users").document(uid!).collection("user_sentiment").document(dateFormatter.string(from: Date())).setData(["year" : current_year, "day" : current_day, "month" : current_month, "day_of_the_week" : dayOfTheWeekString, "text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp, "gif_term" : term, "gif_url" : gifURL])
+                self.dismiss(animated: true, completion: nil)
+                let tabBarController = self.presentingViewController as? MainTabBarController
+                tabBarController!.selectedIndex = 4
+                    }
                 }
-        UserDefaults.standard.set(predictedClass, forKey: "lastEmotion")
-        UserDefaults.standard.set(Date(), forKey: "lastDate")
-        UserDefaults.standard.set(true, forKey: "shouldSearch")
-        Analytics.logEvent("press_save_button", parameters: ["emotion" : predictedClass])
+            Analytics.logEvent("press_save_button", parameters: ["emotion" : predictedClass])
             }
 @IBAction func didPressRedo(_ sender: Any) {
 //        self.dismiss(animated: true, completion: {
@@ -216,25 +256,22 @@ class ConfirmViewController: UIViewController {
 //        })
     }
     
-    func searchGifs(for searchText: String, gifCompletionHandler : @escaping (String?, Error?) -> Void) {
-            var gifURL = String()
+    func searchGifs(for searchText: String){
             network.fetchGIFs(searchTerm: searchText) { gifArray in
                 if gifArray != nil {
                     print(gifArray!.gifs.count)
                     self.gifs = gifArray!.gifs
-                    print(gifArray!.gifs)
-                    gifURL = self.gifs[0].getGIFURL()
-                    gifCompletionHandler(gifURL, nil)
-    //                UserDefaults.standard.set(gifURL, forKey: "lastGIF")
-    //                UserDefaults.standard.set(false, forKey: "shouldSearch")
+                    let randomNumber = Int.random(in: 0..<gifArray!.gifs.count)
+                    let gifURL = self.gifs[randomNumber].getGIFURL()
+                    UserDefaults.standard.set(gifURL, forKey: "lastGIF")
+//                    UserDefaults.standard.set(false, forKey: "shouldSearch")
     //                let gifURL = UserDefaults.standard.string(forKey: "lastGIF")
     //                if UserDefaults.standard.url(forKey: "lastGIF") != nil {
-    //                    self.gifView.image = UIImage.gif(url: gifURL)
+//                        self.gifView.image = UIImage.gif(url: gifURL)
     //                }
+                    self.returnString = gifURL
                 }
             }
-//        print("GIFURLAFTER:", Date().timeIntervalSince1970)
-//            return gifURL
         }
 
    

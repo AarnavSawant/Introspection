@@ -12,7 +12,7 @@ import CoreML
 import Firebase
 import FirebaseFirestore
 class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
-    
+    var shouldContinue: Bool?
     @IBOutlet weak var howWasYourDayLabel: UILabel!
     @IBOutlet weak var TranscribedText: UILabel!
     @IBOutlet weak var transcribedTextView: UIView!
@@ -50,13 +50,6 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         SpeakButton.widthAnchor.constraint(equalToConstant: 48).isActive = true
         let parent = self.view!
         SpeakButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-//        stopButton.backgroundColor = .systemRed
-//        SpeakButton.translatesAutoresizingMaskIntoConstraints = false
-//        stopButton.widthAnchor.constraint(equalToConstant: 48).isActive = true
-//        let parent = self.view!
-//        stopButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-//        SpeakButton.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 164).isActive = true
-//        SpeakButton.topAnchor.constraint(equalTo: parent.topAnchor, constant: 589).isActive = true
         tapToRecordButton.frame = CGRect(x: 0, y: 0, width: 116, height: 64)
         tapToRecordButton.backgroundColor = .white
 
@@ -68,12 +61,10 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         
         let navView = UIView()
 
-        // Create the label
         let label = UILabel()
         label.text = "introspection"
         label.sizeToFit()
         label.center = navView.frame.origin
-//        label.textAlignment = NSTextAlignment.center
 
         // Create the image view
         let image = UIImageView()
@@ -98,8 +89,6 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         // Set the navView's frame to fit within the titleView
         navView.sizeToFit()
 
-        // Line height: 63 pt
-        // (identical to box height)
 
         tapToRecordButton.textAlignment = .center
         tapToRecordButton.attributedText = NSMutableAttributedString(string: "Tap to answer", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
@@ -124,26 +113,13 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         TranscribedText.lineBreakMode = .byWordWrapping
         paragraphStyle.lineHeightMultiple = 1.19
 
-        // Line height: 25 pt
+
 
         TranscribedText.textAlignment = .center
-//        TranscribedText.attributedText = NSMutableAttributedString(string: "Answering this question will let us assess your stress level.", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
-
-//        howWasYourDayLabel.frame = CGRect(x: 0, y: 0, width: 267, height: 64)
         howWasYourDayLabel.backgroundColor = .white
 
         howWasYourDayLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
-//        howWasYourDayLabel.font = UIFont(name: "SFProDisplay-Semibold", size: 32)
-//        var paragraphStyle = NSMutableParagraphStyle()
-//        paragraphStyle.lineHeightMultiple = 1.66
 
-        // Line height: 63 pt
-        // (identical to box height)
-
-//        howWasYourDayLabel.textAlignment = .center
-//        howWasYourDayLabel.attributedText = NSMutableAttributedString(string: "How was your day?", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
-//        howWasYourDayLabel.heightAnchor.constraint(equalToConstant: 64).isActive = true
-//        view.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -379).isActive = true
         
         
 
@@ -167,7 +143,6 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
             case .denied:
                 isButtonEnabled = false
                 print("User denied permission to use microphone")
-            
             case .notDetermined:
                 isButtonEnabled = false
                 print("Speech Recognition not yet authorized")
@@ -178,20 +153,12 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
                 print("Unknown Error")
             }
             OperationQueue.main.addOperation {
-                self.SpeakButton.isEnabled = isButtonEnabled
+                self.SpeakButton.isEnabled = true
             }
         }
-//        TranscribedText.text = "My day was not great. I fell down in my soccer game"
-//        SpeakButton.layer.cornerRadius = 0.5 * SpeakButton.bounds.size.width
+
         super.viewDidLoad()
-//        Sp
-//        let image = UIImage(named: "Infinity")
-//        navigationItem.titleView = UIImageView(image: image)
-//        print(dictionary)
-//        print(sequenceArray)
-        
-        
-        // Do any additional setup after loading the view.
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -299,22 +266,59 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
                     self.TranscribedText.text = "Tell me a bit more about your day!"
                 }
         }
-//        }
     }
     @IBAction func didTapRecordButton(_ sender: Any) {
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(changeTimerNumber), userInfo: nil, repeats: true)
-                print(timer)
+        SFSpeechRecognizer.requestAuthorization {
+            (auth_status) in
+            switch auth_status {
+            case .authorized:
+                print("Hello")
+                self.shouldContinue = true
+                print(self.shouldContinue)
+            case .denied:
+                self.shouldContinue = false
+                print("User denied permission to use microphone")
+            case .notDetermined:
+                self.shouldContinue = false
+                print("Speech Recognition not yet authorized")
+            case .restricted:
+                self.shouldContinue = false
+                print("Speech Recognition is restricted")
+            @unknown default:
+                self.shouldContinue = false
+                print("Unknown Error")
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            print(self.shouldContinue)
+            if self.shouldContinue! {
+                self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.changeTimerNumber), userInfo: nil, repeats: true)
+            print(self.timer)
                 Analytics.logEvent("press_record_button", parameters: nil)
-                //        print("Dictionary", UserDefaults.standard.object(forKey: "sentiment_dict")!)
                         print("hello")
-                        isStillRunning = true
-        //                SpeakButton.setTitle("Stop", for: .normal)
-                        SpeakButton.layer.cornerRadius = 0.5 * SpeakButton.frame.width
-                        startRecording()
-                        stopButton.isHidden = false
-                        stopButton.isEnabled = true
-                        SpeakButton.isHidden = true
-                        SpeakButton.isEnabled = false
+            self.isStillRunning = true
+                self.SpeakButton.layer.cornerRadius = 0.5 * self.SpeakButton.frame.width
+            self.startRecording()
+            self.stopButton.isHidden = false
+            self.stopButton.isEnabled = true
+            self.SpeakButton.isHidden = true
+                self.SpeakButton.isEnabled = false
+            } else {
+                let alertController = UIAlertController(title: "Speech Recognition Required", message: "Please enable speech recognition in settings.", preferredStyle: UIAlertController.Style.alert)
+
+                let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                    //Redirect to Settings app
+                    UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+                })
+
+                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
+                alertController.addAction(cancelAction)
+
+                alertController.addAction(okAction)
+
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
     
     
