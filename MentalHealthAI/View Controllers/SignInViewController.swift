@@ -22,6 +22,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     
     
 //    @IBOutlet weak var FBloginButton: FBLoginButton!
+    @IBOutlet weak var emailForLinkField: UITextField!
     var currentNonce: String?
     @IBOutlet weak var appleButton: ASAuthorizationAppleIDButton!
     @IBOutlet weak var signInButton: GIDSignInButton!
@@ -30,6 +31,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     override func viewDidLoad() {
+        print("SIGNED IN SignIN", UserDefaults.standard.bool(forKey: "signed_in"))
 
         super.viewDidLoad()
         GIDSignIn.sharedInstance()?.presentingViewController = self
@@ -39,7 +41,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
         loginButton.center = view.center
         loginButton.delegate = self
         view.addSubview(loginButton)
-        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+//        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         GIDSignIn.sharedInstance()?.delegate = self
                 GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         appleButton.translatesAutoresizingMaskIntoConstraints = false
@@ -69,10 +71,37 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     
     
     override func viewDidAppear(_ animated: Bool) {
-        print("Signed In", UserDefaults.standard.bool(forKey: "signed_in"))
+        print("HELLO")
+        NotificationCenter.default.addObserver(self, selector: #selector(doSomething), name: UIApplication.willEnterForegroundNotification, object: nil)
+//        let db = Firestore.firestore()
+//        print("Signed In", UserDefaults.standard.bool(forKey: "signed_in"))
+//        if UserDefaults.standard.bool(forKey: "Email Signed In") {
+//            let link = UserDefaults.standard.string(forKey: "Link")
+//            print("Link", link)
+//            Auth.auth().signIn(withEmail: emailForLinkField.text!, link: link!) { (authResult, err) in
+//                if err == nil && authResult != nil {
+//                    if (Auth.auth().currentUser?.isEmailVerified)! {
+//                        db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
+//                            if error != nil {
+//                                print("Name not captured")
+//                            }
+//                        }
+//                        UserDefaults.standard.set(authResult!.user.uid, forKey: "uid")
+//                        UserDefaults.standard.set(true, forKey: "signed_in")
+//                        self.transitionToHomeScreen()
+//
+//                    }
+//                }
+//            }
+//
+//        }
 //        if UserDefaults.standard.bool(forKey: "signed_in") {
 //            transitionToHomeScreen()
 //        }
+    }
+    
+    @objc func doSomething() {
+        print("Hello")
     }
     func isPasswordValid(_ password: String) -> Bool {
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$")
@@ -117,6 +146,21 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
         }
     }
     @IBAction func didClickLogInButton(_ sender: Any) {
+//        if let email = emailForLinkField.text {
+//            let actionCodeSettings = ActionCodeSettings()
+//            actionCodeSettings.handleCodeInApp = true
+//            actionCodeSettings.url = URL.init(string: String(format: "https://introspection-a6d72.firebaseapp.com/?email=%@", email))
+//            actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
+//            Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings) { (err) in
+//                if let e = err {
+//                    print("Email not sent")
+//                } else {
+//                    print("Email Sent")
+//                }
+//            }
+//        }
+        
+        
         let error = validateFields()
         if error != nil {
             errorLabel.text = error!
@@ -124,11 +168,11 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
             let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (result, error) in
-            if error != nil {
-                self.errorLabel.text = error!.localizedDescription
-            }
+                if error != nil {
+                    self.errorLabel.text = error!.localizedDescription
+                }
                 UserDefaults.standard.set(self.emailTextField.text, forKey: "emailAddress")
-            self.transitionToHomeScreen()
+                self.transitionToHomeScreen()
             }
         }
     }

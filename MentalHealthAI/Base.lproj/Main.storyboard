@@ -710,9 +710,10 @@
                                 </state>
                                 <connections>
                                     <action selector="didClickSignUpButton:" destination="JYB-ht-NRx" eventType="touchUpInside" id="MCH-kA-fT8"/>
+                                    <segue destination="Ovf-KQ-7hc" kind="presentation" id="R2O-J3-bfz"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYN-ys-hIq">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYN-ys-hIq">
                                 <rect key="frame" x="0.0" y="383" width="414" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7tO-0W-rMc"/>
@@ -721,11 +722,6 @@
                                 <color key="textColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XfF-IO-eK6">
-                                <rect key="frame" x="188" y="543" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -752,7 +748,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vom-Sz-5Tv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1746" y="95"/>
+            <point key="canvasLocation" x="-2222" y="-87"/>
+        </scene>
+        <!--Verification View Controller-->
+        <scene sceneID="gNs-a4-FnW">
+            <objects>
+                <viewController id="Ovf-KQ-7hc" customClass="VerificationViewController" customModule="MentalHealthAI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AQz-wY-dOe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We sent an email verifiation to aarnav.sawant@gmail.com. Please confirm your email to continue" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wGy-sI-AlE">
+                                <rect key="frame" x="0.0" y="50" width="414" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="2Rr-8h-SFu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="wGy-sI-AlE" firstAttribute="top" secondItem="JUz-nJ-DGz" secondAttribute="top" constant="50" id="1yQ-PQ-1Dm"/>
+                            <constraint firstItem="wGy-sI-AlE" firstAttribute="leading" secondItem="JUz-nJ-DGz" secondAttribute="leading" id="V5v-Yu-87T"/>
+                            <constraint firstItem="JUz-nJ-DGz" firstAttribute="trailing" secondItem="wGy-sI-AlE" secondAttribute="trailing" id="xtE-cO-a7c"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JUz-nJ-DGz"/>
+                    </view>
+                    <connections>
+                        <outlet property="verificationLabel" destination="wGy-sI-AlE" id="Rqf-e8-DBJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CC4-ze-Kqo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1119" y="-105"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="jDk-3w-P1x">
@@ -781,14 +811,14 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jQw-HJ-Luc">
-                                <rect key="frame" x="186" y="239" width="42" height="30"/>
-                                <state key="normal" title="Log In"/>
+                                <rect key="frame" x="183.5" y="239" width="47" height="30"/>
+                                <state key="normal" title="Sign In"/>
                                 <connections>
                                     <action selector="didClickLogInButton:" destination="3D8-vx-jyj" eventType="touchUpInside" id="VUt-Qh-9QN"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9m-9w-T2V">
-                                <rect key="frame" x="186" y="319" width="42" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9m-9w-T2V">
+                                <rect key="frame" x="207" y="319" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

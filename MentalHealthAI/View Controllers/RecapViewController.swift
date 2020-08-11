@@ -12,7 +12,7 @@ import CoreData
 import Firebase
 import FirebaseFirestore
 class RecapViewController: UIViewController {
-    
+    var dictionary: [String : [String : Any]]?
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var gifView: UIImageView!
     @IBOutlet weak var feelingsLabel: UILabel!
@@ -47,7 +47,7 @@ class RecapViewController: UIViewController {
         calendarView.reloadData()
         calendarView.scrollingMode = .stopAtEachCalendarFrame
         calendarView.scrollToDate(Date())
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
             self.calendarView.selectDates(from: Date(), to: Date())
         }
 //        calendarView.selectDates([Date()])
@@ -87,7 +87,6 @@ class RecapViewController: UIViewController {
     }
     
     func handleCellTextColor(cell: DayCell, cellState: CellState) {
-        let email = UserDefaults.standard.string(forKey: "emailAddress")
         cell.colorSelectedView.isHidden = true
         cell.backgroundColor = .none
         if cellState.dateBelongsTo == .thisMonth {
@@ -97,51 +96,76 @@ class RecapViewController: UIViewController {
             cell.dateLabel.textColor = .gray
         }
 //        cell.gifImage = UIImage.gif(url: url as! String)!
-        let newformatter = DateFormatter()
-        newformatter.dateFormat = "yyyy MM dd"
-        let db = Firestore.firestore()
-        let calendar = Calendar.current
-        let current_year = calendar.component(.year, from: cellState.date)
-        let current_month = calendar.component(.month, from: cellState.date)
-        let current_day = calendar.component(.day, from: cellState.date)
-        let day_of_week_formatter = DateFormatter()
-        day_of_week_formatter.dateFormat = "EEEE"
-        let dayOfTheWeekString = day_of_week_formatter.string(from: cellState.date)
-        let uid = UserDefaults.standard.string(forKey: "uid")
-        if cellState.dateBelongsTo == .thisMonth {
-        db.collection("users").document(uid!).collection("user_sentiment").whereField("year", isEqualTo: current_year).whereField("month", isEqualTo: current_month).whereField("day", isEqualTo: current_day).getDocuments { (querySelector, error) in
-            if error != nil {
-                print("There was an error retrieving data")
-            } else if (querySelector != nil && !querySelector!.isEmpty) {
-                let document = querySelector!.documents
-                let data = document.last!.data()
-                let emotion = data["emotion"] as! String
-                let text = data["text"] as! String
-                let url = data["gifURL"]
-//                cell.gifURL = url as! String
-                cell.emotionForTheDay = emotion
-                cell.textForTheDay = text
-                if emotion != nil {
-                            if emotion == "sadness" {
-                                cell.backgroundColor = .blue
-                            } else if emotion == "joy" {
-                                cell.backgroundColor = .yellow
-                            } else if emotion == "anger" {
-                                cell.backgroundColor = .red
-                            } else if emotion == "fear" {
-                                cell.backgroundColor = .purple
-                            } else {
-                                cell.backgroundColor = .gray
-                            }
-                //            cell.textForTheDay = emotion_dict[cellDate!]!.text
-                //            cell.emotionForTheDay = emotion_dict[cellDate!]!.emotion
-                        } else {
-                            cell.backgroundColor = .none
-                        }
-                  
+        var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: cellState.date)
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        let date = Calendar.current.date(from: components)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            print("\(cellState.date)", self.date_to_sentiment_dict)
+            let df = DateFormatter()
+            df.dateFormat = "yyyy MM dd"
+            if cellState.dateBelongsTo == .thisMonth {
+            if self.dictionary != nil {
+                if self.dictionary!.keys.contains("\(df.string(from: date!))") {
+                print("DATE", date!)
+                cell.emotionForTheDay = self.dictionary![df.string(from: date!)]!["emotion"] as! String
+                    print(cell.emotionForTheDay)
+                cell.backgroundColor = .none
+                if cell.emotionForTheDay == "joy" {
+                     cell.backgroundColor = .systemYellow
+                } else if cell.emotionForTheDay == "sadness" {
+                     cell.backgroundColor = .systemBlue
+                } else if cell.emotionForTheDay == "anger" {
+                     cell.backgroundColor = .systemRed
+                } else if cell.emotionForTheDay == "neutral" {
+                    print("CELL", cellState.date)
+                     cell.backgroundColor = .systemGray
+                } else if cell.emotionForTheDay == "fear" {
+                     cell.backgroundColor = .systemPurple
+                } else {
+                    cell.backgroundColor = .none
+                }
+            } else {
+                cell.backgroundColor = .none
             }
             }
         }
+        }
+        if cellState.dateBelongsTo == .thisMonth {
+//        db.collection("users").document(uid!).collection("user_sentiment").whereField("year", isEqualTo: current_year).whereField("month", isEqualTo: current_month).whereField("day", isEqualTo: current_day).getDocuments { (querySelector, error) in
+//            if error != nil {
+//                print("There was an error retrieving data")
+//            } else if (querySelector != nil && !querySelector!.isEmpty) {
+//                let document = querySelector!.documents
+//                let data = document.last!.data()
+//                let emotion = data["emotion"] as! String
+//                let text = data["text"] as! String
+//                let url = data["gifURL"]
+////                cell.gifURL = url as! String
+//                cell.emotionForTheDay = emotion
+//                cell.textForTheDay = text
+//                if emotion != nil {
+//                            if emotion == "sadness" {
+//                                cell.backgroundColor = .blue
+//                            } else if emotion == "joy" {
+//                                cell.backgroundColor = .yellow
+//                            } else if emotion == "anger" {
+//                                cell.backgroundColor = .red
+//                            } else if emotion == "fear" {
+//                                cell.backgroundColor = .purple
+//                            } else {
+//                                cell.backgroundColor = .gray
+//                            }
+//                //            cell.textForTheDay = emotion_dict[cellDate!]!.text
+//                //            cell.emotionForTheDay = emotion_dict[cellDate!]!.emotion
+//                        } else {
+//                            cell.backgroundColor = .none
+//                        }
+//
+//            }
+            }
+//        }
 //        print(emotion ?? "Nope")
         cell.colorSelectedView.layer.cornerRadius = 0.5 * cell.colorSelectedView.frame.width
 //        if date_to_sentiment_dict != nil {
@@ -186,34 +210,39 @@ extension RecapViewController: JTACMonthViewDelegate {
         }
          newcell.colorSelectedView.isHidden = false
         print("Lala", cellState.date)
-        textForTheDayView.text = newcell.textForTheDay
-        feelingsLabel.text = newcell.emotionForTheDay
-        gifView.image = UIImage()
-//        feelingsLabel.isHidden = false
-        if newcell.emotionForTheDay == "joy" {
-            feelingsLabel.textColor = .yellow
-            feelingsLabel.text =  "You were happy on this day"
-        } else if newcell.emotionForTheDay == "anger" {
-           feelingsLabel.textColor = .red
-            feelingsLabel.text =  "You were angry on this day"
-        } else if newcell.emotionForTheDay == "fear" {
-            feelingsLabel.textColor = .purple
-            feelingsLabel.text =  "You were scared on this day"
-        } else if newcell.emotionForTheDay == "sadness" {
-            feelingsLabel.textColor = .blue
-            feelingsLabel.text =  "You were sad on this day"
-        } else if newcell.emotionForTheDay == "neutral" {
-            feelingsLabel.textColor = .gray
-            feelingsLabel.text =  "You were okay on this day"
+        var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: cellState.date)
+        components.hour = 0
+        components.minute = 0
+        let df = DateFormatter()
+        df.dateFormat = "yyyy MM dd"
+        components.second = 0
+        let date = Calendar.current.date(from: components)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            if self.dictionary != nil {
+                self.textForTheDayView.text = self.dictionary![df.string(from: date!)]?["text"] as? String
+                if !newcell.colorSelectedView.isHidden {
+                    if newcell.emotionForTheDay == "joy" {
+                        self.feelingsLabel.textColor = .yellow
+                        self.feelingsLabel.text =  "You were happy on this day"
+                    } else if newcell.emotionForTheDay == "anger" {
+                        self.feelingsLabel.textColor = .red
+                        self.feelingsLabel.text =  "You were angry on this day"
+                    } else if newcell.emotionForTheDay == "fear" {
+                        self.feelingsLabel.textColor = .purple
+                        self.feelingsLabel.text =  "You were scared on this day"
+                    } else if newcell.emotionForTheDay == "sadness" {
+                        self.feelingsLabel.textColor = .blue
+                        self.feelingsLabel.text =  "You were sad on this day"
+                    } else if newcell.emotionForTheDay == "neutral" {
+                        self.feelingsLabel.textColor = .gray
+                        self.feelingsLabel.text =  "You were okay on this day"
+                    } else {
+                        self.feelingsLabel.textColor = .gray
+                        self.feelingsLabel.text =  ""
+                    }
+                }
+            }
         }
-//        let queue = DispatchQueue(label: "gif-queue")
-//        DispatchQueue.main.async {
-//            self.gifView.image = UIImage.gif(url: newcell.gifURL)
-//        }
-        
-//        print(emotionForTheDay)
-//        print(newcell.selectedView.isHidden)
-//        newcell.selectedView.backgroundColor = .orange
     }
     
     func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
@@ -225,6 +254,68 @@ extension RecapViewController: JTACMonthViewDelegate {
     
     func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         let date = visibleDates.monthDates.first?.date
+        let db = Firestore.firestore()
+        let cal = Calendar.current
+        let current_year = cal.component(.year, from: date!)
+        let formatter = DateFormatter()
+        textForTheDayView.text! = ""
+        feelingsLabel.text! = ""
+        formatter.dateFormat = "yyyy MM dd"
+        let current_month = cal.component(.month, from: date!)
+//        let first_day = cal.component(.day, from: date!)
+        let uid = UserDefaults.standard.string(forKey: "uid")
+        db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").getDocument { (querySelector, error) in
+                    if error != nil {
+                        print("There was an error retrieving data")
+                    } else if (querySelector != nil) {
+                        let data = querySelector!.data()
+                        if data != nil {
+                            self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
+                            print("Dictionary", self.dictionary)
+//                        if dictionary != nil {
+//                            for key in dictionary!.keys {
+//                                let current_day = key
+//                                let timestamp = dictionary![key]!["timestamp"] as! Double
+//                                var date = Date(timeIntervalSince1970: timestamp)
+//                                var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+//                                components.hour = 0
+//                                components.minute = 0
+//                                components.second = 0
+//                                date = Calendar.current.date(from: components)!
+//                                print(date)
+//                                self.date_to_sentiment_dict[date] = dictionary![key]!["emotion"] as! String
+//                                self.date_to_text_dict[date] = dictionary![key]!["text"] as! String
+//                            }
+//                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                            print("DATE_TO_SENTIMENT", self.date_to_sentiment_dict)
+                        }
+//                        let text = data["text"] as! String
+//                        let url = data["gifURL"]!
+        //                cell.gifURL = url as! String
+//                        cell.emotionForTheDay = emotion
+//                        cell.textForTheDay = text
+//                        if emotion != nil {
+//                                    if emotion == "sadness" {
+//                                        cell.backgroundColor = .blue
+//                                    } else if emotion == "joy" {
+//                                        cell.backgroundColor = .yellow
+//                                    } else if emotion == "anger" {
+//                                        cell.backgroundColor = .red
+//                                    } else if emotion == "fear" {
+//                                        cell.backgroundColor = .purple
+//                                    } else {
+//                                        cell.backgroundColor = .gray
+//                                    }
+//                        //            cell.textForTheDay = emotion_dict[cellDate!]!.text
+//                        //            cell.emotionForTheDay = emotion_dict[cellDate!]!.emotion
+//                                } else {
+//                                    cell.backgroundColor = .none
+//                                }
+                          
+                    }
+            }
+        }
         formatter.dateFormat = "yyyy"
         yearLabel.text = formatter.string(from: date!)
         formatter.dateFormat = "MMMM"

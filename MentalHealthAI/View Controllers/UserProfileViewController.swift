@@ -25,8 +25,11 @@ class UserProfileViewController: UIViewController {
           print ("Error signing out: %@", signOutError)
         }
         UserDefaults.standard.set(false, forKey: "signed_in")
-        UserDefaults.standard.set("", forKey: "emailAddress")
-        transitionToSignInScreen()
+        UserDefaults.standard.set("", forKey: "uid")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            print("SIGNED IN USER", UserDefaults.standard.bool(forKey: "signed_in"))
+            self.transitionToSignInScreen()
+        }
     }
     func transitionToSignInScreen() {
         let vc = storyboard?.instantiateViewController(identifier: "signInHome") as? FirstViewController

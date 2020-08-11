@@ -10,6 +10,7 @@ import UIKit
 
 class VerificationViewController: UIViewController {
 
+    @IBOutlet weak var verificationLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 

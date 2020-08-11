@@ -66,7 +66,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
+    
+//    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping([Any]?)-> Void) -> Bool {
+//        return userActivity.webpageURL.flatMap(handlePasswordlessSignIn)!
+//    }
+//    func handlePasswordlessSignIn(withURL url: URL) -> Bool{
+//        let link = url.absoluteString
+//        print("Link", link)
+//        if Auth.auth().isSignIn(withEmailLink: link) {
+//            UserDefaults.standard.set(true, forKey: "Email Signed In")
+//            UserDefaults.standard.set(link, forKey: "Link")
+//            return true
+//        }
+//        return false
+//    }
+    
     func applicationWillTerminate(_ application: UIApplication) {
 //        self.saveContext()
     }

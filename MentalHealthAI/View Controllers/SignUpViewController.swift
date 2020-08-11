@@ -80,7 +80,6 @@ class SignUpViewController: UIViewController {
                     
                     UserDefaults.standard.set(true, forKey: "signed_in")
                     UserDefaults.standard.set(self.emailTextField.text, forKey: "emailAddress")
-                    self.transitionToHomeScreen()
                     
                 }
             }

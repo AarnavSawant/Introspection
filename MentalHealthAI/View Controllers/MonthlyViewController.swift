@@ -11,6 +11,7 @@ import Charts
 import FirebaseFirestore
 import FirebaseAuth
 class MonthlyViewController: UIViewController {
+    var dictionary: [String : [String : Any]]?
     let email = UserDefaults.standard.string(forKey: "emailAddress")
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
@@ -26,35 +27,51 @@ class MonthlyViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
             let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy MM dd"
-        let components = Calendar.current.dateComponents([.year, .month], from: Date())
-        let startOfYear = "\(components.year!) \(components.month!) 01"
-        print(startOfYear)
-        let startTimeStamp = dateFormatter.date(from: startOfYear)!.timeIntervalSince1970
-        print(startTimeStamp)
+//        let components = Calendar.current.dateComponents([.year, .month], from: Date())
+//        let startOfYear = "\(components.year!) \(components.month!) 01"
+//        print(startOfYear)
+//        let startTimeStamp = dateFormatter.date(from: startOfYear)!.timeIntervalSince1970
+//        print(startTimeStamp)
             let db = Firestore.firestore()
+            var components = Calendar.current.dateComponents([.day, .year, .month, .hour, .minute, .second], from: Date())
+            components.hour = 0
+            components.minute = 0
+            components.second = 0
+            let df = DateFormatter()
+            df.dateFormat = "yyyy MM dd"
+            let calendar = Calendar.current
+            let day_of_week_formatter = DateFormatter()
+            day_of_week_formatter.dateFormat = "EEEE"
             var emotionList = [String] ()
-        let uid = UserDefaults.standard.string(forKey: "uid")
-        db.collection("users").document(uid!).collection("user_sentiment").whereField("timestamp", isGreaterThanOrEqualTo: startTimeStamp).getDocuments { (querySnapshot, error) in
+            let uid = UserDefaults.standard.string(forKey: "uid")
+        db.collection("users").document(uid!).collection("\(components.year!)").document("\(components.month!)").getDocument { (querySnapshot, error) in
                 if error != nil {
                     print("Error retrieving querries")
                 } else {
-                    for document in querySnapshot!.documents {
-                        let data = document.data()
-
-                        let emotion = data["emotion"] as! String
-                        print(emotion)
-                        emotionList.append(emotion)
-                        print(emotionList)
-                    }
-                    var emotionCount = [String : Int]()
-                    print("CheeseHead", emotionList)
-                    for emotion in emotionList {
-                        if emotionCount[emotion] != nil {
-                            emotionCount[emotion] = emotionCount[emotion]! + 1
-                        } else {
-                            emotionCount[emotion] = 1
+                    let data = querySnapshot?.data()
+                    if data != nil {
+                        print("PIZZA")
+                        self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
+                        print("Dictionary", self.dictionary)
+                        var emotionCount = [String : Int]()
+                        for key in self.dictionary!.keys {
+                                print(key)
+                                if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
+                                        emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
+                                    } else {
+                                        emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
+                                }
                         }
-                    }
+//                        emotionList.append(emotion)
+//                        print(emotionList)
+//                    print("CheeseHead", emotionList)
+//                    for emotion in emotionList {
+//                        if emotionCount[emotion] != nil {
+//                            emotionCount[emotion] = emotionCount[emotion]! + 1
+//                        } else {
+//                            emotionCount[emotion] = 1
+//                        }
+//                    }
                     self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
                     let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
                     let maxEmotionValue = emotionCount.values.max()
@@ -78,8 +95,9 @@ class MonthlyViewController: UIViewController {
 
                 }
             }
-    //        print("CheeseHead", emotionList)
         }
+    }
+    //        print("CheeseHead", emotionList)
         
         func setCharts(emotionLabels :[String], emotionCount: [Int]) {
             var dataEntries: [ChartDataEntry] = []
@@ -127,3 +145,4 @@ class MonthlyViewController: UIViewController {
     */
 
 }
+

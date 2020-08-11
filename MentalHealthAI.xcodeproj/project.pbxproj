@@ -34,6 +34,7 @@
 		848A38F824C6D62800769850 /* AnalyticsHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848A38F724C6D62800769850 /* AnalyticsHomeViewController.swift */; };
 		848A38FA24C6D7F500769850 /* WeeklyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848A38F924C6D7F500769850 /* WeeklyViewController.swift */; };
 		848A38FE24CD488000769850 /* july_24_v4.json in Resources */ = {isa = PBXBuildFile; fileRef = 848A38FD24CD487F00769850 /* july_24_v4.json */; };
+		8493FC0724E20FE9005D5261 /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8493FC0624E20FE9005D5261 /* VerificationViewController.swift */; };
 		8498B21724ADD0F10083E8A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B21624ADD0F10083E8A7 /* AppDelegate.swift */; };
 		8498B21924ADD0F10083E8A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B21824ADD0F10083E8A7 /* SceneDelegate.swift */; };
 		8498B21B24ADD0F10083E8A7 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B21A24ADD0F10083E8A7 /* QuestionViewController.swift */; };
@@ -103,6 +104,7 @@
 		848A38F724C6D62800769850 /* AnalyticsHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsHomeViewController.swift; sourceTree = "<group>"; };
 		848A38F924C6D7F500769850 /* WeeklyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyViewController.swift; sourceTree = "<group>"; };
 		848A38FD24CD487F00769850 /* july_24_v4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_24_v4.json; sourceTree = "<group>"; };
+		8493FC0624E20FE9005D5261 /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
 		8498B21324ADD0F10083E8A7 /* MentalHealthAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MentalHealthAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8498B21624ADD0F10083E8A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8498B21824ADD0F10083E8A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				84571F3324D3E8C8004AE9A3 /* BreakdownViewController.swift */,
 				84571F3B24D55D74004AE9A3 /* GIPHYViewController.swift */,
 				8437D9EA24D811A900D0FDB3 /* UserProfileViewController.swift */,
+				8493FC0624E20FE9005D5261 /* VerificationViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				84CC1E1124E13A22004C4D25 /* EmotionGRUModel.mlmodel in Sources */,
 				8498B21724ADD0F10083E8A7 /* AppDelegate.swift in Sources */,
 				841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */,
+				8493FC0724E20FE9005D5261 /* VerificationViewController.swift in Sources */,
 				8437D9E324D6831700D0FDB3 /* GRUModel.mlmodel in Sources */,
 				84571F2024D02ECB004AE9A3 /* UserFeedbackViewController.swift in Sources */,
 				844E845324BBD0CA00A336EC /* ConfirmViewController.swift in Sources */,

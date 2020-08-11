@@ -38,7 +38,9 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     var number: Int?
     override func viewDidLoad() {
-        print(UserDefaults.standard.object(forKey: "emailAddress"))
+        print("SIGNED IN QUESTION", UserDefaults.standard.bool(forKey: "signed_in"))
+        print("UID", UserDefaults.standard.string(forKey: "uid"))
+//        print(UserDefaults.standard.object(forKey: "emailAddress"))
         let timestamp = NSDate().timeIntervalSince1970
         print(timestamp)
         print(timestamp)
