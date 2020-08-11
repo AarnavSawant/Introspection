@@ -710,7 +710,6 @@
                                 </state>
                                 <connections>
                                     <action selector="didClickSignUpButton:" destination="JYB-ht-NRx" eventType="touchUpInside" id="MCH-kA-fT8"/>
-                                    <segue destination="Ovf-KQ-7hc" kind="presentation" id="R2O-J3-bfz"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYN-ys-hIq">
@@ -753,13 +752,13 @@
         <!--Verification View Controller-->
         <scene sceneID="gNs-a4-FnW">
             <objects>
-                <viewController id="Ovf-KQ-7hc" customClass="VerificationViewController" customModule="MentalHealthAI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="verify" id="Ovf-KQ-7hc" customClass="VerificationViewController" customModule="MentalHealthAI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AQz-wY-dOe">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We sent an email verifiation to aarnav.sawant@gmail.com. Please confirm your email to continue" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wGy-sI-AlE">
-                                <rect key="frame" x="0.0" y="50" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="94" width="414" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="2Rr-8h-SFu"/>
                                 </constraints>

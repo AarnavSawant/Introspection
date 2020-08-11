@@ -69,17 +69,27 @@ class SignUpViewController: UIViewController {
                     let db = Firestore.firestore()
                     if let result = result {
 //                        if user.isEmailVerified {
-                            db.collection("users").document(uid!).setData(["first_name" : first_name, "last_name" : last_name, "uid" : result.user.uid]) { (error) in
-                            if error != nil {
-                                print("Name not captured")
+                        if result.user != nil && !result.user.isEmailVerified {
+                            Auth.auth().currentUser!.sendEmailVerification { (err) in
+                                if err != nil  {
+                                    print("An Error Occurred")
+                                }
+                                print("EMAIL SENT")
                             }
+                            
                         }
+                        UserDefaults.standard.set(true, forKey: "signed_in")
+                        UserDefaults.standard.set(result.user.uid, forKey: "uid")
+                        self.transitionToVerificationScreen()
+//                            db.collection("users").document(uid!).setData(["first_name" : first_name, "last_name" : last_name, "uid" : result.user.uid]) { (error) in
+//                            if error != nil {
+//                                print("Name not captured")
+//                            }
+//                        }
 //                    }
                         
                 }
                     
-                    UserDefaults.standard.set(true, forKey: "signed_in")
-                    UserDefaults.standard.set(self.emailTextField.text, forKey: "emailAddress")
                     
                 }
             }
@@ -93,6 +103,20 @@ class SignUpViewController: UIViewController {
         errorLabel.text = message
         errorLabel.alpha = 1
     }
+    
+     func transitionToVerificationScreen() {
+    //        let constants = Constants()
+    //        Constants.emailAddress = emailTextField.text
+            let vc = storyboard?.instantiateViewController(identifier: "verify") as? VerificationViewController
+    //        vc!.emailAddress = emailTextField.text
+    //        let question_vc = storyboard?.instantiateViewController(identifier: "question") as? QuestionViewController
+    //        vc!.emailAddress = emailTextField.text
+    //        question_vc!.email = emailTextField.text
+            view.window?.rootViewController = vc
+            view.window?.makeKeyAndVisible()
+            
+            
+        }
     
     func transitionToHomeScreen() {
 //        let constants = Constants()
