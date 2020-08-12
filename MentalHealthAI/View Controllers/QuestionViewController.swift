@@ -8,10 +8,12 @@
 
 import UIKit
 import Speech
+import StarWarsTextView
 import CoreML
 import Firebase
 import FirebaseFirestore
 class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
+    @IBOutlet weak var scrollTextView: StarWarsTextView!
     var shouldContinue: Bool?
     @IBOutlet weak var howWasYourDayLabel: UILabel!
     @IBOutlet weak var TranscribedText: UILabel!
@@ -38,6 +40,11 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     var number: Int?
     override func viewDidLoad() {
+        scrollTextView.crawlingSpeed = 20.0
+        scrollTextView.text = ""
+//        scrollTextView.xAngle = 1
+        scrollTextView.inclinationRatio = 3.0
+        scrollTextView.font = UIFont(name: "Helvetica", size: 24)
         print("SIGNED IN QUESTION", UserDefaults.standard.bool(forKey: "signed_in"))
         print("UID", UserDefaults.standard.string(forKey: "uid"))
 //        print(UserDefaults.standard.object(forKey: "emailAddress"))
@@ -91,7 +98,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         // Set the navView's frame to fit within the titleView
         navView.sizeToFit()
 
-
+        scrollTextView.isHidden = true
         tapToRecordButton.textAlignment = .center
         tapToRecordButton.attributedText = NSMutableAttributedString(string: "Tap to answer", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
         mainImageView.frame = CGRect(x: 0, y: 0, width: 271.86, height: 182.67)
@@ -196,7 +203,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
                     return
                 }
                 if running {
-                    self.TranscribedText.text = result?.bestTranscription.formattedString
+                    self.scrollTextView.text = result?.bestTranscription.formattedString
                 }
                 isFinal = (result?.isFinal)!
             }
@@ -248,15 +255,15 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
 //                self.stopButton.isEnabled = false
                 self.SpeakButton.isHidden = false
 //                self.SpeakButton.isEnabled = true
-            let words = self.TranscribedText.text!.components(separatedBy: " ").count
-            print(self.TranscribedText.text!.count)
+            let words = self.scrollTextView.text!.components(separatedBy: " ").count
+            print(self.scrollTextView.text!.count)
                 if words > 8 {
                     self.audioEngine.stop()
                     self.recognitionRequest?.endAudio()
                     self.SpeakButton.isEnabled = true
                     let vc = storyboard?.instantiateViewController(identifier: "confirm") as! ConfirmViewController
                     vc.modalPresentationStyle = .fullScreen
-                    vc.text = TranscribedText.text
+                    vc.text = scrollTextView.text
                     present(vc, animated: true)
                     self.SpeakButton.setTitle("Start", for: .normal)
                 } else {
@@ -270,6 +277,14 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         }
     }
     @IBAction func didTapRecordButton(_ sender: Any) {
+        scrollTextView.crawlingSpeed = 7.5
+        scrollTextView.inclinationRatio = 1.0
+        print("INCLINE", scrollTextView.inclinationRatio)
+        scrollTextView.isHidden = false
+        scrollTextView.startCrawlingAnimation()
+        mainImageView.isHidden = true
+//        TranscribedText.isHidden = true
+        howWasYourDayLabel.isHidden = true
         SFSpeechRecognizer.requestAuthorization {
             (auth_status) in
             switch auth_status {
@@ -330,13 +345,13 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          let destinationVC = segue.destination as! ConfirmViewController
-               destinationVC.text = TranscribedText.text
+               destinationVC.text = scrollTextView.text
         destinationVC.modalPresentationStyle = .fullScreen
         self.TranscribedText.text = "Thank you for Introspecting!"
     }
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "confirm" {
-            let words = TranscribedText.text!.components(separatedBy: " ").count
+            let words = scrollTextView.text!.components(separatedBy: " ").count
             print(TranscribedText.text!.count)
                        if words > 8 {
                            audioEngine.stop()
@@ -356,6 +371,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
             return false
     }
     @IBAction func didClickStopButton(_ sender: Any) {
+        scrollTextView.stopCrawlingAnimation()
         number = 0
         timer!.invalidate()
         tapToRecordButton.text = "Tap to Record"

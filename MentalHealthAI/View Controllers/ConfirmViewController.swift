@@ -198,7 +198,24 @@ class ConfirmViewController: UIViewController {
             let joyGifs = ["Rabbit", "MickeyMouse", "Hamsters", "Pandas"]
             term = joyGifs[Int.random(in: 0...joyGifs.count-1)]
             searchGifs(for: term!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            } else if lastEmotion == "sadness" {
+                        let sadGifs = ["Minions", "Hamsters", "Dogs", "Snoopy"]
+                        term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                        searchGifs(for: term!)
+                } else if lastEmotion == "anger" {
+                        let sadGifs = ["NorthernLights", "Glaciers", "Forrests", "GrandCanyon"]
+                        term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                        searchGifs(for: term!)
+                } else if lastEmotion == "fear" {
+                    let sadGifs = ["Sunsets", "Clouds", "BugsBunny", "ToyStory"]
+                    term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                    searchGifs(for: term!)
+                } else if lastEmotion == "neutral" {
+                    let sadGifs = ["Geysers", "roadrunner", "waterfall", "madagascar"]
+                    term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
+                    searchGifs(for:  term!)
+                }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             let gifURL = self.returnString!
             db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").getDocument { (querySnapshot, err) in
                     if err != nil {
@@ -226,135 +243,7 @@ class ConfirmViewController: UIViewController {
                 let tabBarController = self.presentingViewController as? MainTabBarController
                 tabBarController!.selectedIndex = 4
             }
-            } else if lastEmotion == "sadness" {
-                        let sadGifs = ["Minions", "Hamsters", "Dogs", "Snoopy"]
-                        term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
-                        searchGifs(for: term!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            let gifURL = self.returnString!
-                            db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").getDocument { (querySnapshot, err) in
-                               if err != nil {
-                                            print("ERROR ERROR ERROR")
-                                        } else {
-                                            let data = querySnapshot?.data()
-                                            if data != nil {
-                                                self.dictionary = (data!["user_sentiment"] as? [String : [String : Any]])!
-                                                print("FUCKKKKKK", data!["user_sentiment"]!)
-                                                print("dIcTiOnArY", self.dictionary)
-                                            }
-                                            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: testdate)
-                                            components.hour = 0
-                                            components.minute = 0
-                                            components.second = 0
-                                            let currentDate = Calendar.current.date(from: components)
-                                            print("Current Date", currentDate!)
-                                            self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
-                                                print("Dictionary2", self.dictionary)
-                                                 db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
-                                                                       db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
-                                        }
-                                    }
-                                    self.dismiss(animated: true, completion: nil)
-                                    let tabBarController = self.presentingViewController as? MainTabBarController
-                                    tabBarController!.selectedIndex = 4
-                                }
-                } else if lastEmotion == "anger" {
-                        let sadGifs = ["NorthernLights", "Glaciers", "Forrests", "GrandCanyon"]
-                        term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
-                           searchGifs(for: term!)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                let gifURL = self.returnString!
-                                    db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").getDocument { (querySnapshot, err) in
-                                        if err != nil {
-                                                    print("ERROR ERROR ERROR")
-                                                } else {
-                                                    let data = querySnapshot?.data()
-                                                    if data != nil {
-                                                        self.dictionary = (data!["user_sentiment"] as? [String : [String : Any]])!
-                                                        print("FUCKKKKKK", data!["user_sentiment"]!)
-                                                        print("dIcTiOnArY", self.dictionary)
-                                                    }
-                                                    var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: testdate)
-                                                    components.hour = 0
-                                                    components.minute = 0
-                                                    components.second = 0
-                                                    let currentDate = Calendar.current.date(from: components)
-                                                    print("Current Date", currentDate!)
-                                                    self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
-                                            print("Dictionary2", self.dictionary)
-                                                         db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
-                                                                               db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
-                                                }
-                                            }
-                                            self.dismiss(animated: true, completion: nil)
-                                            let tabBarController = self.presentingViewController as? MainTabBarController
-                                            tabBarController!.selectedIndex = 4
-                                        }
-                } else if lastEmotion == "fear" {
-                    let sadGifs = ["Sunsets", "Clouds", "BugsBunny", "ToyStory"]
-                    term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
-                    searchGifs(for: term!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            let gifURL = self.returnString!
-                            db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").getDocument { (querySnapshot, err) in
-                                if err != nil {
-                                            print("ERROR ERROR ERROR")
-                                        } else {
-                                            let data = querySnapshot?.data()
-                                            if data != nil {
-                                                self.dictionary = (data!["user_sentiment"] as? [String : [String : Any]])!
-                                                print("FUCKKKKKK", data!["user_sentiment"]!)
-                                                print("dIcTiOnArY", self.dictionary)
-                                            }
-                                            var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: testdate)
-                                            components.hour = 0
-                                            components.minute = 0
-                                            components.second = 0
-                                            let currentDate = Calendar.current.date(from: components)
-                                            print("Current Date", currentDate!)
-                                            self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
-                                    print("Dictionary2", self.dictionary)
-                                                 db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
-                                                                       db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
-                                        }
-                                    }
-                                    self.dismiss(animated: true, completion: nil)
-                                    let tabBarController = self.presentingViewController as? MainTabBarController
-                                    tabBarController!.selectedIndex = 4
-                                }                } else if lastEmotion == "neutral" {
-                    let sadGifs = ["Geysers", "roadrunner", "waterfall", "madagascar"]
-                    term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
-                    searchGifs(for:  term!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            let gifURL = self.returnString!
-                           db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").getDocument { (querySnapshot, err) in
-                              if err != nil {
-                                           print("ERROR ERROR ERROR")
-                                       } else {
-                                           let data = querySnapshot?.data()
-                                           if data != nil {
-                                               self.dictionary = (data!["user_sentiment"] as? [String : [String : Any]])!
-                                               print("FUCKKKKKK", data!["user_sentiment"]!)
-                                               print("dIcTiOnArY", self.dictionary)
-                                           }
-                                           var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: testdate)
-                                           components.hour = 0
-                                           components.minute = 0
-                                           components.second = 0
-                                           let currentDate = Calendar.current.date(from: components)
-                                           print("Current Date", currentDate!)
-                                         self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
-                                         print("Dictionary2", self.dictionary)
-                                                      db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
-                                db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
-                                       }
-                                   }
-                                   self.dismiss(animated: true, completion: nil)
-                                   let tabBarController = self.presentingViewController as? MainTabBarController
-                                   tabBarController!.selectedIndex = 4
-                               }
-        }
+
             Analytics.logEvent("press_save_button", parameters: ["emotion" : predictedClass])
         }
 @IBAction func didPressRedo(_ sender: Any) {

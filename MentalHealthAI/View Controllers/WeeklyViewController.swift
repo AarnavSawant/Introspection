@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StarWarsTextView
 import Charts
 import CoreData
 import Firebase
@@ -53,18 +54,16 @@ class WeeklyViewController: UIViewController {
                 if err != nil {
                     print("Error retrieving querries")
                 } else  if querySnapshot != nil {
-                    print("CheesyPoof")
                     //                for document in querySnapshot.documents {
                     let data = querySnapshot!.data()
                     if data != nil {
-                        print("KLAY THOMPSON")
                         self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
                     }
                     //                    print
                     if self.dictionary != nil {
                         for key in self.dictionary!.keys {
                             print(key)
-                            if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 {
+                            if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970{
                                 if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
                                     emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
                                 } else {
@@ -79,18 +78,16 @@ class WeeklyViewController: UIViewController {
                 if err != nil {
                     print("Error retrieving querries")
                 } else  if querySnapshot != nil {
-                    print("CheesyPoof")
                     //                for document in querySnapshot.documents {
                     let data = querySnapshot!.data()
                     if data != nil {
-                        print("KLAY THOMPSON")
                         self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
                     }
                     //                    print
                     if self.dictionary != nil {
                         for key in self.dictionary!.keys {
                             print(key)
-                            if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 {
+                            if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970  {
                                 if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
                                     emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
                                 } else {
@@ -136,20 +133,18 @@ class WeeklyViewController: UIViewController {
                 if err != nil {
                     print("Error retrieving querries")
                 } else  if querySnapshot != nil {
-                    print("CheesyPoof")
                     //                for document in querySnapshot.documents {
                     let data = querySnapshot!.data()
                     if data != nil {
-                        print("KLAY THOMPSON")
                         self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
                     }
-                    //                    print
                     if self.dictionary != nil {
                         for key in self.dictionary!.keys {
                             print(key)
-                            if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 {
+                            if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970{
                                 if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
                                     emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
+                                    print("LION", lastSundayDate!, key)
                                 } else {
                                     emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
                                 }

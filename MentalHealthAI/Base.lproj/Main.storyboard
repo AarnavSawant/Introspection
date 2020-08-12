@@ -88,10 +88,23 @@
                                     <constraint firstAttribute="width" constant="271.86000000000001" id="kXZ-IT-G3u"/>
                                 </constraints>
                             </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BQO-t6-lAA" customClass="StarWarsTextView" customModule="StarWarsTextView">
+                                <rect key="frame" x="46.021585813452923" y="414.18219966724456" width="321.9568283730942" height="90.732264480737513"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="fdO-UX-Gd4"/>
+                                    <constraint firstAttribute="width" constant="240" id="zgq-uM-bTv"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="phK-i1-dj4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4Qb-lA-xta"/>
+                            <constraint firstItem="BQO-t6-lAA" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="7cz-qG-Xxh"/>
                             <constraint firstItem="5JZ-bS-ffD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7ld-8z-9Lz"/>
                             <constraint firstItem="phK-i1-dj4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7oi-Ha-xNU"/>
                             <constraint firstItem="p1e-Vs-JoT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CsG-Qa-egd"/>
@@ -106,6 +119,7 @@
                             <constraint firstItem="5JZ-bS-ffD" firstAttribute="top" secondItem="GV0-PD-cp8" secondAttribute="bottom" constant="63" id="eKS-Qr-AZh"/>
                             <constraint firstItem="5JZ-bS-ffD" firstAttribute="top" secondItem="p1e-Vs-JoT" secondAttribute="bottom" constant="67" id="jTe-zq-yvz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5JZ-bS-ffD" secondAttribute="bottom" constant="165" id="lHD-9b-olb"/>
+                            <constraint firstItem="BQO-t6-lAA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="n1x-Jp-i7I"/>
                             <constraint firstItem="J3A-kF-jhf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rIu-Pm-ETC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -116,6 +130,7 @@
                         <outlet property="TranscribedText" destination="p1e-Vs-JoT" id="Nro-aJ-hhn"/>
                         <outlet property="howWasYourDayLabel" destination="phK-i1-dj4" id="H6Z-yB-jpK"/>
                         <outlet property="mainImageView" destination="rrJ-SZ-HgE" id="xCg-uN-p8Y"/>
+                        <outlet property="scrollTextView" destination="BQO-t6-lAA" id="AMU-NE-pAj"/>
                         <outlet property="stopButton" destination="CC2-Ve-kZ4" id="Gna-n8-JVP"/>
                         <outlet property="tapToRecordButton" destination="J3A-kF-jhf" id="CA3-2B-zAd"/>
                         <outlet property="transcribedTextView" destination="GV0-PD-cp8" id="nuz-XW-kbF"/>

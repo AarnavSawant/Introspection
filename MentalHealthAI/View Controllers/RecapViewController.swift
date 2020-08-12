@@ -101,7 +101,7 @@ class RecapViewController: UIViewController {
         components.minute = 0
         components.second = 0
         let date = Calendar.current.date(from: components)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             print("\(cellState.date)", self.date_to_sentiment_dict)
             let df = DateFormatter()
             df.dateFormat = "yyyy MM dd"

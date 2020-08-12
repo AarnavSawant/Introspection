@@ -1,0 +1,6 @@
+framework module StarWarsTextView {
+  umbrella header "StarWarsTextView-umbrella.h"
+
+  export *
+  module * { export * }
+}

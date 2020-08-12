@@ -26,4 +26,5 @@ pod 'GoogleSignIn'
 pod 'FBSDKLoginKit'
 pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'
+pod 'StarWarsTextView'
 end

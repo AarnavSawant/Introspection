@@ -1,3 +1,2 @@
 ${PODS_ROOT}/Target Support Files/Pods-MentalHealthAI-MentalHealthAIUITests/Pods-MentalHealthAI-MentalHealthAIUITests-resources.sh
 ${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle
-${PODS_ROOT}/Kafka/Kafka/DependencyParserModel.mlmodel
