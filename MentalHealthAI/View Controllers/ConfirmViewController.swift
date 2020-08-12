@@ -139,7 +139,7 @@ class ConfirmViewController: UIViewController {
         }
         print(predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.5 {
+            if max_pred < 0.6 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
@@ -147,7 +147,7 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.5 {
+            if max_pred < 0.6 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
@@ -181,7 +181,7 @@ class ConfirmViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy MM dd"
         let db = Firestore.firestore()
         let calendar = Calendar.current
-        let testdate = dateFormatter.date(from: "2020 07 09")!
+        let testdate = dateFormatter.date(from: "2020 08 31")!
         let current_year = calendar.component(.year, from: testdate)
         let current_month = calendar.component(.month, from: testdate)
         let current_day = calendar.component(.day, from: testdate)
@@ -217,6 +217,7 @@ class ConfirmViewController: UIViewController {
                         let currentDate = Calendar.current.date(from: components)
                         print("Current Date", currentDate!)
                         self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
+                        print("Dictionary2", self.dictionary)
                             db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
                         db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
                     }
@@ -248,6 +249,7 @@ class ConfirmViewController: UIViewController {
                                             let currentDate = Calendar.current.date(from: components)
                                             print("Current Date", currentDate!)
                                             self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
+                                                print("Dictionary2", self.dictionary)
                                                  db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
                                                                        db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
                                         }
@@ -280,6 +282,7 @@ class ConfirmViewController: UIViewController {
                                                     let currentDate = Calendar.current.date(from: components)
                                                     print("Current Date", currentDate!)
                                                     self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
+                                            print("Dictionary2", self.dictionary)
                                                          db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
                                                                                db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
                                                 }
@@ -311,6 +314,7 @@ class ConfirmViewController: UIViewController {
                                             let currentDate = Calendar.current.date(from: components)
                                             print("Current Date", currentDate!)
                                             self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
+                                    print("Dictionary2", self.dictionary)
                                                  db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
                                                                        db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
                                         }
@@ -340,8 +344,10 @@ class ConfirmViewController: UIViewController {
                                            components.second = 0
                                            let currentDate = Calendar.current.date(from: components)
                                            print("Current Date", currentDate!)
-                                         db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
-                                                                  db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
+                                         self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
+                                         print("Dictionary2", self.dictionary)
+                                                      db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
+                                db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
                                        }
                                    }
                                    self.dismiss(animated: true, completion: nil)

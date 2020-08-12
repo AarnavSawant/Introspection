@@ -220,7 +220,10 @@ extension RecapViewController: JTACMonthViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             if self.dictionary != nil {
                 self.textForTheDayView.text = self.dictionary![df.string(from: date!)]?["text"] as? String
-                if !newcell.colorSelectedView.isHidden {
+                self.feelingsLabel.text = ""
+//                newcell.backgroundColor = .none
+                if !newcell.colorSelectedView.isHidden && self.dictionary!.keys.contains(df.string(from: date!)){
+                    print("JAMES", date!, newcell.emotionForTheDay)
                     if newcell.emotionForTheDay == "joy" {
                         self.feelingsLabel.textColor = .yellow
                         self.feelingsLabel.text =  "You were happy on this day"
@@ -241,6 +244,8 @@ extension RecapViewController: JTACMonthViewDelegate {
                         self.feelingsLabel.text =  ""
                     }
                 }
+            } else {
+                self.feelingsLabel.text = ""
             }
         }
     }
