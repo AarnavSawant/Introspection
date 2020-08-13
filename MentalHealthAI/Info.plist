@@ -75,6 +75,8 @@
 	<string>Speak and watch your words turn into text!</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SF-Pro-Text-Medium.otf</string>
+		<string>SF-Pro-Display-Light.otf</string>
 		<string>SF-Pro-Display-Semibold.otf</string>
 		<string>SF-Pro-Display-Heavy.otf</string>
 		<string>SF-Pro.ttf</string>

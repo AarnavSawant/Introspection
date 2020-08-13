@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B332A24BAF1210005311E /* MainTabBarController.swift */; };
+		842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */; };
+		842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */; };
 		8437D9E324D6831700D0FDB3 /* GRUModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8437D9E224D6831700D0FDB3 /* GRUModel.mlmodel */; };
 		8437D9E524D7F62600D0FDB3 /* august_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8437D9E424D7F62400D0FDB3 /* august_1.json */; };
 		8437D9EB24D811A900D0FDB3 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8437D9EA24D811A900D0FDB3 /* UserProfileViewController.swift */; };
@@ -77,6 +79,8 @@
 		30F5DF44AA48F1A96C21FB59 /* Pods-MentalHealthAITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAITests.debug.xcconfig"; path = "Target Support Files/Pods-MentalHealthAITests/Pods-MentalHealthAITests.debug.xcconfig"; sourceTree = "<group>"; };
 		82055F4587DFCE6C35FC00FA /* Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig"; path = "Target Support Files/Pods-MentalHealthAI-MentalHealthAIUITests/Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		841B332A24BAF1210005311E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
+		842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsNavController.swift; sourceTree = "<group>"; };
 		8437D9E224D6831700D0FDB3 /* GRUModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GRUModel.mlmodel; sourceTree = "<group>"; };
 		8437D9E424D7F62400D0FDB3 /* august_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = august_1.json; sourceTree = "<group>"; };
 		8437D9EA24D811A900D0FDB3 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 		847D870524C2D87F000254D9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		847D870B24C2DA12000254D9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		847D870D24C2DBAC000254D9 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		8488536B24E4FB2F006B8DA9 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
 		848A38F724C6D62800769850 /* AnalyticsHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsHomeViewController.swift; sourceTree = "<group>"; };
 		848A38F924C6D7F500769850 /* WeeklyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyViewController.swift; sourceTree = "<group>"; };
 		848A38FD24CD487F00769850 /* july_24_v4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_24_v4.json; sourceTree = "<group>"; };
@@ -119,6 +124,7 @@
 		8498B23424ADD0F60083E8A7 /* MentalHealthAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MentalHealthAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8498B23824ADD0F60083E8A7 /* MentalHealthAIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentalHealthAIUITests.swift; sourceTree = "<group>"; };
 		8498B23A24ADD0F60083E8A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84BCEFC024E4AA3900570B94 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
 		84CC1E1024E13A22004C4D25 /* EmotionGRUModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionGRUModel.mlmodel; sourceTree = "<group>"; };
 		84CC1E1224E13A28004C4D25 /* august_9_final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = august_9_final.json; sourceTree = "<group>"; };
 		84EF337C24DFF27200C4A06B /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
@@ -210,6 +216,7 @@
 				84571F3B24D55D74004AE9A3 /* GIPHYViewController.swift */,
 				8437D9EA24D811A900D0FDB3 /* UserProfileViewController.swift */,
 				8493FC0624E20FE9005D5261 /* VerificationViewController.swift */,
+				842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -278,6 +285,7 @@
 				8498B22424ADD0F60083E8A7 /* Info.plist */,
 				8498B22C24ADD0F60083E8A7 /* MentalHealthAITests */,
 				84571F2D24D16721004AE9A3 /* Contants.swift */,
+				842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */,
 			);
 			path = MentalHealthAI;
 			sourceTree = "<group>";
@@ -310,6 +318,8 @@
 		84EF337B24DFF13E00C4A06B /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				8488536B24E4FB2F006B8DA9 /* SF-Pro-Text-Medium.otf */,
+				84BCEFC024E4AA3900570B94 /* SF-Pro-Display-Light.otf */,
 				84EF337F24DFF53700C4A06B /* SF-Pro-Display-Semibold.otf */,
 				84EF337E24DFF3B600C4A06B /* SF-Pro-Display-Heavy.otf */,
 				84EF337C24DFF27200C4A06B /* SF-Pro.ttf */,
@@ -625,6 +635,8 @@
 				84571F3224D2BA47004AE9A3 /* YearlyViewController.swift in Sources */,
 				84571F1C24D019DB004AE9A3 /* PopUpViewController.swift in Sources */,
 				847D870624C2D87F000254D9 /* SignUpViewController.swift in Sources */,
+				842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */,
+				842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */,
 				84571F4124D5643B004AE9A3 /* GIF.swift in Sources */,
 				848A38FA24C6D7F500769850 /* WeeklyViewController.swift in Sources */,
 				847D870E24C2DBAC000254D9 /* FirstViewController.swift in Sources */,

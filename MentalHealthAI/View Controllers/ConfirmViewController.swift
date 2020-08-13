@@ -14,6 +14,7 @@ import Firebase
 import Foundation
 import FirebaseFirestore
 class ConfirmViewController: UIViewController {
+    @IBOutlet weak var mainImageView: UIImageView!
     var dictionary =  [String : [String : Any]]()
     var predictedClass = String()
     var gifs = [Gif]()
@@ -118,9 +119,37 @@ class ConfirmViewController: UIViewController {
             return pad_sequences(arr: sequenceArray)
     }
     override func viewDidLoad() {
+//        var view = UILabel()
+//        view.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        GetResultsButton.backgroundColor = .white
+//        var view = UILabel()
+//        view.frame = CGRect(x: 0, y: 0, width: 63, height: 63)
+        RedoButton.backgroundColor = .white
+
+        RedoButton.alpha = 0.2
+        RedoButton.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
+        
+        TranscribedText.alpha = 0.05
+//        TranscribedText.layer.backgroundColor?.copy(alpha: 0.05)
+        TranscribedText.backgroundColor = .white
+        TranscribedText.layer.backgroundColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1).cgColor
+        TranscribedText.layer.cornerRadius = 10
+        TranscribedText.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        TranscribedText.textColor?.withAlphaComponent(0.6)
+
+//        var parent = self.view!
+//        parent.addSubview(view)
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.widthAnchor.constraint(equalToConstant: 24).isActive = true
+//        view.heightAnchor.constraint(equalToConstant: 24).isActive = true
+//        view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 106).isActive = true
+//        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 661).isActive = true
         print("Warriors", emailAddress)
         super.viewDidLoad()
-        TranscribedText.text = text!
+        let navbar = self.navigationController as! ResultsNavController
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+            self.TranscribedText.text = navbar.text!
+//        })
         RedoButton.layer.cornerRadius = 0.5 * RedoButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()

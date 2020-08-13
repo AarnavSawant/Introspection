@@ -15,6 +15,7 @@ import FirebaseFirestore
 class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     @IBOutlet weak var scrollTextView: StarWarsTextView!
     var shouldContinue: Bool?
+     var isStillRunning:Bool?
     @IBOutlet weak var howWasYourDayLabel: UILabel!
     @IBOutlet weak var TranscribedText: UILabel!
     @IBOutlet weak var transcribedTextView: UIView!
@@ -28,13 +29,12 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     @IBOutlet weak var tapToRecordButton: UILabel!
     public var email: String?
-    var isStillRunning:Bool?
     @IBOutlet weak var SubmitButton: UIButton!
     @IBOutlet weak var UserSentenceLabel: UILabel!
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private let audioEngine = AVAudioEngine()
   
-    @IBOutlet weak var stopButton: UIButton!
+//    @IBOutlet weak var stopButton: UIButton!
     private var recognitionTask: SFSpeechRecognitionTask?
     public var completionHandler: ((String) -> Void)?
     
@@ -75,27 +75,21 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         label.sizeToFit()
         label.center = navView.frame.origin
 
-        // Create the image view
         let image = UIImageView()
         image.image = UIImage(named: "Infinity")
         label.frame.size.width = 150
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        // To maintain the image's aspect ratio:
         label.font = UIFont(name: "SFProDisplay-Heavy", size: 18)
-        // Setting the image frame so that it's immediately before the text:
-//        image.contentMode = .center
+
         image.frame = CGRect(x: navView.center.x, y: navView.center.y - 20, width: 22.73, height: 11.04)
         view.backgroundColor = .white
         image.contentMode = UIView.ContentMode.scaleAspectFit
 
-        // Add both the label and image view to the navView
         navView.addSubview(label)
         navView.addSubview(image)
 
-        // Set the navigation bar's navigation item's titleView to the navView
         self.navigationItem.titleView = navView
 
-        // Set the navView's frame to fit within the titleView
         navView.sizeToFit()
 
         scrollTextView.isHidden = true
@@ -135,11 +129,11 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
 
         
         
-        stopButton.isHidden = true
-        stopButton.isEnabled = false
+//        stopButton.isHidden = true
+//        stopButton.isEnabled = false
         SpeakButton.isHidden = false
         SpeakButton.isEnabled = true
-        stopButton.layer.cornerRadius = 0.5 * stopButton.frame.width
+//        stopButton.layer.cornerRadius = 0.5 * stopButton.frame.width
         SpeakButton.layer.cornerRadius = 0.5 * SpeakButton.frame.width
         SpeakButton.isEnabled = false
         speechRecognizer?.delegate = self
@@ -174,168 +168,168 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         number = 0
         
     }
-    func startRecording() {
-        if recognitionTask != nil {
-            recognitionTask?.cancel()
-            recognitionTask = nil
-        }
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setMode(.measurement)
-            try audioSession.setCategory(.record)
-            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-        } catch {
-            print("Error loading AVAudioSession Properties")
-        }
-        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        guard let inputNode: AVAudioInputNode = audioEngine.inputNode else {
-            fatalError("audioEngine has no input")
-        }
-        guard let recognitionRequest = recognitionRequest else {
-            fatalError("RecognitionRequest is nil")
-        }
-        recognitionRequest.shouldReportPartialResults = true
-        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
-            var isFinal = false
-            if (result != nil) {
-                print("Packers")
-                guard let running = self.isStillRunning else {
-                    return
-                }
-                if running {
-                    self.scrollTextView.text = result?.bestTranscription.formattedString
-                }
-                isFinal = (result?.isFinal)!
-            }
-            if (error != nil || isFinal) {
-                self.recognitionRequest = nil
-                self.recognitionTask = nil
-                self.audioEngine.stop()
-                inputNode.removeTap(onBus: 0)
-            }
-        })
-        let recordFormat = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordFormat) { (buffer, where) in
-            recognitionRequest.append(buffer)
-        }
-        audioEngine.prepare()
-        do {
-            try audioEngine.start()
-        } catch {
-            fatalError("Audio Engine Not Starting")
-        }
-        self.TranscribedText.text = "Go Ahead, I'm Listening"
-        
-        
-        
-        
-    }
+//    func startRecording() {
+//        if recognitionTask != nil {
+//            recognitionTask?.cancel()
+//            recognitionTask = nil
+//        }
+//        let audioSession = AVAudioSession.sharedInstance()
+//        do {
+//            try audioSession.setMode(.measurement)
+//            try audioSession.setCategory(.record)
+//            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+//        } catch {
+//            print("Error loading AVAudioSession Properties")
+//        }
+//        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+//        guard let inputNode: AVAudioInputNode = audioEngine.inputNode else {
+//            fatalError("audioEngine has no input")
+//        }
+//        guard let recognitionRequest = recognitionRequest else {
+//            fatalError("RecognitionRequest is nil")
+//        }
+//        recognitionRequest.shouldReportPartialResults = true
+//        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
+//            var isFinal = false
+//            if (result != nil) {
+//                print("Packers")
+//                guard let running = self.isStillRunning else {
+//                    return
+//                }
+//                if running {
+//                    self.scrollTextView.text = result?.bestTranscription.formattedString
+//                }
+//                isFinal = (result?.isFinal)!
+//            }
+//            if (error != nil || isFinal) {
+//                self.recognitionRequest = nil
+//                self.recognitionTask = nil
+//                self.audioEngine.stop()
+//                inputNode.removeTap(onBus: 0)
+//            }
+//        })
+//        let recordFormat = inputNode.outputFormat(forBus: 0)
+//        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordFormat) { (buffer, where) in
+//            recognitionRequest.append(buffer)
+//        }
+//        audioEngine.prepare()
+//        do {
+//            try audioEngine.start()
+//        } catch {
+//            fatalError("Audio Engine Not Starting")
+//        }
+//        self.TranscribedText.text = "Go Ahead, I'm Listening"
+//
+//
+//
+//
+//    }
     
-    func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
-        if available {
-            SpeakButton.isEnabled = true
-        } else {
-            SpeakButton.isEnabled = false
-        }
-    }
+//    func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
+//        if available {
+//            SpeakButton.isEnabled = true
+//        } else {
+//            SpeakButton.isEnabled = false
+//        }
+//    }
     
-    @objc func changeTimerNumber() {
-        print("Boooooyah")
-        number = number! + 1
-        self.tapToRecordButton.text = "\(20 - number!)"
-        if number == 20 {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
-            self.timer!.invalidate()
-            self.number = 0
-            self.tapToRecordButton.text = "Tap to Record"
-            if self.audioEngine.isRunning {
-                self.isStillRunning = false
-                   }
-                self.stopButton.isHidden = true
-//                self.stopButton.isEnabled = false
-                self.SpeakButton.isHidden = false
-//                self.SpeakButton.isEnabled = true
-            let words = self.scrollTextView.text!.components(separatedBy: " ").count
-            print(self.scrollTextView.text!.count)
-                if words > 8 {
-                    self.audioEngine.stop()
-                    self.recognitionRequest?.endAudio()
-                    self.SpeakButton.isEnabled = true
-                    let vc = storyboard?.instantiateViewController(identifier: "confirm") as! ConfirmViewController
-                    vc.modalPresentationStyle = .fullScreen
-                    vc.text = scrollTextView.text
-                    present(vc, animated: true)
-                    self.SpeakButton.setTitle("Start", for: .normal)
-                } else {
-                    self.audioEngine.stop()
-                    self.recognitionRequest?.endAudio()
-                    self.SpeakButton.isEnabled = true
-                    print("Yay")
-                    self.SpeakButton.setTitle("Start", for: .normal)
-                    self.TranscribedText.text = "Tell me a bit more about your day!"
-                }
-        }
-    }
+//    @objc func changeTimerNumber() {
+//        print("Boooooyah")
+//        number = number! + 1
+//        self.tapToRecordButton.text = "\(20 - number!)"
+//        if number == 20 {
+////        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+//            self.timer!.invalidate()
+//            self.number = 0
+//            self.tapToRecordButton.text = "Tap to Record"
+//            if self.audioEngine.isRunning {
+//                self.isStillRunning = false
+//                   }
+//                self.stopButton.isHidden = true
+////                self.stopButton.isEnabled = false
+//                self.SpeakButton.isHidden = false
+////                self.SpeakButton.isEnabled = true
+//            let words = self.scrollTextView.text!.components(separatedBy: " ").count
+//            print(self.scrollTextView.text!.count)
+//                if words > 8 {
+//                    self.audioEngine.stop()
+//                    self.recognitionRequest?.endAudio()
+//                    self.SpeakButton.isEnabled = true
+//                    let vc = storyboard?.instantiateViewController(identifier: "confirm") as! ConfirmViewController
+//                    vc.modalPresentationStyle = .fullScreen
+//                    vc.text = scrollTextView.text
+//                    present(vc, animated: true)
+//                    self.SpeakButton.setTitle("Start", for: .normal)
+//                } else {
+//                    self.audioEngine.stop()
+//                    self.recognitionRequest?.endAudio()
+//                    self.SpeakButton.isEnabled = true
+//                    print("Yay")
+//                    self.SpeakButton.setTitle("Start", for: .normal)
+//                    self.TranscribedText.text = "Tell me a bit more about your day!"
+//                }
+//        }
+//    }
     @IBAction func didTapRecordButton(_ sender: Any) {
-        scrollTextView.crawlingSpeed = 7.5
-        scrollTextView.inclinationRatio = 1.0
-        print("INCLINE", scrollTextView.inclinationRatio)
-        scrollTextView.isHidden = false
-        scrollTextView.startCrawlingAnimation()
-        mainImageView.isHidden = true
-//        TranscribedText.isHidden = true
-        howWasYourDayLabel.isHidden = true
-        SFSpeechRecognizer.requestAuthorization {
-            (auth_status) in
-            switch auth_status {
-            case .authorized:
-                print("Hello")
-                self.shouldContinue = true
-                print(self.shouldContinue)
-            case .denied:
-                self.shouldContinue = false
-                print("User denied permission to use microphone")
-            case .notDetermined:
-                self.shouldContinue = false
-                print("Speech Recognition not yet authorized")
-            case .restricted:
-                self.shouldContinue = false
-                print("Speech Recognition is restricted")
-            @unknown default:
-                self.shouldContinue = false
-                print("Unknown Error")
-            }
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-            print(self.shouldContinue)
-            if self.shouldContinue! {
-                self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.changeTimerNumber), userInfo: nil, repeats: true)
-            print(self.timer)
-                Analytics.logEvent("press_record_button", parameters: nil)
-                        print("hello")
-            self.isStillRunning = true
-                self.SpeakButton.layer.cornerRadius = 0.5 * self.SpeakButton.frame.width
-            self.startRecording()
-            self.stopButton.isHidden = false
-            self.stopButton.isEnabled = true
-            self.SpeakButton.isHidden = true
-                self.SpeakButton.isEnabled = false
-            } else {
-                let alertController = UIAlertController(title: "Speech Recognition Required", message: "Please enable speech recognition in settings.", preferredStyle: UIAlertController.Style.alert)
-
-                let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
-                    //Redirect to Settings app
-                    UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
-                })
-
-                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
-                alertController.addAction(cancelAction)
-
-                alertController.addAction(okAction)
-
-                self.present(alertController, animated: true, completion: nil)
-            }
-        }
+//        scrollTextView.crawlingSpeed = 7.5
+//        scrollTextView.inclinationRatio = 1.0
+//        print("INCLINE", scrollTextView.inclinationRatio)
+//        scrollTextView.isHidden = false
+//        scrollTextView.startCrawlingAnimation()
+//        mainImageView.isHidden = true
+////        TranscribedText.isHidden = true
+//        howWasYourDayLabel.isHidden = true
+//        SFSpeechRecognizer.requestAuthorization {
+//            (auth_status) in
+//            switch auth_status {
+//            case .authorized:
+//                print("Hello")
+//                self.shouldContinue = true
+//                print(self.shouldContinue)
+//            case .denied:
+//                self.shouldContinue = false
+//                print("User denied permission to use microphone")
+//            case .notDetermined:
+//                self.shouldContinue = false
+//                print("Speech Recognition not yet authorized")
+//            case .restricted:
+//                self.shouldContinue = false
+//                print("Speech Recognition is restricted")
+//            @unknown default:
+//                self.shouldContinue = false
+//                print("Unknown Error")
+//            }
+//        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+//            print(self.shouldContinue)
+//            if self.shouldContinue! {
+//                self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.changeTimerNumber), userInfo: nil, repeats: true)
+//            print(self.timer)
+//                Analytics.logEvent("press_record_button", parameters: nil)
+//                        print("hello")
+//            self.isStillRunning = true
+//                self.SpeakButton.layer.cornerRadius = 0.5 * self.SpeakButton.frame.width
+//            self.startRecording()
+//            self.stopButton.isHidden = false
+//            self.stopButton.isEnabled = true
+//            self.SpeakButton.isHidden = true
+//                self.SpeakButton.isEnabled = false
+//            } else {
+//                let alertController = UIAlertController(title: "Speech Recognition Required", message: "Please enable speech recognition in settings.", preferredStyle: UIAlertController.Style.alert)
+//
+//                let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+//                    //Redirect to Settings app
+//                    UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+//                })
+//
+//                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
+//                alertController.addAction(cancelAction)
+//
+//                alertController.addAction(okAction)
+//
+//                self.present(alertController, animated: true, completion: nil)
+//            }
+//        }
     }
     
     
@@ -344,32 +338,32 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         let destinationVC = segue.destination as! ConfirmViewController
-               destinationVC.text = scrollTextView.text
+         let destinationVC = segue.destination as! UINavigationController
+//               destinationVC.text = scrollTextView.text
         destinationVC.modalPresentationStyle = .fullScreen
-        self.TranscribedText.text = "Thank you for Introspecting!"
+//        self.TranscribedText.text = "Thank you for Introspecting!"
     }
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "confirm" {
-            let words = scrollTextView.text!.components(separatedBy: " ").count
-            print(TranscribedText.text!.count)
-                       if words > 8 {
-                           audioEngine.stop()
-                           recognitionRequest?.endAudio()
-                           SpeakButton.isEnabled = true
-                           SpeakButton.setTitle("Start", for: .normal)
-                            return true
-                       } else {
-                           audioEngine.stop()
-                           recognitionRequest?.endAudio()
-                           SpeakButton.isEnabled = true
-                           print("Yay")
-                           SpeakButton.setTitle("Start", for: .normal)
-                           TranscribedText.text = "Tell me a bit more about your day!"
-                       }
-        }
-            return false
-    }
+//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+//        if identifier == "confirm" {
+//            let words = scrollTextView.text!.components(separatedBy: " ").count
+//            print(TranscribedText.text!.count)
+//                       if words > 8 {
+//                           audioEngine.stop()
+//                           recognitionRequest?.endAudio()
+//                           SpeakButton.isEnabled = true
+//                           SpeakButton.setTitle("Start", for: .normal)
+//                            return true
+//                       } else {
+//                           audioEngine.stop()
+//                           recognitionRequest?.endAudio()
+//                           SpeakButton.isEnabled = true
+//                           print("Yay")
+//                           SpeakButton.setTitle("Start", for: .normal)
+//                           TranscribedText.text = "Tell me a bit more about your day!"
+//                       }
+//        }
+//            return false
+//    }
     @IBAction func didClickStopButton(_ sender: Any) {
         scrollTextView.stopCrawlingAnimation()
         number = 0
@@ -378,8 +372,8 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         if audioEngine.isRunning {
             isStillRunning = false
         }
-        stopButton.isHidden = true
-        stopButton.isEnabled = false
+//        stopButton.isHidden = true
+//        stopButton.isEnabled = false
         SpeakButton.isHidden = false
         SpeakButton.isEnabled = true
     }
