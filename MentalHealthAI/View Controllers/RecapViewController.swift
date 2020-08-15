@@ -47,7 +47,7 @@ class RecapViewController: UIViewController {
         calendarView.reloadData()
         calendarView.scrollingMode = .stopAtEachCalendarFrame
         calendarView.scrollToDate(Date())
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.calendarView.selectDates(from: Date(), to: Date())
         }
 //        calendarView.selectDates([Date()])
@@ -101,7 +101,7 @@ class RecapViewController: UIViewController {
         components.minute = 0
         components.second = 0
         let date = Calendar.current.date(from: components)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
             print("\(cellState.date)", self.date_to_sentiment_dict)
             let df = DateFormatter()
             df.dateFormat = "yyyy MM dd"

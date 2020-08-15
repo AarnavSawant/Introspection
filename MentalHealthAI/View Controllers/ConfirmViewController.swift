@@ -15,6 +15,8 @@ import Foundation
 import FirebaseFirestore
 class ConfirmViewController: UIViewController {
     var lastClass: String?
+    @IBOutlet weak var keeplabel: UILabel!
+    @IBOutlet weak var discardLabel: UILabel!
     @IBOutlet weak var discardButton: UIButton!
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var transcribedTextView: UIView!
@@ -123,6 +125,10 @@ class ConfirmViewController: UIViewController {
             return pad_sequences(arr: sequenceArray)
     }
     override func viewDidLoad() {
+        keeplabel.alpha = 0.6
+        keeplabel.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        discardLabel.alpha = 0.6
+        discardLabel.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         let navView = UIView()
 ////            mainImageView.backgroundColor = .white
 ////
@@ -201,7 +207,7 @@ class ConfirmViewController: UIViewController {
         }
         print(predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.6 {
+            if max_pred < 0.52 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
@@ -219,26 +225,26 @@ class ConfirmViewController: UIViewController {
         }
         if (predictedClass == "joy") {
             mainImageView.image = UIImage(named: "JoyResults")
-            emotionLabel.text = "You seem to be very happy!"
+            emotionLabel.text = "You seem to be happy today!"
         } else if (predictedClass == "sadness") {
             mainImageView.image = UIImage(named: "SadnessResults")
             emotionLabel.text = "You seem to be sad today."
         } else  if (predictedClass == "fear") {
             mainImageView.image = UIImage(named: "FearResults")
-             emotionLabel.text = "You seem to be feeling scared."
+             emotionLabel.text = "You seem to be scared today."
         } else if (predictedClass == "anger"){
             mainImageView.image = UIImage(named: "AngerResults")
-            emotionLabel.text = "You seem to be angry."
+            emotionLabel.text = "You seem to be angry today."
         } else {
             mainImageView.image = UIImage(named: "NeutralResults")
-            emotionLabel.text = "I am failing to detect any emotion. You seem to have had a okay day."
+            emotionLabel.text = "You seem to be neutral today."
         }
         // Do any additional setup after loading the view.
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is UINavigationController{
-            let vc = segue.destination as? UINavigationController
-//            vc?.inputText = TranscribedText.text
+        if segue.destination is FeedbackNavController{
+            let vc = segue.destination as? FeedbackNavController
+            vc?.inputText = TranscribedText.text
             vc?.modalPresentationStyle = .fullScreen
         }
     }

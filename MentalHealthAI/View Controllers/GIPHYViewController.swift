@@ -11,12 +11,13 @@ import Firebase
 import FirebaseFirestore
 import SwiftGifOrigin
 class GIPHYViewController: UIViewController {
+    var gifShareURL: String?
     @IBOutlet weak var cheerLabel: UILabel!
+    @IBOutlet weak var calendarButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var gifView: UIImageView!
     @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var MonthLabel: UILabel!
     @IBOutlet weak var emotionLabel: UILabel!
-    @IBOutlet weak var yearLabel: UILabel!
     var gifs  = [Gif]()
     var network = GifNetwork()
     
@@ -29,7 +30,37 @@ class GIPHYViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        reloadInputViews()
+        shareButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+        shareButton.layer.cornerRadius = 11
+        shareButton.setTitleColor(.white, for: .normal)
+        calendarButton.setTitleColor(UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1), for: .normal)
+        calendarButton.layer.cornerRadius = 11
+        calendarButton.backgroundColor = .white
+        let navView = UIView()
+        //            mainImageView.backgroundColor = .white
+        //
+        //           mainImageView.layer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor
+                      let label = UILabel()
+                      label.text = "introspection"
+                      label.sizeToFit()
+                      label.center = navView.frame.origin
+
+                      let image = UIImageView()
+                      image.image = UIImage(named: "Infinity")
+                      label.frame.size.width = 150
+                      label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                      label.font = UIFont(name: "SFProDisplay-Heavy", size: 18)
+
+                      image.frame = CGRect(x: navView.center.x, y: navView.center.y - 20, width: 22.73, height: 11.04)
+                      view.backgroundColor = .white
+                      image.contentMode = UIView.ContentMode.scaleAspectFit
+
+                      navView.addSubview(label)
+                      navView.addSubview(image)
+
+                      self.navigationItem.titleView = navView
+                self.navigationItem.titleView?.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+//        reloadInputViews()
 //        let shouldSearch = UserDefaults.standard.bool(forKey: "shouldSearch")
 //        let lastEmotion = UserDefaults.standard.object(forKey: "lastEmotion") as? String
 //        print(lastEmotion)
@@ -48,10 +79,11 @@ class GIPHYViewController: UIViewController {
         let current_year = calendar.component(.year, from: testdate)
         let current_month = calendar.component(.month, from: testdate)
         let current_day = calendar.component(.day, from: testdate)
+        let currentMonthString = calendar.monthSymbols[current_month - 1]
         print("DAY", current_day)
         print("MONTH", current_month)
         print("YEAR", current_year)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 db.collection("users").document(uid!).getDocument { (querySelector, err) in
                 if err != nil {
                     print("There was an error retrieving data")
@@ -74,7 +106,7 @@ class GIPHYViewController: UIViewController {
                     //                cell.gifURL = url as! String
                 }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
         print("Max Term", maxTerm)
 //        if maxTimestamp != 0.0 {
             let lastDate = Date.init(timeIntervalSince1970: maxTimestamp)
@@ -82,14 +114,15 @@ class GIPHYViewController: UIViewController {
                     let lastEmotion = maxEmotion!
                     let term = maxTerm!
                     let gifURL = maxURL!
+                    self.gifShareURL = gifURL
                     let calendar = Calendar.current
                     if lastDate != nil {
                         let day = calendar.component(.day, from: lastDate)
                         let month = calendar.monthSymbols[calendar.component(.month, from: lastDate) - 1]
                         let year = calendar.component(.year, from: lastDate)
-                        self.dayLabel.text = "\(day)"
-                        self.MonthLabel.text = "\(month)"
-                        self.yearLabel.text = "\(year)"
+                        self.dayLabel.text = "\(currentMonthString) \(day), \(year)"
+//                        self.MonthLabel.text = "\(month)"
+//                        self.yearLabel.text = "\(year)"
                     }
                     self.gifView.image = UIImage.gif(url: gifURL)
     //        if shouldSearch {
@@ -187,5 +220,20 @@ class GIPHYViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func didClickShareButton(_ sender: Any) {
+//        var URLString: String = gifView!.contentUR
+        print(self.gifShareURL!)
+        var shareURL:NSURL = NSURL(string: self.gifShareURL!)!
+        var shareData:NSData = NSData(contentsOf: shareURL as URL)!
+        
+        let vc = UIActivityViewController(activityItems: [shareData as Any], applicationActivities: nil)
+        vc.modalPresentationStyle = .popover
+        self.present(vc, animated: true, completion: nil)
+    }
+    @IBAction func didClickCalendarButton(_ sender: Any) {
+        let vc = self.tabBarController as! MainTabBarController
+        vc.selectedIndex = 0
+    }
+//    Thread 1: EXC_BREAKPOINT (code=1, subcode=0x1048cd8e4)
+    
 }

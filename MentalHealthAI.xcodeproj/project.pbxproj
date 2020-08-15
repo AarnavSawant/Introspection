@@ -32,6 +32,7 @@
 		845E267F24BDB6CB00615B4B /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E267E24BDB6CB00615B4B /* DayCell.swift */; };
 		8478E2EB24E68C0700BE81C3 /* DayOfTheWeekService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478E2EA24E68C0700BE81C3 /* DayOfTheWeekService.swift */; };
 		8478E2F824E74C2900BE81C3 /* IntrospectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478E2F724E74C2900BE81C3 /* IntrospectionTests.swift */; };
+		8478E30024E7A91400BE81C3 /* FeedbackNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478E2FF24E7A91400BE81C3 /* FeedbackNavController.swift */; };
 		847D870624C2D87F000254D9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870524C2D87F000254D9 /* SignUpViewController.swift */; };
 		847D870C24C2DA12000254D9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870B24C2DA12000254D9 /* SignInViewController.swift */; };
 		847D870E24C2DBAC000254D9 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870D24C2DBAC000254D9 /* FirstViewController.swift */; };
@@ -113,6 +114,7 @@
 		8478E2F524E74C2900BE81C3 /* IntrospectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntrospectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8478E2F724E74C2900BE81C3 /* IntrospectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionTests.swift; sourceTree = "<group>"; };
 		8478E2F924E74C2900BE81C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8478E2FF24E7A91400BE81C3 /* FeedbackNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackNavController.swift; sourceTree = "<group>"; };
 		847D870524C2D87F000254D9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		847D870B24C2DA12000254D9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		847D870D24C2DBAC000254D9 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				8498B22424ADD0F60083E8A7 /* Info.plist */,
 				84571F2D24D16721004AE9A3 /* Contants.swift */,
 				842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */,
+				8478E2FF24E7A91400BE81C3 /* FeedbackNavController.swift */,
 			);
 			path = MentalHealthAI;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 			files = (
 				847D870C24C2DA12000254D9 /* SignInViewController.swift in Sources */,
 				84571F3F24D55FED004AE9A3 /* GifNetwork.swift in Sources */,
+				8478E30024E7A91400BE81C3 /* FeedbackNavController.swift in Sources */,
 				84571F2C24D1461A004AE9A3 /* ReflectViewController.swift in Sources */,
 				844E845F24BD9A2F00A336EC /* RecapViewController.swift in Sources */,
 				84571F3C24D55D74004AE9A3 /* GIPHYViewController.swift in Sources */,

@@ -7,8 +7,10 @@
 //
 
 import UIKit
-
+import Firebase
+import FirebaseFirestore
 class UserFeedbackViewController: UIViewController {
+    public var selectedEmotion: String?
     @IBOutlet weak var happyButton: UIButton!
     public var inputText: String?
     @IBOutlet weak var questionLabel: UILabel!
@@ -23,10 +25,10 @@ class UserFeedbackViewController: UIViewController {
     @IBOutlet weak var neutralButton: UIButton!
     @IBOutlet weak var angerButton: UIButton!
     override func viewDidLoad() {
-//        UserTextLabel.text = inputText
+        cancelButton.layer.cornerRadius = 0.5 * cancelButton.frame.width
+        submitButton.layer.cornerRadius = 0.5 * submitButton.frame.width
         super.viewDidLoad()
         self.navigationItem.titleView?.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
-        //        timerLabel.isHidden = true
                 let navView = UIView()
 
                 let label = UILabel()
@@ -63,8 +65,10 @@ class UserFeedbackViewController: UIViewController {
             feedbackTextField.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2).cgColor
         
 //            cancelButton.backgroundColor = .white
-
-            cancelButton.alpha = 0.05
+        let navController = self.navigationController as! FeedbackNavController
+        inputText = navController.inputText
+        print("Input Text", inputText)
+        cancelButton.alpha = 0.05
             cancelButton.backgroundColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
         
 //            submitButton.backgroundColor = .white
@@ -79,27 +83,95 @@ class UserFeedbackViewController: UIViewController {
         submitLabel.alpha = 0.6
         submitLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
         submitLabel.font = UIFont(name: "SFProText-Medium", size: 18)
-        
+        happyButton.layer.cornerRadius = 8
+       sadButton.layer.cornerRadius = 8
+       angerButton.layer.cornerRadius = 8
+        fearButton.layer.cornerRadius = 8
+        neutralButton.layer.cornerRadius = 8
 
         // Do any additional setup after loading the view.
     }
     
     @IBAction func didClickHappyButton(_ sender: Any) {
+        fearButton.layer.borderColor = UIColor.white.cgColor
+        neutralButton.layer.borderColor = UIColor.white.cgColor
+        sadButton.layer.borderColor = UIColor.white.cgColor
+        angerButton.layer.borderColor = UIColor.white.cgColor
+        happyButton.layer.borderColor = UIColor.blue.cgColor
+        happyButton.layer.borderWidth = 3.0
+        selectedEmotion = "joy"
         
     }
     
     @IBAction func didClickAngerButton(_ sender: Any) {
+        fearButton.layer.borderColor = UIColor.white.cgColor
+        neutralButton.layer.borderColor = UIColor.white.cgColor
+        sadButton.layer.borderColor = UIColor.white.cgColor
+        happyButton.layer.borderColor = UIColor.white.cgColor
+        angerButton.layer.borderColor = UIColor.blue.cgColor
+        angerButton.layer.borderWidth = 3.0
+        selectedEmotion = "anger"
     }
     
     @IBAction func didClickFearButton(_ sender: Any) {
+        angerButton.layer.borderColor = UIColor.white.cgColor
+        neutralButton.layer.borderColor = UIColor.white.cgColor
+        sadButton.layer.borderColor = UIColor.white.cgColor
+        happyButton.layer.borderColor = UIColor.white.cgColor
+        fearButton.layer.borderColor = UIColor.blue.cgColor
+        fearButton.layer.borderWidth = 3.0
+        selectedEmotion = "fear"
     }
     @IBAction func didClickNeutralButton(_ sender: Any) {
+        fearButton.layer.borderColor = UIColor.white.cgColor
+        angerButton.layer.borderColor = UIColor.white.cgColor
+        sadButton.layer.borderColor = UIColor.white.cgColor
+        happyButton.layer.borderColor = UIColor.white.cgColor
+        neutralButton.layer.borderColor = UIColor.blue.cgColor
+        neutralButton.layer.borderWidth = 3.0
+        selectedEmotion = "neutral"
     }
     @IBAction func didClickSadButton(_ sender: Any) {
+        fearButton.layer.borderColor = UIColor.white.cgColor
+        neutralButton.layer.borderColor = UIColor.white.cgColor
+        angerButton.layer.borderColor = UIColor.white.cgColor
+        happyButton.layer.borderColor = UIColor.white.cgColor
+        sadButton.layer.borderColor = UIColor.blue.cgColor
+        sadButton.layer.borderWidth = 3.0
+        selectedEmotion = "sadness"
     }
     @IBAction func didClickCancelButton(_ sender: Any) {
+        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+        self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     @IBAction func didClickSubmitButton(_ sender: Any) {
+        if selectedEmotion == nil {
+            let alertController = UIAlertController(title: "Emotion Needs to be Selected", message: "Please select an emotion before pressing submit", preferredStyle: UIAlertController.Style.alert)
+
+//            let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+//                //Redirect to Settings app
+//                UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+//            })
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
+            alertController.addAction(cancelAction)
+
+//            alertController.addAction(okAction)
+
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            let db = Firestore.firestore()
+            db.collection("feedback").addDocument(data: ["text" : inputText!, "emotion" : selectedEmotion, "feedback" : feedbackTextField.text!, "user_id" : UserDefaults.standard.string(forKey: "uid")]) { (err) in
+                if err == nil {
+                    print("Success")
+                }
+            }
+            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+            self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+            self.dismiss(animated: true, completion: nil)
+            
+        }
     }
     /*
     // MARK: - Navigation
