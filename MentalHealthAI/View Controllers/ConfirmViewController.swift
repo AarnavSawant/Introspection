@@ -14,8 +14,12 @@ import Firebase
 import Foundation
 import FirebaseFirestore
 class ConfirmViewController: UIViewController {
+    var lastClass: String?
+    @IBOutlet weak var discardButton: UIButton!
     @IBOutlet weak var mainImageView: UIImageView!
+    @IBOutlet weak var transcribedTextView: UIView!
     var dictionary =  [String : [String : Any]]()
+    var day_of_the_week_dict: [String : [String : Int]]?
     var predictedClass = String()
     var gifs = [Gif]()
     var returnString:String?
@@ -23,7 +27,7 @@ class ConfirmViewController: UIViewController {
     let emailAddress = UserDefaults.standard.string(forKey: "emailAddress")
     public var text: String?
     @IBOutlet weak var emotionLabel: UILabel!
-    @IBOutlet weak var RedoButton: UIButton!
+//    @IBOutlet weak var RedoButton: UIButton!
     @IBOutlet weak var GetResultsButton: UIButton!
     @IBOutlet weak var TranscribedText: UITextView!
     let questionViewController = QuestionViewController()
@@ -119,24 +123,53 @@ class ConfirmViewController: UIViewController {
             return pad_sequences(arr: sequenceArray)
     }
     override func viewDidLoad() {
+        let navView = UIView()
+////            mainImageView.backgroundColor = .white
+////
+////           mainImageView.layer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor
+              let label = UILabel()
+              label.text = "introspection"
+              label.sizeToFit()
+              label.center = navView.frame.origin
+
+              let image = UIImageView()
+              image.image = UIImage(named: "Infinity")
+              label.frame.size.width = 150
+              label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+              label.font = UIFont(name: "SFProDisplay-Heavy", size: 18)
+
+              image.frame = CGRect(x: navView.center.x, y: navView.center.y - 20, width: 22.73, height: 11.04)
+              view.backgroundColor = .white
+              image.contentMode = UIView.ContentMode.scaleAspectFit
+
+              navView.addSubview(label)
+              navView.addSubview(image)
+
+              self.navigationItem.titleView = navView
+        self.navigationItem.titleView?.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+        self.view.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+//
+//              navView.sizeToFit()
 //        var view = UILabel()
 //        view.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         GetResultsButton.backgroundColor = .white
 //        var view = UILabel()
 //        view.frame = CGRect(x: 0, y: 0, width: 63, height: 63)
-        RedoButton.backgroundColor = .white
 
-        RedoButton.alpha = 0.2
-        RedoButton.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
         
-        TranscribedText.alpha = 0.05
+        transcribedTextView.alpha = 0.05
 //        TranscribedText.layer.backgroundColor?.copy(alpha: 0.05)
-        TranscribedText.backgroundColor = .white
-        TranscribedText.layer.backgroundColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1).cgColor
+        TranscribedText.backgroundColor = .none
+        transcribedTextView.layer.backgroundColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1).cgColor
+        transcribedTextView.layer.cornerRadius = 10
         TranscribedText.layer.cornerRadius = 10
+        TranscribedText.alpha = 0.6
         TranscribedText.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        TranscribedText.textColor?.withAlphaComponent(0.6)
+//        let discardImage = UIImage(named: "Discard")
+//        discardButton.setImage(discardImage, for: .normal)
 
+        discardButton.alpha = 0.2
+        discardButton.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 //        var parent = self.view!
 //        parent.addSubview(view)
 //        view.translatesAutoresizingMaskIntoConstraints = false
@@ -150,7 +183,7 @@ class ConfirmViewController: UIViewController {
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.TranscribedText.text = navbar.text!
 //        })
-        RedoButton.layer.cornerRadius = 0.5 * RedoButton.bounds.size.width
+        discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
         let dictionary = readJSONFromFile(filename: "august_9_final")
@@ -185,22 +218,28 @@ class ConfirmViewController: UIViewController {
             }
         }
         if (predictedClass == "joy") {
+            mainImageView.image = UIImage(named: "JoyResults")
             emotionLabel.text = "You seem to be very happy!"
         } else if (predictedClass == "sadness") {
+            mainImageView.image = UIImage(named: "SadnessResults")
             emotionLabel.text = "You seem to be sad today."
         } else  if (predictedClass == "fear") {
+            mainImageView.image = UIImage(named: "FearResults")
              emotionLabel.text = "You seem to be feeling scared."
         } else if (predictedClass == "anger"){
+            mainImageView.image = UIImage(named: "AngerResults")
             emotionLabel.text = "You seem to be angry."
         } else {
+            mainImageView.image = UIImage(named: "NeutralResults")
             emotionLabel.text = "I am failing to detect any emotion. You seem to have had a okay day."
         }
         // Do any additional setup after loading the view.
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is PopUpViewController {
-            let vc = segue.destination as? PopUpViewController
-            vc?.inputText = TranscribedText.text
+        if segue.destination is UINavigationController{
+            let vc = segue.destination as? UINavigationController
+//            vc?.inputText = TranscribedText.text
+            vc?.modalPresentationStyle = .fullScreen
         }
     }
     @IBAction func didPressResults(_ sender: Any)  {
@@ -210,15 +249,17 @@ class ConfirmViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy MM dd"
         let db = Firestore.firestore()
         let calendar = Calendar.current
-        let testdate = dateFormatter.date(from: "2020 08 31")!
+        let testdate = dateFormatter.date(from: "2020 08 14")!
         let current_year = calendar.component(.year, from: testdate)
         let current_month = calendar.component(.month, from: testdate)
         let current_day = calendar.component(.day, from: testdate)
         let formatter = DateFormatter()
         let timestamp = testdate.timeIntervalSince1970 as! Double
        formatter.dateFormat = "yyyy MM dd"
+        let day_of_week_formatter = DateFormatter()
+        day_of_week_formatter.dateFormat = "EEEE"
         print(email)
-//        let dayOfTheWeekString = day_of_week_formatter.string(from: testdate)
+        let dayOfTheWeekString = day_of_week_formatter.string(from: testdate)
         let lastEmotion = predictedClass
         print("Last Emotion", lastEmotion)
         let uid = UserDefaults.standard.string(forKey: "uid")
@@ -232,7 +273,7 @@ class ConfirmViewController: UIViewController {
                         term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
                         searchGifs(for: term!)
                 } else if lastEmotion == "anger" {
-                        let sadGifs = ["NorthernLights", "Glaciers", "Forrests", "GrandCanyon"]
+                        let sadGifs = ["Galaxy", "Glaciers", "Garfield", "Scenery"]
                         term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
                         searchGifs(for: term!)
                 } else if lastEmotion == "fear" {
@@ -240,12 +281,29 @@ class ConfirmViewController: UIViewController {
                     term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
                     searchGifs(for: term!)
                 } else if lastEmotion == "neutral" {
-                    let sadGifs = ["Geysers", "roadrunner", "waterfall", "madagascar"]
+                    let sadGifs = ["Koalas", "looneytunes", "waterfall", "madagascar"]
                     term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
                     searchGifs(for:  term!)
                 }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             let gifURL = self.returnString!
+                db.collection("users").document(uid!).getDocument { (querrySnapshot, err) in
+                    if err != nil {
+                        print("ERROR RECEIVING QUERY FOR DAY OF THE WEEKS")
+                    } else {
+                        let data = querrySnapshot?.data()
+                        if data!["day_of_the_week_dict"] != nil {
+                            self.day_of_the_week_dict = data!["day_of_the_week_dict"] as! [String : [String : Int]]
+                        }
+                        self.lastClass = data!["last class"] as? String
+                        var dayOfTheWeekService = DayOfTheWeekWriter(oldDictionary: self.day_of_the_week_dict, dayOfTheWeekString: dayOfTheWeekString, timestamp: timestamp, date: testdate, previousClass: self.lastClass , predictionClass: self.predictedClass)
+                        self.day_of_the_week_dict = dayOfTheWeekService.getNewDayOfTheWeekDictionary()
+                        print("REAL MADRID", self.day_of_the_week_dict)
+                        
+                         db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp, "day_of_the_week_dict" : self.day_of_the_week_dict])
+
+                    }
+                }
             db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").getDocument { (querySnapshot, err) in
                     if err != nil {
                         print("ERROR ERROR ERROR")
@@ -253,8 +311,8 @@ class ConfirmViewController: UIViewController {
                         let data = querySnapshot?.data()
                         if data != nil {
                             self.dictionary = (data!["user_sentiment"] as? [String : [String : Any]])!
-                            print("FUCKKKKKK", data!["user_sentiment"]!)
-                            print("dIcTiOnArY", self.dictionary)
+//                            print("FUCKKKKKK", data!["user_sentiment"]!)
+//                            print("dIcTiOnArY", self.dictionary)
                         }
                         var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: testdate)
                         components.hour = 0
@@ -265,20 +323,21 @@ class ConfirmViewController: UIViewController {
                         self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
                         print("Dictionary2", self.dictionary)
                             db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
-                        db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp])
+                        print("DAY OF THE WEEK", self.day_of_the_week_dict)
+
+//                        db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp, "day_of_the_week_dict" : ["Monday" : ["joy" : 1]]])
                     }
                 }
                 self.dismiss(animated: true, completion: nil)
-                let tabBarController = self.presentingViewController as? MainTabBarController
+                self.presentingViewController?.dismiss(animated: true, completion: nil)
+                let tabBarController = self.presentingViewController?.presentingViewController as? MainTabBarController
                 tabBarController!.selectedIndex = 4
             }
 
             Analytics.logEvent("press_save_button", parameters: ["emotion" : predictedClass])
         }
-@IBAction func didPressRedo(_ sender: Any) {
-//        self.dismiss(animated: true, completion: {
-//            self.presentingViewController?.dismiss(animated: true, completion: nil)
-//        })
+
+    @IBAction func didClickDiscardButton(_ sender: Any) {
     }
     
     func searchGifs(for searchText: String){
@@ -298,6 +357,7 @@ class ConfirmViewController: UIViewController {
                 }
             }
         }
+    
 }
 
 

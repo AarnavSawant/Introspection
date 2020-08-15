@@ -13,7 +13,7 @@ import CoreML
 import Firebase
 import FirebaseFirestore
 class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
-    @IBOutlet weak var scrollTextView: StarWarsTextView!
+//    @IBOutlet weak var scrollTextView: StarWarsTextView!
     var shouldContinue: Bool?
      var isStillRunning:Bool?
     @IBOutlet weak var howWasYourDayLabel: UILabel!
@@ -40,11 +40,12 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     var number: Int?
     override func viewDidLoad() {
-        scrollTextView.crawlingSpeed = 20.0
-        scrollTextView.text = ""
+        self.navigationItem.titleView?.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+//        scrollTextView.crawlingSpeed = 20.0
+//        scrollTextView.text = ""
 //        scrollTextView.xAngle = 1
-        scrollTextView.inclinationRatio = 3.0
-        scrollTextView.font = UIFont(name: "Helvetica", size: 24)
+//        scrollTextView.inclinationRatio = 3.0
+//        scrollTextView.font = UIFont(name: "Helvetica", size: 24)
         print("SIGNED IN QUESTION", UserDefaults.standard.bool(forKey: "signed_in"))
         print("UID", UserDefaults.standard.string(forKey: "uid"))
 //        print(UserDefaults.standard.object(forKey: "emailAddress"))
@@ -92,7 +93,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
 
         navView.sizeToFit()
 
-        scrollTextView.isHidden = true
+//        scrollTextView.isHidden = true
         tapToRecordButton.textAlignment = .center
         tapToRecordButton.attributedText = NSMutableAttributedString(string: "Tap to answer", attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
         mainImageView.frame = CGRect(x: 0, y: 0, width: 271.86, height: 182.67)
@@ -343,29 +344,65 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         destinationVC.modalPresentationStyle = .fullScreen
 //        self.TranscribedText.text = "Thank you for Introspecting!"
     }
-//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-//        if identifier == "confirm" {
-//            let words = scrollTextView.text!.components(separatedBy: " ").count
-//            print(TranscribedText.text!.count)
-//                       if words > 8 {
-//                           audioEngine.stop()
-//                           recognitionRequest?.endAudio()
-//                           SpeakButton.isEnabled = true
-//                           SpeakButton.setTitle("Start", for: .normal)
-//                            return true
-//                       } else {
-//                           audioEngine.stop()
-//                           recognitionRequest?.endAudio()
-//                           SpeakButton.isEnabled = true
-//                           print("Yay")
-//                           SpeakButton.setTitle("Start", for: .normal)
-//                           TranscribedText.text = "Tell me a bit more about your day!"
-//                       }
-//        }
-//            return false
-//    }
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "recording" {
+            SFSpeechRecognizer.requestAuthorization {
+                                (auth_status) in
+                                switch auth_status {
+                                case .authorized:
+                                    print("Hello")
+                                    self.shouldContinue = true
+                                    print(self.shouldContinue)
+                                case .denied:
+                                    self.shouldContinue = false
+                                    print("User denied permission to use microphone")
+                                case .notDetermined:
+                                    self.shouldContinue = false
+                                    print("Speech Recognition not yet authorized")
+                                case .restricted:
+                                    self.shouldContinue = false
+                                    print("Speech Recognition is restricted")
+                                @unknown default:
+                                    self.shouldContinue = false
+                                    print("Unknown Error")
+                                }
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                print(self.shouldContinue)
+                                if self.shouldContinue! {
+//                                    self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.changeTimerNumber), userInfo: nil, repeats: true)
+//                                print(self.timer)
+//                                    Analytics.logEvent("press_record_button", parameters: nil)
+//                                            print("hello")
+                                    self.performSegue(withIdentifier: "recording", sender: self)
+//                                self.isStillRunning = true
+            //                        self.SpeakButton.layer.cornerRadius = 0.5 * self.SpeakButton.frame.width
+//                                self.startRecording()
+            //                    self.stopButton.isHidden = false
+            //                    self.stopButton.isEnabled = true
+            //                    self.SpeakButton.isHidden = true
+            //                        self.SpeakButton.isEnabled = false
+                                } else {
+                                    let alertController = UIAlertController(title: "Speech Recognition Required", message: "Please enable speech recognition in settings.", preferredStyle: UIAlertController.Style.alert)
+
+                                    let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                                        //Redirect to Settings app
+                                        UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+                                    })
+
+                                    let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
+                                    alertController.addAction(cancelAction)
+
+                                    alertController.addAction(okAction)
+
+                                    self.present(alertController, animated: true, completion: nil)
+                                }
+                            }
+        }
+            return false
+    }
     @IBAction func didClickStopButton(_ sender: Any) {
-        scrollTextView.stopCrawlingAnimation()
+//        scrollTextView.stopCrawlingAnimation()
         number = 0
         timer!.invalidate()
         tapToRecordButton.text = "Tap to Record"

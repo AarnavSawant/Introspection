@@ -15,7 +15,7 @@ import FirebaseFirestore
 class WeeklyViewController: UIViewController {
     var dictionary: [String : [String : Any]]?
     @IBOutlet weak var captionLabel: UILabel!
-    let email = UserDefaults.standard.string(forKey: "emailAddress")
+//    let email = UserDefaults.standard.string(forKey: "emailAddress")
     @IBOutlet weak var pieView: PieChartView!
     var date_to_sentiment_dict = [Date : String] ()
     override func viewDidLoad() {
@@ -51,28 +51,28 @@ class WeeklyViewController: UIViewController {
         var emotionCount = [String : Int]()
         if todaycomponents.month != components.month {
             db.collection("users").document(uid!).collection("\(components.year!)").document ("\(components.month!)").getDocument { (querySnapshot, err) in
-                if err != nil {
-                    print("Error retrieving querries")
-                } else  if querySnapshot != nil {
-                    //                for document in querySnapshot.documents {
-                    let data = querySnapshot!.data()
-                    if data != nil {
-                        self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
-                    }
-                    //                    print
-                    if self.dictionary != nil {
-                        for key in self.dictionary!.keys {
-                            print(key)
-                            if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970{
-                                if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
-                                    emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
-                                } else {
-                                    emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
+                    if err != nil {
+                        print("Error retrieving querries")
+                    } else  if querySnapshot != nil {
+                        //                for document in querySnapshot.documents {
+                        let data = querySnapshot!.data()
+                        if data != nil {
+                            self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
+                        }
+                        //                    print
+                        if self.dictionary != nil {
+                            for key in self.dictionary!.keys {
+                                print(key)
+                                if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970{
+                                    if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
+                                        emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
+                                    } else {
+                                        emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
+                                    }
                                 }
                             }
-                        }
+                    }
                 }
-            }
             }
             db.collection("users").document(uid!).collection("\(components.year!)").document ("\(components.month!)").getDocument { (querySnapshot, err) in
                 if err != nil {
@@ -103,7 +103,7 @@ class WeeklyViewController: UIViewController {
                         //                        emotionCount[emotion] = 1
                         //                    }
                         //                }
-                        self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
+//                        self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
                         let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
                         let maxEmotionValue = emotionCount.values.max()
                         var maxEmotionKeys = [String]()
@@ -150,45 +150,18 @@ class WeeklyViewController: UIViewController {
                                 }
                             }
                         }
-                        //                print("CheeseHead", emotionList)
-                        //                for emotion in emotionList {
-                        //                    if emotionCount[emotion] != nil {
-                        //                        emotionCount[emotion] = emotionCount[emotion]! + 1
-                        //                    } else {
-                        //                        emotionCount[emotion] = 1
-                        //                    }
-                        //                }
-                        self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
-                        let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
-                        let maxEmotionValue = emotionCount.values.max()
-                        var maxEmotionKeys = [String]()
-                        if maxEmotionValue != 0 {
-                            for key in emotionCount.keys {
-                                if emotionCount[key] == maxEmotionValue {
-                                    maxEmotionKeys.append(key)
-                                }
-                            }
-                            //                print("Emotion CemotionCount)
-                            print("Max Emotion Keys", maxEmotionKeys)
-                            if maxEmotionKeys.count > 2 {
-                                self.captionLabel.text = "This week, you have been feeling mix of emotions."
-                            } else if maxEmotionKeys.count == 2 {
-                                self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!) and \(grammarDict[maxEmotionKeys[1]]!) "
-                            } else {
-                                self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
-                            }
-                        } else {
-                            self.captionLabel.text = ""
-                        }
+                        print(emotionCount)
                     }
                 }
             }
             
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            print(emotionCount)
             self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
             let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
             let maxEmotionValue = emotionCount.values.max()
+            print("MAX VALUE", maxEmotionValue)
             var maxEmotionKeys = [String]()
             if maxEmotionValue != 0 {
                 for key in emotionCount.keys {

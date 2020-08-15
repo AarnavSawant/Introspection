@@ -11,75 +11,90 @@ import Charts
 import Firebase
 import FirebaseFirestore
 class BreakdownViewController: UIViewController {
+    var currentDayDictionary: [String : Int]?
+    var totalDictionary: [String : [String : Int]]?
     @IBOutlet weak var noDataLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
-    let email = UserDefaults.standard.string(forKey: "emailAddress")
+//    let email = UserDefaults.standard.string(forKey: "emailAddress")
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     @IBOutlet weak var pieChartView: PieChartView!
     override func viewDidLoad() {
+        segmentedControl.isEnabled = false
         noDataLabel.isHidden = false
         super.viewDidLoad()
-
+        getTotalDictionaryFromFirebase { (err, dict) in
+            if err == nil {
+                self.segmentedControl.isEnabled = true
+                self.totalDictionary = dict
+                if self.totalDictionary != nil {
+                    if self.totalDictionary!.keys.contains("Monday") {
+                        self.currentDayDictionary = self.totalDictionary!["Monday"]
+                        for emotion in ["joy", "sadness", "anger", "fear", "neutral"] {
+                            if !(self.currentDayDictionary?.keys.contains(emotion))! {
+                                self.currentDayDictionary![emotion] = 0
+                            }
+                        }
+                        self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [self.currentDayDictionary!["joy"] ?? 0, self.currentDayDictionary!["sadness"] ?? 0, self.currentDayDictionary!["neutral"] ?? 0, self.currentDayDictionary!["anger"]  ?? 0, self.currentDayDictionary!["fear"] ?? 0], day: "Monday")
+                    }
+                }
+            }
+        }
         // Do any additional setup after loading the view.
+    }
+    
+    func getTotalDictionaryFromFirebase(dictionaryCompletionHandler: @escaping (Error?, [String : [String : Int]]?) -> Void){
+        let db = Firestore.firestore()
+        var returnDict: [String : [String : Int]]?
+        let uid = UserDefaults.standard.string(forKey: "uid")
+        db.collection("users").document(uid!).getDocument { (querySnapshot, err) in
+            if err != nil {
+                print("ERROR LOADINg BREAKDOWN QUERY")
+            }
+            if querySnapshot?["day_of_the_week_dict"] != nil {
+                returnDict = querySnapshot!["day_of_the_week_dict"] as! [String : [String : Int]]
+            }
+
+            print("RD", returnDict)
+            dictionaryCompletionHandler(nil, returnDict)
+        }
     }
     
     @IBAction func didChangeValue(_ sender: UISegmentedControl) {
         let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         let index = sender.selectedSegmentIndex
         let day = days[index]
-        let db = Firestore.firestore()
-        var emotionList = [String] ()
-        let uid = UserDefaults.standard.string(forKey: "uid")
-        db.collection("users").document(uid!).collection("user_sentiment").whereField("day_of_the_week", isEqualTo: day).getDocuments { (querySnapshot, error) in
-            if error != nil {
-                print("Error retrieving querries")
-            } else {
-                for document in querySnapshot!.documents {
-                    let data = document.data()
-
-                    let emotion = data["emotion"] as! String
-                    print(emotion)
-                    emotionList.append(emotion)
-                    print(emotionList)
-                }
-                var emotionCount = ["joy" : 0, "sadness" : 0, "neutral" : 0, "anger" : 0, "fear" : 0]
-                print("CheeseHead", emotionList)
-                for emotion in emotionList {
-                    emotionCount[emotion] = emotionCount[emotion]! + 1
-                }
-                self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0], day: day)
-                let maxEmotionValue = emotionCount.values.max()
-                var maxEmotionKeys = [String]()
-                if maxEmotionValue != 0 {
-                for key in emotionCount.keys {
-                    if emotionCount[key] == maxEmotionValue {
-                        maxEmotionKeys.append(key)
+        if totalDictionary != nil {
+            if (totalDictionary!.keys.contains(day)) {
+                self.currentDayDictionary = totalDictionary![day]
+                for emotion in ["joy", "sadness", "anger", "fear", "neutral"] {
+                    if !(self.currentDayDictionary?.keys.contains(emotion))! {
+                        currentDayDictionary![emotion] = 0
                     }
                 }
-                self.noDataLabel.isHidden = true
-                if maxEmotionKeys.count > 2 {
-                     self.captionLabel.text = "On \(day)s, you have mixed emotions."
-                } else if maxEmotionKeys.count == 2 {
-                    self.captionLabel.text = "On \(day)s, you typically seem to be \(maxEmotionKeys[0]) and \(maxEmotionKeys[1]) "
-                } else {
-                    self.captionLabel.text = "On \(day)s, you typically seem to be \(maxEmotionKeys[0])"
-                }
-                } else {
-                    self.captionLabel.text = ""
-                }
+                self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [currentDayDictionary!["joy"] ?? 0, currentDayDictionary!["sadness"] ?? 0, currentDayDictionary!["neutral"] ?? 0, currentDayDictionary!["anger"]  ?? 0, currentDayDictionary!["fear"] ?? 0], day: day)
+            } else {
+                noDataLabel.isHidden = false
+                pieChartView.isHidden = true
+                captionLabel.isHidden = true
+                
             }
-    
         }
+    
+    }
                 
         
-    }
     
     func setCharts(emotionLabels :[String], emotionCount: [Int], day: String) {
         var dataEntries: [ChartDataEntry] = []
         var colorList = [UIColor]()
+        var maxEmotions =  [String]()
+        let maxCount =  emotionCount.max()
         for i in 0...emotionLabels.count - 1 {
             print(emotionCount[i])
+            if emotionCount[i] == maxCount {
+                maxEmotions.append(emotionLabels[i])
+            }
             let dataEntry = PieChartDataEntry()
             if emotionCount[i] != 0 {
                 dataEntry.y = Double(emotionCount[i])
@@ -98,7 +113,15 @@ class BreakdownViewController: UIViewController {
                 dataEntries.append(dataEntry)
             }
         }
-//        print(dataEntries[1].data)
+        let grammarDict =  ["joy" : "happy", "sadness" : "sad", "anger" : "angry", "fear" : "scared", "neutral" : "normal"]
+        if maxEmotions.count == 2 {
+            captionLabel.text = "On \(day)s, you typically seem to be \(grammarDict[maxEmotions[0]]!) and \(grammarDict[maxEmotions[1]]!)"
+        } else if maxEmotions.count == 1 {
+            captionLabel.text = "On \(day)s, you typically seem to be \(grammarDict[maxEmotions[0]]!)"
+        } else {
+            captionLabel.text = "On \(day)s, you typically seem to have a mix of emotions"
+        }
+        print(dataEntries)
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "Number of \(day)s")
         let noZeroFormatter = NumberFormatter()
         noZeroFormatter.zeroSymbol = ""
@@ -106,6 +129,10 @@ class BreakdownViewController: UIViewController {
         pieChartDataSet.colors = colorList
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         pieChartView.data = pieChartData
+        
+        pieChartView.isHidden = false
+        noDataLabel.isHidden = true
+        captionLabel.isHidden = false
         
     }
     /*

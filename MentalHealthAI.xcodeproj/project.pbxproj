@@ -30,6 +30,8 @@
 		84571F4124D5643B004AE9A3 /* GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F4024D5643B004AE9A3 /* GIF.swift */; };
 		84571F4524D6821B004AE9A3 /* july_31_v2.json in Resources */ = {isa = PBXBuildFile; fileRef = 84571F4424D6821B004AE9A3 /* july_31_v2.json */; };
 		845E267F24BDB6CB00615B4B /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E267E24BDB6CB00615B4B /* DayCell.swift */; };
+		8478E2EB24E68C0700BE81C3 /* DayOfTheWeekService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478E2EA24E68C0700BE81C3 /* DayOfTheWeekService.swift */; };
+		8478E2F824E74C2900BE81C3 /* IntrospectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478E2F724E74C2900BE81C3 /* IntrospectionTests.swift */; };
 		847D870624C2D87F000254D9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870524C2D87F000254D9 /* SignUpViewController.swift */; };
 		847D870C24C2DA12000254D9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870B24C2DA12000254D9 /* SignInViewController.swift */; };
 		847D870E24C2DBAC000254D9 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870D24C2DBAC000254D9 /* FirstViewController.swift */; };
@@ -43,8 +45,6 @@
 		8498B21E24ADD0F10083E8A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8498B21C24ADD0F10083E8A7 /* Main.storyboard */; };
 		8498B22024ADD0F60083E8A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8498B21F24ADD0F60083E8A7 /* Assets.xcassets */; };
 		8498B22324ADD0F60083E8A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8498B22124ADD0F60083E8A7 /* LaunchScreen.storyboard */; };
-		8498B22E24ADD0F60083E8A7 /* MentalHealthAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B22D24ADD0F60083E8A7 /* MentalHealthAITests.swift */; };
-		8498B23924ADD0F60083E8A7 /* MentalHealthAIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B23824ADD0F60083E8A7 /* MentalHealthAIUITests.swift */; };
 		84CC1E1124E13A22004C4D25 /* EmotionGRUModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84CC1E1024E13A22004C4D25 /* EmotionGRUModel.mlmodel */; };
 		84CC1E1324E13A28004C4D25 /* august_9_final.json in Resources */ = {isa = PBXBuildFile; fileRef = 84CC1E1224E13A28004C4D25 /* august_9_final.json */; };
 		84EF337D24DFF27200C4A06B /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84EF337C24DFF27200C4A06B /* SF-Pro.ttf */; };
@@ -56,6 +56,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8478E2FA24E74C2900BE81C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8498B20B24ADD0F10083E8A7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8498B21224ADD0F10083E8A7;
+			remoteInfo = MentalHealthAI;
+		};
 		8498B22A24ADD0F60083E8A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8498B20B24ADD0F10083E8A7 /* Project object */;
@@ -102,6 +109,10 @@
 		84571F4024D5643B004AE9A3 /* GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIF.swift; sourceTree = "<group>"; };
 		84571F4424D6821B004AE9A3 /* july_31_v2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_31_v2.json; sourceTree = "<group>"; };
 		845E267E24BDB6CB00615B4B /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
+		8478E2EA24E68C0700BE81C3 /* DayOfTheWeekService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekService.swift; sourceTree = "<group>"; };
+		8478E2F524E74C2900BE81C3 /* IntrospectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntrospectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8478E2F724E74C2900BE81C3 /* IntrospectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionTests.swift; sourceTree = "<group>"; };
+		8478E2F924E74C2900BE81C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		847D870524C2D87F000254D9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		847D870B24C2DA12000254D9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		847D870D24C2DBAC000254D9 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +120,8 @@
 		848A38F724C6D62800769850 /* AnalyticsHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsHomeViewController.swift; sourceTree = "<group>"; };
 		848A38F924C6D7F500769850 /* WeeklyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyViewController.swift; sourceTree = "<group>"; };
 		848A38FD24CD487F00769850 /* july_24_v4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_24_v4.json; sourceTree = "<group>"; };
+		8490F36124E6608500EB21BD /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		8490F36224E6609F00EB21BD /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		8493FC0624E20FE9005D5261 /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
 		8498B21324ADD0F10083E8A7 /* MentalHealthAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MentalHealthAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8498B21624ADD0F10083E8A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,11 +132,7 @@
 		8498B22224ADD0F60083E8A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8498B22424ADD0F60083E8A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8498B22924ADD0F60083E8A7 /* MentalHealthAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MentalHealthAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8498B22D24ADD0F60083E8A7 /* MentalHealthAITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentalHealthAITests.swift; sourceTree = "<group>"; };
-		8498B22F24ADD0F60083E8A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8498B23424ADD0F60083E8A7 /* MentalHealthAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MentalHealthAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8498B23824ADD0F60083E8A7 /* MentalHealthAIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentalHealthAIUITests.swift; sourceTree = "<group>"; };
-		8498B23A24ADD0F60083E8A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84BCEFC024E4AA3900570B94 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
 		84CC1E1024E13A22004C4D25 /* EmotionGRUModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionGRUModel.mlmodel; sourceTree = "<group>"; };
 		84CC1E1224E13A28004C4D25 /* august_9_final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = august_9_final.json; sourceTree = "<group>"; };
@@ -137,6 +146,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8478E2F224E74C2900BE81C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8498B21024ADD0F10083E8A7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -192,8 +208,18 @@
 			children = (
 				84571F3E24D55FED004AE9A3 /* GifNetwork.swift */,
 				84571F4024D5643B004AE9A3 /* GIF.swift */,
+				8478E2EA24E68C0700BE81C3 /* DayOfTheWeekService.swift */,
 			);
 			path = "Swift Files";
+			sourceTree = "<group>";
+		};
+		8478E2F624E74C2900BE81C3 /* IntrospectionTests */ = {
+			isa = PBXGroup;
+			children = (
+				8478E2F724E74C2900BE81C3 /* IntrospectionTests.swift */,
+				8478E2F924E74C2900BE81C3 /* Info.plist */,
+			);
+			path = IntrospectionTests;
 			sourceTree = "<group>";
 		};
 		847D870024C2CF63000254D9 /* View Controllers */ = {
@@ -246,7 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				8498B21524ADD0F10083E8A7 /* MentalHealthAI */,
-				8498B23724ADD0F60083E8A7 /* MentalHealthAIUITests */,
+				8478E2F624E74C2900BE81C3 /* IntrospectionTests */,
 				8498B21424ADD0F10083E8A7 /* Products */,
 				5508B3BB9E4E8AAF105D0C3C /* Pods */,
 				361E08CF63700386D28EB607 /* Frameworks */,
@@ -259,6 +285,7 @@
 				8498B21324ADD0F10083E8A7 /* MentalHealthAI.app */,
 				8498B22924ADD0F60083E8A7 /* MentalHealthAITests.xctest */,
 				8498B23424ADD0F60083E8A7 /* MentalHealthAIUITests.xctest */,
+				8478E2F524E74C2900BE81C3 /* IntrospectionTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -283,29 +310,10 @@
 				845E267E24BDB6CB00615B4B /* DayCell.swift */,
 				8498B22124ADD0F60083E8A7 /* LaunchScreen.storyboard */,
 				8498B22424ADD0F60083E8A7 /* Info.plist */,
-				8498B22C24ADD0F60083E8A7 /* MentalHealthAITests */,
 				84571F2D24D16721004AE9A3 /* Contants.swift */,
 				842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */,
 			);
 			path = MentalHealthAI;
-			sourceTree = "<group>";
-		};
-		8498B22C24ADD0F60083E8A7 /* MentalHealthAITests */ = {
-			isa = PBXGroup;
-			children = (
-				8498B22D24ADD0F60083E8A7 /* MentalHealthAITests.swift */,
-				8498B22F24ADD0F60083E8A7 /* Info.plist */,
-			);
-			path = MentalHealthAITests;
-			sourceTree = "<group>";
-		};
-		8498B23724ADD0F60083E8A7 /* MentalHealthAIUITests */ = {
-			isa = PBXGroup;
-			children = (
-				8498B23824ADD0F60083E8A7 /* MentalHealthAIUITests.swift */,
-				8498B23A24ADD0F60083E8A7 /* Info.plist */,
-			);
-			path = MentalHealthAIUITests;
 			sourceTree = "<group>";
 		};
 		84EF337A24DAAF3100C4A06B /* Resources */ = {
@@ -318,6 +326,8 @@
 		84EF337B24DFF13E00C4A06B /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				8490F36224E6609F00EB21BD /* SF-Pro-Display-Bold.otf */,
+				8490F36124E6608500EB21BD /* SF-Pro-Text-Regular.otf */,
 				8488536B24E4FB2F006B8DA9 /* SF-Pro-Text-Medium.otf */,
 				84BCEFC024E4AA3900570B94 /* SF-Pro-Display-Light.otf */,
 				84EF337F24DFF53700C4A06B /* SF-Pro-Display-Semibold.otf */,
@@ -330,6 +340,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8478E2F424E74C2900BE81C3 /* IntrospectionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8478E2FC24E74C2900BE81C3 /* Build configuration list for PBXNativeTarget "IntrospectionTests" */;
+			buildPhases = (
+				8478E2F124E74C2900BE81C3 /* Sources */,
+				8478E2F224E74C2900BE81C3 /* Frameworks */,
+				8478E2F324E74C2900BE81C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8478E2FB24E74C2900BE81C3 /* PBXTargetDependency */,
+			);
+			name = IntrospectionTests;
+			productName = IntrospectionTests;
+			productReference = 8478E2F524E74C2900BE81C3 /* IntrospectionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8498B21224ADD0F10083E8A7 /* MentalHealthAI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8498B23D24ADD0F60083E8A7 /* Build configuration list for PBXNativeTarget "MentalHealthAI" */;
@@ -396,10 +424,14 @@
 		8498B20B24ADD0F10083E8A7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1160;
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Sawant,Inc.";
 				TargetAttributes = {
+					8478E2F424E74C2900BE81C3 = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = 8498B21224ADD0F10083E8A7;
+					};
 					8498B21224ADD0F10083E8A7 = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -429,11 +461,19 @@
 				8498B21224ADD0F10083E8A7 /* MentalHealthAI */,
 				8498B22824ADD0F60083E8A7 /* MentalHealthAITests */,
 				8498B23324ADD0F60083E8A7 /* MentalHealthAIUITests */,
+				8478E2F424E74C2900BE81C3 /* IntrospectionTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8478E2F324E74C2900BE81C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8498B21124ADD0F10083E8A7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -607,6 +647,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8478E2F124E74C2900BE81C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8478E2F824E74C2900BE81C3 /* IntrospectionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8498B20F24ADD0F10083E8A7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -638,6 +686,7 @@
 				842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */,
 				842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */,
 				84571F4124D5643B004AE9A3 /* GIF.swift in Sources */,
+				8478E2EB24E68C0700BE81C3 /* DayOfTheWeekService.swift in Sources */,
 				848A38FA24C6D7F500769850 /* WeeklyViewController.swift in Sources */,
 				847D870E24C2DBAC000254D9 /* FirstViewController.swift in Sources */,
 			);
@@ -647,7 +696,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8498B22E24ADD0F60083E8A7 /* MentalHealthAITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,13 +703,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8498B23924ADD0F60083E8A7 /* MentalHealthAIUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8478E2FB24E74C2900BE81C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8498B21224ADD0F10083E8A7 /* MentalHealthAI */;
+			targetProxy = 8478E2FA24E74C2900BE81C3 /* PBXContainerItemProxy */;
+		};
 		8498B22B24ADD0F60083E8A7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8498B21224ADD0F10083E8A7 /* MentalHealthAI */;
@@ -694,6 +746,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8478E2FD24E74C2900BE81C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = IntrospectionTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.IntrospectionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MentalHealthAI.app/MentalHealthAI";
+			};
+			name = Debug;
+		};
+		8478E2FE24E74C2900BE81C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = IntrospectionTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.IntrospectionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MentalHealthAI.app/MentalHealthAI";
+			};
+			name = Release;
+		};
 		8498B23B24ADD0F60083E8A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -937,6 +1029,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8478E2FC24E74C2900BE81C3 /* Build configuration list for PBXNativeTarget "IntrospectionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8478E2FD24E74C2900BE81C3 /* Debug */,
+				8478E2FE24E74C2900BE81C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8498B20E24ADD0F10083E8A7 /* Build configuration list for PBXProject "MentalHealthAI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

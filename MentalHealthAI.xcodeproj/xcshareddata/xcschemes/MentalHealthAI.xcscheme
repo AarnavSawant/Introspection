@@ -48,6 +48,16 @@
                ReferencedContainer = "container:MentalHealthAI.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8478E2F424E74C2900BE81C3"
+               BuildableName = "IntrospectionTests.xctest"
+               BlueprintName = "IntrospectionTests"
+               ReferencedContainer = "container:MentalHealthAI.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

@@ -58,18 +58,23 @@ class GIPHYViewController: UIViewController {
                 } else if (querySelector != nil) {
                     print("REAL MADRID")
                     let data = querySelector?.data()
-                    if data != nil {
+                    if data!["last_gif_url"] != nil {
                         maxURL = data!["last_gif_url"] as! String
+                    }
+                    if data!["last_gif_term"] != nil {
                         maxTerm = data!["last_gif_term"] as! String
+                    }
+                    if data!["last class"] != nil {
                         maxEmotion = data!["last class"] as! String
+                    }
+                    if data!["timestamp"] != nil {
                         maxTimestamp = data!["timestamp"] as! Double
-                        print("Max Term Inside Completion", maxTerm)
+                    }
                     }
                     //                cell.gifURL = url as! String
                 }
-            }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
         print("Max Term", maxTerm)
 //        if maxTimestamp != 0.0 {
             let lastDate = Date.init(timeIntervalSince1970: maxTimestamp)
