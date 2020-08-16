@@ -11,6 +11,7 @@ import Firebase
 import FirebaseFirestore
 import SwiftGifOrigin
 class GIPHYViewController: UIViewController {
+    var dictionary: [String : [String : Any]]?
     var gifShareURL: String?
     @IBOutlet weak var cheerLabel: UILabel!
     @IBOutlet weak var calendarButton: UIButton!
@@ -23,12 +24,45 @@ class GIPHYViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+    
         // Do any additional setup after loading the view.
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        let db = Firestore.firestore()
+        let uid = UserDefaults.standard.string(forKey: "uid")
+        let cal = Calendar.current
+        let current_year = cal.component(.year, from: Date())
+        let should_query = UserDefaults.standard.bool(forKey: "should_query")
+        if should_query != nil {
+            if should_query {
+                for year in current_year-1...current_year {
+                    db.collection("users").document(uid!).collection("\(year)").getDocuments { (querySelector, error) in
+                                    if error != nil {
+                                        print("There was an error retrieving data")
+                                    } else if (querySelector != nil) {
+                                        
+                                        let documents = querySelector!.documents
+                                        for document in documents {
+                                            print(document)
+                                            let data = document.data()
+                                            if data != nil {
+                                                if self.dictionary == nil {
+                                                    self.dictionary = data["user_sentiment"] as! [String : [String : Any]]
+                                                } else {
+                                                    self.dictionary = self.dictionary!.merging(data["user_sentiment"] as! [String : [String : Any]], uniquingKeysWith: { $1 })
+                                                    
+                                                }
+                                            }
+                                    }
+                            }
+                        UserDefaults.standard.set(self.dictionary, forKey: "calendar_dictionary")
+                        UserDefaults.standard.set(false, forKey: "should_query")
+                        print("SHAQ", UserDefaults.standard.object(forKey: "calendar_dictionary"))
+                        }
+                }
+            }
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         shareButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         shareButton.layer.cornerRadius = 11

@@ -249,13 +249,14 @@ class ConfirmViewController: UIViewController {
         }
     }
     @IBAction func didPressResults(_ sender: Any)  {
+        UserDefaults.standard.set(true, forKey: "should_query")
         let email = UserDefaults.standard.string(forKey: "emailAddress")
 //        print(tabBarController.selectedIndex)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy MM dd"
         let db = Firestore.firestore()
         let calendar = Calendar.current
-        let testdate = dateFormatter.date(from: "2020 08 14")!
+        let testdate = dateFormatter.date(from: "2020 07 04")!
         let current_year = calendar.component(.year, from: testdate)
         let current_month = calendar.component(.month, from: testdate)
         let current_day = calendar.component(.day, from: testdate)

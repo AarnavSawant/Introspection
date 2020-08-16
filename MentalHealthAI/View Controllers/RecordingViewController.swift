@@ -213,6 +213,7 @@ class RecordingViewController: UIViewController {
                     return
                 }
                 if running {
+//                    self.TranscribedText.text = "blah blah blah blah blah blah blah blah"
                     self.TranscribedText.text = result?.bestTranscription.formattedString
                     let range = NSRange(location: self.TranscribedText.text.count - 1, length: 0)
                     self.TranscribedText.scrollRangeToVisible(range)
