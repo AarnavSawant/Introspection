@@ -256,6 +256,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                     }
                     UserDefaults.standard.set(authResult!.user.uid, forKey: "uid")
                     UserDefaults.standard.set(true, forKey: "signed_in")
+                    UserDefaults.standard.set(true, forKey: "should_query")
                     self.transitionToHomeScreen()
                 } else {
                     print("Error", err!.localizedDescription)
@@ -333,6 +334,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
 //                    let email = user.profile.email
                     UserDefaults.standard.set(authResult.user.uid, forKey: "uid")
                     UserDefaults.standard.set(true, forKey: "signed_in")
+                    UserDefaults.standard.set(true, forKey: "should_query")
     //                UserDefaults.standard.set(
                 //                        if user.isEmailVerified {
                     db.collection("users").document(authResult.user.uid).setData(["first_name" : first_name, "last_name" : last_name, "uid" : authResult.user.uid]) { (error) in
@@ -407,6 +409,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                                 }
                                 UserDefaults.standard.set(authResult!.user.uid, forKey: "uid")
                                 UserDefaults.standard.set(true, forKey: "signed_in")
+                                UserDefaults.standard.set(true, forKey: "should_query")
                                 self.transitionToHomeScreen()
                             } else {
                                 print("Error", err!.localizedDescription)

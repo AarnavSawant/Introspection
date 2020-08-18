@@ -5,7 +5,7 @@
 //  Created by Parikshat Sawant on 7/2/20.
 //  Copyright © 2020 Sawant,Inc. All rights reserved.
 //
-
+import UserNotifications
 import UIKit
 import Firebase
 import CoreData
@@ -22,9 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
 
-
+    func registerForPushNotifications() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, err) in
+            print("Permission Granted: ", granted)
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        registerForPushNotifications()
         // Override point for customization after application launch.
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID

@@ -131,13 +131,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which of the following emotions describes your day the best?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7oN-TB-Joq">
-                                <rect key="frame" x="55" y="162" width="265" height="39.666666666666657"/>
+                                <rect key="frame" x="55" y="162" width="265" height="40.666666666666657"/>
                                 <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2vP-SH-Wly">
-                                <rect key="frame" x="81" y="231.66666666666666" width="36" height="35.999999999999972"/>
+                                <rect key="frame" x="81" y="232.66666666666666" width="36" height="35.999999999999972"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="5HN-9L-95K"/>
                                     <constraint firstAttribute="width" constant="36" id="lz4-6E-a8d"/>
@@ -148,7 +148,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DsR-SA-PJF">
-                                <rect key="frame" x="169.66666666666666" y="231.66666666666666" width="36" height="35.999999999999972"/>
+                                <rect key="frame" x="169.66666666666666" y="232.66666666666666" width="36" height="35.999999999999972"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="GmN-Tx-rGS"/>
                                     <constraint firstAttribute="width" constant="36" id="nft-hX-KN4"/>
@@ -159,7 +159,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYo-XZ-G5a">
-                                <rect key="frame" x="258" y="231.66666666666666" width="36" height="35.999999999999972"/>
+                                <rect key="frame" x="258" y="232.66666666666666" width="36" height="35.999999999999972"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="b7b-bW-2eO"/>
                                     <constraint firstAttribute="width" constant="36" id="sNV-CQ-J4P"/>
@@ -170,7 +170,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2O0-ES-5is">
-                                <rect key="frame" x="120" y="291.66666666666669" width="36" height="36"/>
+                                <rect key="frame" x="120" y="292.66666666666669" width="36" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="NVe-OJ-7LY"/>
                                     <constraint firstAttribute="width" constant="36" id="Pas-PW-aff"/>
@@ -181,7 +181,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkq-El-rwE">
-                                <rect key="frame" x="219" y="291.66666666666669" width="36" height="36"/>
+                                <rect key="frame" x="219" y="292.66666666666669" width="36" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="36" id="bge-XM-Rx4"/>
                                     <constraint firstAttribute="height" constant="36" id="r3K-nQ-bZO"/>
@@ -240,7 +240,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write your Feedback here" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CSk-7C-Gkn">
-                                <rect key="frame" x="27" y="380.66666666666669" width="321" height="96.333333333333314"/>
+                                <rect key="frame" x="27" y="381.66666666666669" width="321" height="95.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -1143,14 +1143,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ALb-Pc-HGN">
-                                <rect key="frame" x="37.666666666666657" y="256" width="300" height="300"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="9IR-d6-PR0"/>
-                                    <constraint firstAttribute="height" constant="300" id="RED-3j-Pby"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9b-Hs-Ybj">
                                 <rect key="frame" x="157.66666666666666" y="391" width="60" height="30"/>
                                 <state key="normal" title="Sign Out">
@@ -1160,18 +1152,25 @@
                                     <action selector="didClickSignOut:" destination="Bs9-7e-eoL" eventType="touchUpInside" id="PRx-Na-Cej"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1qp-e0-J8M">
+                                <rect key="frame" x="50" y="521" width="275" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ALb-Pc-HGN" firstAttribute="centerY" secondItem="J95-My-bsb" secondAttribute="centerY" id="Jle-eN-Y5R"/>
+                            <constraint firstItem="1qp-e0-J8M" firstAttribute="centerX" secondItem="J95-My-bsb" secondAttribute="centerX" id="YSo-Cn-4gO"/>
+                            <constraint firstItem="1qp-e0-J8M" firstAttribute="top" secondItem="W9b-Hs-Ybj" secondAttribute="bottom" constant="100" id="hEN-my-abo"/>
                             <constraint firstItem="W9b-Hs-Ybj" firstAttribute="centerX" secondItem="J95-My-bsb" secondAttribute="centerX" id="noB-SV-LDA"/>
                             <constraint firstItem="W9b-Hs-Ybj" firstAttribute="centerY" secondItem="J95-My-bsb" secondAttribute="centerY" id="pyY-in-9XH"/>
-                            <constraint firstItem="ALb-Pc-HGN" firstAttribute="centerX" secondItem="J95-My-bsb" secondAttribute="centerX" id="t0J-pt-JBY"/>
+                            <constraint firstItem="nZW-Uj-Wx5" firstAttribute="trailing" secondItem="1qp-e0-J8M" secondAttribute="trailing" constant="50" id="xhD-Yx-uzR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nZW-Uj-Wx5"/>
                     </view>
                     <navigationItem key="navigationItem" id="bXw-kH-yO2"/>
                     <connections>
+                        <outlet property="notificationTime" destination="1qp-e0-J8M" id="Z6h-4K-tNx"/>
                         <outlet property="signOutButton" destination="W9b-Hs-Ybj" id="2fc-Av-6A5"/>
                     </connections>
                 </viewController>
