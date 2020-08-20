@@ -30,6 +30,7 @@ class RecordingViewController: UIViewController {
     override func viewDidLoad() {
         self.navigationItem.titleView?.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         TranscribedText.isHidden = true
+        self.TranscribedText.backgroundColor = .white
 //        timerLabel.isHidden = true
         let navView = UIView()
 

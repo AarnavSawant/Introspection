@@ -189,6 +189,10 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     
     
     override func viewDidAppear(_ animated: Bool) {
+        if UserDefaults.standard.bool(forKey: "signed_in") {
+            print("JUICE WRLD")
+            transitionToHomeScreen()
+        }
 //        print("HELLO")
 //        NotificationCenter.default.addObserver(self, selector: #selector(doSomething), name: UIApplication.willEnterForegroundNotification, object: nil)
 //        let db = Firestore.firestore()

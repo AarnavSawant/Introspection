@@ -77,11 +77,11 @@ class YearlyViewController: UIViewController {
                                     }
                                 }
                                 if maxEmotionKeys.count > 2 {
-                                     self.captionLabel.text = "This month, you have been feeling mix of emotions."
+                                     self.captionLabel.text = "This year, you have been feeling mix of emotions."
                                 } else if maxEmotionKeys.count == 2 {
-                                    self.captionLabel.text = "This month, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!) and \(grammarDict[maxEmotionKeys[1]]!) "
+                                    self.captionLabel.text = "This year, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!) and \(grammarDict[maxEmotionKeys[1]]!) "
                                 } else {
-                                    self.captionLabel.text = "This month, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                                    self.captionLabel.text = "This year, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
                                 }
                                 } else {
                                     self.captionLabel.text = ""

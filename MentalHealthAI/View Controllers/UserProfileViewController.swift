@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 class UserProfileViewController: UIViewController {
 
+    @IBOutlet weak var notificationButton: UIButton!
     @IBOutlet weak var notificationTime: UITextField!
     @IBOutlet weak var signOutButton: UIButton!
     let datePicker = UIDatePicker()
@@ -48,11 +49,14 @@ class UserProfileViewController: UIViewController {
         
         notificationTime.text = "\(calendar.hour!):\(calendar.minute!)"
         let content = UNMutableNotificationContent()
-        content.title = "Click here to Introspect"
+        content.title = "Don't Forget to Introspect!"
         content.subtitle = "GO PACK GO"
         print("Hello")
-        let calendar2 = Calendar.current.dateComponents([.day, .year, .month, .hour, .minute, .second], from: datePicker.date)
-               
+        var calendar2 = DateComponents()
+        let hour = Calendar.current.component(.hour, from: datePicker.date)
+        let minute = Calendar.current.component(.minute, from: datePicker.date)
+        calendar2.hour = hour
+        calendar2.minute = minute
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendar2, repeats: true)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { (err) in
@@ -64,7 +68,7 @@ class UserProfileViewController: UIViewController {
         
     }
     func transitionToSignInScreen() {
-        let vc = storyboard?.instantiateViewController(identifier: "signInHome") as? FirstViewController
+        let vc = storyboard?.instantiateViewController(identifier: "signIn") as? SignInViewController
         view.window?.rootViewController = vc
         view.window?.makeKeyAndVisible()
         

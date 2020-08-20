@@ -170,12 +170,14 @@ class WeeklyViewController: UIViewController {
                     }
                 }
                 print("Max Emotion Keys", maxEmotionKeys)
-                if maxEmotionKeys.count > 2 {
-                    self.captionLabel.text = "This week, you have been feeling mix of emotions."
-                } else if maxEmotionKeys.count == 2 {
-                    self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!) and \(grammarDict[maxEmotionKeys[1]]!) "
-                } else {
-                    self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                if maxEmotionKeys.count != 0 {
+                    if maxEmotionKeys.count > 2 {
+                        self.captionLabel.text = "This week, you have been feeling mix of emotions."
+                    } else if maxEmotionKeys.count == 2 {
+                        self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!) and \(grammarDict[maxEmotionKeys[1]]!) "
+                    } else {
+                        self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                    }
                 }
             } else {
                 self.captionLabel.text = ""
@@ -186,6 +188,7 @@ class WeeklyViewController: UIViewController {
     
     func setCharts(emotionLabels :[String], emotionCount: [Int]) {
         //        var dataEntries: [ChartDataEntry] = []
+        var numZeroEntries = 0
         var dataEntries: [ChartDataEntry] = []
         var colorList = [UIColor]()
         for i in 0...emotionLabels.count - 1 {
@@ -206,16 +209,21 @@ class WeeklyViewController: UIViewController {
                     colorList.append(UIColor.systemRed)
                 }
                 dataEntries.append(dataEntry)
+            } else {
+                numZeroEntries = numZeroEntries + 1
             }
         }
         //        print(dataEntries[1].data)
-        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "Number of Days")
-        let noZeroFormatter = NumberFormatter()
-        noZeroFormatter.zeroSymbol = ""
-        pieChartDataSet.valueFormatter = DefaultValueFormatter(formatter: noZeroFormatter)
-        pieChartDataSet.colors = colorList
-        let pieChartData = PieChartData(dataSet: pieChartDataSet)
-        pieView.data = pieChartData
+        print("PeePoo", emotionCount)
+        if numZeroEntries != 5 {
+            let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "Number of Days")
+            let noZeroFormatter = NumberFormatter()
+            noZeroFormatter.zeroSymbol = ""
+            pieChartDataSet.valueFormatter = DefaultValueFormatter(formatter: noZeroFormatter)
+            pieChartDataSet.colors = colorList
+            let pieChartData = PieChartData(dataSet: pieChartDataSet)
+            pieView.data = pieChartData
+        }
         
     }
     

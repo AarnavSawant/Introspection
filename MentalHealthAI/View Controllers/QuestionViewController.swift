@@ -8,7 +8,7 @@
 
 import UIKit
 import Speech
-import StarWarsTextView
+import CoreLocation
 import CoreML
 import Firebase
 import FirebaseFirestore
@@ -47,40 +47,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
 //        }
 //        UserDefaults.standard.set(practiceDict, forKey: "test_dict")
 //        print("COUNT", UserDefaults.standard.dictionary(forKey: "test_dict"))
-        let db = Firestore.firestore()
-        let uid = UserDefaults.standard.string(forKey: "uid")
-        let cal = Calendar.current
-        let current_year = cal.component(.year, from: Date())
-        let should_query = UserDefaults.standard.bool(forKey: "should_query")
-        if should_query != nil {
-            if should_query {
-                for year in current_year-1...current_year {
-                    db.collection("users").document(uid!).collection("\(year)").getDocuments { (querySelector, error) in
-                                    if error != nil {
-                                        print("There was an error retrieving data")
-                                    } else if (querySelector != nil) {
-                                        
-                                        let documents = querySelector!.documents
-                                        for document in documents {
-                                            print(document)
-                                            let data = document.data()
-                                            if data != nil {
-                                                if self.dictionary == nil {
-                                                    self.dictionary = data["user_sentiment"] as! [String : [String : Any]]
-                                                } else {
-                                                    self.dictionary = self.dictionary!.merging(data["user_sentiment"] as! [String : [String : Any]], uniquingKeysWith: { $1 })
-                                                    
-                                                }
-                                            }
-                                    }
-                            }
-                        UserDefaults.standard.set(self.dictionary, forKey: "calendar_dictionary")
-                        UserDefaults.standard.set(false, forKey: "should_query")
-                        print("SHAQ", UserDefaults.standard.object(forKey: "calendar_dictionary"))
-                        }
-                }
-            }
-        }
+        
         self.navigationItem.titleView?.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
 //        scrollTextView.crawlingSpeed = 20.0
 //        scrollTextView.text = ""
@@ -208,6 +175,40 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         number = 0
+        let db = Firestore.firestore()
+        let uid = UserDefaults.standard.string(forKey: "uid")
+        let cal = Calendar.current
+        let current_year = cal.component(.year, from: Date())
+        let should_query = UserDefaults.standard.bool(forKey: "should_query")
+        if should_query != nil {
+            if should_query {
+                for year in current_year-1...current_year {
+                    db.collection("users").document(uid!).collection("\(year)").getDocuments { (querySelector, error) in
+                                    if error != nil {
+                                        print("There was an error retrieving data")
+                                    } else if (querySelector != nil) {
+                                        
+                                        let documents = querySelector!.documents
+                                        for document in documents {
+                                            print(document)
+                                            let data = document.data()
+                                            if data != nil {
+                                                if self.dictionary == nil {
+                                                    self.dictionary = data["user_sentiment"] as! [String : [String : Any]]
+                                                } else {
+                                                    self.dictionary = self.dictionary!.merging(data["user_sentiment"] as! [String : [String : Any]], uniquingKeysWith: { $1 })
+                                                    
+                                                }
+                                            }
+                                    }
+                            }
+                        UserDefaults.standard.set(self.dictionary, forKey: "calendar_dictionary")
+                        UserDefaults.standard.set(false, forKey: "should_query")
+                        print("SHAQ", UserDefaults.standard.object(forKey: "calendar_dictionary"))
+                        }
+                }
+            }
+        }
         
     }
 //    func startRecording() {

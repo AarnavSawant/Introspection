@@ -22,7 +22,9 @@ class BreakdownViewController: UIViewController {
     override func viewDidLoad() {
         segmentedControl.isEnabled = false
         noDataLabel.isHidden = false
+        noDataLabel.textColor = .black
         super.viewDidLoad()
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.black], for: .normal)
         getTotalDictionaryFromFirebase { (err, dict) in
             if err == nil {
                 self.segmentedControl.isEnabled = true

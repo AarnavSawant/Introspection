@@ -11,6 +11,8 @@ import Firebase
 import FirebaseFirestore
 import SwiftGifOrigin
 class GIPHYViewController: UIViewController {
+    
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
     var dictionary: [String : [String : Any]]?
     var gifShareURL: String?
     @IBOutlet weak var cheerLabel: UILabel!
@@ -27,7 +29,7 @@ class GIPHYViewController: UIViewController {
     
         // Do any additional setup after loading the view.
     }
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         let db = Firestore.firestore()
         let uid = UserDefaults.standard.string(forKey: "uid")
         let cal = Calendar.current
@@ -63,7 +65,11 @@ class GIPHYViewController: UIViewController {
             }
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
+        activityView.startAnimating()
+        activityView.isHidden = false
+        activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        activityView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         shareButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         shareButton.layer.cornerRadius = 11
         shareButton.setTitleColor(.white, for: .normal)
@@ -158,6 +164,8 @@ class GIPHYViewController: UIViewController {
 //                        self.MonthLabel.text = "\(month)"
 //                        self.yearLabel.text = "\(year)"
                     }
+                    self.activityView.stopAnimating()
+                    self.activityView.isHidden = true
                     self.gifView.image = UIImage.gif(url: gifURL)
     //        if shouldSearch {
     //            if lastEmotion == "joy" {
