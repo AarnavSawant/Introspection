@@ -61,18 +61,18 @@ class ConfirmViewController: UIViewController {
             return mlArray!
             }
         func textsToSequences(text: String, dict: [String: Any]) -> MLMultiArray {
-            let contraction_mapping = ["ain't": "is not", "aren't": "are not","can't": "cannot",
-            "can't've": "cannot have", "'cause": "because", "could've": "could have",
-            "couldn't": "could not", "couldn't've": "could not have","didn't": "did not",
+            let contraction_mapping = ["ain\'t": "is not", "aren\'t": "are not","can\'t": "cannot",
+            "can\'t've": "cannot have", "'cause": "because", "could\'ve": "could have",
+            "couldn\'t": "could not", "couldn\'t've": "could not have","didn\'t": "did not",
             "doesn't": "does not", "don't": "do not", "hadn't": "had not",
-            "hadn't've": "had not have", "hasn't": "has not", "haven't": "have not",
-            "he'd": "he would", "he'd've": "he would have", "he'll": "he will",
-            "he'll've": "he will have", "he's": "he is", "how'd": "how did",
-            "how'd'y": "how do you", "how'll": "how will", "how's": "how is",
-            "I'd": "I would", "I'd've": "I would have", "I'll": "I will",
-            "I'll've": "I will have","I'm": "I am", "I've": "I have",
-            "i'd": "i would", "i'd've": "i would have", "i'll": "i will",
-            "i'll've": "i will have","i'm": "i am", "i've": "i have",
+            "hadn\'t've": "had not have", "hasn\'t": "has not", "haven\'t": "have not",
+            "he\'d": "he would", "he\'d've": "he would have", "he\'ll": "he will",
+            "he\'ll've": "he will have", "he\'s": "he is", "how\'d": "how did",
+            "how\'d'y": "how do you", "how\'ll": "how will", "how\'s": "how is",
+            "I\'d": "I would", "I\'d've": "I would have", "I\'ll": "I will",
+            "I\'ll've": "I will have","I\'m": "I am", "I\'ve": "I have",
+            "i\'d": "i would", "i\'d've": "i would have", "i\'ll": "i will",
+            "i\'ll've": "i will have","i'm": "i am", "i've": "i have",
             "isn't": "is not", "it'd": "it would", "it'd've": "it would have",
             "it'll": "it will", "it'll've": "it will have","it's": "it is",
             "let's": "let us", "ma'am": "madam", "mayn't": "may not",
@@ -105,8 +105,9 @@ class ConfirmViewController: UIViewController {
             "you'd": "you would", "you'd've": "you would have", "you'll": "you will",
             "you'll've": "you will have", "you're": "you are", "you've": "you have" ]
             var textArray =  [String]()
-            textArray = text.lowercased().components(separatedBy: CharacterSet.punctuationCharacters).joined().components(separatedBy: " ")
+            textArray = text.lowercased().components(separatedBy: " ")
             for i in 0...textArray.count-1{
+                print(textArray[i])
                 if contraction_mapping.keys.contains(textArray[i]) {
                     textArray[i] = contraction_mapping[textArray[i]]!
                 }
@@ -117,7 +118,8 @@ class ConfirmViewController: UIViewController {
             print(cleanedTextArray)
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
-                if (dict[textArray[i]] != nil) {
+                if (dict[cleanedTextArray[i]] != nil && !["really", "feel", "feeling"].contains(cleanedTextArray[i])) {
+                    
                     sequenceArray.append(dict[cleanedTextArray[i]] as! Double)
                 }
             }
@@ -207,7 +209,7 @@ class ConfirmViewController: UIViewController {
         }
         print(predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.52 {
+            if max_pred < 0.54 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
@@ -215,7 +217,7 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.6 {
+            if max_pred < 0.49 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
@@ -249,6 +251,11 @@ class ConfirmViewController: UIViewController {
         }
     }
     @IBAction func didPressResults(_ sender: Any)  {
+        let tab_vc = self.presentingViewController?.presentingViewController as! MainTabBarController
+        let nav_vc = tab_vc.viewControllers![tab_vc.selectedIndex] as! ReflectViewController
+        let vc = nav_vc.viewControllers[0] as! QuestionViewController
+        vc.howWasYourDayLabel.text = "How was your day?"
+        vc.TranscribedText.text = "Answering this question will let us assess your stress level"
         UserDefaults.standard.set(true, forKey: "should_query")
         let email = UserDefaults.standard.string(forKey: "emailAddress")
 //        print(tabBarController.selectedIndex)
@@ -256,7 +263,8 @@ class ConfirmViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy MM dd"
         let db = Firestore.firestore()
         let calendar = Calendar.current
-        let testdate = dateFormatter.date(from: "2020 07 04")!
+        let testdate = Date()
+//        let testdate = dateFormatter.date(from: "2020 07 04")!
         let current_year = calendar.component(.year, from: testdate)
         let current_month = calendar.component(.month, from: testdate)
         let current_day = calendar.component(.day, from: testdate)
@@ -345,6 +353,11 @@ class ConfirmViewController: UIViewController {
         }
 
     @IBAction func didClickDiscardButton(_ sender: Any) {
+        let tab_vc = self.presentingViewController?.presentingViewController as! MainTabBarController
+        let nav_vc = tab_vc.viewControllers![tab_vc.selectedIndex] as! ReflectViewController
+        let vc = nav_vc.viewControllers[0] as! QuestionViewController
+        vc.howWasYourDayLabel.text = "How was your day?"
+        vc.TranscribedText.text = "Answering this question will let us assess your stress level"
     }
     
     func searchGifs(for searchText: String){

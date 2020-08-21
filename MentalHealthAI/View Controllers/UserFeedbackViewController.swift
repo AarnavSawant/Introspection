@@ -25,6 +25,7 @@ class UserFeedbackViewController: UIViewController {
     @IBOutlet weak var neutralButton: UIButton!
     @IBOutlet weak var angerButton: UIButton!
     override func viewDidLoad() {
+        
         cancelButton.layer.cornerRadius = 0.5 * cancelButton.frame.width
         submitButton.layer.cornerRadius = 0.5 * submitButton.frame.width
         super.viewDidLoad()

@@ -275,7 +275,7 @@ class RecordingViewController: UIViewController {
 //                        self.SpeakButton.isEnabled = true
                         print("Yay")
 //                        self.SpeakButton.setTitle("Start", for: .normal)
-                        self.TranscribedText.text = "Tell me a bit more about your day!"
+//                        self.TranscribedText.text = "Tell me a bit more about your day!"
                     }
             }
         }

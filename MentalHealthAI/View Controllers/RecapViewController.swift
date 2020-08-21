@@ -32,7 +32,7 @@ class RecapViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        dictionary =  UserDefaults.standard.dictionary(forKey: "calendar_dictionary") as! [String : [String : Any]]
+        dictionary =  UserDefaults.standard.dictionary(forKey: "calendar_dictionary") as? [String : [String : Any]]
 //        if emotion_dict != nil {
 //            for emotion in emotion_list {
 ////                print(emotion.date, emotion.emotion, emotion.text)
