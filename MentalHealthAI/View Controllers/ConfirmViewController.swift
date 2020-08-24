@@ -61,7 +61,7 @@ class ConfirmViewController: UIViewController {
             return mlArray!
             }
         func textsToSequences(text: String, dict: [String: Any]) -> MLMultiArray {
-            let contraction_mapping = ["ain\'t": "is not", "aren\'t": "are not","can\'t": "cannot",
+            let contraction_mapping = ["ain\'t": "is not", "aren\'t": "are not","can\'t": "cant",
             "can\'t've": "cannot have", "'cause": "because", "could\'ve": "could have",
             "couldn\'t": "could not", "couldn\'t've": "could not have","didn\'t": "did not",
             "doesn't": "does not", "don't": "do not", "hadn't": "had not",
@@ -118,7 +118,7 @@ class ConfirmViewController: UIViewController {
             print(cleanedTextArray)
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
-                if (dict[cleanedTextArray[i]] != nil && !["really", "feel", "feeling"].contains(cleanedTextArray[i])) {
+                if (dict[cleanedTextArray[i]] != nil && !["really", "feel", "feeling", "super", "very"].contains(cleanedTextArray[i])) {
                     
                     sequenceArray.append(dict[cleanedTextArray[i]] as! Double)
                 }
@@ -194,11 +194,11 @@ class ConfirmViewController: UIViewController {
         discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "august_9_final")
+        let dictionary = readJSONFromFile(filename: "august_23")
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = EmotionGRUModel()
-        if let predictions = try? new_model.predictions(inputs: [EmotionGRUModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = IntrospectionModel()
+        if let predictions = try? new_model.predictions(inputs: [IntrospectionModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
@@ -209,7 +209,7 @@ class ConfirmViewController: UIViewController {
         }
         print(predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.54 {
+            if max_pred < 0.52 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
@@ -217,7 +217,7 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.49 {
+            if max_pred < 0.6 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
@@ -251,12 +251,14 @@ class ConfirmViewController: UIViewController {
         }
     }
     @IBAction func didPressResults(_ sender: Any)  {
+        GetResultsButton.isEnabled = false
         let tab_vc = self.presentingViewController?.presentingViewController as! MainTabBarController
         let nav_vc = tab_vc.viewControllers![tab_vc.selectedIndex] as! ReflectViewController
         let vc = nav_vc.viewControllers[0] as! QuestionViewController
         vc.howWasYourDayLabel.text = "How was your day?"
         vc.TranscribedText.text = "Answering this question will let us assess your stress level"
         UserDefaults.standard.set(true, forKey: "should_query")
+        print(UserDefaults.standard.set(true, forKey: "should_query"))
         let email = UserDefaults.standard.string(forKey: "emailAddress")
 //        print(tabBarController.selectedIndex)
         let dateFormatter = DateFormatter()
@@ -353,6 +355,7 @@ class ConfirmViewController: UIViewController {
         }
 
     @IBAction func didClickDiscardButton(_ sender: Any) {
+        discardButton.isEnabled = false
         let tab_vc = self.presentingViewController?.presentingViewController as! MainTabBarController
         let nav_vc = tab_vc.viewControllers![tab_vc.selectedIndex] as! ReflectViewController
         let vc = nav_vc.viewControllers[0] as! QuestionViewController

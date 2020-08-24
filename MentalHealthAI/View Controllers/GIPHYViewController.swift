@@ -29,50 +29,18 @@ class GIPHYViewController: UIViewController {
     
         // Do any additional setup after loading the view.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-        let db = Firestore.firestore()
-        let uid = UserDefaults.standard.string(forKey: "uid")
-        let cal = Calendar.current
-        let current_year = cal.component(.year, from: Date())
-        let should_query = UserDefaults.standard.bool(forKey: "should_query")
-        if should_query != nil {
-            if should_query {
-                for year in current_year-1...current_year {
-                    db.collection("users").document(uid!).collection("\(year)").getDocuments { (querySelector, error) in
-                                    if error != nil {
-                                        print("There was an error retrieving data")
-                                    } else if (querySelector != nil) {
-                                        
-                                        let documents = querySelector!.documents
-                                        for document in documents {
-                                            print(document)
-                                            let data = document.data()
-                                            if data != nil {
-                                                if self.dictionary == nil {
-                                                    self.dictionary = data["user_sentiment"] as! [String : [String : Any]]
-                                                } else {
-                                                    self.dictionary = self.dictionary!.merging(data["user_sentiment"] as! [String : [String : Any]], uniquingKeysWith: { $1 })
-                                                    
-                                                }
-                                            }
-                                    }
-                            }
-                        UserDefaults.standard.set(self.dictionary, forKey: "calendar_dictionary")
-                        UserDefaults.standard.set(false, forKey: "should_query")
-                        print("SHAQ", UserDefaults.standard.object(forKey: "calendar_dictionary"))
-                        }
-                }
-            }
-        }
+        shareButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+        shareButton.layer.cornerRadius = 11
+        shareButton.setTitleColor(.white, for: .normal)
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         activityView.startAnimating()
         activityView.isHidden = false
         activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         activityView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        shareButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
-        shareButton.layer.cornerRadius = 11
-        shareButton.setTitleColor(.white, for: .normal)
         calendarButton.setTitleColor(UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1), for: .normal)
         calendarButton.layer.cornerRadius = 11
         calendarButton.backgroundColor = .white
@@ -115,16 +83,47 @@ class GIPHYViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy MM dd"
 //               let db = Firestore.firestore()
         let calendar = Calendar.current
-        let testdate = dateFormatter.date(from: "2020 08 15")!
-        let current_year = calendar.component(.year, from: testdate)
-        let current_month = calendar.component(.month, from: testdate)
-        let current_day = calendar.component(.day, from: testdate)
+        let current_year = calendar.component(.year, from: Date())
+        let current_month = calendar.component(.month, from: Date())
+        let current_day = calendar.component(.day, from: Date())
         let currentMonthString = calendar.monthSymbols[current_month - 1]
         print("DAY", current_day)
         print("MONTH", current_month)
         print("YEAR", current_year)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                db.collection("users").document(uid!).getDocument { (querySelector, err) in
+            let uid = UserDefaults.standard.string(forKey: "uid")
+            let cal = Calendar.current
+            let current_year = cal.component(.year, from: Date())
+            let should_query = UserDefaults.standard.bool(forKey: "should_query")
+            print("SHOULD QUERY", should_query)
+            if should_query != nil {
+                if should_query {
+                    for year in current_year-1...current_year {
+                        db.collection("users").document(uid!).collection("\(year)").getDocuments { (querySelector, error) in
+                                if error != nil {
+                                    print("There was an error retrieving data")
+                                } else if (querySelector != nil) {
+                                    let documents = querySelector!.documents
+                                    for document in documents {
+                                        print(document)
+                                        let data = document.data()
+                                        if data != nil {
+                                            if self.dictionary == nil {
+                                                self.dictionary = data["user_sentiment"] as! [String : [String : Any]]
+                                            } else {
+                                                self.dictionary = self.dictionary!.merging(data["user_sentiment"] as! [String : [String : Any]], uniquingKeysWith: { $1 })
+                                            }
+                                        }
+                                    }
+                                }
+                                UserDefaults.standard.set(self.dictionary, forKey: "calendar_dictionary")
+                                UserDefaults.standard.set(false, forKey: "should_query")
+                                print("SHAQ", UserDefaults.standard.object(forKey: "calendar_dictionary"))
+                            }
+                    }
+                }
+            }
+            db.collection("users").document(uid!).getDocument { (querySelector, err) in
                 if err != nil {
                     print("There was an error retrieving data")
                 } else if (querySelector != nil) {
@@ -142,64 +141,29 @@ class GIPHYViewController: UIViewController {
                     if data!["timestamp"] != nil {
                         maxTimestamp = data!["timestamp"] as! Double
                     }
-                    }
-                    //                cell.gifURL = url as! String
                 }
+                    //                cell.gifURL = url as! String
+            }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-        print("Max Term", maxTerm)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            print("Max Term", maxTerm)
 //        if maxTimestamp != 0.0 {
             let lastDate = Date.init(timeIntervalSince1970: maxTimestamp)
-                if maxEmotion != nil && maxTerm != nil && maxURL != nil {
-                    let lastEmotion = maxEmotion!
-                    let term = maxTerm!
-                    let gifURL = maxURL!
-                    self.gifShareURL = gifURL
-                    let calendar = Calendar.current
-                    if lastDate != nil {
-                        let day = calendar.component(.day, from: lastDate)
-                        let month = calendar.monthSymbols[calendar.component(.month, from: lastDate) - 1]
-                        let year = calendar.component(.year, from: lastDate)
-                        self.dayLabel.text = "\(currentMonthString) \(day), \(year)"
-//                        self.MonthLabel.text = "\(month)"
-//                        self.yearLabel.text = "\(year)"
+            if maxEmotion != nil && maxTerm != nil && maxURL != nil {
+                let lastEmotion = maxEmotion!
+                let term = maxTerm!
+                let gifURL = maxURL!
+                self.gifShareURL = gifURL
+                let calendar = Calendar.current
+                if lastDate != nil {
+                    let day = calendar.component(.day, from: lastDate)
+                    let month = calendar.monthSymbols[calendar.component(.month, from: lastDate) - 1]
+                    let year = calendar.component(.year, from: lastDate)
+                    self.dayLabel.text = "\(currentMonthString) \(day), \(year)"
                     }
-                    self.activityView.stopAnimating()
-                    self.activityView.isHidden = true
-                    self.gifView.image = UIImage.gif(url: gifURL)
-    //        if shouldSearch {
-    //            if lastEmotion == "joy" {
-    //                let joyGifs = ["Rabbit", "MickeyMouse", "Hamsters", "Pandas"]
-    //                term = joyGifs[Int.random(in: 0...joyGifs.count-1)]
-    //                searchGifs(for: term!)
-    //                UserDefaults.standard.set(term!, forKey: "Last Term")
-    //            } else if lastEmotion == "sadness" {
-    //                let sadGifs = ["Minions", "Hamsters", "Dogs", "Snoopy"]
-    //                term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
-    //                searchGifs(for: term!)
-    //                UserDefaults.standard.set(term!, forKey: "Last Term")
-    //            } else if lastEmotion == "anger" {
-    //                let sadGifs = ["Northern Lights", "Glaciers", "Forrests", "GrandCanyon"]
-    //                term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
-    //                searchGifs(for: term!)
-    //                UserDefaults.standard.set(term!, forKey: "Last Term")
-    //            } else if lastEmotion == "fear" {
-    //                let sadGifs = ["Sunsets", "Clouds", "BugsBunny", "ToyStory"]
-    //                term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
-    //                searchGifs(for: term!)
-    //                UserDefaults.standard.set(term!, forKey: "Last Term")
-    //            } else {
-    //                let sadGifs = ["Geysers", "roadrunner", "waterfall", "madagascar"]
-    //                term = sadGifs[Int.random(in: 0...sadGifs.count-1)]
-    //                searchGifs(for: term!)
-    //                UserDefaults.standard.set(term!, forKey: "Last Term")
-    //            }
-    //        } else {
-    //            let gifURL = UserDefaults.standard.string(forKey: "lastGIF")
-    //            if UserDefaults.standard.url(forKey: "lastGIF") != nil {
-    //                self.gifView.image = UIImage.gif(url: gifURL!)
-    //            }
-    //        }
+                self.activityView.stopAnimating()
+                self.activityView.isHidden = true
+                self.gifView.image = UIImage.gif(url: gifURL)
                 print(lastEmotion)
                 if lastEmotion != nil {
         //            let term = UserDefaults.standard.string(forKey: "Last Term")
@@ -230,7 +194,6 @@ class GIPHYViewController: UIViewController {
     //            }
             }
         }
-        print("Celtics", self.cheerLabel.text!)
     }
     
     func searchGifs(for searchText: String) {

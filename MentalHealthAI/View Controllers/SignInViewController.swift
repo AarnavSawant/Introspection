@@ -251,9 +251,10 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
             let credential = FacebookAuthProvider.credential(withAccessToken: (AccessToken.current?.tokenString)!)
             let db = Firestore.firestore()
             Auth.auth().signIn(with: credential) { (authResult, err) in
+                
                 if err == nil {
                     print("Firebase Log In Done Successful")
-                    db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
+                    db.collection("users").document(authResult!.user.uid).updateData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
                         if error != nil {
                             print("Name not captured")
                         }
@@ -341,7 +342,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                     UserDefaults.standard.set(true, forKey: "should_query")
     //                UserDefaults.standard.set(
                 //                        if user.isEmailVerified {
-                    db.collection("users").document(authResult.user.uid).setData(["first_name" : first_name, "last_name" : last_name, "uid" : authResult.user.uid]) { (error) in
+                    db.collection("users").document(authResult.user.uid).updateData(["first_name" : first_name, "last_name" : last_name, "uid" : authResult.user.uid]) { (error) in
                         if error != nil {
                             print("Name not captured")
                         }
@@ -406,7 +407,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                         Auth.auth().signIn(with: credential) { (authResult, err) in
                             if err == nil {
                                 print("Firebase Log In Done Successful")
-                                db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
+                                db.collection("users").document(authResult!.user.uid).updateData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
                                     if error != nil {
                                         print("Name not captured")
                                     }
@@ -440,16 +441,6 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
       }
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     
 }
@@ -495,9 +486,10 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
             let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             
             Auth.auth().signIn(with: firebaseCredential) { (result, err) in
+                print("UID!!!", result?.user.uid)
                 UserDefaults.standard.set(result!.user.uid, forKey: "uid")
                 UserDefaults.standard.set(true, forKey: "signed_in")
-                db.collection("users").document(result!.user.uid).setData(["first_name" : credential.fullName!.givenName, "last_name" : credential.fullName!.familyName, "uid" : result!.user.uid]) { (error) in
+                db.collection("users").document(result!.user.uid).updateData(["first_name" : credential.fullName!.givenName, "last_name" : credential.fullName!.familyName, "uid" : result!.user.uid]) { (error) in
                     if error != nil {
                         print("Name not captured")
                     }
@@ -505,8 +497,8 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                 if err != nil {
                     print("Created User")
                 }
+                self.transitionToHomeScreen()
             }
-            transitionToHomeScreen()
         }
         
     }

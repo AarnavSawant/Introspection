@@ -181,6 +181,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         let current_year = cal.component(.year, from: Date())
         var should_query = UserDefaults.standard.bool(forKey: "should_query")
 //        should_query = true
+        print("SHOULD QUERY", should_query)
         if should_query != nil {
             if should_query {
                 for year in current_year-1...current_year {

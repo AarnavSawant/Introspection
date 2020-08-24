@@ -248,8 +248,8 @@ class RecordingViewController: UIViewController {
     @objc func changeTimerNumber() {
             print("Boooooyah")
             number = number! + 1
-            self.timerLabel.text = "00:\(20 - number!)s"
-            if number == 20 {
+            self.timerLabel.text = "00:\(15 - number!)s"
+            if number == 15 {
     //        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
                 self.timer!.invalidate()
                 self.number = 0

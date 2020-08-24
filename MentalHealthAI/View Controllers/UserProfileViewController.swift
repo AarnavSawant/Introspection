@@ -36,6 +36,8 @@ class UserProfileViewController: UIViewController {
         } catch let signOutError as NSError {
           print ("Error signing out: %@", signOutError)
         }
+        UserDefaults.standard.set(nil, forKey: "calendar_dictionary")
+        UserDefaults.standard.set(true, forKey: "should_query")
         UserDefaults.standard.set(false, forKey: "signed_in")
         UserDefaults.standard.set("", forKey: "uid")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -54,11 +56,14 @@ class UserProfileViewController: UIViewController {
         print("Hello")
         var calendar2 = DateComponents()
         let hour = Calendar.current.component(.hour, from: datePicker.date)
+        print("DATEEE", datePicker.date)
         let minute = Calendar.current.component(.minute, from: datePicker.date)
         calendar2.hour = hour
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
         calendar2.minute = minute
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendar2, repeats: true)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "IntrospectionNotification", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { (err) in
             if err == nil {
                 print("Success creating Notification")

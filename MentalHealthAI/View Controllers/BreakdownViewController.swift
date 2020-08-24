@@ -20,6 +20,11 @@ class BreakdownViewController: UIViewController {
     
     @IBOutlet weak var pieChartView: PieChartView!
     override func viewDidLoad() {
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         segmentedControl.isEnabled = false
         noDataLabel.isHidden = false
         noDataLabel.textColor = .black
@@ -29,6 +34,7 @@ class BreakdownViewController: UIViewController {
             if err == nil {
                 self.segmentedControl.isEnabled = true
                 self.totalDictionary = dict
+                print("dict", dict)
                 if self.totalDictionary != nil {
                     if self.totalDictionary!.keys.contains("Monday") {
                         self.currentDayDictionary = self.totalDictionary!["Monday"]
@@ -42,7 +48,6 @@ class BreakdownViewController: UIViewController {
                 }
             }
         }
-        // Do any additional setup after loading the view.
     }
     
     func getTotalDictionaryFromFirebase(dictionaryCompletionHandler: @escaping (Error?, [String : [String : Int]]?) -> Void){
@@ -53,6 +58,7 @@ class BreakdownViewController: UIViewController {
             if err != nil {
                 print("ERROR LOADINg BREAKDOWN QUERY")
             }
+            print("QUERY SNAPSHOT", querySnapshot?.data())
             if querySnapshot?["day_of_the_week_dict"] != nil {
                 returnDict = querySnapshot!["day_of_the_week_dict"] as! [String : [String : Int]]
             }

@@ -33,14 +33,6 @@ class RecapViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         dictionary =  UserDefaults.standard.dictionary(forKey: "calendar_dictionary") as? [String : [String : Any]]
-//        if emotion_dict != nil {
-//            for emotion in emotion_list {
-////                print(emotion.date, emotion.emotion, emotion.text)
-//                date_to_sentiment_dict[emotion.date] = emotion.emotion
-//                date_to_text_dict[emotion.date] = emotion.text
-//            }
-//        }
-//        print("Seahawks", date_to_sentiment_dict)
         textForTheDayView.text = ""
         feelingsLabel.text = ""
         gifView.image = UIImage()
@@ -51,7 +43,6 @@ class RecapViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.calendarView.selectDates(from: Date(), to: Date())
         }
-//        calendarView.selectDates([Date()])
         print("Calendar", calendarView.selectedDates)
     
     }
@@ -66,8 +57,6 @@ class RecapViewController: UIViewController {
         let visibleDates = calendarView.visibleDates{ (visibleDate) in
             self.setupCalendarMonthYear(from: visibleDate)
         }
-//        calendarView.selectedDates.
-        
     }
     
     func setupCalendarMonthYear(from visibleDate: DateSegmentInfo) {
@@ -96,7 +85,6 @@ class RecapViewController: UIViewController {
             cell.colorSelectedView.isHidden = true
             cell.dateLabel.textColor = .gray
         }
-//        cell.gifImage = UIImage.gif(url: url as! String)!
         var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: cellState.date)
         components.hour = 0
         components.minute = 0
