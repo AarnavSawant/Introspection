@@ -194,11 +194,11 @@ class ConfirmViewController: UIViewController {
         discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "august_23")
+        let dictionary = readJSONFromFile(filename: "august_23_2")
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = IntrospectionModel()
-        if let predictions = try? new_model.predictions(inputs: [IntrospectionModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = EmotionMLModel()
+        if let predictions = try? new_model.predictions(inputs: [EmotionMLModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {

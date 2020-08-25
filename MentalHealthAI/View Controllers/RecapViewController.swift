@@ -12,17 +12,19 @@ import CoreData
 import Firebase
 import FirebaseFirestore
 class RecapViewController: UIViewController {
+    @IBOutlet weak var dateLabel: UILabel!
     var dictionary: [String : [String : Any]]?
     @IBOutlet weak var shareButton: UIButton!
-    @IBOutlet weak var gifView: UIImageView!
     @IBOutlet weak var feelingsLabel: UILabel!
-//    var emotion_dict = [Date: Emotion]()
+    @IBOutlet weak var greyBar: UIView!
+    //    var emotion_dict = [Date: Emotion]()
+    @IBOutlet weak var textForTheDayBackgroundView: UIView!
     @IBOutlet weak var textForTheDayView: UITextView!
     let formatter = DateFormatter()
     var date_to_sentiment_dict = [Date : String]()
     var date_to_text_dict =  [Date : String]()
-    @IBOutlet weak var yearLabel: UILabel!
-    @IBOutlet weak var monthLabel: UILabel!
+//    @IBOutlet weak var yearLabel: UILabel!
+//    @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var calendarView: JTACMonthView!
     override func viewDidLoad() {
         self.tabBarController?.selectedIndex = 1
@@ -32,10 +34,25 @@ class RecapViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        greyBar.backgroundColor = .gray
+        dateLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
+//        dateLabel.font = UIFont(name: "SFProDisplay-Bold", size: 18)
+//        var view = UILabel()
+//        view.frame = CGRect(x: 0, y: 0, width: 321, height: 84)
+//        textForTheDayView.backgroundColor = .white
+        textForTheDayView.layer.cornerRadius = 10
+        textForTheDayView.backgroundColor = .none
+        textForTheDayView.alpha = 0.6
+        textForTheDayView.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
+        textForTheDayBackgroundView.alpha = 0.05
+        textForTheDayBackgroundView.backgroundColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
+        textForTheDayBackgroundView.layer.cornerRadius = 10
+//        textForTheDayView.alpha = 0.6
+//        textForTheDayView.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 0.6)
+        greyBar.alpha = 0.2
         dictionary =  UserDefaults.standard.dictionary(forKey: "calendar_dictionary") as? [String : [String : Any]]
         textForTheDayView.text = ""
         feelingsLabel.text = ""
-        gifView.image = UIImage()
         setupCalendarView()
         calendarView.reloadData()
         calendarView.scrollingMode = .stopAtEachCalendarFrame
@@ -62,9 +79,9 @@ class RecapViewController: UIViewController {
     func setupCalendarMonthYear(from visibleDate: DateSegmentInfo) {
         let date = visibleDate.monthDates.first?.date
         self.formatter.dateFormat = "yyyy"
-        self.yearLabel.text = self.formatter.string(from: date!)
+//        self.yearLabel.text = self.formatter.string(from: date!)
         self.formatter.dateFormat = "MMMM"
-        self.monthLabel.text = self.formatter.string(from: date!)
+//        self.monthLabel.text = self.formatter.string(from: date!)
     }
     func configureCells(cell: DayCell, cellState: CellState, date: Date) {
         guard let currentCell = cell as? DayCell else {
@@ -77,7 +94,7 @@ class RecapViewController: UIViewController {
     }
     
     func handleCellTextColor(cell: DayCell, cellState: CellState) {
-        cell.colorSelectedView.isHidden = true
+        cell.colorSelectedView.isHidden = false
         cell.backgroundColor = .none
         if cellState.dateBelongsTo == .thisMonth {
             cell.dateLabel.textColor = .black
@@ -101,21 +118,21 @@ class RecapViewController: UIViewController {
                     print(cell.emotionForTheDay)
                 cell.backgroundColor = .none
                 if cell.emotionForTheDay == "joy" {
-                     cell.backgroundColor = .systemYellow
+                    cell.colorSelectedView.backgroundColor = .systemYellow
                 } else if cell.emotionForTheDay == "sadness" {
-                     cell.backgroundColor = .systemBlue
+                     cell.colorSelectedView.backgroundColor = .systemBlue
                 } else if cell.emotionForTheDay == "anger" {
-                     cell.backgroundColor = .systemRed
+                     cell.colorSelectedView.backgroundColor = .systemRed
                 } else if cell.emotionForTheDay == "neutral" {
                     print("CELL", cellState.date)
-                     cell.backgroundColor = .systemGray
+                     cell.colorSelectedView.backgroundColor = .systemGray
                 } else if cell.emotionForTheDay == "fear" {
-                     cell.backgroundColor = .systemPurple
+                     cell.colorSelectedView.backgroundColor = .systemPurple
                 } else {
-                    cell.backgroundColor = .none
+                    cell.colorSelectedView.backgroundColor = .none
                 }
             } else {
-                cell.backgroundColor = .none
+                cell.colorSelectedView.backgroundColor = .none
             }
             }
         }
@@ -153,7 +170,12 @@ extension RecapViewController: JTACMonthViewDelegate {
         guard let newcell = cell as? DayCell else {
             return
         }
-         newcell.colorSelectedView.isHidden = false
+//        var view = UILabel()
+//        view.frame = CGRect(x: 0, y: 0, width: 42, height: 53)
+//        view.backgroundColor = .white
+
+        cell!.backgroundColor = UIColor(red: 0.929, green: 0.925, blue: 0.925, alpha: 1)
+        cell!.layer.cornerRadius = 7
         print("Lala", cellState.date)
         var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: cellState.date)
         components.hour = 0
@@ -200,7 +222,7 @@ extension RecapViewController: JTACMonthViewDelegate {
         guard let newcell = cell as? DayCell else {
             return
         }
-        newcell.colorSelectedView.isHidden = true
+        cell!.backgroundColor = .none
     }
     
     func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
@@ -210,9 +232,9 @@ extension RecapViewController: JTACMonthViewDelegate {
         feelingsLabel.text! = ""
         formatter.dateFormat = "yyyy MM dd"
         formatter.dateFormat = "yyyy"
-        yearLabel.text = formatter.string(from: date!)
+//        yearLabel.text = formatter.string(from: date!)
         formatter.dateFormat = "MMMM"
-        monthLabel.text = formatter.string(from: date!)
+//        monthLabel.text = formatter.string(from: date!)
 
     }
     

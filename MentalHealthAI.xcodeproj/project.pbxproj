@@ -53,6 +53,8 @@
 		84F0942624F249CD00FAE9FB /* august_21.json in Resources */ = {isa = PBXBuildFile; fileRef = 84F0942524F249CD00FAE9FB /* august_21.json */; };
 		84F0942A24F2660000FAE9FB /* IntrospectionModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84F0942924F265FF00FAE9FB /* IntrospectionModel.mlmodel */; };
 		84F0942C24F2660900FAE9FB /* august_23.json in Resources */ = {isa = PBXBuildFile; fileRef = 84F0942B24F2660800FAE9FB /* august_23.json */; };
+		84FD72C824F4E04400622085 /* EmotionMLModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84FD72C724F4E04300622085 /* EmotionMLModel.mlmodel */; };
+		84FD72CA24F4E05000622085 /* august_23_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 84FD72C924F4E04E00622085 /* august_23_2.json */; };
 		AA54D36FC879392BE83A80BA /* Pods_MentalHealthAI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21EA894DBC1319397F6112 /* Pods_MentalHealthAI.framework */; };
 		DC24E6931197577AC7C487F8 /* Pods_MentalHealthAI_MentalHealthAIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5D11EAA186FAF7DF6BD5436 /* Pods_MentalHealthAI_MentalHealthAIUITests.framework */; };
 		F94A44D1A62E171E2FBB24EE /* Pods_MentalHealthAITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F35534C0B0E26ED19A6ACBA3 /* Pods_MentalHealthAITests.framework */; };
@@ -145,6 +147,8 @@
 		84F0942524F249CD00FAE9FB /* august_21.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = august_21.json; sourceTree = "<group>"; };
 		84F0942924F265FF00FAE9FB /* IntrospectionModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = IntrospectionModel.mlmodel; sourceTree = "<group>"; };
 		84F0942B24F2660800FAE9FB /* august_23.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = august_23.json; sourceTree = "<group>"; };
+		84FD72C724F4E04300622085 /* EmotionMLModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionMLModel.mlmodel; sourceTree = "<group>"; };
+		84FD72C924F4E04E00622085 /* august_23_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = august_23_2.json; sourceTree = "<group>"; };
 		8C9EB5FC4EA3143652C3A67B /* Pods-MentalHealthAI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAI.debug.xcconfig"; path = "Target Support Files/Pods-MentalHealthAI/Pods-MentalHealthAI.debug.xcconfig"; sourceTree = "<group>"; };
 		C6AFE8B45B4E8ABB7EB8F1F6 /* Pods-MentalHealthAI-MentalHealthAIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAI-MentalHealthAIUITests.release.xcconfig"; path = "Target Support Files/Pods-MentalHealthAI-MentalHealthAIUITests/Pods-MentalHealthAI-MentalHealthAIUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E5D11EAA186FAF7DF6BD5436 /* Pods_MentalHealthAI_MentalHealthAIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MentalHealthAI_MentalHealthAIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +260,7 @@
 		847D870124C2CF91000254D9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				84FD72C724F4E04300622085 /* EmotionMLModel.mlmodel */,
 				84F0942924F265FF00FAE9FB /* IntrospectionModel.mlmodel */,
 				84CC1E1024E13A22004C4D25 /* EmotionGRUModel.mlmodel */,
 			);
@@ -266,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				84F0942B24F2660800FAE9FB /* august_23.json */,
+				84FD72C924F4E04E00622085 /* august_23_2.json */,
 				84F0942524F249CD00FAE9FB /* august_21.json */,
 				84CC1E1224E13A28004C4D25 /* august_9_final.json */,
 				8437D9E424D7F62400D0FDB3 /* august_1.json */,
@@ -492,6 +498,7 @@
 				8498B22324ADD0F60083E8A7 /* LaunchScreen.storyboard in Resources */,
 				84EF338024DFF53700C4A06B /* SF-Pro-Display-Semibold.otf in Resources */,
 				84571F1A24CE9590004AE9A3 /* GoogleService-Info.plist in Resources */,
+				84FD72CA24F4E05000622085 /* august_23_2.json in Resources */,
 				848A38FE24CD488000769850 /* july_24_v4.json in Resources */,
 				8498B22024ADD0F60083E8A7 /* Assets.xcassets in Resources */,
 				8498B21E24ADD0F10083E8A7 /* Main.storyboard in Resources */,
@@ -689,6 +696,7 @@
 				8493FC0724E20FE9005D5261 /* VerificationViewController.swift in Sources */,
 				84571F2024D02ECB004AE9A3 /* UserFeedbackViewController.swift in Sources */,
 				844E845324BBD0CA00A336EC /* ConfirmViewController.swift in Sources */,
+				84FD72C824F4E04400622085 /* EmotionMLModel.mlmodel in Sources */,
 				8498B21924ADD0F10083E8A7 /* SceneDelegate.swift in Sources */,
 				84571F3024D2B8BF004AE9A3 /* MonthlyViewController.swift in Sources */,
 				84571F3224D2BA47004AE9A3 /* YearlyViewController.swift in Sources */,

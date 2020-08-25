@@ -48,7 +48,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
 //        UserDefaults.standard.set(practiceDict, forKey: "test_dict")
 //        print("COUNT", UserDefaults.standard.dictionary(forKey: "test_dict"))
         
-        self.navigationItem.titleView?.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+
 //        scrollTextView.crawlingSpeed = 20.0
 //        scrollTextView.text = ""
 //        scrollTextView.xAngle = 1
@@ -96,8 +96,10 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
 
         navView.addSubview(label)
         navView.addSubview(image)
-
+        
+        UINavigationBar.appearance().backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         self.navigationItem.titleView = navView
+//        self.navigationItem.titleView!.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
 
         navView.sizeToFit()
 
