@@ -31,6 +31,7 @@ class ResultsNavController: UINavigationController {
         //
         //              self.navigationItem.titleView = navView
         super.viewDidLoad()
+        navigationBar.barTintColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
 
         // Do any additional setup after loading the view.
     }

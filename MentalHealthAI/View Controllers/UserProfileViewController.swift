@@ -9,14 +9,38 @@ import UserNotifications
 import UIKit
 import FirebaseAuth
 class UserProfileViewController: UIViewController {
-
+    @IBOutlet weak var notificationView: UIView!
+    
+    @IBOutlet weak var assistantView: UIView!
+    @IBOutlet weak var aboutAppStackView: UIStackView!
+    @IBOutlet weak var notificationsEnabledSwitch: UISwitch!
+    @IBOutlet weak var DailyReflectLabel: UILabel!
+    @IBOutlet weak var NotificationTimeButton: UIButton!
+    @IBOutlet weak var PPButton: UIButton!
+    @IBOutlet weak var TandCButton: UIButton!
+    @IBOutlet weak var AboutUsButton: UIButton!
+    @IBOutlet weak var logInMethodLabel: UILabel!
     @IBOutlet weak var notificationButton: UIButton!
     @IBOutlet weak var notificationTime: UITextField!
     @IBOutlet weak var signOutButton: UIButton!
     let datePicker = UIDatePicker()
     override func viewDidLoad() {
+        assistantView.backgroundColor = .white
+        assistantView.layer.cornerRadius = 10
+        self.view.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
         super.viewDidLoad()
         createDatePicker()
+        NotificationTimeButton.contentHorizontalAlignment = .left
+        notificationView.layer.cornerRadius = 10
+        PPButton.backgroundColor = .none
+        PPButton.contentHorizontalAlignment = .left
+        TandCButton.contentHorizontalAlignment = .left
+        TandCButton.backgroundColor = .none
+        signOutButton.layer.cornerRadius = 10
+        signOutButton.backgroundColor = .white
+        AboutUsButton.contentHorizontalAlignment = .left
+        AboutUsButton.backgroundColor = .none
+        
     
         // Do any additional setup after loading the view.
     }

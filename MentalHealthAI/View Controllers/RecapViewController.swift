@@ -13,10 +13,13 @@ import Firebase
 import FirebaseFirestore
 class RecapViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var rightButton: UIButton!
+    @IBOutlet weak var leftButton: UIButton!
     var dictionary: [String : [String : Any]]?
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var feelingsLabel: UILabel!
     @IBOutlet weak var greyBar: UIView!
+    var currentMonthShown: String?
     //    var emotion_dict = [Date: Emotion]()
     @IBOutlet weak var textForTheDayBackgroundView: UIView!
     @IBOutlet weak var textForTheDayView: UITextView!
@@ -34,6 +37,34 @@ class RecapViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+//        calendarView.isUserInteractionEnabled = false
+        let navView = UIView()
+        let label = UILabel()
+        label.text = "introspection"
+        label.sizeToFit()
+        label.center = navView.frame.origin
+
+        let image = UIImageView()
+        image.image = UIImage(named: "Infinity")
+        label.frame.size.width = 150
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Heavy", size: 18)
+
+        image.frame = CGRect(x: navView.center.x, y: navView.center.y - 20, width: 22.73, height: 11.04)
+        view.backgroundColor = .white
+        image.contentMode = UIView.ContentMode.scaleAspectFit
+
+        navView.addSubview(label)
+        navView.addSubview(image)
+                
+        //        UINavigationBar.appearance().backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+        self.navigationItem.titleView = navView
+        self.navigationItem.titleView!.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+
+        navView.sizeToFit()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(barButtonPressed))
+        self.navigationItem.rightBarButtonItem?.tintColor = .white
+        feelingsLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
         greyBar.backgroundColor = .gray
         dateLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
 //        dateLabel.font = UIFont(name: "SFProDisplay-Bold", size: 18)
@@ -62,6 +93,10 @@ class RecapViewController: UIViewController {
         }
         print("Calendar", calendarView.selectedDates)
     
+    }
+    
+    @objc func barButtonPressed() {
+        print("HELLO")
     }
     
     @IBAction func didClickShareButton(_ sender: Any) {
@@ -114,6 +149,9 @@ class RecapViewController: UIViewController {
             if self.dictionary != nil {
                 if self.dictionary!.keys.contains("\(df.string(from: date!))") {
                 print("DATE", date!)
+                    if date! == formatter.date(from: formatter.string(from: Date())) {
+                        cell.dateLabel.font =  UIFont(name: "HelveticaNeue-Bold", size: 18)
+                    }
                     cell.emotionForTheDay = self.dictionary![df.string(from: date!)]!["emotion"] as! String
                     print(cell.emotionForTheDay)
                 cell.backgroundColor = .none
@@ -140,6 +178,12 @@ class RecapViewController: UIViewController {
 
         
         
+    }
+    @IBAction func didClickRightButton(_ sender: Any) {
+        calendarView.scrollToSegment(.next, triggerScrollToDateDelegate: true, animateScroll: true)
+    }
+    @IBAction func didClickLeftButton(_ sender: Any) {
+        calendarView.scrollToSegment(.previous, triggerScrollToDateDelegate: true, animateScroll: true)
     }
 }
 
@@ -187,28 +231,28 @@ extension RecapViewController: JTACMonthViewDelegate {
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
             if self.dictionary != nil {
                 
-                self.textForTheDayView.text = self.dictionary![df.string(from: date!)]?["text"] as? String
+                self.textForTheDayView.text = self.dictionary![df.string(from: date!)]?["text"] as? String ?? "No introspection was logged for this day"
                 self.feelingsLabel.text = ""
 //                newcell.backgroundColor = .none
                 if !newcell.colorSelectedView.isHidden && self.dictionary!.keys.contains(df.string(from: date!)){
                     print("JAMES", date!, newcell.emotionForTheDay)
                     if newcell.emotionForTheDay == "joy" {
-                        self.feelingsLabel.textColor = .yellow
+//                        self.feelingsLabel.textColor = .yellow
                         self.feelingsLabel.text =  "You were happy on this day"
                     } else if newcell.emotionForTheDay == "anger" {
-                        self.feelingsLabel.textColor = .red
+//                        self.feelingsLabel.textColor = .red
                         self.feelingsLabel.text =  "You were angry on this day"
                     } else if newcell.emotionForTheDay == "fear" {
-                        self.feelingsLabel.textColor = .purple
+//                        self.feelingsLabel.textColor = .purple
                         self.feelingsLabel.text =  "You were scared on this day"
                     } else if newcell.emotionForTheDay == "sadness" {
-                        self.feelingsLabel.textColor = .blue
+//                        self.feelingsLabel.textColor = .blue
                         self.feelingsLabel.text =  "You were sad on this day"
                     } else if newcell.emotionForTheDay == "neutral" {
-                        self.feelingsLabel.textColor = .gray
+//                        self.feelingsLabel.textColor = .gray
                         self.feelingsLabel.text =  "You were okay on this day"
                     } else {
-                        self.feelingsLabel.textColor = .gray
+//                        self.feelingsLabel.textColor = .gray
                         self.feelingsLabel.text =  ""
                     }
                 }
@@ -227,14 +271,17 @@ extension RecapViewController: JTACMonthViewDelegate {
     
     func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         let date = visibleDates.monthDates.first?.date
+        calendarView.selectDates(from: date!, to: date!)
         let formatter = DateFormatter()
-        textForTheDayView.text! = ""
-        feelingsLabel.text! = ""
-        formatter.dateFormat = "yyyy MM dd"
+//        textForTheDayView.text! = ""
+//        feelingsLabel.text! = ""
+//        formatter.dateFormat = "yyyy MM dd"
         formatter.dateFormat = "yyyy"
-//        yearLabel.text = formatter.string(from: date!)
+        let year = formatter.string(from: date!)
         formatter.dateFormat = "MMMM"
-//        monthLabel.text = formatter.string(from: date!)
+        let month = formatter.string(from: date!)
+        dateLabel.text = "\(month) \(year)"
+        currentMonthShown = month
 
     }
     

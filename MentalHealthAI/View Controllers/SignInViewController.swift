@@ -336,6 +336,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                     
                     let first_name = user.profile.givenName
                     let last_name = user.profile.familyName
+                    
 //                    let email = user.profile.email
                     UserDefaults.standard.set(authResult.user.uid, forKey: "uid")
                     UserDefaults.standard.set(true, forKey: "signed_in")

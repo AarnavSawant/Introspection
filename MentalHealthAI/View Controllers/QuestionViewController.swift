@@ -97,9 +97,9 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
         navView.addSubview(label)
         navView.addSubview(image)
         
-        UINavigationBar.appearance().backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+//        UINavigationBar.appearance().backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         self.navigationItem.titleView = navView
-//        self.navigationItem.titleView!.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+        self.navigationItem.titleView!.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
 
         navView.sizeToFit()
 
