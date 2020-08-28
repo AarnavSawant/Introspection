@@ -151,6 +151,8 @@ class RecapViewController: UIViewController {
                 print("DATE", date!)
                     if date! == formatter.date(from: formatter.string(from: Date())) {
                         cell.dateLabel.font =  UIFont(name: "HelveticaNeue-Bold", size: 18)
+                    } else {
+                        cell.dateLabel.font =  UIFont(name: "HelveticaNeue", size: 18)
                     }
                     cell.emotionForTheDay = self.dictionary![df.string(from: date!)]!["emotion"] as! String
                     print(cell.emotionForTheDay)

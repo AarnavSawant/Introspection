@@ -27,7 +27,7 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         assistantView.backgroundColor = .white
         assistantView.layer.cornerRadius = 10
-        self.view.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+        self.view.layer.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1).cgColor
         super.viewDidLoad()
         createDatePicker()
         NotificationTimeButton.contentHorizontalAlignment = .left

@@ -145,7 +145,7 @@ class GIPHYViewController: UIViewController {
                     //                cell.gifURL = url as! String
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             print("Max Term", maxTerm)
 //        if maxTimestamp != 0.0 {
             let lastDate = Date.init(timeIntervalSince1970: maxTimestamp)
