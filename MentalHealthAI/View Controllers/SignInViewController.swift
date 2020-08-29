@@ -343,6 +343,8 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                     UserDefaults.standard.set(true, forKey: "should_query")
     //                UserDefaults.standard.set(
                 //                        if user.isEmailVerified {
+                    UserDefaults.standard.set("\(first_name) \(last_name)", forKey: "Name")
+//                    UserDefaults.standard.set("\(email)", forKey: "Email")
                     db.collection("users").document(authResult.user.uid).updateData(["first_name" : first_name, "last_name" : last_name, "uid" : authResult.user.uid]) { (error) in
                         if error != nil {
                             print("Name not captured")

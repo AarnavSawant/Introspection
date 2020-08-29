@@ -10,6 +10,9 @@
 		841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B332A24BAF1210005311E /* MainTabBarController.swift */; };
 		842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */; };
 		842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */; };
+		842BABD324FA38C500F1B243 /* UserProfileNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD224FA38C500F1B243 /* UserProfileNavController.swift */; };
+		842BABD524FA3C8D00F1B243 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */; };
+		842BABD724FA3DF200F1B243 /* AboutUsNavControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD624FA3DF200F1B243 /* AboutUsNavControllerViewController.swift */; };
 		8437D9E524D7F62600D0FDB3 /* august_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8437D9E424D7F62400D0FDB3 /* august_1.json */; };
 		8437D9EB24D811A900D0FDB3 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8437D9EA24D811A900D0FDB3 /* UserProfileViewController.swift */; };
 		844E845324BBD0CA00A336EC /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E845224BBD0CA00A336EC /* ConfirmViewController.swift */; };
@@ -97,6 +100,9 @@
 		841B332A24BAF1210005311E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsNavController.swift; sourceTree = "<group>"; };
+		842BABD224FA38C500F1B243 /* UserProfileNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileNavController.swift; sourceTree = "<group>"; };
+		842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		842BABD624FA3DF200F1B243 /* AboutUsNavControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsNavControllerViewController.swift; sourceTree = "<group>"; };
 		8437D9E424D7F62400D0FDB3 /* august_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = august_1.json; sourceTree = "<group>"; };
 		8437D9EA24D811A900D0FDB3 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		8437D9EC24D956D400D0FDB3 /* MentalHealthAI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MentalHealthAI.entitlements; sourceTree = "<group>"; };
@@ -261,6 +267,7 @@
 				8437D9EA24D811A900D0FDB3 /* UserProfileViewController.swift */,
 				8493FC0624E20FE9005D5261 /* VerificationViewController.swift */,
 				842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */,
+				842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -368,6 +375,8 @@
 				84571F2B24D1461A004AE9A3 /* ReflectViewController.swift */,
 				84FD72D024F62A0C00622085 /* GIPHYNavController.swift */,
 				84FD72D224F62E8500622085 /* CalendarNavController.swift */,
+				842BABD224FA38C500F1B243 /* UserProfileNavController.swift */,
+				842BABD624FA3DF200F1B243 /* AboutUsNavControllerViewController.swift */,
 			);
 			path = "Navigation Controllers";
 			sourceTree = "<group>";
@@ -712,6 +721,7 @@
 				8498B21B24ADD0F10083E8A7 /* QuestionViewController.swift in Sources */,
 				8437D9EB24D811A900D0FDB3 /* UserProfileViewController.swift in Sources */,
 				84571F3424D3E8C8004AE9A3 /* BreakdownViewController.swift in Sources */,
+				842BABD724FA3DF200F1B243 /* AboutUsNavControllerViewController.swift in Sources */,
 				84571F2E24D16721004AE9A3 /* Contants.swift in Sources */,
 				84CC1E1124E13A22004C4D25 /* EmotionGRUModel.mlmodel in Sources */,
 				8498B21724ADD0F10083E8A7 /* AppDelegate.swift in Sources */,
@@ -727,11 +737,13 @@
 				84571F1C24D019DB004AE9A3 /* PopUpViewController.swift in Sources */,
 				847D870624C2D87F000254D9 /* SignUpViewController.swift in Sources */,
 				842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */,
+				842BABD524FA3C8D00F1B243 /* AboutUsViewController.swift in Sources */,
 				842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */,
 				84F0942A24F2660000FAE9FB /* IntrospectionModel.mlmodel in Sources */,
 				84571F4124D5643B004AE9A3 /* GIF.swift in Sources */,
 				8478E2EB24E68C0700BE81C3 /* DayOfTheWeekService.swift in Sources */,
 				848A38FA24C6D7F500769850 /* WeeklyViewController.swift in Sources */,
+				842BABD324FA38C500F1B243 /* UserProfileNavController.swift in Sources */,
 				847D870E24C2DBAC000254D9 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

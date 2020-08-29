@@ -11,26 +11,68 @@ import FirebaseAuth
 class UserProfileViewController: UIViewController {
     @IBOutlet weak var notificationView: UIView!
     
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var reminderLabel: UILabel!
     @IBOutlet weak var assistantView: UIView!
     @IBOutlet weak var aboutAppStackView: UIStackView!
     @IBOutlet weak var notificationsEnabledSwitch: UISwitch!
     @IBOutlet weak var DailyReflectLabel: UILabel!
-    @IBOutlet weak var NotificationTimeButton: UIButton!
+//    @IBOutlet weak var NotificationTimeButton: UIButton!
     @IBOutlet weak var PPButton: UIButton!
     @IBOutlet weak var TandCButton: UIButton!
     @IBOutlet weak var AboutUsButton: UIButton!
     @IBOutlet weak var logInMethodLabel: UILabel!
     @IBOutlet weak var notificationButton: UIButton!
-    @IBOutlet weak var notificationTime: UITextField!
+    @IBOutlet weak var notificationTextField: UITextField!
+//    @IBOutlet weak var notificationTime: UITextField!
     @IBOutlet weak var signOutButton: UIButton!
     let datePicker = UIDatePicker()
     override func viewDidLoad() {
+        let url = Auth.auth().currentUser?.photoURL
+        if url != nil {
+            if let data = try? Data(contentsOf: url!) {
+                profileImage.image = UIImage(data: data)
+            }
+        }
+        profileImage.layer.cornerRadius = 0.5 * profileImage.frame.width
+        let navView = UIView()
+        let label = UILabel()
+        label.text = "introspection"
+        label.sizeToFit()
+        label.center = navView.frame.origin
+
+        let image = UIImageView()
+        image.image = UIImage(named: "Infinity")
+        label.frame.size.width = 150
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        label.font = UIFont(name: "SFProDisplay-Heavy", size: 18)
+        notificationsEnabledSwitch.onTintColor =  UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+        signOutButton.setTitleColor(UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1), for: .normal)
+        image.frame = CGRect(x: navView.center.x, y: navView.center.y - 20, width: 22.73, height: 11.04)
+        view.backgroundColor = .white
+        image.contentMode = UIView.ContentMode.scaleAspectFit
+
+        navView.addSubview(label)
+        navView.addSubview(image)
+
+        self.navigationItem.titleView = navView
+        emailLabel.alpha = 0.6
+        emailLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
+        logInMethodLabel.alpha = 0.6
+        logInMethodLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
+        notificationTextField.alpha = 0.6
+        notificationTextField.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        self.emailLabel.text = Auth.auth().currentUser!.email ?? ""
+        self.nameLabel.text = Auth.auth().currentUser!.displayName ?? ""
+        
         assistantView.backgroundColor = .white
         assistantView.layer.cornerRadius = 10
         self.view.layer.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1).cgColor
         super.viewDidLoad()
-        createDatePicker()
-        NotificationTimeButton.contentHorizontalAlignment = .left
+//        createDatePicker()
+//        NotificationTimeButton.contentHorizontalAlignment = .left
         notificationView.layer.cornerRadius = 10
         PPButton.backgroundColor = .none
         PPButton.contentHorizontalAlignment = .left
@@ -40,19 +82,32 @@ class UserProfileViewController: UIViewController {
         signOutButton.backgroundColor = .white
         AboutUsButton.contentHorizontalAlignment = .left
         AboutUsButton.backgroundColor = .none
+//        var datePicker: UIDatePicker = UIDatePicker()
+        var toolbar = UIToolbar()
+        
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        datePicker.addTarget(self, action: #selector(notificationTimeChanged), for: UIControl.Event.valueChanged)
+        toolbar.setItems([doneButton], animated: true)
+        datePicker.datePickerMode = .time
+        datePicker.backgroundColor = UIColor.white
+        notificationTextField.inputView = datePicker
+        notificationTextField.inputAccessoryView = toolbar
+//        notificationTextField.isUserInteractionEnabled = false
+//        datePicker.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
         
     
         // Do any additional setup after loading the view.
     }
-    func createDatePicker() {
-        datePicker.datePickerMode = .time
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
-        toolbar.setItems([doneButton], animated: true)
-        notificationTime.inputAccessoryView = toolbar
-        notificationTime.inputView = datePicker
-    }
+//    func createDatePicker() {
+//        datePicker.datePickerMode = .time
+//        let toolbar = UIToolbar()
+//        toolbar.sizeToFit()
+//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+//        toolbar.setItems([doneButton], animated: true)
+//        notificationTime.inputAccessoryView = toolbar
+//        notificationTime.inputView = datePicker
+//    }
     @IBAction func didClickSignOut(_ sender: Any) {
         let firebaseAuth = Auth.auth()
         do {
@@ -70,32 +125,45 @@ class UserProfileViewController: UIViewController {
         }
     }
     @objc func doneButtonPressed() {
-        print("Hello")
-        let calendar = Calendar.current.dateComponents([.hour, .minute], from: datePicker.date)
-        
-        notificationTime.text = "\(calendar.hour!):\(calendar.minute!)"
-        let content = UNMutableNotificationContent()
-        content.title = "Don't Forget to Introspect!"
-        content.subtitle = "GO PACK GO"
-        print("Hello")
-        var calendar2 = DateComponents()
-        let hour = Calendar.current.component(.hour, from: datePicker.date)
-        print("DATEEE", datePicker.date)
-        let minute = Calendar.current.component(.minute, from: datePicker.date)
-        calendar2.hour = hour
-        let center = UNUserNotificationCenter.current()
-        center.removeAllPendingNotificationRequests()
-        calendar2.minute = minute
-        let trigger = UNCalendarNotificationTrigger(dateMatching: calendar2, repeats: true)
-        let request = UNNotificationRequest(identifier: "IntrospectionNotification", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request) { (err) in
-            if err == nil {
-                print("Success creating Notification")
-            }
+//        UNUserNotificationCenter.current()
+        if notificationsEnabledSwitch.isOn {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a"
+            let date = dateFormatter.date(from: notificationTextField.text!)
+            var components = DateComponents()
+            let calendar = Calendar.current.dateComponents([.hour, .minute], from: date!)
+            components.hour = calendar.hour
+            components.minute = calendar.minute
+            var content = UNMutableNotificationContent()
+            content.title = "It's Time to Introspect!"
+            content.body = "Take a step back from your day and reflect!"
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+            let request = UNNotificationRequest(identifier: "IntrospectionNotification", content: content, trigger: trigger)
+            let center = UNUserNotificationCenter.current()
+            center.removeAllPendingNotificationRequests()
+            center.add(request)
+            self.view.endEditing(true)
+        } else {
+            let alertController = UIAlertController(title: "Turn On the Notification Switch", message: "Turn On the Notification Switch Above to receive daily notifications", preferredStyle: UIAlertController.Style.alert)
+
+
+            let cancelAction = UIAlertAction(title: "Okay", style: UIAlertAction.Style.cancel)
+            alertController.addAction(cancelAction)
+            self.view.endEditing(true)
+            self.present(alertController, animated: true, completion: nil)
+            
         }
-        self.view.endEditing(true)
+        
         
     }
+    @objc func notificationTimeChanged(sender:UIDatePicker){
+        print("WAKANDA")
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateStyle  = DateFormatter.Style.short
+        dateFormatter.dateFormat = "h:mm a"
+        self.notificationTextField.text = dateFormatter.string(from: sender.date)
+    }
+
     func transitionToSignInScreen() {
         let vc = storyboard?.instantiateViewController(identifier: "signIn") as? SignInViewController
         view.window?.rootViewController = vc
@@ -113,5 +181,33 @@ class UserProfileViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func switchValuesDidChange(_ sender: UISwitch) {
+        print("VALUE CHANGED")
+        if (sender.isOn) {
+            var content = UNMutableNotificationContent()
+            content.title = "It's Time to Introspect!"
+            content.body = "Take a step back from your day and reflect!"
+            var dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a"
+            var components = DateComponents()
+            let date = dateFormatter.date(from: self.notificationTextField.text!)!
+            let calendar = Calendar.current.dateComponents([.hour, .minute], from: date)
+            let center = UNUserNotificationCenter.current()
+            components.hour = calendar.hour
+            components.minute = calendar.minute
+//            UNNotificationRequest
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true).self
+            let request = UNNotificationRequest(identifier: "IntrospectionNotification", content: content, trigger: trigger)
+            center.add(request) { (err) in
+                if err == nil {
+                    print("Notification Created")
+                }
+            }
+            
+        } else {
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        }
+    }
+    
 }

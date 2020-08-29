@@ -231,7 +231,7 @@ class GIPHYViewController: UIViewController {
         var shareURL:NSURL = NSURL(string: self.gifShareURL!)!
         var shareData:NSData = NSData(contentsOf: shareURL as URL)!
         
-        let vc = UIActivityViewController(activityItems: [shareData as Any], applicationActivities: nil)
+        let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store"], applicationActivities: nil)
         vc.modalPresentationStyle = .popover
         self.present(vc, animated: true, completion: nil)
     }
