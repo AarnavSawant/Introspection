@@ -56,7 +56,8 @@ class UserProfileViewController: UIViewController {
 
         navView.addSubview(label)
         navView.addSubview(image)
-
+        let logInMethod = UserDefaults.standard.string(forKey: "sign_in_method")
+        logInMethodLabel.text = "Signed In with \(logInMethod!)"
         self.navigationItem.titleView = navView
         emailLabel.alpha = 0.6
         emailLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)

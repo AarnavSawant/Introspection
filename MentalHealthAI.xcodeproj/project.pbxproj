@@ -13,6 +13,8 @@
 		842BABD324FA38C500F1B243 /* UserProfileNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD224FA38C500F1B243 /* UserProfileNavController.swift */; };
 		842BABD524FA3C8D00F1B243 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */; };
 		842BABD724FA3DF200F1B243 /* AboutUsNavControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD624FA3DF200F1B243 /* AboutUsNavControllerViewController.swift */; };
+		842BABD924FCDD2600F1B243 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD824FCDD2600F1B243 /* TermsAndConditionsViewController.swift */; };
+		842BABDB24FCE49700F1B243 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABDA24FCE49700F1B243 /* PrivacyPolicyViewController.swift */; };
 		8437D9E524D7F62600D0FDB3 /* august_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8437D9E424D7F62400D0FDB3 /* august_1.json */; };
 		8437D9EB24D811A900D0FDB3 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8437D9EA24D811A900D0FDB3 /* UserProfileViewController.swift */; };
 		844E845324BBD0CA00A336EC /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E845224BBD0CA00A336EC /* ConfirmViewController.swift */; };
@@ -103,6 +105,10 @@
 		842BABD224FA38C500F1B243 /* UserProfileNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileNavController.swift; sourceTree = "<group>"; };
 		842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		842BABD624FA3DF200F1B243 /* AboutUsNavControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsNavControllerViewController.swift; sourceTree = "<group>"; };
+		842BABD824FCDD2600F1B243 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
+		842BABDA24FCE49700F1B243 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		842BABDC24FCED0700F1B243 /* SF-Pro-Display-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-RegularItalic.otf"; sourceTree = "<group>"; };
+		842BABDD24FCED3400F1B243 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		8437D9E424D7F62400D0FDB3 /* august_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = august_1.json; sourceTree = "<group>"; };
 		8437D9EA24D811A900D0FDB3 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		8437D9EC24D956D400D0FDB3 /* MentalHealthAI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MentalHealthAI.entitlements; sourceTree = "<group>"; };
@@ -268,6 +274,8 @@
 				8493FC0624E20FE9005D5261 /* VerificationViewController.swift */,
 				842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */,
 				842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */,
+				842BABD824FCDD2600F1B243 /* TermsAndConditionsViewController.swift */,
+				842BABDA24FCE49700F1B243 /* PrivacyPolicyViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -356,6 +364,8 @@
 		84EF337B24DFF13E00C4A06B /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				842BABDC24FCED0700F1B243 /* SF-Pro-Display-RegularItalic.otf */,
+				842BABDD24FCED3400F1B243 /* SF-Pro-Display-Regular.otf */,
 				8490F36224E6609F00EB21BD /* SF-Pro-Display-Bold.otf */,
 				8490F36124E6608500EB21BD /* SF-Pro-Text-Regular.otf */,
 				8488536B24E4FB2F006B8DA9 /* SF-Pro-Text-Medium.otf */,
@@ -727,12 +737,14 @@
 				8498B21724ADD0F10083E8A7 /* AppDelegate.swift in Sources */,
 				841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */,
 				8493FC0724E20FE9005D5261 /* VerificationViewController.swift in Sources */,
+				842BABD924FCDD2600F1B243 /* TermsAndConditionsViewController.swift in Sources */,
 				84571F2024D02ECB004AE9A3 /* UserFeedbackViewController.swift in Sources */,
 				84FD72D124F62A0C00622085 /* GIPHYNavController.swift in Sources */,
 				844E845324BBD0CA00A336EC /* ConfirmViewController.swift in Sources */,
 				84FD72C824F4E04400622085 /* EmotionMLModel.mlmodel in Sources */,
 				8498B21924ADD0F10083E8A7 /* SceneDelegate.swift in Sources */,
 				84571F3024D2B8BF004AE9A3 /* MonthlyViewController.swift in Sources */,
+				842BABDB24FCE49700F1B243 /* PrivacyPolicyViewController.swift in Sources */,
 				84571F3224D2BA47004AE9A3 /* YearlyViewController.swift in Sources */,
 				84571F1C24D019DB004AE9A3 /* PopUpViewController.swift in Sources */,
 				847D870624C2D87F000254D9 /* SignUpViewController.swift in Sources */,

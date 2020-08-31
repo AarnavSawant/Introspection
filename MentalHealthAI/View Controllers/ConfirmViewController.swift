@@ -209,19 +209,19 @@ class ConfirmViewController: UIViewController {
         }
         print(predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.52 {
+            if max_pred < 0.85 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
-            if max_pred < 0.7 {
+            if max_pred < 0.93 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.6 {
+            if max_pred < 0.79{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
-            if max_pred < 0.8 {
+            if max_pred < 0.93 {
                 predictedClass = "neutral"
             }
         }

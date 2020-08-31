@@ -261,6 +261,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                     }
                     UserDefaults.standard.set(authResult!.user.uid, forKey: "uid")
                     UserDefaults.standard.set(true, forKey: "signed_in")
+                    UserDefaults.standard.set("Facebook", forKey: "sign_in_method")
                     UserDefaults.standard.set(true, forKey: "should_query")
                     self.transitionToHomeScreen()
                 } else {
@@ -338,6 +339,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                     let last_name = user.profile.familyName
                     
 //                    let email = user.profile.email
+                    UserDefaults.standard.set("Google", forKey: "sign_in_method")
                     UserDefaults.standard.set(authResult.user.uid, forKey: "uid")
                     UserDefaults.standard.set(true, forKey: "signed_in")
                     UserDefaults.standard.set(true, forKey: "should_query")
@@ -492,6 +494,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                 print("UID!!!", result?.user.uid)
                 UserDefaults.standard.set(result!.user.uid, forKey: "uid")
                 UserDefaults.standard.set(true, forKey: "signed_in")
+                UserDefaults.standard.set("Apple", forKey: "sign_in_method")
                 db.collection("users").document(result!.user.uid).updateData(["first_name" : credential.fullName!.givenName, "last_name" : credential.fullName!.familyName, "uid" : result!.user.uid]) { (error) in
                     if error != nil {
                         print("Name not captured")
