@@ -129,6 +129,7 @@ class RecapViewController: UIViewController {
     }
     
     func handleCellTextColor(cell: DayCell, cellState: CellState) {
+        cell.dateLabel.font =  UIFont(name: "HelveticaNeue", size: 18)
         cell.colorSelectedView.isHidden = false
         cell.backgroundColor = .none
         if cellState.dateBelongsTo == .thisMonth {
@@ -148,8 +149,8 @@ class RecapViewController: UIViewController {
             if cellState.dateBelongsTo == .thisMonth {
             if self.dictionary != nil {
                 if self.dictionary!.keys.contains("\(df.string(from: date!))") {
-                print("DATE", date!)
                     if date! == formatter.date(from: formatter.string(from: Date())) {
+                        print("JAMES EVERTON", date!)
                         cell.dateLabel.font =  UIFont(name: "HelveticaNeue-Bold", size: 18)
                     } else {
                         cell.dateLabel.font =  UIFont(name: "HelveticaNeue", size: 18)

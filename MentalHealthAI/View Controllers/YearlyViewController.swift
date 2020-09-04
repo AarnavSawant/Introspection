@@ -11,88 +11,100 @@ import Charts
 import FirebaseFirestore
 import Firebase
 class YearlyViewController: UIViewController {
-    var dictionary: [String : [String : Any]]?
+    @IBOutlet weak var bottomBackgroundView: UIView!
     @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var captionImage: UIImageView!
+    @IBOutlet weak var calendarButton: UIButton!
+    var dictionary: [String : [String : Any]]?
+   
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
-    let email = UserDefaults.standard.string(forKey: "emailAddress")
+
     
     override func viewDidLoad() {
-        let components = Calendar.current.dateComponents([.year], from: Date())
-        yearLabel.text = "A Breakdown of your Emotion in \(components.year!)"
-        yearLabel.isHidden = false
+        pieChartView.legend.enabled = true
+        calendarButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+        calendarButton.layer.cornerRadius = 15
+        calendarButton.setTitleColor(.white, for: .normal)
+        bottomBackgroundView.layer.backgroundColor = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1).cgColor
+        bottomBackgroundView.layer.cornerRadius = 15
+//        let components = Calendar.current.dateComponents([.year], from: Date())
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy MM dd"
+        let db = Firestore.firestore()
+        var components = Calendar.current.dateComponents([.day, .year, .month, .hour, .minute, .second], from: Date())
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        let df = DateFormatter()
+        df.dateFormat = "yyyy MM dd"
+        let calendar = Calendar.current
+        let day_of_week_formatter = DateFormatter()
+        day_of_week_formatter.dateFormat = "EEEE"
+        var emotionList = [String] ()
+        let uid = UserDefaults.standard.string(forKey: "uid")
+        db.collection("users").document(uid!).collection("\(components.year!)").getDocuments { (querySnapshot, error) in
+                if error != nil {
+                    print("Error retrieving querries")
+                } else {
+                    let documents = querySnapshot?.documents
+                    if documents != nil {
+                        var emotionCount = [String : Int]()
+                        for document in documents! {
+                            let data = document.data()
+                            if data != nil {
+                                print("PIZZA")
+                                self.dictionary = data["user_sentiment"] as! [String : [String : Any]]
+                                print("Dictionary", self.dictionary)
+                                for key in self.dictionary!.keys {
+                                    print(key)
+                                    if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
+                                                emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
+                                    } else {
+                                        emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
+                                    }
+                                }
+                            }
+                        }
+                        self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
+                        let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
+                        let maxEmotionValue = emotionCount.values.max()
+                        var maxEmotionKeys = [String]()
+                        if maxEmotionValue != 0 {
+                            for key in emotionCount.keys {
+                                if emotionCount[key] == maxEmotionValue {
+                                    maxEmotionKeys.append(key)
+                                }
+                            }
+                            self.captionLabel.text = "This year, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                            if (maxEmotionKeys[0] == "joy") {
+                                self.captionImage.image = UIImage(named: "JoyResults")
+                            } else if (maxEmotionKeys[0] == "sadness") {
+                                self.captionImage.image = UIImage(named: "SadnessResults")
+                            } else if (maxEmotionKeys[0] == "anger") {
+                                self.captionImage.image = UIImage(named: "AngerResults")
+                            } else if (maxEmotionKeys[0] == "fear") {
+                                self.captionImage.image = UIImage(named: "FearResults")
+                            } else if (maxEmotionKeys[0] == "neutral") {
+                                self.captionImage.image = UIImage(named: "NeutralResults")
+                            }
+                        } else {
+                            self.captionLabel.text = ""
+                        }
+                    }
+                }
+            }
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    @IBAction func didClickCalendarButton(_ sender: Any) {
+        let vc = self.tabBarController as! MainTabBarController
+        vc.selectedIndex = 0
+    }
     override func viewDidAppear(_ animated: Bool) {
-             let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy MM dd"
-            //        let components = Calendar.current.dateComponents([.year, .month], from: Date())
-            //        let startOfYear = "\(components.year!) \(components.month!) 01"
-            //        print(startOfYear)
-            //        let startTimeStamp = dateFormatter.date(from: startOfYear)!.timeIntervalSince1970
-            //        print(startTimeStamp)
-                        let db = Firestore.firestore()
-                        var components = Calendar.current.dateComponents([.day, .year, .month, .hour, .minute, .second], from: Date())
-                        components.hour = 0
-                        components.minute = 0
-                        components.second = 0
-                        let df = DateFormatter()
-                        df.dateFormat = "yyyy MM dd"
-                        let calendar = Calendar.current
-                        let day_of_week_formatter = DateFormatter()
-                        day_of_week_formatter.dateFormat = "EEEE"
-                        var emotionList = [String] ()
-                        let uid = UserDefaults.standard.string(forKey: "uid")
-                    db.collection("users").document(uid!).collection("\(components.year!)").getDocuments { (querySnapshot, error) in
-                            if error != nil {
-                                print("Error retrieving querries")
-                            } else {
-                                let documents = querySnapshot?.documents
-                                if documents != nil {
-                                    var emotionCount = [String : Int]()
-                                    for document in documents! {
-                                        let data = document.data()
-                                        if data != nil {
-                                            print("PIZZA")
-                                            self.dictionary = data["user_sentiment"] as! [String : [String : Any]]
-                                            print("Dictionary", self.dictionary)
-                                            for key in self.dictionary!.keys {
-                                                print(key)
-                                                if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
-                                                    emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
-                                                } else {
-                                                    emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
-                                                }
-                                            }
-                                        }
-                                self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
-                                let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
-                                let maxEmotionValue = emotionCount.values.max()
-                                var maxEmotionKeys = [String]()
-                                if maxEmotionValue != 0 {
-                                for key in emotionCount.keys {
-                                    if emotionCount[key] == maxEmotionValue {
-                                        maxEmotionKeys.append(key)
-                                    }
-                                }
-                                if maxEmotionKeys.count > 2 {
-                                     self.captionLabel.text = "This year, you have been feeling mix of emotions."
-                                } else if maxEmotionKeys.count == 2 {
-                                    self.captionLabel.text = "This year, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!) and \(grammarDict[maxEmotionKeys[1]]!) "
-                                } else {
-                                    self.captionLabel.text = "This year, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
-                                }
-                                } else {
-                                    self.captionLabel.text = ""
-                                }
-
-                            }
-                                }
-                        }
-                    }
+            
     //        print("CheeseHead", emotionList)
-        }
+    }
         
         func setCharts(emotionLabels :[String], emotionCount: [Int]) {
          var dataEntries: [ChartDataEntry] = []

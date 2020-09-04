@@ -11,17 +11,24 @@ import Charts
 import FirebaseFirestore
 import FirebaseAuth
 class MonthlyViewController: UIViewController {
+    @IBOutlet weak var viewInCalendarButton: UIButton!
+    @IBOutlet weak var bottomBackgroundView: UIView!
+    @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var captionImage: UIImageView!
     var dictionary: [String : [String : Any]]?
     let email = UserDefaults.standard.string(forKey: "emailAddress")
-    @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
-    @IBOutlet weak var captionLabel: UILabel!
+//    @IBOutlet weak var captionLabel: UILabel!
     override func viewDidLoad() {
+        pieChartView.legend.enabled = true
         let components = Calendar.current.dateComponents([.year, .month], from: Date())
         let month = Calendar.current.monthSymbols[components.month! - 1]
-        monthLabel.text = "A Breakdown of your Emotion in \(month) \(components.year!)"
-        monthLabel.isHidden = false
         super.viewDidLoad()
+        viewInCalendarButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+        viewInCalendarButton.layer.cornerRadius = 15
+        viewInCalendarButton.setTitleColor(.white, for: .normal)
+        bottomBackgroundView.layer.backgroundColor = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1).cgColor
+        bottomBackgroundView.layer.cornerRadius = 15
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -77,18 +84,23 @@ class MonthlyViewController: UIViewController {
                     let maxEmotionValue = emotionCount.values.max()
                     var maxEmotionKeys = [String]()
                     if maxEmotionValue != 0 {
-                    for key in emotionCount.keys {
-                        if emotionCount[key] == maxEmotionValue {
-                            maxEmotionKeys.append(key)
+                        for key in emotionCount.keys {
+                            if emotionCount[key] == maxEmotionValue {
+                                maxEmotionKeys.append(key)
+                            }
                         }
-                    }
-                    if maxEmotionKeys.count > 2 {
-                         self.captionLabel.text = "This month, you have been feeling mix of emotions."
-                    } else if maxEmotionKeys.count == 2 {
-                        self.captionLabel.text = "This month, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!) and \(grammarDict[maxEmotionKeys[1]]!) "
-                    } else {
-                        self.captionLabel.text = "This month, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
-                    }
+                        self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                        if (maxEmotionKeys[0] == "joy") {
+                            self.captionImage.image = UIImage(named: "JoyResults")
+                        } else if (maxEmotionKeys[0] == "sadness") {
+                            self.captionImage.image = UIImage(named: "SadnessResults")
+                        } else if (maxEmotionKeys[0] == "anger") {
+                            self.captionImage.image = UIImage(named: "AngerResults")
+                        } else if (maxEmotionKeys[0] == "fear") {
+                            self.captionImage.image = UIImage(named: "FearResults")
+                        } else if (maxEmotionKeys[0] == "neutral") {
+                            self.captionImage.image = UIImage(named: "NeutralResults")
+                        }
                     } else {
                         self.captionLabel.text = ""
                     }
@@ -99,7 +111,11 @@ class MonthlyViewController: UIViewController {
     }
     //        print("CheeseHead", emotionList)
         
-        func setCharts(emotionLabels :[String], emotionCount: [Int]) {
+    @IBAction func didClickCalendarButton(_ sender: Any) {
+        let vc = self.tabBarController as! MainTabBarController
+        vc.selectedIndex = 0
+    }
+    func setCharts(emotionLabels :[String], emotionCount: [Int]) {
             var dataEntries: [ChartDataEntry] = []
                     var colorList = [UIColor]()
                     for i in 0...emotionLabels.count - 1 {
@@ -107,7 +123,7 @@ class MonthlyViewController: UIViewController {
                         let dataEntry = PieChartDataEntry()
                         if emotionCount[i] != 0 {
                             dataEntry.y = Double(emotionCount[i])
-                            dataEntry.label = emotionLabels[i]
+//                            dataEntry.label = emotionLabels[i]
                             if emotionLabels[i] == "joy" {
                                 colorList.append(UIColor.systemYellow)
                             } else if emotionLabels[i] == "sadness" {

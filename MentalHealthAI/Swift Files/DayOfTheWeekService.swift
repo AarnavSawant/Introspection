@@ -33,9 +33,11 @@ public struct DayOfTheWeekWriter {
             if dictionary_week != nil {
                 if dictionary_week!.keys.contains(dayOfTheWeekString) {
                     if previousClass != nil {
+                        print("Cobra Kai", dictionary_week)
                         if formatter.string(from: Date.init(timeIntervalSince1970: timestamp)) == formatter.string(from: date) {
                             dictionary_week![dayOfTheWeekString]![previousClass!] = dictionary_week![dayOfTheWeekString]![previousClass!]! - 1
                         }
+                        print("Miyagi Do", dictionary_week)
                     }
                     if dictionary_week![dayOfTheWeekString]!.keys.contains(predictionClass)  {
                         dictionary_week![dayOfTheWeekString]![predictionClass] = (dictionary_week![dayOfTheWeekString]![predictionClass]!) + 1

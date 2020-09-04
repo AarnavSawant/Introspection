@@ -60,7 +60,7 @@ class ConfirmViewController: UIViewController {
             }
             return mlArray!
             }
-        func textsToSequences(text: String, dict: [String: Any]) -> MLMultiArray {
+        func textsToSequences(text: String, dict: [String: Double]) -> MLMultiArray {
             let contraction_mapping = ["ain\'t": "is not", "aren\'t": "are not","can\'t": "cant",
             "can\'t've": "cannot have", "'cause": "because", "could\'ve": "could have",
             "couldn\'t": "could not", "couldn\'t've": "could not have","didn\'t": "did not",
@@ -118,9 +118,13 @@ class ConfirmViewController: UIViewController {
             print(cleanedTextArray)
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
-                if (dict[cleanedTextArray[i]] != nil && !["really", "feel", "feeling", "super", "very"].contains(cleanedTextArray[i])) {
+                if (dict[cleanedTextArray[i]] != nil && !["really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling"].contains(cleanedTextArray[i])) {
+                    let num = dict[cleanedTextArray[i]] as! Double
+                    if (num <= 5500.0) {
+                        sequenceArray.append(dict[cleanedTextArray[i]] as! Double)
+                        
+                    }
                     
-                    sequenceArray.append(dict[cleanedTextArray[i]] as! Double)
                 }
             }
             print(sequenceArray)
@@ -194,7 +198,7 @@ class ConfirmViewController: UIViewController {
         discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "august_24")
+        let dictionary = readJSONFromFile(filename: "august_24") as! [String : Double]
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
         let new_model = IntrospectionSentimentModel()
@@ -209,19 +213,19 @@ class ConfirmViewController: UIViewController {
         }
         print(predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.85 {
+            if max_pred < 0.8 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
-            if max_pred < 0.93 {
+            if max_pred < 0.7{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.79{
+            if max_pred < 0.6{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
-            if max_pred < 0.93 {
+            if max_pred < 0.77 {
                 predictedClass = "neutral"
             }
         }
@@ -265,8 +269,8 @@ class ConfirmViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy MM dd"
         let db = Firestore.firestore()
         let calendar = Calendar.current
-        let testdate = Date()
-//        let testdate = dateFormatter.date(from: "2020 07 04")!
+//        let testdate = Date()
+        let testdate = dateFormatter.date(from: "2021 09 11")!
         let current_year = calendar.component(.year, from: testdate)
         let current_month = calendar.component(.month, from: testdate)
         let current_day = calendar.component(.day, from: testdate)
@@ -313,10 +317,9 @@ class ConfirmViewController: UIViewController {
                             self.day_of_the_week_dict = data!["day_of_the_week_dict"] as! [String : [String : Int]]
                         }
                         self.lastClass = data!["last class"] as? String
-                        var dayOfTheWeekService = DayOfTheWeekWriter(oldDictionary: self.day_of_the_week_dict, dayOfTheWeekString: dayOfTheWeekString, timestamp: timestamp, date: testdate, previousClass: self.lastClass , predictionClass: self.predictedClass)
+                        var lastTimestamp = data!["timestamp"] as? Double
+                        var dayOfTheWeekService = DayOfTheWeekWriter(oldDictionary: self.day_of_the_week_dict, dayOfTheWeekString: dayOfTheWeekString, timestamp: lastTimestamp!, date: testdate, previousClass: self.lastClass , predictionClass: self.predictedClass)
                         self.day_of_the_week_dict = dayOfTheWeekService.getNewDayOfTheWeekDictionary()
-                        print("REAL MADRID", self.day_of_the_week_dict)
-                        
                          db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp, "day_of_the_week_dict" : self.day_of_the_week_dict])
 
                     }
@@ -328,8 +331,6 @@ class ConfirmViewController: UIViewController {
                         let data = querySnapshot?.data()
                         if data != nil {
                             self.dictionary = (data!["user_sentiment"] as? [String : [String : Any]])!
-//                            print("FUCKKKKKK", data!["user_sentiment"]!)
-//                            print("dIcTiOnArY", self.dictionary)
                         }
                         var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: testdate)
                         components.hour = 0
@@ -340,9 +341,6 @@ class ConfirmViewController: UIViewController {
                         self.dictionary["\(formatter.string(from: currentDate!))"] = ["text" : self.TranscribedText.text, "emotion" : self.predictedClass, "timestamp" : timestamp]
                         print("Dictionary2", self.dictionary)
                             db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").setData([ "user_sentiment" : self.dictionary])
-                        print("DAY OF THE WEEK", self.day_of_the_week_dict)
-
-//                        db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp, "day_of_the_week_dict" : ["Monday" : ["joy" : 1]]])
                     }
                 }
                 self.dismiss(animated: true, completion: nil)
@@ -371,11 +369,6 @@ class ConfirmViewController: UIViewController {
                     let randomNumber = Int.random(in: 0..<gifArray!.gifs.count)
                     let gifURL = self.gifs[randomNumber].getGIFURL()
                     UserDefaults.standard.set(gifURL, forKey: "lastGIF")
-//                    UserDefaults.standard.set(false, forKey: "shouldSearch")
-    //                let gifURL = UserDefaults.standard.string(forKey: "lastGIF")
-    //                if UserDefaults.standard.url(forKey: "lastGIF") != nil {
-//                        self.gifView.image = UIImage.gif(url: gifURL)
-    //                }
                     self.returnString = gifURL
                 }
             }

@@ -53,11 +53,15 @@ class UserProfileViewController: UIViewController {
         image.frame = CGRect(x: navView.center.x, y: navView.center.y - 20, width: 22.73, height: 11.04)
         view.backgroundColor = .white
         image.contentMode = UIView.ContentMode.scaleAspectFit
-
+        logInMethodLabel.text = " "
         navView.addSubview(label)
         navView.addSubview(image)
         let logInMethod = UserDefaults.standard.string(forKey: "sign_in_method")
-        logInMethodLabel.text = "Signed In with \(logInMethod!)"
+//        if (logInMethod != nil) {
+        if logInMethod != nil {
+            logInMethodLabel.text = "Signed In with \(logInMethod!)"
+        }
+//        }
         self.navigationItem.titleView = navView
         emailLabel.alpha = 0.6
         emailLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
@@ -70,7 +74,7 @@ class UserProfileViewController: UIViewController {
         
         assistantView.backgroundColor = .white
         assistantView.layer.cornerRadius = 10
-        self.view.layer.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1).cgColor
+        self.view.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
         super.viewDidLoad()
 //        createDatePicker()
 //        NotificationTimeButton.contentHorizontalAlignment = .left

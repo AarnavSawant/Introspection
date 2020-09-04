@@ -11,43 +11,54 @@ import Charts
 import Firebase
 import FirebaseFirestore
 class BreakdownViewController: UIViewController {
+    @IBOutlet weak var bottomBackgroundView: UIView!
     var currentDayDictionary: [String : Int]?
     var totalDictionary: [String : [String : Int]]?
-    @IBOutlet weak var noDataLabel: UILabel!
+//    @IBOutlet weak var noDataLabel: UILabel!
+
+    @IBOutlet weak var calendarButton: UIButton!
+    @IBOutlet weak var captionImage: UIImageView!
     @IBOutlet weak var captionLabel: UILabel!
-//    let email = UserDefaults.standard.string(forKey: "emailAddress")
+    //    let email = UserDefaults.standard.string(forKey: "emailAddress")
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     @IBOutlet weak var pieChartView: PieChartView!
     override func viewDidLoad() {
+        calendarButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+        calendarButton.layer.cornerRadius = 15
+        calendarButton.setTitleColor(.white, for: .normal)
+        bottomBackgroundView.layer.backgroundColor = UIColor(red: 0.965, green: 0.965, blue: 0.965, alpha: 1).cgColor
+        bottomBackgroundView.layer.cornerRadius = 15
+        segmentedControl.isEnabled = false
+        //        noDataLabel.isHidden = false
+        //        noDataLabel.textColor = .black
+                super.viewDidLoad()
+                segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.black], for: .normal)
+                getTotalDictionaryFromFirebase { (err, dict) in
+                    if err == nil {
+                        self.segmentedControl.isEnabled = true
+                        self.totalDictionary = dict
+                        print("dict", dict)
+                        if self.totalDictionary != nil {
+                            if self.totalDictionary!.keys.contains("Monday") {
+                                self.currentDayDictionary = self.totalDictionary!["Monday"]
+                                for emotion in ["joy", "sadness", "anger", "fear", "neutral"] {
+                                    if !(self.currentDayDictionary?.keys.contains(emotion))! {
+                                        self.currentDayDictionary![emotion] = 0
+                                    }
+                                }
+                                self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [self.currentDayDictionary!["joy"] ?? 0, self.currentDayDictionary!["sadness"] ?? 0, self.currentDayDictionary!["neutral"] ?? 0, self.currentDayDictionary!["anger"]  ?? 0, self.currentDayDictionary!["fear"] ?? 0], day: "Monday")
+                            }
+                        }
+                    }
+                }
         
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        segmentedControl.isEnabled = false
-        noDataLabel.isHidden = false
-        noDataLabel.textColor = .black
-        super.viewDidLoad()
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.black], for: .normal)
-        getTotalDictionaryFromFirebase { (err, dict) in
-            if err == nil {
-                self.segmentedControl.isEnabled = true
-                self.totalDictionary = dict
-                print("dict", dict)
-                if self.totalDictionary != nil {
-                    if self.totalDictionary!.keys.contains("Monday") {
-                        self.currentDayDictionary = self.totalDictionary!["Monday"]
-                        for emotion in ["joy", "sadness", "anger", "fear", "neutral"] {
-                            if !(self.currentDayDictionary?.keys.contains(emotion))! {
-                                self.currentDayDictionary![emotion] = 0
-                            }
-                        }
-                        self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [self.currentDayDictionary!["joy"] ?? 0, self.currentDayDictionary!["sadness"] ?? 0, self.currentDayDictionary!["neutral"] ?? 0, self.currentDayDictionary!["anger"]  ?? 0, self.currentDayDictionary!["fear"] ?? 0], day: "Monday")
-                    }
-                }
-            }
-        }
+        
+        
     }
     
     func getTotalDictionaryFromFirebase(dictionaryCompletionHandler: @escaping (Error?, [String : [String : Int]]?) -> Void){
@@ -82,7 +93,7 @@ class BreakdownViewController: UIViewController {
                 }
                 self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [currentDayDictionary!["joy"] ?? 0, currentDayDictionary!["sadness"] ?? 0, currentDayDictionary!["neutral"] ?? 0, currentDayDictionary!["anger"]  ?? 0, currentDayDictionary!["fear"] ?? 0], day: day)
             } else {
-                noDataLabel.isHidden = false
+//                noDataLabel.isHidden = false
                 pieChartView.isHidden = true
                 captionLabel.isHidden = true
                 
@@ -106,7 +117,7 @@ class BreakdownViewController: UIViewController {
             let dataEntry = PieChartDataEntry()
             if emotionCount[i] != 0 {
                 dataEntry.y = Double(emotionCount[i])
-                dataEntry.label = emotionLabels[i]
+//                dataEntry.label = emotionLabels[i]
                 if emotionLabels[i] == "joy" {
                     colorList.append(UIColor.systemYellow)
                 } else if emotionLabels[i] == "sadness" {
@@ -121,13 +132,20 @@ class BreakdownViewController: UIViewController {
                 dataEntries.append(dataEntry)
             }
         }
-        let grammarDict =  ["joy" : "happy", "sadness" : "sad", "anger" : "angry", "fear" : "scared", "neutral" : "normal"]
-        if maxEmotions.count == 2 {
-            captionLabel.text = "On \(day)s, you typically seem to be \(grammarDict[maxEmotions[0]]!) and \(grammarDict[maxEmotions[1]]!)"
-        } else if maxEmotions.count == 1 {
-            captionLabel.text = "On \(day)s, you typically seem to be \(grammarDict[maxEmotions[0]]!)"
-        } else {
-            captionLabel.text = "On \(day)s, you typically seem to have a mix of emotions"
+        let grammarDict =  ["joy" : "happy", "sadness" : "sad", "anger" : "angry", "fear" : "scared", "neutral" : "neutral"]
+        if maxEmotions.count != 0 {
+            self.captionLabel.text = "On \(day)s, you typically feel \(grammarDict[maxEmotions[0]]!)"
+            if (maxEmotions[0] == "joy") {
+                self.captionImage.image = UIImage(named: "JoyResults")
+            } else if (maxEmotions[0] == "sadness") {
+                self.captionImage.image = UIImage(named: "SadnessResults")
+            } else if (maxEmotions[0] == "anger") {
+                self.captionImage.image = UIImage(named: "AngerResults")
+            } else if (maxEmotions[0] == "fear") {
+                self.captionImage.image = UIImage(named: "FearResults")
+            } else if (maxEmotions[0] == "neutral") {
+                self.captionImage.image = UIImage(named: "NeutralResults")
+            }
         }
         print(dataEntries)
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "Number of \(day)s")
@@ -139,7 +157,7 @@ class BreakdownViewController: UIViewController {
         pieChartView.data = pieChartData
         
         pieChartView.isHidden = false
-        noDataLabel.isHidden = true
+//        noDataLabel.isHidden = true
         captionLabel.isHidden = false
         
     }

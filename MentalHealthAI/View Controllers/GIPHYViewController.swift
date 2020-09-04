@@ -95,7 +95,7 @@ class GIPHYViewController: UIViewController {
             let cal = Calendar.current
             let current_year = cal.component(.year, from: Date())
             let should_query = UserDefaults.standard.bool(forKey: "should_query")
-            print("SHOULD QUERY", should_query)
+            print("SHOULD QUERY GIPHY", should_query)
             if should_query != nil {
                 if should_query {
                     for year in current_year-1...current_year {
@@ -145,7 +145,7 @@ class GIPHYViewController: UIViewController {
                     //                cell.gifURL = url as! String
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             print("Max Term", maxTerm)
 //        if maxTimestamp != 0.0 {
             let lastDate = Date.init(timeIntervalSince1970: maxTimestamp)
