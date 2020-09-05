@@ -10,6 +10,7 @@ import UIKit
 import Charts
 import FirebaseFirestore
 import Firebase
+import FirebaseAuth
 class YearlyViewController: UIViewController {
     @IBOutlet weak var bottomBackgroundView: UIView!
     @IBOutlet weak var captionLabel: UILabel!
@@ -22,6 +23,29 @@ class YearlyViewController: UIViewController {
 
     
     override func viewDidLoad() {
+        self.navigationController?.navigationBar.tintColor = .white
+        let navView = UIView()
+                  let label = UILabel()
+                  label.text = "This Year"
+                  label.sizeToFit()
+                  label.center = navView.frame.origin
+
+          //        let image = UIImageView()
+          //        image.image = UIImage(named: "Infinity")
+                  label.frame.size.width = 300
+                  label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                  label.font = UIFont(name: "SFProDisplay-Heavy", size: 18)
+          //        image.frame = CGRect(x: navView.center.x, y: navView.center.y - 20, width: 22.73, height: 11.04)
+                  navView.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+          //        navView.tintColor = .green
+          //        image.contentMode = UIView.ContentMode.scaleAspectFit
+
+                  navView.addSubview(label)
+          //        navView.addSubview(image)
+
+                  self.navigationItem.titleView = navView
+                  self.navigationItem.titleView?.tintColor = .white
+                  self.navigationController?.navigationBar.tintColor = .white
         pieChartView.legend.enabled = true
         calendarButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         calendarButton.layer.cornerRadius = 15
@@ -42,7 +66,7 @@ class YearlyViewController: UIViewController {
         let day_of_week_formatter = DateFormatter()
         day_of_week_formatter.dateFormat = "EEEE"
         var emotionList = [String] ()
-        let uid = UserDefaults.standard.string(forKey: "uid")
+        let uid = Auth.auth().currentUser?.uid
         db.collection("users").document(uid!).collection("\(components.year!)").getDocuments { (querySnapshot, error) in
                 if error != nil {
                     print("Error retrieving querries")
@@ -70,26 +94,28 @@ class YearlyViewController: UIViewController {
                         let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
                         let maxEmotionValue = emotionCount.values.max()
                         var maxEmotionKeys = [String]()
-                        if maxEmotionValue != 0 {
-                            for key in emotionCount.keys {
-                                if emotionCount[key] == maxEmotionValue {
-                                    maxEmotionKeys.append(key)
+                        if maxEmotionValue != nil {
+                            if maxEmotionValue != 0 {
+                                for key in emotionCount.keys {
+                                    if emotionCount[key] == maxEmotionValue {
+                                        maxEmotionKeys.append(key)
+                                    }
                                 }
+                                self.captionLabel.text = "This year, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                                if (maxEmotionKeys[0] == "joy") {
+                                    self.captionImage.image = UIImage(named: "JoyResults")
+                                } else if (maxEmotionKeys[0] == "sadness") {
+                                    self.captionImage.image = UIImage(named: "SadnessResults")
+                                } else if (maxEmotionKeys[0] == "anger") {
+                                    self.captionImage.image = UIImage(named: "AngerResults")
+                                } else if (maxEmotionKeys[0] == "fear") {
+                                    self.captionImage.image = UIImage(named: "FearResults")
+                                } else if (maxEmotionKeys[0] == "neutral") {
+                                    self.captionImage.image = UIImage(named: "NeutralResults")
+                                }
+                            } else {
+                                self.captionLabel.text = ""
                             }
-                            self.captionLabel.text = "This year, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
-                            if (maxEmotionKeys[0] == "joy") {
-                                self.captionImage.image = UIImage(named: "JoyResults")
-                            } else if (maxEmotionKeys[0] == "sadness") {
-                                self.captionImage.image = UIImage(named: "SadnessResults")
-                            } else if (maxEmotionKeys[0] == "anger") {
-                                self.captionImage.image = UIImage(named: "AngerResults")
-                            } else if (maxEmotionKeys[0] == "fear") {
-                                self.captionImage.image = UIImage(named: "FearResults")
-                            } else if (maxEmotionKeys[0] == "neutral") {
-                                self.captionImage.image = UIImage(named: "NeutralResults")
-                            }
-                        } else {
-                            self.captionLabel.text = ""
                         }
                     }
                 }

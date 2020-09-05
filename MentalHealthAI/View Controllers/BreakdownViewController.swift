@@ -24,6 +24,29 @@ class BreakdownViewController: UIViewController {
     
     @IBOutlet weak var pieChartView: PieChartView!
     override func viewDidLoad() {
+        self.navigationController?.navigationBar.tintColor = .white
+        let navView = UIView()
+                  let label = UILabel()
+                  label.text = "The Breakdown"
+                  label.sizeToFit()
+                  label.center = navView.frame.origin
+
+          //        let image = UIImageView()
+          //        image.image = UIImage(named: "Infinity")
+                  label.frame.size.width = 300
+                  label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                  label.font = UIFont(name: "SFProDisplay-Heavy", size: 18)
+          //        image.frame = CGRect(x: navView.center.x, y: navView.center.y - 20, width: 22.73, height: 11.04)
+                  navView.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+          //        navView.tintColor = .green
+          //        image.contentMode = UIView.ContentMode.scaleAspectFit
+
+                  navView.addSubview(label)
+          //        navView.addSubview(image)
+
+                  self.navigationItem.titleView = navView
+                  self.navigationItem.titleView?.tintColor = .white
+                  self.navigationController?.navigationBar.tintColor = .white
         calendarButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         calendarButton.layer.cornerRadius = 15
         calendarButton.setTitleColor(.white, for: .normal)
@@ -42,12 +65,19 @@ class BreakdownViewController: UIViewController {
                         if self.totalDictionary != nil {
                             if self.totalDictionary!.keys.contains("Monday") {
                                 self.currentDayDictionary = self.totalDictionary!["Monday"]
-                                for emotion in ["joy", "sadness", "anger", "fear", "neutral"] {
-                                    if !(self.currentDayDictionary?.keys.contains(emotion))! {
-                                        self.currentDayDictionary![emotion] = 0
+                                if self.currentDayDictionary != nil {
+                                    for emotion in ["joy", "sadness", "anger", "fear", "neutral"] {
+                                        if !(self.currentDayDictionary?.keys.contains(emotion))! {
+                                            self.currentDayDictionary![emotion] = 0
+                                        }
                                     }
+                                    self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [self.currentDayDictionary!["joy"] ?? 0, self.currentDayDictionary!["sadness"] ?? 0, self.currentDayDictionary!["neutral"] ?? 0, self.currentDayDictionary!["anger"]  ?? 0, self.currentDayDictionary!["fear"] ?? 0], day: "Monday")
+                                } else {
+                                    self.captionLabel.text = "No Data for this Day!"
                                 }
-                                self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [self.currentDayDictionary!["joy"] ?? 0, self.currentDayDictionary!["sadness"] ?? 0, self.currentDayDictionary!["neutral"] ?? 0, self.currentDayDictionary!["anger"]  ?? 0, self.currentDayDictionary!["fear"] ?? 0], day: "Monday")
+                            } else {
+                                self.captionLabel.text = "No Data for this Day!"
+                                
                             }
                         }
                     }
@@ -64,8 +94,8 @@ class BreakdownViewController: UIViewController {
     func getTotalDictionaryFromFirebase(dictionaryCompletionHandler: @escaping (Error?, [String : [String : Int]]?) -> Void){
         let db = Firestore.firestore()
         var returnDict: [String : [String : Int]]?
-        let uid = UserDefaults.standard.string(forKey: "uid")
-        db.collection("users").document(uid!).getDocument { (querySnapshot, err) in
+        let uid = Auth.auth().currentUser?.uid
+        db.collection("users").document(uid!).collection("day_of_the_week").document("day_of_the_week").getDocument { (querySnapshot, err) in
             if err != nil {
                 print("ERROR LOADINg BREAKDOWN QUERY")
             }
@@ -80,6 +110,7 @@ class BreakdownViewController: UIViewController {
     }
     
     @IBAction func didChangeValue(_ sender: UISegmentedControl) {
+        self.captionImage.image = UIImage()
         let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         let index = sender.selectedSegmentIndex
         let day = days[index]
@@ -95,7 +126,8 @@ class BreakdownViewController: UIViewController {
             } else {
 //                noDataLabel.isHidden = false
                 pieChartView.isHidden = true
-                captionLabel.isHidden = true
+                self.captionLabel.text = "No Data for this Day!"
+//                captionLabel.isHidden = true
                 
             }
         }
@@ -105,6 +137,7 @@ class BreakdownViewController: UIViewController {
         
     
     func setCharts(emotionLabels :[String], emotionCount: [Int], day: String) {
+//        self.
         var dataEntries: [ChartDataEntry] = []
         var colorList = [UIColor]()
         var maxEmotions =  [String]()
@@ -155,7 +188,6 @@ class BreakdownViewController: UIViewController {
         pieChartDataSet.colors = colorList
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         pieChartView.data = pieChartData
-        
         pieChartView.isHidden = false
 //        noDataLabel.isHidden = true
         captionLabel.isHidden = false

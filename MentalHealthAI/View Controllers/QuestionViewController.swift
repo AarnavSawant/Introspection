@@ -178,7 +178,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         number = 0
         let db = Firestore.firestore()
-        let uid = UserDefaults.standard.string(forKey: "uid")
+        let uid = Auth.auth().currentUser?.uid
         let cal = Calendar.current
         let current_year = cal.component(.year, from: Date())
         var should_query = UserDefaults.standard.bool(forKey: "should_query")

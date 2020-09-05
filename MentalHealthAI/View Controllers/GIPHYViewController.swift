@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 import SwiftGifOrigin
+import FirebaseAuth
 class GIPHYViewController: UIViewController {
     
     @IBOutlet weak var activityView: UIActivityIndicatorView!
@@ -26,7 +27,10 @@ class GIPHYViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        cheerLabel.backgroundColor = .white
+
+        cheerLabel.alpha = 0.6
+        cheerLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
         // Do any additional setup after loading the view.
     }
     
@@ -73,7 +77,7 @@ class GIPHYViewController: UIViewController {
 //        let lastEmotion = UserDefaults.standard.object(forKey: "lastEmotion") as? String
 //        print(lastEmotion)
 //        let lastDate = UserDefaults.standard.object(forKey: "lastDate") as? Date
-        let uid = UserDefaults.standard.string(forKey: "uid")
+        let uid = Auth.auth().currentUser?.uid
         let db = Firestore.firestore()
         var maxTimestamp = 0.0
         var maxURL: String?
@@ -91,7 +95,7 @@ class GIPHYViewController: UIViewController {
         print("MONTH", current_month)
         print("YEAR", current_year)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let uid = UserDefaults.standard.string(forKey: "uid")
+            let uid = Auth.auth().currentUser?.uid
             let cal = Calendar.current
             let current_year = cal.component(.year, from: Date())
             let should_query = UserDefaults.standard.bool(forKey: "should_query")
@@ -123,23 +127,26 @@ class GIPHYViewController: UIViewController {
                     }
                 }
             }
-            db.collection("users").document(uid!).getDocument { (querySelector, err) in
+            db.collection("users").document(uid!).collection("day_of_the_week").document("day_of_the_week").getDocument { (querySelector, err) in
                 if err != nil {
                     print("There was an error retrieving data")
                 } else if (querySelector != nil) {
                     print("REAL MADRID")
                     let data = querySelector?.data()
-                    if data!["last_gif_url"] != nil {
-                        maxURL = data!["last_gif_url"] as! String
-                    }
-                    if data!["last_gif_term"] != nil {
-                        maxTerm = data!["last_gif_term"] as! String
-                    }
-                    if data!["last class"] != nil {
-                        maxEmotion = data!["last class"] as! String
-                    }
-                    if data!["timestamp"] != nil {
-                        maxTimestamp = data!["timestamp"] as! Double
+                    if data != nil {
+                        print("BOOYAH 69")
+                        if data!["last_gif_url"] != nil {
+                            maxURL = data!["last_gif_url"] as! String
+                        }
+                        if data!["last_gif_term"] != nil {
+                            maxTerm = data!["last_gif_term"] as! String
+                        }
+                        if data!["last class"] != nil {
+                            maxEmotion = data!["last class"] as! String
+                        }
+                        if data!["timestamp"] != nil {
+                            maxTimestamp = data!["timestamp"] as! Double
+                        }
                     }
                 }
                     //                cell.gifURL = url as! String

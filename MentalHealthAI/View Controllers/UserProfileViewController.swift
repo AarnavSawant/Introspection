@@ -8,6 +8,7 @@
 import UserNotifications
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 class UserProfileViewController: UIViewController {
     @IBOutlet weak var notificationView: UIView!
     
@@ -36,6 +37,26 @@ class UserProfileViewController: UIViewController {
                 profileImage.image = UIImage(data: data)
             }
         }
+        let db = Firestore.firestore()
+        db.collection("users").document((Auth.auth().currentUser?.uid)!).collection("Notification Settings").document("Notification Settings").getDocument(completion: { (querySnapshot, err) in
+            if err != nil {
+                print("An Error Ocurred loading Notification Settings!")
+            } else if querySnapshot != nil {
+                let data = querySnapshot?.data()
+                if data != nil {
+                    let notificationTime = data!["Notification Time"] as? String
+                    if notificationTime != nil {
+                        if notificationTime != "NOT ENABLED" {
+                            self.notificationsEnabledSwitch.isOn = true
+                            self.notificationTextField.text = notificationTime!
+                        } else {
+                            self.notificationsEnabledSwitch.isOn = false
+                        }
+                    }
+                }
+                
+            }
+        })
         profileImage.layer.cornerRadius = 0.5 * profileImage.frame.width
         let navView = UIView()
         let label = UILabel()
@@ -135,6 +156,9 @@ class UserProfileViewController: UIViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
             let date = dateFormatter.date(from: notificationTextField.text!)
+            let db = Firestore.firestore()
+            db.collection("users").document((Auth.auth().currentUser?.uid)!).collection("Notification Settings").document("Notification Settings").setData(["Notification Time" : notificationTextField.text!])
+//            UserDefaults.standard.set(false, forKey: "changeLocalNotifications")
             var components = DateComponents()
             let calendar = Calendar.current.dateComponents([.hour, .minute], from: date!)
             components.hour = calendar.hour

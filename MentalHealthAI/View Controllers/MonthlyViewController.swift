@@ -20,6 +20,29 @@ class MonthlyViewController: UIViewController {
     @IBOutlet weak var pieChartView: PieChartView!
 //    @IBOutlet weak var captionLabel: UILabel!
     override func viewDidLoad() {
+        self.navigationController?.navigationBar.tintColor = .white
+        let navView = UIView()
+                  let label = UILabel()
+                  label.text = "This Month"
+                  label.sizeToFit()
+                  label.center = navView.frame.origin
+
+          //        let image = UIImageView()
+          //        image.image = UIImage(named: "Infinity")
+                  label.frame.size.width = 300
+                  label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+                  label.font = UIFont(name: "SFProDisplay-Heavy", size: 18)
+          //        image.frame = CGRect(x: navView.center.x, y: navView.center.y - 20, width: 22.73, height: 11.04)
+                  navView.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
+          //        navView.tintColor = .green
+          //        image.contentMode = UIView.ContentMode.scaleAspectFit
+
+                  navView.addSubview(label)
+          //        navView.addSubview(image)
+
+                  self.navigationItem.titleView = navView
+                  self.navigationItem.titleView?.tintColor = .white
+                  self.navigationController?.navigationBar.tintColor = .white
         pieChartView.legend.enabled = true
         let components = Calendar.current.dateComponents([.year, .month], from: Date())
         let month = Calendar.current.monthSymbols[components.month! - 1]
@@ -50,7 +73,7 @@ class MonthlyViewController: UIViewController {
             let day_of_week_formatter = DateFormatter()
             day_of_week_formatter.dateFormat = "EEEE"
             var emotionList = [String] ()
-            let uid = UserDefaults.standard.string(forKey: "uid")
+            let uid = Auth.auth().currentUser?.uid
         db.collection("users").document(uid!).collection("\(components.year!)").document("\(components.month!)").getDocument { (querySnapshot, error) in
                 if error != nil {
                     print("Error retrieving querries")

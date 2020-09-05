@@ -13,6 +13,7 @@ import NaturalLanguage
 import Firebase
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 class ConfirmViewController: UIViewController {
     var lastClass: String?
     @IBOutlet weak var keeplabel: UILabel!
@@ -22,6 +23,7 @@ class ConfirmViewController: UIViewController {
     @IBOutlet weak var transcribedTextView: UIView!
     var dictionary =  [String : [String : Any]]()
     var day_of_the_week_dict: [String : [String : Int]]?
+    var lastTimestamp = Double()
     var predictedClass = String()
     var gifs = [Gif]()
     var returnString:String?
@@ -263,14 +265,14 @@ class ConfirmViewController: UIViewController {
         vc.TranscribedText.text = "Answering this question will let us assess your stress level"
         UserDefaults.standard.set(true, forKey: "should_query")
         print(UserDefaults.standard.set(true, forKey: "should_query"))
-        let email = UserDefaults.standard.string(forKey: "emailAddress")
+//        let email = UserDefaults.standard.string(forKey: "emailAddress")
 //        print(tabBarController.selectedIndex)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy MM dd"
         let db = Firestore.firestore()
         let calendar = Calendar.current
-//        let testdate = Date()
-        let testdate = dateFormatter.date(from: "2021 09 11")!
+        let testdate = Date()
+//        let testdate = dateFormatter.date(from: "2021 09 10")!
         let current_year = calendar.component(.year, from: testdate)
         let current_month = calendar.component(.month, from: testdate)
         let current_day = calendar.component(.day, from: testdate)
@@ -279,11 +281,10 @@ class ConfirmViewController: UIViewController {
        formatter.dateFormat = "yyyy MM dd"
         let day_of_week_formatter = DateFormatter()
         day_of_week_formatter.dateFormat = "EEEE"
-        print(email)
         let dayOfTheWeekString = day_of_week_formatter.string(from: testdate)
         let lastEmotion = predictedClass
         print("Last Emotion", lastEmotion)
-        let uid = UserDefaults.standard.string(forKey: "uid")
+        let uid = Auth.auth().currentUser?.uid
         var term: String?
         if lastEmotion == "joy" {
             let joyGifs = ["Rabbit", "MickeyMouse", "Hamsters", "Pandas"]
@@ -308,19 +309,19 @@ class ConfirmViewController: UIViewController {
                 }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             let gifURL = self.returnString!
-                db.collection("users").document(uid!).getDocument { (querrySnapshot, err) in
+            db.collection("users").document(uid!).collection("day_of_the_week").document("day_of_the_week").getDocument { (querrySnapshot, err) in
                     if err != nil {
                         print("ERROR RECEIVING QUERY FOR DAY OF THE WEEKS")
                     } else {
                         let data = querrySnapshot?.data()
-                        if data!["day_of_the_week_dict"] != nil {
-                            self.day_of_the_week_dict = data!["day_of_the_week_dict"] as! [String : [String : Int]]
-                        }
-                        self.lastClass = data!["last class"] as? String
-                        var lastTimestamp = data!["timestamp"] as? Double
-                        var dayOfTheWeekService = DayOfTheWeekWriter(oldDictionary: self.day_of_the_week_dict, dayOfTheWeekString: dayOfTheWeekString, timestamp: lastTimestamp!, date: testdate, previousClass: self.lastClass , predictionClass: self.predictedClass)
+//                        if data!["day_of_the_week_dict"] != nil {
+                        self.day_of_the_week_dict = (data?["day_of_the_week_dict"] as? [String : [String : Int]]) ?? nil
+//                        }
+                        self.lastClass = data?["last class"] as? String
+                        self.lastTimestamp = data?["timestamp"] as? Double ?? 0
+                        var dayOfTheWeekService = DayOfTheWeekWriter(oldDictionary: self.day_of_the_week_dict, dayOfTheWeekString: dayOfTheWeekString, timestamp: self.lastTimestamp, date: testdate, previousClass: self.lastClass , predictionClass: self.predictedClass)
                         self.day_of_the_week_dict = dayOfTheWeekService.getNewDayOfTheWeekDictionary()
-                         db.collection("users").document(uid!).setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp, "day_of_the_week_dict" : self.day_of_the_week_dict])
+                         db.collection("users").document(uid!).collection("day_of_the_week").document("day_of_the_week").setData([ "last_gif_term" : term, "last_gif_url" : gifURL, "year" : "\(current_year)", "last class" : self.predictedClass, "timestamp" : timestamp, "day_of_the_week_dict" : self.day_of_the_week_dict])
 
                     }
                 }
@@ -366,9 +367,9 @@ class ConfirmViewController: UIViewController {
                 if gifArray != nil {
                     print(gifArray!.gifs.count)
                     self.gifs = gifArray!.gifs
-                    let randomNumber = Int.random(in: 0..<gifArray!.gifs.count)
+                    let randomNumber = Int.random(in: 0..<25)
+                    print("RANDOM NUMBER", randomNumber)
                     let gifURL = self.gifs[randomNumber].getGIFURL()
-                    UserDefaults.standard.set(gifURL, forKey: "lastGIF")
                     self.returnString = gifURL
                 }
             }

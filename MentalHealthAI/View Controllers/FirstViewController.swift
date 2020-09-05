@@ -42,7 +42,6 @@ class FirstViewController: UIViewController {
     
     func transitionToHomeScreen() {
         let vc = storyboard?.instantiateViewController(identifier: "tabbar") as? MainTabBarController
-//        UserDefaults.standard.set(emailTextField.text, forKey: "emailAddress")
         view.window?.rootViewController = vc
         view.window?.makeKeyAndVisible()
         

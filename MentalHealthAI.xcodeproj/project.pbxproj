@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840107722503137C00C2A823 /* tenor.gif in Resources */ = {isa = PBXBuildFile; fileRef = 840107712503137C00C2A823 /* tenor.gif */; };
 		841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B332A24BAF1210005311E /* MainTabBarController.swift */; };
 		842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */; };
 		842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */; };
@@ -99,6 +100,7 @@
 		2B21EA894DBC1319397F6112 /* Pods_MentalHealthAI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MentalHealthAI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30F5DF44AA48F1A96C21FB59 /* Pods-MentalHealthAITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAITests.debug.xcconfig"; path = "Target Support Files/Pods-MentalHealthAITests/Pods-MentalHealthAITests.debug.xcconfig"; sourceTree = "<group>"; };
 		82055F4587DFCE6C35FC00FA /* Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig"; path = "Target Support Files/Pods-MentalHealthAI-MentalHealthAIUITests/Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		840107712503137C00C2A823 /* tenor.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tenor.gif; sourceTree = "<group>"; };
 		841B332A24BAF1210005311E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsNavController.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				8498B21624ADD0F10083E8A7 /* AppDelegate.swift */,
 				8498B21824ADD0F10083E8A7 /* SceneDelegate.swift */,
 				84571F1924CE9590004AE9A3 /* GoogleService-Info.plist */,
+				840107712503137C00C2A823 /* tenor.gif */,
 				8498B21C24ADD0F10083E8A7 /* Main.storyboard */,
 				8498B21F24ADD0F60083E8A7 /* Assets.xcassets */,
 				845E267E24BDB6CB00615B4B /* DayCell.swift */,
@@ -534,6 +537,7 @@
 			files = (
 				84571F3824D3F26D004AE9A3 /* july_30_v24.json in Resources */,
 				84EF338124DFF53E00C4A06B /* SF-Pro-Display-Heavy.otf in Resources */,
+				840107722503137C00C2A823 /* tenor.gif in Resources */,
 				8498B22324ADD0F60083E8A7 /* LaunchScreen.storyboard in Resources */,
 				84EF338024DFF53700C4A06B /* SF-Pro-Display-Semibold.otf in Resources */,
 				84FD72CE24F5CCCB00622085 /* august_24.json in Resources */,

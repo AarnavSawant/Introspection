@@ -94,51 +94,54 @@ class UserFeedbackViewController: UIViewController {
     }
     
     @IBAction func didClickHappyButton(_ sender: Any) {
-        fearButton.layer.borderColor = UIColor.white.cgColor
-        neutralButton.layer.borderColor = UIColor.white.cgColor
-        sadButton.layer.borderColor = UIColor.white.cgColor
-        angerButton.layer.borderColor = UIColor.white.cgColor
-        happyButton.layer.borderColor = UIColor.blue.cgColor
-        happyButton.layer.borderWidth = 3.0
+        fearButton.layer.backgroundColor = UIColor.white.cgColor
+        
+        neutralButton.layer.backgroundColor = UIColor.white.cgColor
+        sadButton.layer.backgroundColor = UIColor.white.cgColor
+        angerButton.layer.backgroundColor = UIColor.white.cgColor
+//        happyButton.layer.borderColor = UIColor.blue.cgColor
+//        happyButton.alpha = 0.2
+        happyButton.layer.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 0.45).cgColor
+//        happyButton.layer.borderWidth = 3.0
         selectedEmotion = "joy"
         
     }
     
     @IBAction func didClickAngerButton(_ sender: Any) {
-        fearButton.layer.borderColor = UIColor.white.cgColor
-        neutralButton.layer.borderColor = UIColor.white.cgColor
-        sadButton.layer.borderColor = UIColor.white.cgColor
-        happyButton.layer.borderColor = UIColor.white.cgColor
-        angerButton.layer.borderColor = UIColor.blue.cgColor
-        angerButton.layer.borderWidth = 3.0
+        fearButton.layer.backgroundColor = UIColor.white.cgColor
+        neutralButton.layer.backgroundColor = UIColor.white.cgColor
+        sadButton.layer.backgroundColor = UIColor.white.cgColor
+        happyButton.layer.backgroundColor = UIColor.white.cgColor
+        angerButton.layer.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 0.45).cgColor
+//        angerButton.layer.borderWidth = 3.0
         selectedEmotion = "anger"
     }
     
     @IBAction func didClickFearButton(_ sender: Any) {
-        angerButton.layer.borderColor = UIColor.white.cgColor
-        neutralButton.layer.borderColor = UIColor.white.cgColor
-        sadButton.layer.borderColor = UIColor.white.cgColor
-        happyButton.layer.borderColor = UIColor.white.cgColor
-        fearButton.layer.borderColor = UIColor.blue.cgColor
-        fearButton.layer.borderWidth = 3.0
+        angerButton.layer.backgroundColor = UIColor.white.cgColor
+        neutralButton.layer.backgroundColor = UIColor.white.cgColor
+        sadButton.layer.backgroundColor = UIColor.white.cgColor
+        happyButton.layer.backgroundColor = UIColor.white.cgColor
+        fearButton.layer.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 0.45).cgColor
+//        fearButton.layer.borderWidth = 3.0
         selectedEmotion = "fear"
     }
     @IBAction func didClickNeutralButton(_ sender: Any) {
-        fearButton.layer.borderColor = UIColor.white.cgColor
-        angerButton.layer.borderColor = UIColor.white.cgColor
-        sadButton.layer.borderColor = UIColor.white.cgColor
-        happyButton.layer.borderColor = UIColor.white.cgColor
-        neutralButton.layer.borderColor = UIColor.blue.cgColor
-        neutralButton.layer.borderWidth = 3.0
+        fearButton.layer.backgroundColor = UIColor.white.cgColor
+        angerButton.layer.backgroundColor = UIColor.white.cgColor
+        sadButton.layer.backgroundColor = UIColor.white.cgColor
+        happyButton.layer.backgroundColor = UIColor.white.cgColor
+        neutralButton.layer.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 0.45).cgColor
+//        neutralButton.layer.borderWidth = 3.0
         selectedEmotion = "neutral"
     }
     @IBAction func didClickSadButton(_ sender: Any) {
-        fearButton.layer.borderColor = UIColor.white.cgColor
-        neutralButton.layer.borderColor = UIColor.white.cgColor
-        angerButton.layer.borderColor = UIColor.white.cgColor
-        happyButton.layer.borderColor = UIColor.white.cgColor
-        sadButton.layer.borderColor = UIColor.blue.cgColor
-        sadButton.layer.borderWidth = 3.0
+        fearButton.layer.backgroundColor = UIColor.white.cgColor
+        neutralButton.layer.backgroundColor = UIColor.white.cgColor
+        angerButton.layer.backgroundColor = UIColor.white.cgColor
+        happyButton.layer.backgroundColor = UIColor.white.cgColor
+        sadButton.layer.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 0.45).cgColor
+//        sadButton.layer.borderWidth = 3.0
         selectedEmotion = "sadness"
     }
     @IBAction func didClickCancelButton(_ sender: Any) {

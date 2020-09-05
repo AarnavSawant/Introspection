@@ -254,12 +254,11 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                 
                 if err == nil {
                     print("Firebase Log In Done Successful")
-                    db.collection("users").document(authResult!.user.uid).updateData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
+                    db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
                         if error != nil {
                             print("Name not captured")
                         }
                     }
-                    UserDefaults.standard.set(authResult!.user.uid, forKey: "uid")
                     UserDefaults.standard.set(true, forKey: "signed_in")
                     UserDefaults.standard.set("Facebook", forKey: "sign_in_method")
                     UserDefaults.standard.set(true, forKey: "should_query")
@@ -340,14 +339,14 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                     
 //                    let email = user.profile.email
                     UserDefaults.standard.set("Google", forKey: "sign_in_method")
-                    UserDefaults.standard.set(authResult.user.uid, forKey: "uid")
+//                    UserDefaults.standard.set(authResult.user.uid, forKey: "uid")
                     UserDefaults.standard.set(true, forKey: "signed_in")
                     UserDefaults.standard.set(true, forKey: "should_query")
     //                UserDefaults.standard.set(
                 //                        if user.isEmailVerified {
                     UserDefaults.standard.set("\(first_name) \(last_name)", forKey: "Name")
 //                    UserDefaults.standard.set("\(email)", forKey: "Email")
-                    db.collection("users").document(authResult.user.uid).updateData(["first_name" : first_name, "last_name" : last_name, "uid" : authResult.user.uid]) { (error) in
+                    db.collection("users").document(authResult.user.uid).setData(["first_name" : first_name, "last_name" : last_name, "uid" : authResult.user.uid]) { (error) in
                         if error != nil {
                             print("Name not captured")
                         }
@@ -412,12 +411,11 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                         Auth.auth().signIn(with: credential) { (authResult, err) in
                             if err == nil {
                                 print("Firebase Log In Done Successful")
-                                db.collection("users").document(authResult!.user.uid).updateData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
+                                db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
                                     if error != nil {
                                         print("Name not captured")
                                     }
                                 }
-                                UserDefaults.standard.set(authResult!.user.uid, forKey: "uid")
                                 UserDefaults.standard.set(true, forKey: "signed_in")
                                 UserDefaults.standard.set(true, forKey: "should_query")
                                 self.transitionToHomeScreen()
@@ -495,7 +493,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                 UserDefaults.standard.set(result!.user.uid, forKey: "uid")
                 UserDefaults.standard.set(true, forKey: "signed_in")
                 UserDefaults.standard.set("Apple", forKey: "sign_in_method")
-                db.collection("users").document(result!.user.uid).updateData(["first_name" : credential.fullName!.givenName, "last_name" : credential.fullName!.familyName, "uid" : result!.user.uid]) { (error) in
+                db.collection("users").document(result!.user.uid).setData(["first_name" : credential.fullName!.givenName, "last_name" : credential.fullName!.familyName, "uid" : result!.user.uid]) { (error) in
                     if error != nil {
                         print("Name not captured")
                     }

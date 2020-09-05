@@ -11,6 +11,10 @@ import UIKit
 class AnalyticsHomeViewController: UIViewController {
     @IBOutlet weak var breakdownButton: UIButton!
     @IBOutlet weak var MonthlyButton: UIButton!
+    @IBOutlet weak var thisMonthLabel: UILabel!
+    @IBOutlet weak var thisYearLabel: UILabel!
+    @IBOutlet weak var theBreakdownLabel: UILabel!
+    @IBOutlet weak var thisWeekLabel: UILabel!
     @IBOutlet weak var YearlyButton: UIButton!
     @IBOutlet weak var weeklyButton: UIButton!
     
@@ -37,6 +41,18 @@ class AnalyticsHomeViewController: UIViewController {
 //        let logInMethod = UserDefaults.standard.string(forKey: "sign_in_method")
 //        logInMethodLabel.text = "Signed In with \(logInMethod!)"
         self.navigationItem.titleView = navView
+        
+        var lastSundayDate = Calendar.current.date(byAdding: .day, value: -Calendar.current.component(.weekday, from: Date()) + 1, to: Date())
+        var nextSundayDate = Calendar.current.date(byAdding: .day, value: 7, to: lastSundayDate!)
+         var df = DateFormatter()
+        df.dateFormat = "MMM dd"
+        thisWeekLabel.text = "\(df.string(from: lastSundayDate!))-\(df.string(from: nextSundayDate!))"
+        df.dateFormat = "MMMM, yyyy"
+        thisMonthLabel.text = df.string(from: Date())
+        
+        df.dateFormat = "yyyy"
+        thisYearLabel.text = df.string(from: Date())
+        theBreakdownLabel.text = df.string(from: Date())
 //        var shadows = UIView()
 //        print("FRAME", MonthlyButton.frame)
 //        shadows.frame = view.frame

@@ -96,7 +96,12 @@ class RecapViewController: UIViewController {
     }
     
     @objc func barButtonPressed() {
-        print("HELLO")
+//         var shareURL:NSURL = NSURL(string: self.gifShareURL!)!
+//        var shareData:NSData = NSData(contentsOf: shareURL as URL)!
+        let shareData = try! NSData(contentsOf: Bundle.main.url(forResource: "tenor", withExtension: "gif")!)
+        let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store"], applicationActivities: nil)
+        vc.modalPresentationStyle = .popover
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func didClickShareButton(_ sender: Any) {
@@ -146,35 +151,36 @@ class RecapViewController: UIViewController {
             print("\(cellState.date)", self.dictionary)
             let df = DateFormatter()
             df.dateFormat = "yyyy MM dd"
+            if date! == formatter.date(from: formatter.string(from: Date())) {
+                cell.dateLabel.font =  UIFont(name: "HelveticaNeue-Bold", size: 18)
+            } else {
+                cell.dateLabel.font =  UIFont(name: "HelveticaNeue", size: 18)
+            }
             if cellState.dateBelongsTo == .thisMonth {
             if self.dictionary != nil {
                 if self.dictionary!.keys.contains("\(df.string(from: date!))") {
-                    if date! == formatter.date(from: formatter.string(from: Date())) {
-                        print("JAMES EVERTON", date!)
-                        cell.dateLabel.font =  UIFont(name: "HelveticaNeue-Bold", size: 18)
-                    } else {
-                        cell.dateLabel.font =  UIFont(name: "HelveticaNeue", size: 18)
-                    }
                     cell.emotionForTheDay = self.dictionary![df.string(from: date!)]!["emotion"] as! String
                     print(cell.emotionForTheDay)
-                cell.backgroundColor = .none
-                if cell.emotionForTheDay == "joy" {
-                    cell.colorSelectedView.backgroundColor = .systemYellow
-                } else if cell.emotionForTheDay == "sadness" {
-                     cell.colorSelectedView.backgroundColor = .systemBlue
-                } else if cell.emotionForTheDay == "anger" {
-                     cell.colorSelectedView.backgroundColor = .systemRed
-                } else if cell.emotionForTheDay == "neutral" {
-                    print("CELL", cellState.date)
-                     cell.colorSelectedView.backgroundColor = .systemGray
-                } else if cell.emotionForTheDay == "fear" {
-                     cell.colorSelectedView.backgroundColor = .systemPurple
+                    cell.backgroundColor = .none
+                    if cell.emotionForTheDay == "joy" {
+                        cell.colorSelectedView.backgroundColor = .systemYellow
+                    } else if cell.emotionForTheDay == "sadness" {
+                         cell.colorSelectedView.backgroundColor = .systemBlue
+                    } else if cell.emotionForTheDay == "anger" {
+                         cell.colorSelectedView.backgroundColor = .systemRed
+                    } else if cell.emotionForTheDay == "neutral" {
+                        print("CELL", cellState.date)
+                         cell.colorSelectedView.backgroundColor = .systemGray
+                    } else if cell.emotionForTheDay == "fear" {
+                         cell.colorSelectedView.backgroundColor = .systemPurple
+                    } else {
+                        cell.colorSelectedView.backgroundColor = .none
+                    }
                 } else {
                     cell.colorSelectedView.backgroundColor = .none
                 }
             } else {
                 cell.colorSelectedView.backgroundColor = .none
-            }
             }
         }
         cell.colorSelectedView.layer.cornerRadius = 0.5 * cell.colorSelectedView.frame.width
@@ -260,6 +266,7 @@ extension RecapViewController: JTACMonthViewDelegate {
                     }
                 }
             } else {
+                self.textForTheDayView.text = "No introspection was logged for this day"
                 self.feelingsLabel.text = ""
             }
 //        }
@@ -274,15 +281,23 @@ extension RecapViewController: JTACMonthViewDelegate {
     
     func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         let date = visibleDates.monthDates.first?.date
-        calendarView.selectDates(from: date!, to: date!)
+        formatter.dateFormat = "yyyy"
+        let year = formatter.string(from: date!)
+        let todayYear = formatter.string(from: Date())
+        formatter.dateFormat = "MMMM"
+        let month = formatter.string(from: date!)
+        let todayMonth = formatter.string(from: Date())
+        if todayMonth == month && todayYear == year {
+            calendarView.selectDates(from: Date(), to: Date())
+        } else {
+            calendarView.selectDates(from: date!, to: date!)
+        }
+        
         let formatter = DateFormatter()
 //        textForTheDayView.text! = ""
 //        feelingsLabel.text! = ""
 //        formatter.dateFormat = "yyyy MM dd"
-        formatter.dateFormat = "yyyy"
-        let year = formatter.string(from: date!)
-        formatter.dateFormat = "MMMM"
-        let month = formatter.string(from: date!)
+        
         dateLabel.text = "\(month) \(year)"
         currentMonthShown = month
 
