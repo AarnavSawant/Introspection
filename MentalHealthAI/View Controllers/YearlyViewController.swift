@@ -140,7 +140,7 @@ class YearlyViewController: UIViewController {
                         let dataEntry = PieChartDataEntry()
                         if emotionCount[i] != 0 {
                             dataEntry.y = Double(emotionCount[i])
-                            dataEntry.label = emotionLabels[i]
+//                            dataEntry.label = emotionLabels[i]
                             if emotionLabels[i] == "joy" {
                                 colorList.append(UIColor.systemYellow)
                             } else if emotionLabels[i] == "sadness" {

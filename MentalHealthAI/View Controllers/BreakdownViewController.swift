@@ -27,7 +27,7 @@ class BreakdownViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = .white
         let navView = UIView()
                   let label = UILabel()
-                  label.text = "The Breakdown"
+                  label.text = "Advanced Insights"
                   label.sizeToFit()
                   label.center = navView.frame.origin
 

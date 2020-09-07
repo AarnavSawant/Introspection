@@ -112,7 +112,7 @@ class MonthlyViewController: UIViewController {
                                 maxEmotionKeys.append(key)
                             }
                         }
-                        self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                        self.captionLabel.text = "This month, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
                         if (maxEmotionKeys[0] == "joy") {
                             self.captionImage.image = UIImage(named: "JoyResults")
                         } else if (maxEmotionKeys[0] == "sadness") {

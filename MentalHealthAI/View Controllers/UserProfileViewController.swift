@@ -38,25 +38,11 @@ class UserProfileViewController: UIViewController {
             }
         }
         let db = Firestore.firestore()
-        db.collection("users").document((Auth.auth().currentUser?.uid)!).collection("Notification Settings").document("Notification Settings").getDocument(completion: { (querySnapshot, err) in
-            if err != nil {
-                print("An Error Ocurred loading Notification Settings!")
-            } else if querySnapshot != nil {
-                let data = querySnapshot?.data()
-                if data != nil {
-                    let notificationTime = data!["Notification Time"] as? String
-                    if notificationTime != nil {
-                        if notificationTime != "NOT ENABLED" {
-                            self.notificationsEnabledSwitch.isOn = true
-                            self.notificationTextField.text = notificationTime!
-                        } else {
-                            self.notificationsEnabledSwitch.isOn = false
-                        }
-                    }
-                }
-                
+        if UserDefaults.standard.string(forKey: "NotificationTime") != nil {
+            if UserDefaults.standard.string(forKey: "NotificationTime") != "NOT ENABLED" {
+                notificationTextField.text = UserDefaults.standard.string(forKey: "NotificationTime")
             }
-        })
+        }
         profileImage.layer.cornerRadius = 0.5 * profileImage.frame.width
         let navView = UIView()
         let label = UILabel()
@@ -156,8 +142,8 @@ class UserProfileViewController: UIViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
             let date = dateFormatter.date(from: notificationTextField.text!)
-            let db = Firestore.firestore()
-            db.collection("users").document((Auth.auth().currentUser?.uid)!).collection("Notification Settings").document("Notification Settings").setData(["Notification Time" : notificationTextField.text!])
+//            let db = Firestore.firestore()
+            UserDefaults.standard.set(notificationTextField.text!, forKey: "NotificationTime")
 //            UserDefaults.standard.set(false, forKey: "changeLocalNotifications")
             var components = DateComponents()
             let calendar = Calendar.current.dateComponents([.hour, .minute], from: date!)
@@ -213,28 +199,49 @@ class UserProfileViewController: UIViewController {
     @IBAction func switchValuesDidChange(_ sender: UISwitch) {
         print("VALUE CHANGED")
         if (sender.isOn) {
-            var content = UNMutableNotificationContent()
-            content.title = "It's Time to Introspect!"
-            content.body = "Take a step back from your day and reflect!"
-            var dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
-            var components = DateComponents()
-            let date = dateFormatter.date(from: self.notificationTextField.text!)!
-            let calendar = Calendar.current.dateComponents([.hour, .minute], from: date)
-            let center = UNUserNotificationCenter.current()
-            components.hour = calendar.hour
-            components.minute = calendar.minute
-//            UNNotificationRequest
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true).self
-            let request = UNNotificationRequest(identifier: "IntrospectionNotification", content: content, trigger: trigger)
-            center.add(request) { (err) in
-                if err == nil {
-                    print("Notification Created")
+            if UIApplication.shared.isRegisteredForRemoteNotifications {
+                var content = UNMutableNotificationContent()
+                content.title = "It's Time to Introspect!"
+                content.body = "Take a step back from your day and reflect!"
+                var dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "h:mm a"
+                var components = DateComponents()
+                let date = dateFormatter.date(from: self.notificationTextField.text!)!
+                UserDefaults.standard.set(notificationTextField.text!, forKey: "NotificationTime")
+                let calendar = Calendar.current.dateComponents([.hour, .minute], from: date)
+                let center = UNUserNotificationCenter.current()
+                components.hour = calendar.hour
+                components.minute = calendar.minute
+    //            UNNotificationRequest
+                let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true).self
+                let request = UNNotificationRequest(identifier: "IntrospectionNotification", content: content, trigger: trigger)
+                center.add(request) { (err) in
+                    if err == nil {
+                        print("Notification Created")
+                    }
                 }
+            } else {
+                sender.isOn = false
+                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                UserDefaults.standard.set("NOT ENABLED", forKey: "NotificationTime")
+                let alertController = UIAlertController(title: "Permission needed for Notifications", message: "Please enable notifications in settings.", preferredStyle: UIAlertController.Style.alert)
+
+                let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                    //Redirect to Settings app
+                    UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+                })
+
+                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
+                alertController.addAction(cancelAction)
+
+                alertController.addAction(okAction)
+
+                self.present(alertController, animated: true, completion: nil)
             }
             
         } else {
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UserDefaults.standard.set("NOT ENABLED", forKey: "NotificationTime")
 //            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         }
     }

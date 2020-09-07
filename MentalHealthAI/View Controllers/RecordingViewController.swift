@@ -28,6 +28,8 @@ class RecordingViewController: UIViewController {
     //    @IBOutlet weak var stopButton: UIButton!
         private var recognitionTask: SFSpeechRecognitionTask? //Used to cancel, stop, or start current recognition task
     override func viewDidLoad() {
+        voiceImage.backgroundColor = .none
+        timerLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
         self.navigationItem.titleView?.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         TranscribedText.isHidden = true
         self.TranscribedText.backgroundColor = .white
