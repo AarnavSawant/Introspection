@@ -11,6 +11,7 @@ import Speech
 import CoreLocation
 import CoreML
 import Firebase
+import FirebaseAuth
 import FirebaseFirestore
 class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
 //    @IBOutlet weak var scrollTextView: StarWarsTextView!
@@ -41,6 +42,9 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     var number: Int?
     override func viewDidLoad() {
+//        UserDefaults.standard.set(nil, forKey: "NotificationTime")
+//        UserDefaults.standard.set(nil, forKey: "NotificationsEnabledInApp")
+        print("Notifications Enabled", UIApplication.shared.isRegisteredForRemoteNotifications)
 //        var practiceDict = [String : [String : Any]]()
 //        for i in 0...1200 {
 //            practiceDict["\(i)"] = ["timestamp" : 12345678, "emotion" : "joy", "text" : "The Bears still suck"]

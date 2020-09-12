@@ -152,6 +152,7 @@ class RecapViewController: UIViewController {
             let df = DateFormatter()
             df.dateFormat = "yyyy MM dd"
             if date! == formatter.date(from: formatter.string(from: Date())) {
+                print("TODAY CONFIGURED")
                 cell.dateLabel.font =  UIFont(name: "HelveticaNeue-Bold", size: 18)
             } else {
                 cell.dateLabel.font =  UIFont(name: "HelveticaNeue", size: 18)
@@ -216,7 +217,7 @@ extension RecapViewController: JTACMonthViewDelegate {
         return cell
     }
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
-        print("LYON", cellState.date)
+//        print("LYON", cellState.date)
         configureCells(cell: cell as! DayCell, cellState: cellState, date: date)
     }
     func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
@@ -235,6 +236,9 @@ extension RecapViewController: JTACMonthViewDelegate {
         components.minute = 0
         let df = DateFormatter()
         df.dateFormat = "yyyy MM dd"
+        if df.string(from: cellState.date) == df.string(from: Date()) {
+            newcell.dateLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+        }
         components.second = 0
         let date = Calendar.current.date(from: components)
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
@@ -242,26 +246,19 @@ extension RecapViewController: JTACMonthViewDelegate {
                 
                 self.textForTheDayView.text = self.dictionary![df.string(from: date!)]?["text"] as? String ?? "No introspection was logged for this day"
                 self.feelingsLabel.text = ""
-//                newcell.backgroundColor = .none
                 if !newcell.colorSelectedView.isHidden && self.dictionary!.keys.contains(df.string(from: date!)){
                     print("JAMES", date!, newcell.emotionForTheDay)
                     if newcell.emotionForTheDay == "joy" {
-//                        self.feelingsLabel.textColor = .yellow
                         self.feelingsLabel.text =  "You were happy on this day"
                     } else if newcell.emotionForTheDay == "anger" {
-//                        self.feelingsLabel.textColor = .red
                         self.feelingsLabel.text =  "You were angry on this day"
                     } else if newcell.emotionForTheDay == "fear" {
-//                        self.feelingsLabel.textColor = .purple
                         self.feelingsLabel.text =  "You were scared on this day"
                     } else if newcell.emotionForTheDay == "sadness" {
-//                        self.feelingsLabel.textColor = .blue
                         self.feelingsLabel.text =  "You were sad on this day"
                     } else if newcell.emotionForTheDay == "neutral" {
-//                        self.feelingsLabel.textColor = .gray
                         self.feelingsLabel.text =  "You were okay on this day"
                     } else {
-//                        self.feelingsLabel.textColor = .gray
                         self.feelingsLabel.text =  ""
                     }
                 }
@@ -269,7 +266,6 @@ extension RecapViewController: JTACMonthViewDelegate {
                 self.textForTheDayView.text = "No introspection was logged for this day"
                 self.feelingsLabel.text = ""
             }
-//        }
     }
     
     func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {

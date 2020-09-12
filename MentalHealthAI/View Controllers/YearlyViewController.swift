@@ -15,6 +15,7 @@ class YearlyViewController: UIViewController {
     @IBOutlet weak var bottomBackgroundView: UIView!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var captionImage: UIImageView!
+    @IBOutlet weak var numberOfDaysLabel: UILabel!
     @IBOutlet weak var calendarButton: UIButton!
     var dictionary: [String : [String : Any]]?
    
@@ -46,7 +47,7 @@ class YearlyViewController: UIViewController {
                   self.navigationItem.titleView = navView
                   self.navigationItem.titleView?.tintColor = .white
                   self.navigationController?.navigationBar.tintColor = .white
-        pieChartView.legend.enabled = true
+        pieChartView.legend.enabled = false
         calendarButton.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         calendarButton.layer.cornerRadius = 15
         calendarButton.setTitleColor(.white, for: .normal)
@@ -91,7 +92,7 @@ class YearlyViewController: UIViewController {
                             }
                         }
                         self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
-                        let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
+                        let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "neutral"]
                         let maxEmotionValue = emotionCount.values.max()
                         var maxEmotionKeys = [String]()
                         if maxEmotionValue != nil {
@@ -114,9 +115,13 @@ class YearlyViewController: UIViewController {
                                     self.captionImage.image = UIImage(named: "NeutralResults")
                                 }
                             } else {
-                                self.captionLabel.text = ""
+//                                self.captionLabel.text = "No Data Available for This Year"
                             }
+                        } else {
+                            self.captionLabel.text = "No Data Available for This Year"
                         }
+                    } else {
+                        self.captionLabel.text = "No Data Available for This Year"
                     }
                 }
             }

@@ -11,10 +11,12 @@ import StarWarsTextView
 import Charts
 import CoreData
 import Firebase
+import FirebaseAuth
 import FirebaseFirestore
 class WeeklyViewController: UIViewController {
     @IBOutlet weak var calendarButton: UIButton!
     @IBOutlet weak var bottomBackgroundView: UIView!
+    @IBOutlet weak var numberOfDaysLabel: UILabel!
     @IBOutlet weak var activityView: UIActivityIndicatorView!
     @IBOutlet weak var captionImage: UIImageView!
     var dictionary: [String : [String : Any]]?
@@ -23,7 +25,9 @@ class WeeklyViewController: UIViewController {
     @IBOutlet weak var pieView: PieChartView!
     var date_to_sentiment_dict = [Date : String] ()
     override func viewDidLoad() {
+        numberOfDaysLabel.isHidden = true
         self.navigationController?.navigationBar.tintColor = .white
+        
         let navView = UIView()
                   let label = UILabel()
                   label.text = "This Week"
@@ -56,7 +60,7 @@ class WeeklyViewController: UIViewController {
         view.backgroundColor = .white
 
         
-        pieView.legend.enabled = true
+        pieView.legend.enabled = false
                 activityView.isHidden = false
                 activityView.startAnimating()
                 var lastSundayDate = Calendar.current.date(byAdding: .day, value: -Calendar.current.component(.weekday, from: Date()) + 1, to: Date())
@@ -199,48 +203,47 @@ class WeeklyViewController: UIViewController {
                             self.pieView.isHidden = false
                             print(emotionCount)
                             self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
-                            let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
+                            let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "neutral"]
                             let maxEmotionValue = emotionCount.values.max()
                             print("MAX VALUE", maxEmotionValue)
                             var maxEmotionKeys = [String]()
-                            if maxEmotionValue != 0 {
-                                for key in emotionCount.keys {
-                                    if emotionCount[key] == maxEmotionValue {
-                                        maxEmotionKeys.append(key)
+                            if maxEmotionValue != nil {
+                                if maxEmotionValue != 0 {
+                                    self.numberOfDaysLabel.isHidden = false
+                                    for key in emotionCount.keys {
+                                        if emotionCount[key] == maxEmotionValue {
+                                            maxEmotionKeys.append(key)
+                                        }
                                     }
-                                }
-                                print("Max Emotion Keys", maxEmotionKeys)
-                                if maxEmotionKeys.count != 0 {
-        //                            if maxEmotionKeys.count > 2 {
-        //                                self.captionLabel.text = "This week, you have been feeling mix of emotions."
-        //                            } else if maxEmotionKeys.count == 2 {
-        //                                self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!) and \(grammarDict[maxEmotionKeys[1]]!) "
-        //                            } else {
-                                    self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
-                                    if (maxEmotionKeys[0] == "joy") {
-                                        self.captionImage.image = UIImage(named: "JoyResults")
-                                    } else if (maxEmotionKeys[0] == "sadness") {
-                                        self.captionImage.image = UIImage(named: "SadnessResults")
-                                    } else if (maxEmotionKeys[0] == "anger") {
-                                        self.captionImage.image = UIImage(named: "AngerResults")
-                                    } else if (maxEmotionKeys[0] == "fear") {
-                                        self.captionImage.image = UIImage(named: "FearResults")
-                                    } else if (maxEmotionKeys[0] == "neutral") {
-                                        self.captionImage.image = UIImage(named: "NeutralResults")
+                                    print("Max Emotion Keys", maxEmotionKeys)
+                                    if maxEmotionKeys.count != 0 {
+                                        self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                                        if (maxEmotionKeys[0] == "joy") {
+                                            self.captionImage.image = UIImage(named: "JoyResults")
+                                        } else if (maxEmotionKeys[0] == "sadness") {
+                                            self.captionImage.image = UIImage(named: "SadnessResults")
+                                        } else if (maxEmotionKeys[0] == "anger") {
+                                            self.captionImage.image = UIImage(named: "AngerResults")
+                                        } else if (maxEmotionKeys[0] == "fear") {
+                                            self.captionImage.image = UIImage(named: "FearResults")
+                                        } else if (maxEmotionKeys[0] == "neutral") {
+                                            self.captionImage.image = UIImage(named: "NeutralResults")
+                                        }
+            //                            }
                                     }
-        //                            }
+                                } else {
+                                    self.captionLabel.text = "No Data For This Week"
                                 }
                             } else {
-                                self.captionLabel.text = ""
+                                self.pieView.isHidden = true
+                                self.captionLabel.text = "No Data For This Week"
+                                
                             }
-//        pieView.isHidden = true
         
         }
     }
-    //        print("CheeseHead", emotionList)
     
     func setCharts(emotionLabels :[String], emotionCount: [Int]) {
-        //        var dataEntries: [ChartDataEntry] = []
         var numZeroEntries = 0
         var dataEntries: [ChartDataEntry] = []
         var colorList = [UIColor]()
@@ -249,7 +252,6 @@ class WeeklyViewController: UIViewController {
             let dataEntry = PieChartDataEntry()
             if emotionCount[i] != 0 {
                 dataEntry.y = Double(emotionCount[i])
-//                dataEntry.label = emotionLabels[i]
                 if emotionLabels[i] == "joy" {
                     colorList.append(UIColor.systemYellow)
                 } else if emotionLabels[i] == "sadness" {

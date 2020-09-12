@@ -28,6 +28,7 @@ class RecordingViewController: UIViewController {
     //    @IBOutlet weak var stopButton: UIButton!
         private var recognitionTask: SFSpeechRecognitionTask? //Used to cancel, stop, or start current recognition task
     override func viewDidLoad() {
+        timerLabel.alpha = 0.6
         voiceImage.backgroundColor = .none
         timerLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
         self.navigationItem.titleView?.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
@@ -130,7 +131,7 @@ class RecordingViewController: UIViewController {
                        if words > 8 {
                            audioEngine.stop()
                            recognitionRequest?.endAudio()
-                        self.performSegue(withIdentifier: "confirm_segue", sender: self)
+                            self.performSegue(withIdentifier: "confirm_segue", sender: self)
 //                           SpeakButton.isEnabled = true
 //                           SpeakButton.setTitle("Start", for: .normal)
 //                            return true
@@ -140,12 +141,12 @@ class RecordingViewController: UIViewController {
 //                           SpeakButton.isEnabled = true
                            print("Yay")
                         let tab_vc = self.presentingViewController as! MainTabBarController
+                        self.dismiss(animated: true, completion: nil)
                         let nav_vc = tab_vc.viewControllers![tab_vc.selectedIndex] as! ReflectViewController
                         let vc = nav_vc.viewControllers[0] as! QuestionViewController
                         vc.howWasYourDayLabel.text = "Tell me a bit more about your day"
-                        vc.TranscribedText.text = "Oops! I can’t assess your stress level with so little input"
+                        vc.TranscribedText.text = "Oops! I can’t assess your stress level with so few words"
 //                           SpeakButton.setTitle("Start", for: .normal)
-                        self.dismiss(animated: true, completion: nil)
 //                           TranscribedText.text = "Tell me a bit more about your day!"
                        }
         }
@@ -274,6 +275,12 @@ class RecordingViewController: UIViewController {
                     } else {
                         self.audioEngine.stop()
                         self.recognitionRequest?.endAudio()
+                        let tab_vc = self.presentingViewController as! MainTabBarController
+                        self.dismiss(animated: true, completion: nil)
+                        let nav_vc = tab_vc.viewControllers![tab_vc.selectedIndex] as! ReflectViewController
+                        let vc = nav_vc.viewControllers[0] as! QuestionViewController
+                        vc.howWasYourDayLabel.text = "Tell me a bit more about your day"
+                        vc.TranscribedText.text = "Oops! I can’t assess your stress level with so few words!"
 //                        self.SpeakButton.isEnabled = true
                         print("Yay")
 //                        self.SpeakButton.setTitle("Start", for: .normal)

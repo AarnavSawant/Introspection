@@ -11,6 +11,7 @@ import Charts
 import FirebaseFirestore
 import FirebaseAuth
 class MonthlyViewController: UIViewController {
+    @IBOutlet weak var numberOfDaysLabel: UILabel!
     @IBOutlet weak var viewInCalendarButton: UIButton!
     @IBOutlet weak var bottomBackgroundView: UIView!
     @IBOutlet weak var captionLabel: UILabel!
@@ -43,7 +44,7 @@ class MonthlyViewController: UIViewController {
                   self.navigationItem.titleView = navView
                   self.navigationItem.titleView?.tintColor = .white
                   self.navigationController?.navigationBar.tintColor = .white
-        pieChartView.legend.enabled = true
+        pieChartView.legend.enabled = false
         let components = Calendar.current.dateComponents([.year, .month], from: Date())
         let month = Calendar.current.monthSymbols[components.month! - 1]
         super.viewDidLoad()
@@ -103,7 +104,7 @@ class MonthlyViewController: UIViewController {
 //                        }
 //                    }
                     self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
-                    let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "okay"]
+                    let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "neutral"]
                     let maxEmotionValue = emotionCount.values.max()
                     var maxEmotionKeys = [String]()
                     if maxEmotionValue != 0 {
@@ -125,7 +126,7 @@ class MonthlyViewController: UIViewController {
                             self.captionImage.image = UIImage(named: "NeutralResults")
                         }
                     } else {
-                        self.captionLabel.text = ""
+                        self.captionLabel.text = "No Data for this Month"
                     }
 
                 }

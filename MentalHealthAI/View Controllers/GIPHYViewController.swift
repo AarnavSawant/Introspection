@@ -186,15 +186,15 @@ class GIPHYViewController: UIViewController {
                         } else if lastEmotion == "anger" {
                 //            searchGifs(for: "nature")
                             self.emotionLabel.text = "You seem to be feeling angry today."
-                            self.cheerLabel.text = "So let's calm you down with a beautiful \(term) GIF!"
+                            self.cheerLabel.text = "So let's calm you down with a \(term) GIF!"
                         } else if lastEmotion == "fear" {
                 //            searchGifs(for: "ocean")
                             self.emotionLabel.text = "You seem to be feeling afraid today!"
-                            self.cheerLabel.text = "So let's calm your apprehensions with a blissful \(term) GIF!"
+                            self.cheerLabel.text = "So let's calm your apprehensions with a \(term) GIF!"
                         } else {
                 //            searchGifs(for: "Packers")
                             
-                            self.emotionLabel.text = "You seem to be feeling okay today!"
+                            self.emotionLabel.text = "You seem to be feeling neutral today!"
                             self.cheerLabel.text = "So let's see if you can crack a smile with this  \(term) GIF!"
                         }
                 }

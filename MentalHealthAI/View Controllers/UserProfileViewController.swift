@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseFirestore
 class UserProfileViewController: UIViewController {
     @IBOutlet weak var notificationView: UIView!
-    
+    var permissionGranted:Bool?
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
@@ -37,12 +37,11 @@ class UserProfileViewController: UIViewController {
                 profileImage.image = UIImage(data: data)
             }
         }
+//        if !UIApplication.shared.isRegisteredForRemoteNotifications {
+//            UserDefaults.standard.set("NOT ENABLED", forKey: "NotificationTime")
+//        }
         let db = Firestore.firestore()
-        if UserDefaults.standard.string(forKey: "NotificationTime") != nil {
-            if UserDefaults.standard.string(forKey: "NotificationTime") != "NOT ENABLED" {
-                notificationTextField.text = UserDefaults.standard.string(forKey: "NotificationTime")
-            }
-        }
+       
         profileImage.layer.cornerRadius = 0.5 * profileImage.frame.width
         let navView = UIView()
         let label = UILabel()
@@ -94,7 +93,6 @@ class UserProfileViewController: UIViewController {
         signOutButton.backgroundColor = .white
         AboutUsButton.contentHorizontalAlignment = .left
         AboutUsButton.backgroundColor = .none
-//        var datePicker: UIDatePicker = UIDatePicker()
         var toolbar = UIToolbar()
         
         toolbar.sizeToFit()
@@ -110,6 +108,39 @@ class UserProfileViewController: UIViewController {
         
     
         // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                    if settings.authorizationStatus == .authorized {
+                        self.permissionGranted = true
+                    } else {
+                        self.permissionGranted = false
+                    }
+                }
+//                let db = Firestore.firestore()
+                print("Notification Time", UserDefaults.standard.string(forKey: "NotificationTime"))
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    print("Notifications Enabled in Settings", self.permissionGranted)
+                    if self.permissionGranted! {
+        //                if UserDefaults.standard.string(forKey: "NotificationTime") != nil {
+                            if UserDefaults.standard.bool(forKey: "NotificationsEnabledInApp") {
+                                print("Turning Enabled Switch On")
+                                self.notificationsEnabledSwitch.isOn = true
+                                self.notificationTextField.text = UserDefaults.standard.string(forKey: "NotificationTime")
+                            } else {
+                                print("Notification Not Enabled")
+                                self.notificationTextField.text = "9:30 PM"
+                                self.notificationsEnabledSwitch.isOn = false
+                            }
+        //                } else {
+        //                    self.notificationsEnabledSwitch.isOn = true
+        //                    self.notificationTextField.text = UserDefaults.standard.string(forKey: "9:30 PM")
+        //                }
+                    } else {
+                        self.notificationsEnabledSwitch.isOn = false
+                        self.notificationTextField.text = UserDefaults.standard.string(forKey: "NotificationTime")
+                    }
+                }
     }
 //    func createDatePicker() {
 //        datePicker.datePickerMode = .time
@@ -187,19 +218,11 @@ class UserProfileViewController: UIViewController {
         
     }
     
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @IBAction func switchValuesDidChange(_ sender: UISwitch) {
         print("VALUE CHANGED")
         if (sender.isOn) {
-            if UIApplication.shared.isRegisteredForRemoteNotifications {
+            if self.permissionGranted! {
                 var content = UNMutableNotificationContent()
                 content.title = "It's Time to Introspect!"
                 content.body = "Take a step back from your day and reflect!"
@@ -212,9 +235,11 @@ class UserProfileViewController: UIViewController {
                 let center = UNUserNotificationCenter.current()
                 components.hour = calendar.hour
                 components.minute = calendar.minute
-    //            UNNotificationRequest
+                UserDefaults.standard.set(true, forKey: "NotificationsEnabledInApp")
+                print("Notifications set to Enabled")
                 let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true).self
                 let request = UNNotificationRequest(identifier: "IntrospectionNotification", content: content, trigger: trigger)
+                center.removeAllPendingNotificationRequests()
                 center.add(request) { (err) in
                     if err == nil {
                         print("Notification Created")
@@ -222,27 +247,25 @@ class UserProfileViewController: UIViewController {
                 }
             } else {
                 sender.isOn = false
-                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                UserDefaults.standard.set("NOT ENABLED", forKey: "NotificationTime")
-                let alertController = UIAlertController(title: "Permission needed for Notifications", message: "Please enable notifications in settings.", preferredStyle: UIAlertController.Style.alert)
-
-                let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
-                    //Redirect to Settings app
-                    UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
-                })
-
-                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
-                alertController.addAction(cancelAction)
-
-                alertController.addAction(okAction)
-
+                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    UserDefaults.standard.set(false, forKey: "NotificationEnabledInApp")
+                    let alertController = UIAlertController(title: "Permission needed for Notifications", message: "Please enable notifications in settings.", preferredStyle: UIAlertController.Style.alert)
+                    
+                    let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                                        //Redirect to Settings app
+                        UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+                    })
+                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(okAction)
+                    
                 self.present(alertController, animated: true, completion: nil)
+
             }
-            
         } else {
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            UserDefaults.standard.set("NOT ENABLED", forKey: "NotificationTime")
-//            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+            UserDefaults.standard.set(false, forKey: "NotificationsEnabledInApp")
         }
     }
     

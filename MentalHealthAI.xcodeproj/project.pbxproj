@@ -21,8 +21,6 @@
 		844E845324BBD0CA00A336EC /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E845224BBD0CA00A336EC /* ConfirmViewController.swift */; };
 		844E845F24BD9A2F00A336EC /* RecapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E845E24BD9A2F00A336EC /* RecapViewController.swift */; };
 		84571F1A24CE9590004AE9A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84571F1924CE9590004AE9A3 /* GoogleService-Info.plist */; };
-		84571F1C24D019DB004AE9A3 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F1B24D019DB004AE9A3 /* PopUpViewController.swift */; };
-		84571F1E24D02388004AE9A3 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F1D24D02388004AE9A3 /* FeedbackViewController.swift */; };
 		84571F2024D02ECB004AE9A3 /* UserFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F1F24D02ECB004AE9A3 /* UserFeedbackViewController.swift */; };
 		84571F2C24D1461A004AE9A3 /* ReflectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F2B24D1461A004AE9A3 /* ReflectViewController.swift */; };
 		84571F2E24D16721004AE9A3 /* Contants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F2D24D16721004AE9A3 /* Contants.swift */; };
@@ -34,17 +32,21 @@
 		84571F3F24D55FED004AE9A3 /* GifNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F3E24D55FED004AE9A3 /* GifNetwork.swift */; };
 		84571F4124D5643B004AE9A3 /* GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F4024D5643B004AE9A3 /* GIF.swift */; };
 		84571F4524D6821B004AE9A3 /* july_31_v2.json in Resources */ = {isa = PBXBuildFile; fileRef = 84571F4424D6821B004AE9A3 /* july_31_v2.json */; };
+		845C60962508A274002C73C5 /* IntrospectionMLModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 845C60952508A272002C73C5 /* IntrospectionMLModel.mlmodel */; };
+		845C60982508A2B2002C73C5 /* september_9.json in Resources */ = {isa = PBXBuildFile; fileRef = 845C60972508A2B2002C73C5 /* september_9.json */; };
+		845C609A2509C4FD002C73C5 /* IntrospectionEmotionDetectionModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 845C60992509C4FC002C73C5 /* IntrospectionEmotionDetectionModel.mlmodel */; };
+		845C609C2509C506002C73C5 /* september_9_revised.json in Resources */ = {isa = PBXBuildFile; fileRef = 845C609B2509C506002C73C5 /* september_9_revised.json */; };
+		845C609E250BFBA0002C73C5 /* IntrospectionDLModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 845C609D250BFB9F002C73C5 /* IntrospectionDLModel.mlmodel */; };
+		845C60A0250BFBAD002C73C5 /* september_10.json in Resources */ = {isa = PBXBuildFile; fileRef = 845C609F250BFBAD002C73C5 /* september_10.json */; };
 		845E267F24BDB6CB00615B4B /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E267E24BDB6CB00615B4B /* DayCell.swift */; };
 		8478E2EB24E68C0700BE81C3 /* DayOfTheWeekService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478E2EA24E68C0700BE81C3 /* DayOfTheWeekService.swift */; };
 		8478E2F824E74C2900BE81C3 /* IntrospectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478E2F724E74C2900BE81C3 /* IntrospectionTests.swift */; };
 		8478E30024E7A91400BE81C3 /* FeedbackNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478E2FF24E7A91400BE81C3 /* FeedbackNavController.swift */; };
-		847D870624C2D87F000254D9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870524C2D87F000254D9 /* SignUpViewController.swift */; };
 		847D870C24C2DA12000254D9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870B24C2DA12000254D9 /* SignInViewController.swift */; };
 		847D870E24C2DBAC000254D9 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870D24C2DBAC000254D9 /* FirstViewController.swift */; };
 		848A38F824C6D62800769850 /* AnalyticsHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848A38F724C6D62800769850 /* AnalyticsHomeViewController.swift */; };
 		848A38FA24C6D7F500769850 /* WeeklyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848A38F924C6D7F500769850 /* WeeklyViewController.swift */; };
 		848A38FE24CD488000769850 /* july_24_v4.json in Resources */ = {isa = PBXBuildFile; fileRef = 848A38FD24CD487F00769850 /* july_24_v4.json */; };
-		8493FC0724E20FE9005D5261 /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8493FC0624E20FE9005D5261 /* VerificationViewController.swift */; };
 		8498B21724ADD0F10083E8A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B21624ADD0F10083E8A7 /* AppDelegate.swift */; };
 		8498B21924ADD0F10083E8A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B21824ADD0F10083E8A7 /* SceneDelegate.swift */; };
 		8498B21B24ADD0F10083E8A7 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B21A24ADD0F10083E8A7 /* QuestionViewController.swift */; };
@@ -117,8 +119,6 @@
 		844E845224BBD0CA00A336EC /* ConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
 		844E845E24BD9A2F00A336EC /* RecapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapViewController.swift; sourceTree = "<group>"; };
 		84571F1924CE9590004AE9A3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		84571F1B24D019DB004AE9A3 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
-		84571F1D24D02388004AE9A3 /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		84571F1F24D02ECB004AE9A3 /* UserFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedbackViewController.swift; sourceTree = "<group>"; };
 		84571F2B24D1461A004AE9A3 /* ReflectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectViewController.swift; sourceTree = "<group>"; };
 		84571F2D24D16721004AE9A3 /* Contants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contants.swift; sourceTree = "<group>"; };
@@ -130,13 +130,18 @@
 		84571F3E24D55FED004AE9A3 /* GifNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifNetwork.swift; sourceTree = "<group>"; };
 		84571F4024D5643B004AE9A3 /* GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIF.swift; sourceTree = "<group>"; };
 		84571F4424D6821B004AE9A3 /* july_31_v2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_31_v2.json; sourceTree = "<group>"; };
+		845C60952508A272002C73C5 /* IntrospectionMLModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = IntrospectionMLModel.mlmodel; sourceTree = "<group>"; };
+		845C60972508A2B2002C73C5 /* september_9.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_9.json; sourceTree = "<group>"; };
+		845C60992509C4FC002C73C5 /* IntrospectionEmotionDetectionModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = IntrospectionEmotionDetectionModel.mlmodel; sourceTree = "<group>"; };
+		845C609B2509C506002C73C5 /* september_9_revised.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_9_revised.json; sourceTree = "<group>"; };
+		845C609D250BFB9F002C73C5 /* IntrospectionDLModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = IntrospectionDLModel.mlmodel; sourceTree = "<group>"; };
+		845C609F250BFBAD002C73C5 /* september_10.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_10.json; sourceTree = "<group>"; };
 		845E267E24BDB6CB00615B4B /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		8478E2EA24E68C0700BE81C3 /* DayOfTheWeekService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfTheWeekService.swift; sourceTree = "<group>"; };
 		8478E2F524E74C2900BE81C3 /* IntrospectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntrospectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8478E2F724E74C2900BE81C3 /* IntrospectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionTests.swift; sourceTree = "<group>"; };
 		8478E2F924E74C2900BE81C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8478E2FF24E7A91400BE81C3 /* FeedbackNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackNavController.swift; sourceTree = "<group>"; };
-		847D870524C2D87F000254D9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		847D870B24C2DA12000254D9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		847D870D24C2DBAC000254D9 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		8488536B24E4FB2F006B8DA9 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
@@ -145,7 +150,6 @@
 		848A38FD24CD487F00769850 /* july_24_v4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_24_v4.json; sourceTree = "<group>"; };
 		8490F36124E6608500EB21BD /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		8490F36224E6609F00EB21BD /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
-		8493FC0624E20FE9005D5261 /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
 		8498B21324ADD0F10083E8A7 /* MentalHealthAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MentalHealthAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8498B21624ADD0F10083E8A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8498B21824ADD0F10083E8A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -260,20 +264,16 @@
 				844E845224BBD0CA00A336EC /* ConfirmViewController.swift */,
 				844E845E24BD9A2F00A336EC /* RecapViewController.swift */,
 				8498B21A24ADD0F10083E8A7 /* QuestionViewController.swift */,
-				847D870524C2D87F000254D9 /* SignUpViewController.swift */,
 				847D870B24C2DA12000254D9 /* SignInViewController.swift */,
 				847D870D24C2DBAC000254D9 /* FirstViewController.swift */,
 				848A38F724C6D62800769850 /* AnalyticsHomeViewController.swift */,
 				848A38F924C6D7F500769850 /* WeeklyViewController.swift */,
-				84571F1B24D019DB004AE9A3 /* PopUpViewController.swift */,
-				84571F1D24D02388004AE9A3 /* FeedbackViewController.swift */,
 				84571F1F24D02ECB004AE9A3 /* UserFeedbackViewController.swift */,
 				84571F2F24D2B8BF004AE9A3 /* MonthlyViewController.swift */,
 				84571F3124D2BA47004AE9A3 /* YearlyViewController.swift */,
 				84571F3324D3E8C8004AE9A3 /* BreakdownViewController.swift */,
 				84571F3B24D55D74004AE9A3 /* GIPHYViewController.swift */,
 				8437D9EA24D811A900D0FDB3 /* UserProfileViewController.swift */,
-				8493FC0624E20FE9005D5261 /* VerificationViewController.swift */,
 				842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */,
 				842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */,
 				842BABD824FCDD2600F1B243 /* TermsAndConditionsViewController.swift */,
@@ -285,6 +285,9 @@
 		847D870124C2CF91000254D9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				845C60992509C4FC002C73C5 /* IntrospectionEmotionDetectionModel.mlmodel */,
+				845C609D250BFB9F002C73C5 /* IntrospectionDLModel.mlmodel */,
+				845C60952508A272002C73C5 /* IntrospectionMLModel.mlmodel */,
 				84FD72CB24F5CCC300622085 /* IntrospectionSentimentModel.mlmodel */,
 				84FD72C724F4E04300622085 /* EmotionMLModel.mlmodel */,
 				84F0942924F265FF00FAE9FB /* IntrospectionModel.mlmodel */,
@@ -296,7 +299,10 @@
 		847D870224C2CFA8000254D9 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				845C60972508A2B2002C73C5 /* september_9.json */,
 				84FD72CD24F5CCCA00622085 /* august_24.json */,
+				845C609F250BFBAD002C73C5 /* september_10.json */,
+				845C609B2509C506002C73C5 /* september_9_revised.json */,
 				84F0942B24F2660800FAE9FB /* august_23.json */,
 				84FD72C924F4E04E00622085 /* august_23_2.json */,
 				84F0942524F249CD00FAE9FB /* august_21.json */,
@@ -540,6 +546,7 @@
 				840107722503137C00C2A823 /* tenor.gif in Resources */,
 				8498B22324ADD0F60083E8A7 /* LaunchScreen.storyboard in Resources */,
 				84EF338024DFF53700C4A06B /* SF-Pro-Display-Semibold.otf in Resources */,
+				845C609C2509C506002C73C5 /* september_9_revised.json in Resources */,
 				84FD72CE24F5CCCB00622085 /* august_24.json in Resources */,
 				84571F1A24CE9590004AE9A3 /* GoogleService-Info.plist in Resources */,
 				84FD72CA24F4E05000622085 /* august_23_2.json in Resources */,
@@ -548,7 +555,9 @@
 				8498B21E24ADD0F10083E8A7 /* Main.storyboard in Resources */,
 				8437D9E524D7F62600D0FDB3 /* august_1.json in Resources */,
 				84F0942C24F2660900FAE9FB /* august_23.json in Resources */,
+				845C60982508A2B2002C73C5 /* september_9.json in Resources */,
 				84F0942624F249CD00FAE9FB /* august_21.json in Resources */,
+				845C60A0250BFBAD002C73C5 /* september_10.json in Resources */,
 				84CC1E1324E13A28004C4D25 /* august_9_final.json in Resources */,
 				84EF337D24DFF27200C4A06B /* SF-Pro.ttf in Resources */,
 				84571F4524D6821B004AE9A3 /* july_31_v2.json in Resources */,
@@ -728,7 +737,6 @@
 				84571F2C24D1461A004AE9A3 /* ReflectViewController.swift in Sources */,
 				844E845F24BD9A2F00A336EC /* RecapViewController.swift in Sources */,
 				84571F3C24D55D74004AE9A3 /* GIPHYViewController.swift in Sources */,
-				84571F1E24D02388004AE9A3 /* FeedbackViewController.swift in Sources */,
 				84FD72CC24F5CCC400622085 /* IntrospectionSentimentModel.mlmodel in Sources */,
 				845E267F24BDB6CB00615B4B /* DayCell.swift in Sources */,
 				848A38F824C6D62800769850 /* AnalyticsHomeViewController.swift in Sources */,
@@ -740,7 +748,6 @@
 				84CC1E1124E13A22004C4D25 /* EmotionGRUModel.mlmodel in Sources */,
 				8498B21724ADD0F10083E8A7 /* AppDelegate.swift in Sources */,
 				841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */,
-				8493FC0724E20FE9005D5261 /* VerificationViewController.swift in Sources */,
 				842BABD924FCDD2600F1B243 /* TermsAndConditionsViewController.swift in Sources */,
 				84571F2024D02ECB004AE9A3 /* UserFeedbackViewController.swift in Sources */,
 				84FD72D124F62A0C00622085 /* GIPHYNavController.swift in Sources */,
@@ -750,16 +757,17 @@
 				84571F3024D2B8BF004AE9A3 /* MonthlyViewController.swift in Sources */,
 				842BABDB24FCE49700F1B243 /* PrivacyPolicyViewController.swift in Sources */,
 				84571F3224D2BA47004AE9A3 /* YearlyViewController.swift in Sources */,
-				84571F1C24D019DB004AE9A3 /* PopUpViewController.swift in Sources */,
-				847D870624C2D87F000254D9 /* SignUpViewController.swift in Sources */,
 				842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */,
+				845C60962508A274002C73C5 /* IntrospectionMLModel.mlmodel in Sources */,
 				842BABD524FA3C8D00F1B243 /* AboutUsViewController.swift in Sources */,
 				842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */,
 				84F0942A24F2660000FAE9FB /* IntrospectionModel.mlmodel in Sources */,
 				84571F4124D5643B004AE9A3 /* GIF.swift in Sources */,
 				8478E2EB24E68C0700BE81C3 /* DayOfTheWeekService.swift in Sources */,
+				845C609A2509C4FD002C73C5 /* IntrospectionEmotionDetectionModel.mlmodel in Sources */,
 				848A38FA24C6D7F500769850 /* WeeklyViewController.swift in Sources */,
 				842BABD324FA38C500F1B243 /* UserProfileNavController.swift in Sources */,
+				845C609E250BFBA0002C73C5 /* IntrospectionDLModel.mlmodel in Sources */,
 				847D870E24C2DBAC000254D9 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

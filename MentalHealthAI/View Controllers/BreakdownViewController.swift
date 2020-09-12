@@ -9,8 +9,10 @@
 import UIKit
 import Charts
 import Firebase
+import FirebaseAuth
 import FirebaseFirestore
 class BreakdownViewController: UIViewController {
+    @IBOutlet weak var numberOfDaysLabel: UILabel!
     @IBOutlet weak var bottomBackgroundView: UIView!
     var currentDayDictionary: [String : Int]?
     var totalDictionary: [String : [String : Int]]?
@@ -24,6 +26,8 @@ class BreakdownViewController: UIViewController {
     
     @IBOutlet weak var pieChartView: PieChartView!
     override func viewDidLoad() {
+        numberOfDaysLabel.isHidden = true
+        pieChartView.legend.enabled = false
         self.navigationController?.navigationBar.tintColor = .white
         let navView = UIView()
                   let label = UILabel()
@@ -64,6 +68,7 @@ class BreakdownViewController: UIViewController {
                         print("dict", dict)
                         if self.totalDictionary != nil {
                             if self.totalDictionary!.keys.contains("Monday") {
+                                self.numberOfDaysLabel.isHidden = false
                                 self.currentDayDictionary = self.totalDictionary!["Monday"]
                                 if self.currentDayDictionary != nil {
                                     for emotion in ["joy", "sadness", "anger", "fear", "neutral"] {
@@ -76,6 +81,7 @@ class BreakdownViewController: UIViewController {
                                     self.captionLabel.text = "No Data for this Day!"
                                 }
                             } else {
+                                self.pieChartView.isHidden = true
                                 self.captionLabel.text = "No Data for this Day!"
                                 
                             }
@@ -116,6 +122,7 @@ class BreakdownViewController: UIViewController {
         let day = days[index]
         if totalDictionary != nil {
             if (totalDictionary!.keys.contains(day)) {
+                numberOfDaysLabel.isHidden = false
                 self.currentDayDictionary = totalDictionary![day]
                 for emotion in ["joy", "sadness", "anger", "fear", "neutral"] {
                     if !(self.currentDayDictionary?.keys.contains(emotion))! {
@@ -124,6 +131,7 @@ class BreakdownViewController: UIViewController {
                 }
                 self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [currentDayDictionary!["joy"] ?? 0, currentDayDictionary!["sadness"] ?? 0, currentDayDictionary!["neutral"] ?? 0, currentDayDictionary!["anger"]  ?? 0, currentDayDictionary!["fear"] ?? 0], day: day)
             } else {
+                numberOfDaysLabel.isHidden = true
 //                noDataLabel.isHidden = false
                 pieChartView.isHidden = true
                 self.captionLabel.text = "No Data for this Day!"
@@ -192,6 +200,10 @@ class BreakdownViewController: UIViewController {
 //        noDataLabel.isHidden = true
         captionLabel.isHidden = false
         
+    }
+    @IBAction func didClickCalendarButton(_ sender: Any) {
+        let vc = self.tabBarController as! MainTabBarController
+        vc.selectedIndex = 0
     }
     /*
     // MARK: - Navigation
