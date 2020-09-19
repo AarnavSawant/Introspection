@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class PrivacyPolicyViewController: UIViewController {
     @IBOutlet weak var ppButton: UILabel!
     
     override func viewDidLoad() {
+        Analytics.logEvent("entered_PrivacyPolicy_Screen", parameters: nil)
         ppButton.textColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         let navView = UIView()
                   let label = UILabel()

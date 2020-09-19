@@ -10,6 +10,7 @@ import UIKit
 
 class FeedbackNavController: UINavigationController {
     var inputText: String?
+    var predictedClass: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.barTintColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)

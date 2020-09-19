@@ -63,7 +63,7 @@ class ConfirmViewController: UIViewController {
             return mlArray!
             }
         func textsToSequences(text: String, dict: [String: Double]) -> MLMultiArray {
-            let contraction_mapping = ["hard" : "difficult", "great" : "good","ain\'t": "is not", "aren\'t": "are not","can\'t": "cant",
+            let contraction_mapping = ["hard" : "difficult","ain\'t": "is not", "aren\'t": "are not","can\'t": "cant",
             "can\'t've": "cannot have", "'cause": "because", "could\'ve": "could have",
             "couldn\'t": "could not", "couldn\'t've": "could not have","didn\'t": "did not",
             "doesn't": "does not", "don't": "do not", "hadn't": "had not",
@@ -120,7 +120,7 @@ class ConfirmViewController: UIViewController {
             print(cleanedTextArray)
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
-                if (dict[cleanedTextArray[i]] != nil && !["really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"].contains(cleanedTextArray[i])) {
+                if (dict[cleanedTextArray[i]] != nil && !["math", "exam", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"].contains(cleanedTextArray[i])) {
                     let num = dict[cleanedTextArray[i]] as! Double
                     if (num <= 5500.0) {
                         sequenceArray.append(dict[cleanedTextArray[i]] as! Double)
@@ -133,6 +133,7 @@ class ConfirmViewController: UIViewController {
             return pad_sequences(arr: sequenceArray)
     }
     override func viewDidLoad() {
+        Analytics.logEvent("entered_Results_Screen", parameters: nil)
         keeplabel.alpha = 0.6
         keeplabel.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         discardLabel.alpha = 0.6
@@ -200,11 +201,11 @@ class ConfirmViewController: UIViewController {
         discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "september_10") as! [String : Double]
+        let dictionary = readJSONFromFile(filename: "september_16v2") as! [String : Double]
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = IntrospectionDLModel()
-        if let predictions = try? new_model.predictions(inputs: [IntrospectionDLModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = DLModel()
+        if let predictions = try? new_model.predictions(inputs: [DLModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
@@ -215,11 +216,11 @@ class ConfirmViewController: UIViewController {
         }
         print(predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.66 {
+            if max_pred < 0.49 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
-            if max_pred < 0.7{
+            if max_pred < 0.87{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
@@ -227,7 +228,7 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
-            if max_pred < 0.8 {
+            if max_pred < 0.70 {
                 predictedClass = "neutral"
             }
         }
@@ -253,6 +254,7 @@ class ConfirmViewController: UIViewController {
         if segue.destination is FeedbackNavController{
             let vc = segue.destination as? FeedbackNavController
             vc?.inputText = TranscribedText.text
+            vc?.predictedClass = predictedClass
             vc?.modalPresentationStyle = .fullScreen
         }
     }

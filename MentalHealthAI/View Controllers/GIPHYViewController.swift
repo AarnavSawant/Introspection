@@ -11,6 +11,7 @@ import Firebase
 import FirebaseFirestore
 import SwiftGifOrigin
 import FirebaseAuth
+import FirebaseAnalytics
 class GIPHYViewController: UIViewController {
     
     @IBOutlet weak var activityView: UIActivityIndicatorView!
@@ -41,6 +42,7 @@ class GIPHYViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("entered_GIPHY_Screen", parameters: nil)
         activityView.startAnimating()
         activityView.isHidden = false
         activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
@@ -94,7 +96,7 @@ class GIPHYViewController: UIViewController {
         print("DAY", current_day)
         print("MONTH", current_month)
         print("YEAR", current_year)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             let uid = Auth.auth().currentUser?.uid
             let cal = Calendar.current
             let current_year = cal.component(.year, from: Date())
@@ -152,7 +154,7 @@ class GIPHYViewController: UIViewController {
                     //                cell.gifURL = url as! String
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
             print("Max Term", maxTerm)
 //        if maxTimestamp != 0.0 {
             let lastDate = Date.init(timeIntervalSince1970: maxTimestamp)
@@ -199,6 +201,10 @@ class GIPHYViewController: UIViewController {
                         }
                 }
     //            }
+            } else {
+                self.emotionLabel.text = "Oops...No GIF Available."
+                self.cheerLabel.text = "Make sure that you have logged an introspection and come back to this tab."
+                self.activityView.isHidden = true
             }
         }
     }
@@ -233,14 +239,19 @@ class GIPHYViewController: UIViewController {
     }
     */
     @IBAction func didClickShareButton(_ sender: Any) {
-//        var URLString: String = gifView!.contentUR
-        print(self.gifShareURL!)
-        var shareURL:NSURL = NSURL(string: self.gifShareURL!)!
-        var shareData:NSData = NSData(contentsOf: shareURL as URL)!
-        
-        let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store"], applicationActivities: nil)
-        vc.modalPresentationStyle = .popover
-        self.present(vc, animated: true, completion: nil)
+        if self.gifShareURL != nil {
+            var shareURL:NSURL = NSURL(string: self.gifShareURL!)!
+            var shareData:NSData = NSData(contentsOf: shareURL as URL)!
+            
+            let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store"], applicationActivities: nil)
+            vc.modalPresentationStyle = .popover
+            self.present(vc, animated: true, completion: nil)
+        } else {
+            let shareData = try! NSData(contentsOf: Bundle.main.url(forResource: "tenor", withExtension: "gif")!)
+            let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store"], applicationActivities: nil)
+            vc.modalPresentationStyle = .popover
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     @IBAction func didClickCalendarButton(_ sender: Any) {
         let vc = self.tabBarController as! MainTabBarController

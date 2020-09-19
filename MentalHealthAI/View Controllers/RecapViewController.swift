@@ -37,6 +37,7 @@ class RecapViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("entered_Calendar_Screen", parameters: nil)
 //        calendarView.isUserInteractionEnabled = false
         let navView = UIView()
         let label = UILabel()
@@ -104,12 +105,6 @@ class RecapViewController: UIViewController {
         self.present(vc, animated: true, completion: nil)
     }
     
-    @IBAction func didClickShareButton(_ sender: Any) {
-        let vc = UIActivityViewController(activityItems: ["Check out Introspection in the App Store"], applicationActivities: nil)
-        vc.modalPresentationStyle = .popover
-        self.present(vc, animated: true, completion: nil)
-        
-    }
     func setupCalendarView() {
         let visibleDates = calendarView.visibleDates{ (visibleDate) in
             self.setupCalendarMonthYear(from: visibleDate)

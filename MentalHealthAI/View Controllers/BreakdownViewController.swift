@@ -85,6 +85,10 @@ class BreakdownViewController: UIViewController {
                                 self.captionLabel.text = "No Data for this Day!"
                                 
                             }
+                        } else {
+                            self.numberOfDaysLabel.isHidden = true
+                            self.pieChartView.isHidden = true
+                            self.captionLabel.text = "No Data for this Day!"
                         }
                     }
                 }
@@ -93,6 +97,7 @@ class BreakdownViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("entered_AdvancedInsights_Screen", parameters: nil)
         
         
     }

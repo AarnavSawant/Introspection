@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Firebase
 
 class AboutUsViewController: UIViewController {
 
     @IBOutlet weak var missionStatementLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     override func viewDidLoad() {
+        Analytics.logEvent("entered_AboutUs_Screen", parameters: nil)
         let navView = UIView()
         let label = UILabel()
         label.text = "About Us"

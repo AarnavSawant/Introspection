@@ -7,6 +7,7 @@
 //
 import UserNotifications
 import UIKit
+import FirebaseAnalytics
 import FirebaseAuth
 import FirebaseFirestore
 class UserProfileViewController: UIViewController {
@@ -110,6 +111,7 @@ class UserProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("entered_Profile_Screen", parameters: nil)
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                     if settings.authorizationStatus == .authorized {
                         self.permissionGranted = true

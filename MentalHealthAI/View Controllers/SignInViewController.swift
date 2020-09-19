@@ -34,6 +34,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
     @IBOutlet weak var signInButton: GIDSignInButton!
 
     override func viewDidLoad() {
+        Analytics.logEvent("entered_SignIn_Screen", parameters: nil)
 //        UserDefaults.standard.set(nil, forKey: "NotificationsEnabledInApp")
 //        
 //        UserDefaults.standard.set(nil, forKey: "NotificationTime")

@@ -42,6 +42,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     var number: Int?
     override func viewDidLoad() {
+        Analytics.logEvent("entered_Home_Screen", parameters: nil)
 //        UserDefaults.standard.set(nil, forKey: "NotificationTime")
 //        UserDefaults.standard.set(nil, forKey: "NotificationsEnabledInApp")
         print("Notifications Enabled", UIApplication.shared.isRegisteredForRemoteNotifications)

@@ -7,12 +7,13 @@
 //
 
 import UIKit
-
+import FirebaseAnalytics
 class TermsAndConditionsViewController: UIViewController {
 
     @IBOutlet weak var termsText: UILabel!
     @IBOutlet weak var termsLabel: UILabel!
     override func viewDidLoad() {
+        Analytics.logEvent("entered_TandC_Screen", parameters: nil)
         termsText.backgroundColor = .white
         termsLabel.backgroundColor = .white
 

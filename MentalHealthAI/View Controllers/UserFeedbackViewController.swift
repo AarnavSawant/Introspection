@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import FirebaseAuth
 import Firebase
 import FirebaseFirestore
 class UserFeedbackViewController: UIViewController {
     public var selectedEmotion: String?
+    var predictedClass: String?
     @IBOutlet weak var happyButton: UIButton!
     public var inputText: String?
     @IBOutlet weak var questionLabel: UILabel!
@@ -25,6 +27,7 @@ class UserFeedbackViewController: UIViewController {
     @IBOutlet weak var neutralButton: UIButton!
     @IBOutlet weak var angerButton: UIButton!
     override func viewDidLoad() {
+        Analytics.logEvent("entered_Feedback_Screen", parameters: nil)
         
         cancelButton.layer.cornerRadius = 0.5 * cancelButton.frame.width
         submitButton.layer.cornerRadius = 0.5 * submitButton.frame.width
@@ -68,6 +71,7 @@ class UserFeedbackViewController: UIViewController {
 //            cancelButton.backgroundColor = .white
         let navController = self.navigationController as! FeedbackNavController
         inputText = navController.inputText
+        predictedClass = navController.predictedClass
         print("Input Text", inputText)
         cancelButton.alpha = 0.05
             cancelButton.backgroundColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
@@ -165,16 +169,30 @@ class UserFeedbackViewController: UIViewController {
 
             self.present(alertController, animated: true, completion: nil)
         } else {
+            submitButton.isEnabled = false
             let db = Firestore.firestore()
-            db.collection("feedback").addDocument(data: ["text" : inputText!, "emotion" : selectedEmotion, "feedback" : feedbackTextField.text!, "user_id" : UserDefaults.standard.string(forKey: "uid")]) { (err) in
+            db.collection("feedback").addDocument(data: ["text" : inputText!, "emotion" : selectedEmotion, "feedback" : feedbackTextField.text!, "predicted_emotion" : predictedClass, "user_id" : Auth.auth().currentUser?.uid]) { (err) in
                 if err == nil {
                     print("Success")
                 }
             }
-            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
-            self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
-            self.dismiss(animated: true, completion: nil)
+            let alertController = UIAlertController(title: "Thank you for your Feedback!", message: "We really appreciate it!", preferredStyle: UIAlertController.Style.alert)
+
+            //            let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+            //                //Redirect to Settings app
+            //                UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+            //            })
+
+
+            //            alertController.addAction(okAction)
+
+                        self.present(alertController, animated: true, completion: nil)
             
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
     /*

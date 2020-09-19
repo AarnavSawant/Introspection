@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class AnalyticsHomeViewController: UIViewController {
     @IBOutlet weak var breakdownButton: UIButton!
@@ -103,6 +104,10 @@ class AnalyticsHomeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("entered_Analytics_Screen", parameters: nil)
     }
     
 

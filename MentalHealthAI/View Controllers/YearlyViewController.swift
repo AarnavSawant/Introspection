@@ -121,6 +121,8 @@ class YearlyViewController: UIViewController {
                             self.captionLabel.text = "No Data Available for This Year"
                         }
                     } else {
+                        self.numberOfDaysLabel.isHidden = true
+                        self.pieChartView.isHidden = true
                         self.captionLabel.text = "No Data Available for This Year"
                     }
                 }
@@ -133,6 +135,7 @@ class YearlyViewController: UIViewController {
         vc.selectedIndex = 0
     }
     override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("entered_Yearly_Screen", parameters: nil)
             
     //        print("CheeseHead", emotionList)
     }

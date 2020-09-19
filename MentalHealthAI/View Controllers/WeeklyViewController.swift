@@ -90,6 +90,7 @@ class WeeklyViewController: UIViewController {
         vc.selectedIndex = 0
     }
     override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("entered_Weekly_Screen", parameters: nil)
         self.dictionary?.removeAll()
         var lastSundayDate = Calendar.current.date(byAdding: .day, value: -Calendar.current.component(.weekday, from: Date()) + 1, to: Date())
         //        for key in date_to_sentiment_dict.keys {

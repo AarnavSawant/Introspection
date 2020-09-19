@@ -10,6 +10,7 @@ import UIKit
 import Charts
 import FirebaseFirestore
 import FirebaseAuth
+import Firebase
 class MonthlyViewController: UIViewController {
     @IBOutlet weak var numberOfDaysLabel: UILabel!
     @IBOutlet weak var viewInCalendarButton: UIButton!
@@ -56,6 +57,7 @@ class MonthlyViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("entered_Monthly_Screen", parameters: nil)
             let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy MM dd"
 //        let components = Calendar.current.dateComponents([.year, .month], from: Date())
@@ -93,42 +95,40 @@ class MonthlyViewController: UIViewController {
                                         emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
                                 }
                         }
-//                        emotionList.append(emotion)
-//                        print(emotionList)
-//                    print("CheeseHead", emotionList)
-//                    for emotion in emotionList {
-//                        if emotionCount[emotion] != nil {
-//                            emotionCount[emotion] = emotionCount[emotion]! + 1
-//                        } else {
-//                            emotionCount[emotion] = 1
-//                        }
-//                    }
                     self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
                     let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "neutral"]
                     let maxEmotionValue = emotionCount.values.max()
                     var maxEmotionKeys = [String]()
-                    if maxEmotionValue != 0 {
-                        for key in emotionCount.keys {
-                            if emotionCount[key] == maxEmotionValue {
-                                maxEmotionKeys.append(key)
+                    if maxEmotionValue != nil {
+                        if maxEmotionValue != 0 {
+                            for key in emotionCount.keys {
+                                if emotionCount[key] == maxEmotionValue {
+                                    maxEmotionKeys.append(key)
+                                }
                             }
-                        }
-                        self.captionLabel.text = "This month, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
-                        if (maxEmotionKeys[0] == "joy") {
-                            self.captionImage.image = UIImage(named: "JoyResults")
-                        } else if (maxEmotionKeys[0] == "sadness") {
-                            self.captionImage.image = UIImage(named: "SadnessResults")
-                        } else if (maxEmotionKeys[0] == "anger") {
-                            self.captionImage.image = UIImage(named: "AngerResults")
-                        } else if (maxEmotionKeys[0] == "fear") {
-                            self.captionImage.image = UIImage(named: "FearResults")
-                        } else if (maxEmotionKeys[0] == "neutral") {
-                            self.captionImage.image = UIImage(named: "NeutralResults")
+                            self.captionLabel.text = "This month, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                            if (maxEmotionKeys[0] == "joy") {
+                                self.captionImage.image = UIImage(named: "JoyResults")
+                            } else if (maxEmotionKeys[0] == "sadness") {
+                                self.captionImage.image = UIImage(named: "SadnessResults")
+                            } else if (maxEmotionKeys[0] == "anger") {
+                                self.captionImage.image = UIImage(named: "AngerResults")
+                            } else if (maxEmotionKeys[0] == "fear") {
+                                self.captionImage.image = UIImage(named: "FearResults")
+                            } else if (maxEmotionKeys[0] == "neutral") {
+                                self.captionImage.image = UIImage(named: "NeutralResults")
+                            }
+                        } else {
+                            self.captionLabel.text = "No Data for this Month"
                         }
                     } else {
                         self.captionLabel.text = "No Data for this Month"
                     }
 
+                } else {
+                    self.numberOfDaysLabel.isHidden = true
+                    self.pieChartView.isHidden = true
+                    self.captionLabel.text = "No Data for this Month"
                 }
             }
         }
