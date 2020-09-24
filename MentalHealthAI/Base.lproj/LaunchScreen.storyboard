@@ -15,12 +15,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XBM-Fi-tc5">
-                                <rect key="frame" x="87" y="333" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ZoomInfinity" translatesAutoresizingMaskIntoConstraints="NO" id="0ae-oD-yAa">
+                                <rect key="frame" x="57" y="373" width="300" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="2fl-xy-sMz"/>
+                                    <constraint firstAttribute="height" constant="150" id="MTm-aH-DQb"/>
+                                </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.21568627450980393" green="0.44705882352941173" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0ae-oD-yAa" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Qjx-e0-ndJ"/>
+                            <constraint firstItem="0ae-oD-yAa" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="r9J-5z-0UA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -29,4 +36,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ZoomInfinity" width="512" height="267"/>
+    </resources>
 </document>

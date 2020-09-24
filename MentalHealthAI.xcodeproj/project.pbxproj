@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840B497F251AD14A0094F95D /* GRUDLModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 840B497E251AD14A0094F95D /* GRUDLModel.mlmodel */; };
+		840B4985251AD1560094F95D /* september_22.json in Resources */ = {isa = PBXBuildFile; fileRef = 840B4984251AD1560094F95D /* september_22.json */; };
 		841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B332A24BAF1210005311E /* MainTabBarController.swift */; };
 		842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */; };
 		842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */; };
@@ -14,6 +16,7 @@
 		8427FC562511E3280006CEF4 /* IntrospectionAppleModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8427FC552511E3280006CEF4 /* IntrospectionAppleModel.mlmodel */; };
 		8427FC5A251290EE0006CEF4 /* DLModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8427FC59251290ED0006CEF4 /* DLModel.mlmodel */; };
 		8427FC5C251290F70006CEF4 /* september_16v2.json in Resources */ = {isa = PBXBuildFile; fileRef = 8427FC5B251290F60006CEF4 /* september_16v2.json */; };
+		8427FC5E2516ABB40006CEF4 /* LaunchboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8427FC5D2516ABB40006CEF4 /* LaunchboardViewController.swift */; };
 		842BABD324FA38C500F1B243 /* UserProfileNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD224FA38C500F1B243 /* UserProfileNavController.swift */; };
 		842BABD524FA3C8D00F1B243 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */; };
 		842BABD724FA3DF200F1B243 /* AboutUsNavControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD624FA3DF200F1B243 /* AboutUsNavControllerViewController.swift */; };
@@ -96,6 +99,8 @@
 		30F5DF44AA48F1A96C21FB59 /* Pods-MentalHealthAITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAITests.debug.xcconfig"; path = "Target Support Files/Pods-MentalHealthAITests/Pods-MentalHealthAITests.debug.xcconfig"; sourceTree = "<group>"; };
 		82055F4587DFCE6C35FC00FA /* Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig"; path = "Target Support Files/Pods-MentalHealthAI-MentalHealthAIUITests/Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		840107712503137C00C2A823 /* tenor.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tenor.gif; sourceTree = "<group>"; };
+		840B497E251AD14A0094F95D /* GRUDLModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GRUDLModel.mlmodel; sourceTree = "<group>"; };
+		840B4984251AD1560094F95D /* september_22.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_22.json; sourceTree = "<group>"; };
 		841B332A24BAF1210005311E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsNavController.swift; sourceTree = "<group>"; };
@@ -105,6 +110,7 @@
 		8427FC572511E3340006CEF4 /* september_15_revised.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_15_revised.json; sourceTree = "<group>"; };
 		8427FC59251290ED0006CEF4 /* DLModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DLModel.mlmodel; sourceTree = "<group>"; };
 		8427FC5B251290F60006CEF4 /* september_16v2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_16v2.json; sourceTree = "<group>"; };
+		8427FC5D2516ABB40006CEF4 /* LaunchboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchboardViewController.swift; sourceTree = "<group>"; };
 		842BABD224FA38C500F1B243 /* UserProfileNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileNavController.swift; sourceTree = "<group>"; };
 		842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		842BABD624FA3DF200F1B243 /* AboutUsNavControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsNavControllerViewController.swift; sourceTree = "<group>"; };
@@ -274,6 +280,7 @@
 				842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */,
 				842BABD824FCDD2600F1B243 /* TermsAndConditionsViewController.swift */,
 				842BABDA24FCE49700F1B243 /* PrivacyPolicyViewController.swift */,
+				8427FC5D2516ABB40006CEF4 /* LaunchboardViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -281,6 +288,7 @@
 		847D870124C2CF91000254D9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				840B497E251AD14A0094F95D /* GRUDLModel.mlmodel */,
 				8427FC552511E3280006CEF4 /* IntrospectionAppleModel.mlmodel */,
 				8427FC59251290ED0006CEF4 /* DLModel.mlmodel */,
 				8427FC512511D70E0006CEF4 /* IntrospectionIOSModel.mlmodel */,
@@ -295,6 +303,7 @@
 			children = (
 				84CE72E825114458004C683B /* september_14.json */,
 				8427FC5B251290F60006CEF4 /* september_16v2.json */,
+				840B4984251AD1560094F95D /* september_22.json */,
 				845C60A325114374002C73C5 /* september_10.json */,
 				845C60972508A2B2002C73C5 /* september_9.json */,
 				8427FC572511E3340006CEF4 /* september_15_revised.json */,
@@ -543,6 +552,7 @@
 				84452BA9251148DE00FE6DE0 /* SF-Pro-Display-RegularItalic.otf in Resources */,
 				84452BAA251148DE00FE6DE0 /* SF-Pro-Display-Regular.otf in Resources */,
 				84452BAB251148DE00FE6DE0 /* SF-Pro-Display-Bold.otf in Resources */,
+				840B4985251AD1560094F95D /* september_22.json in Resources */,
 				8427FC5C251290F70006CEF4 /* september_16v2.json in Resources */,
 				84452BAC251148DE00FE6DE0 /* SF-Pro-Text-Regular.otf in Resources */,
 				84452BAD251148DE00FE6DE0 /* SF-Pro-Text-Medium.otf in Resources */,
@@ -744,8 +754,10 @@
 				8427FC522511D70E0006CEF4 /* IntrospectionIOSModel.mlmodel in Sources */,
 				842BABD924FCDD2600F1B243 /* TermsAndConditionsViewController.swift in Sources */,
 				84571F2024D02ECB004AE9A3 /* UserFeedbackViewController.swift in Sources */,
+				8427FC5E2516ABB40006CEF4 /* LaunchboardViewController.swift in Sources */,
 				84FD72D124F62A0C00622085 /* GIPHYNavController.swift in Sources */,
 				844E845324BBD0CA00A336EC /* ConfirmViewController.swift in Sources */,
+				840B497F251AD14A0094F95D /* GRUDLModel.mlmodel in Sources */,
 				8498B21924ADD0F10083E8A7 /* SceneDelegate.swift in Sources */,
 				84571F3024D2B8BF004AE9A3 /* MonthlyViewController.swift in Sources */,
 				842BABDB24FCE49700F1B243 /* PrivacyPolicyViewController.swift in Sources */,
@@ -981,7 +993,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RDGZU8G65V;
 				INFOPLIST_FILE = MentalHealthAI/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1002,7 +1014,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RDGZU8G65V;
 				INFOPLIST_FILE = MentalHealthAI/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

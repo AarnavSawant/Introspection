@@ -28,7 +28,12 @@ class UserFeedbackViewController: UIViewController {
     @IBOutlet weak var angerButton: UIButton!
     override func viewDidLoad() {
         Analytics.logEvent("entered_Feedback_Screen", parameters: nil)
+        var toolbar = UIToolbar()
         
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        toolbar.setItems([doneButton], animated: true)
+        feedbackTextField.inputAccessoryView = toolbar
         cancelButton.layer.cornerRadius = 0.5 * cancelButton.frame.width
         submitButton.layer.cornerRadius = 0.5 * submitButton.frame.width
         super.viewDidLoad()
@@ -95,6 +100,10 @@ class UserFeedbackViewController: UIViewController {
         neutralButton.layer.cornerRadius = 8
 
         // Do any additional setup after loading the view.
+    }
+    @objc func doneButtonPressed() {
+        self.view.endEditing(true)
+
     }
     
     @IBAction func didClickHappyButton(_ sender: Any) {

@@ -80,6 +80,7 @@ class UserProfileViewController: UIViewController {
         self.nameLabel.text = Auth.auth().currentUser!.displayName ?? ""
         
         assistantView.backgroundColor = .white
+        
         assistantView.layer.cornerRadius = 10
         self.view.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
         super.viewDidLoad()
@@ -93,6 +94,8 @@ class UserProfileViewController: UIViewController {
         signOutButton.layer.cornerRadius = 10
         signOutButton.backgroundColor = .white
         AboutUsButton.contentHorizontalAlignment = .left
+        AboutUsButton.layer.cornerRadius = 10
+        PPButton.layer.cornerRadius = 10
         AboutUsButton.backgroundColor = .none
         var toolbar = UIToolbar()
         
@@ -103,6 +106,7 @@ class UserProfileViewController: UIViewController {
         datePicker.datePickerMode = .time
         datePicker.backgroundColor = UIColor.white
         notificationTextField.inputView = datePicker
+        notificationTextField.inputView?.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 200)
         notificationTextField.inputAccessoryView = toolbar
 //        notificationTextField.isUserInteractionEnabled = false
 //        datePicker.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)

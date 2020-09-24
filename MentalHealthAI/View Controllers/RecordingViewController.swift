@@ -28,6 +28,8 @@ class RecordingViewController: UIViewController {
     //    @IBOutlet weak var stopButton: UIButton!
         private var recognitionTask: SFSpeechRecognitionTask? //Used to cancel, stop, or start current recognition task
     override func viewDidLoad() {
+        TranscribedText.isEditable = false
+        TranscribedText.isSelectable = false
         Analytics.logEvent("entered_Recording_Screen", parameters: nil)
         timerLabel.alpha = 0.6
         voiceImage.backgroundColor = .none

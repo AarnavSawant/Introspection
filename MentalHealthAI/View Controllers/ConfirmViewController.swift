@@ -120,7 +120,7 @@ class ConfirmViewController: UIViewController {
             print(cleanedTextArray)
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
-                if (dict[cleanedTextArray[i]] != nil && !["math", "exam", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"].contains(cleanedTextArray[i])) {
+                if (dict[cleanedTextArray[i]] != nil && !["dog", "math", "exam", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"].contains(cleanedTextArray[i])) {
                     let num = dict[cleanedTextArray[i]] as! Double
                     if (num <= 5500.0) {
                         sequenceArray.append(dict[cleanedTextArray[i]] as! Double)
@@ -201,11 +201,11 @@ class ConfirmViewController: UIViewController {
         discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "september_16v2") as! [String : Double]
+        let dictionary = readJSONFromFile(filename: "september_22") as! [String : Double]
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = DLModel()
-        if let predictions = try? new_model.predictions(inputs: [DLModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = GRUDLModel()
+        if let predictions = try? new_model.predictions(inputs: [GRUDLModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
@@ -216,7 +216,7 @@ class ConfirmViewController: UIViewController {
         }
         print(predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.49 {
+            if max_pred < 0.44 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
@@ -224,11 +224,11 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.66{
+            if max_pred < 0.6{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
-            if max_pred < 0.70 {
+            if max_pred < 0.65{
                 predictedClass = "neutral"
             }
         }
