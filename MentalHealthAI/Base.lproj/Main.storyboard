@@ -330,8 +330,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHj-IP-hdS">
-                                <rect key="frame" x="160" y="612" width="55" height="55"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHj-IP-hdS">
+                                <rect key="frame" x="160" y="611.33333333333337" width="55" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="4p1-hA-pAk"/>
                                     <constraint firstAttribute="width" constant="55" id="eun-6K-gN9"/>
@@ -342,20 +342,20 @@
                                     <segue destination="rDa-NQ-aY0" kind="presentation" identifier="confirm_segue" id="nrQ-MI-LIB"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stop Recording" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYW-Fy-kjG">
-                                <rect key="frame" x="50" y="685" width="275" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stop Recording" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYW-Fy-kjG">
+                                <rect key="frame" x="50" y="684.33333333333337" width="275" height="21.666666666666629"/>
                                 <fontDescription key="fontDescription" name="SFPro-Medium" family="SF Pro" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="0:15s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Cv-0N-pKU">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:15s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Cv-0N-pKU">
                                 <rect key="frame" x="160.33333333333334" y="96" width="54.333333333333343" height="28.666666666666671"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Light" family="SF Pro Display" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="inb-V9-KX7">
-                                <rect key="frame" x="50" y="207" width="275" height="255"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="inb-V9-KX7">
+                                <rect key="frame" x="50" y="251.66666666666663" width="275" height="255"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="255" id="ggN-2P-QNd"/>
@@ -364,12 +364,12 @@
                                 <fontDescription key="fontDescription" name="SFProDisplay-Light" family="SF Pro Display" pointSize="32"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Image-1" translatesAutoresizingMaskIntoConstraints="NO" id="iHX-UP-jCU">
-                                <rect key="frame" x="6" y="285" width="363" height="202"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image-1" translatesAutoresizingMaskIntoConstraints="NO" id="iHX-UP-jCU">
+                                <rect key="frame" x="6" y="278" width="363" height="202"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go ahead I'm listening!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptE-nQ-LUe">
-                                <rect key="frame" x="90" y="336.66666666666669" width="195" height="85"/>
+                                <rect key="frame" x="90" y="220" width="195" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="sW1-HE-LvK"/>
                                 </constraints>
@@ -381,17 +381,15 @@
                         <viewLayoutGuide key="safeArea" id="dj6-tg-CaU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="iHX-UP-jCU" firstAttribute="centerY" secondItem="tR7-Gc-KIA" secondAttribute="centerY" id="1tR-AR-PJi"/>
                             <constraint firstItem="dj6-tg-CaU" firstAttribute="trailing" secondItem="kYW-Fy-kjG" secondAttribute="trailing" constant="50" id="4M1-yC-8lf"/>
-                            <constraint firstItem="iHX-UP-jCU" firstAttribute="top" secondItem="7Cv-0N-pKU" secondAttribute="bottom" constant="160.33000000000001" id="5jK-Ai-BvR"/>
-                            <constraint firstItem="ptE-nQ-LUe" firstAttribute="centerY" secondItem="tR7-Gc-KIA" secondAttribute="centerY" id="Afu-aG-qRZ"/>
-                            <constraint firstItem="uHj-IP-hdS" firstAttribute="top" secondItem="inb-V9-KX7" secondAttribute="bottom" constant="150" id="F4y-zs-tw4"/>
+                            <constraint firstItem="7Cv-0N-pKU" firstAttribute="top" secondItem="dj6-tg-CaU" secondAttribute="top" constant="40" id="Bdd-W9-1mA"/>
                             <constraint firstItem="inb-V9-KX7" firstAttribute="centerX" secondItem="tR7-Gc-KIA" secondAttribute="centerX" id="Fco-KB-9HD"/>
-                            <constraint firstItem="uHj-IP-hdS" firstAttribute="top" secondItem="iHX-UP-jCU" secondAttribute="bottom" constant="125" id="Idd-C6-aIV"/>
-                            <constraint firstItem="7Cv-0N-pKU" firstAttribute="top" secondItem="dj6-tg-CaU" secondAttribute="top" constant="40" id="Rqa-xp-e7S"/>
+                            <constraint firstItem="ptE-nQ-LUe" firstAttribute="top" secondItem="7Cv-0N-pKU" secondAttribute="bottom" constant="95.329999999999998" id="Qzd-Jc-mIC"/>
                             <constraint firstItem="ptE-nQ-LUe" firstAttribute="centerX" secondItem="tR7-Gc-KIA" secondAttribute="centerX" id="TWp-aI-ufF"/>
                             <constraint firstItem="dj6-tg-CaU" firstAttribute="bottom" secondItem="kYW-Fy-kjG" secondAttribute="bottom" constant="18" id="XA5-Uk-MK3"/>
-                            <constraint firstItem="ptE-nQ-LUe" firstAttribute="centerX" secondItem="tR7-Gc-KIA" secondAttribute="centerX" id="c7I-tD-GeL"/>
                             <constraint firstItem="kYW-Fy-kjG" firstAttribute="top" secondItem="uHj-IP-hdS" secondAttribute="bottom" constant="18" id="fBU-53-1NU"/>
+                            <constraint firstItem="inb-V9-KX7" firstAttribute="centerY" secondItem="tR7-Gc-KIA" secondAttribute="centerY" id="gnJ-MN-K0h"/>
                             <constraint firstItem="dj6-tg-CaU" firstAttribute="trailing" secondItem="ptE-nQ-LUe" secondAttribute="trailing" constant="90" id="l6L-4u-WBh"/>
                             <constraint firstItem="iHX-UP-jCU" firstAttribute="centerX" secondItem="tR7-Gc-KIA" secondAttribute="centerX" id="nsB-Fb-paR"/>
                             <constraint firstItem="dj6-tg-CaU" firstAttribute="trailing" secondItem="inb-V9-KX7" secondAttribute="trailing" constant="50" id="pVH-rx-XBM"/>
