@@ -37,6 +37,8 @@ class RecapViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        textForTheDayView.isEditable = false
+        textForTheDayView.isSelectable = false
         Analytics.logEvent("entered_Calendar_Screen", parameters: nil)
 //        calendarView.isUserInteractionEnabled = false
         let navView = UIView()
@@ -212,7 +214,6 @@ extension RecapViewController: JTACMonthViewDelegate {
         return cell
     }
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
-//        print("LYON", cellState.date)
         configureCells(cell: cell as! DayCell, cellState: cellState, date: date)
     }
     func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
@@ -225,7 +226,7 @@ extension RecapViewController: JTACMonthViewDelegate {
 
         cell!.backgroundColor = UIColor(red: 0.929, green: 0.925, blue: 0.925, alpha: 1)
         cell!.layer.cornerRadius = 7
-        print("Lala", cellState.date)
+        print("Cell Date", cellState.date)
         var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: cellState.date)
         components.hour = 0
         components.minute = 0
@@ -242,7 +243,7 @@ extension RecapViewController: JTACMonthViewDelegate {
                 self.textForTheDayView.text = self.dictionary![df.string(from: date!)]?["text"] as? String ?? "No introspection was logged for this day"
                 self.feelingsLabel.text = ""
                 if !newcell.colorSelectedView.isHidden && self.dictionary!.keys.contains(df.string(from: date!)){
-                    print("JAMES", date!, newcell.emotionForTheDay)
+//                    print("JAMES", date!, newcell.emotionForTheDay)
                     if newcell.emotionForTheDay == "joy" {
                         self.feelingsLabel.text =  "You were happy on this day"
                     } else if newcell.emotionForTheDay == "anger" {

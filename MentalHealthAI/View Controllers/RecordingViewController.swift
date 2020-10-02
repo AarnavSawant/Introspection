@@ -215,7 +215,7 @@ class RecordingViewController: UIViewController {
         
             }
             if (result != nil) {
-                print("Packers", self.TranscribedText.text)
+                print("Transcribed Text Running", self.TranscribedText.text)
                 guard let running = self.isStillRunning else {
                     return
                 }
@@ -252,7 +252,7 @@ class RecordingViewController: UIViewController {
     }
     
     @objc func changeTimerNumber() {
-            print("Boooooyah")
+            print("Timer Changed Booooyah")
             number = number! + 1
             self.timerLabel.text = "00:\(15 - number!)s"
             if number == 15 {

@@ -136,7 +136,6 @@ class GIPHYViewController: UIViewController {
                     print("REAL MADRID")
                     let data = querySelector?.data()
                     if data != nil {
-                        print("BOOYAH 69")
                         if data!["last_gif_url"] != nil {
                             maxURL = data!["last_gif_url"] as! String
                         }
@@ -168,7 +167,7 @@ class GIPHYViewController: UIViewController {
                     let day = calendar.component(.day, from: lastDate)
                     let month = calendar.monthSymbols[calendar.component(.month, from: lastDate) - 1]
                     let year = calendar.component(.year, from: lastDate)
-                    self.dayLabel.text = "\(currentMonthString) \(day), \(year)"
+                    self.dayLabel.text = "\(month) \(day), \(year)"
                 }
                 self.activityView.stopAnimating()
                 self.activityView.isHidden = true

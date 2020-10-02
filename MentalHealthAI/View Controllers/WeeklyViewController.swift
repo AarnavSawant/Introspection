@@ -20,6 +20,7 @@ class WeeklyViewController: UIViewController {
     @IBOutlet weak var activityView: UIActivityIndicatorView!
     @IBOutlet weak var captionImage: UIImageView!
     var dictionary: [String : [String : Any]]?
+    var newMonthDictionary: [String : [String : Any]]?
     @IBOutlet weak var captionLabel: UILabel!
 //    let email = UserDefaults.standard.string(forKey: "emailAddress")
     @IBOutlet weak var pieView: PieChartView!
@@ -111,137 +112,133 @@ class WeeklyViewController: UIViewController {
         let calendar = Calendar.current
         lastSundayDate = calendar.date(from: components)
         let db = Firestore.firestore()
-                        let day_of_week_formatter = DateFormatter()
-                        day_of_week_formatter.dateFormat = "EEEE"
-                        var emotionList = [String] ()
-                        let timeSundayTimeStamp = lastSundayDate?.timeIntervalSince1970 as! Double
-                        let uid = Auth.auth().currentUser?.uid
-                        var emotionCount = [String : Int]()
-                        if todaycomponents.month != components.month {
-                            db.collection("users").document(uid!).collection("\(components.year!)").document ("\(todaycomponents.month!)").getDocument { (querySnapshot, err) in
-                                    if err != nil {
-                                        print("Error retrieving querries")
-                                    } else  if querySnapshot != nil {
+        let day_of_week_formatter = DateFormatter()
+        day_of_week_formatter.dateFormat = "EEEE"
+        var emotionList = [String] ()
+        let timeSundayTimeStamp = lastSundayDate?.timeIntervalSince1970 as! Double
+        let uid = Auth.auth().currentUser?.uid
+        var emotionCount = [String : Int]()
+        if todaycomponents.month != components.month {
+            db.collection("users").document(uid!).collection("\(components.year!)").document ("\(todaycomponents.month!)").getDocument { (querySnapshot, err) in
+            if err != nil {
+                print("Error retrieving querries")
+            } else  if querySnapshot != nil {
                                         //                for document in querySnapshot.documents {
-                                        let data = querySnapshot!.data()
-                                        if data != nil {
-                                            self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
-                                        }
+                let data = querySnapshot!.data()
+                if data != nil {
+                    self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
+                }
                                         //                    print
-                                        if self.dictionary != nil && self.dictionary?.count != 0 {
-                                            print("KEYS", self.dictionary!.keys)
-                                            for key in self.dictionary!.keys {
-                                                print(key)
-                                                if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970{
-                                                    if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
-                                                        emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
-                                                    } else {
-                                                        emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
-                                                    }
-                                                }
-                                            }
-                                    }
-                                }
-                            }
-                            db.collection("users").document(uid!).collection("\(components.year!)").document ("\(components.month!)").getDocument { (querySnapshot, err) in
-                                if err != nil {
-                                    print("Error retrieving querries")
-                                } else  if querySnapshot != nil {
-                                    //                for document in querySnapshot.documents {
-                                    let data = querySnapshot!.data()
-                                    if data != nil {
-                                        self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
-                                    }
-                                    //                    print
-                                    if self.dictionary != nil {
-                                        for key in self.dictionary!.keys {
-                                            print(key)
-                                            if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970  {
-                                                print("date", key)
-                                                if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
-                                                    emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
-                                                    print(emotionCount)
-                                                } else {
-                                                    emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            db.collection("users").document(uid!).collection("\(components.year!)").document ("\(components.month!)").getDocument { (querySnapshot, err) in
-                                if err != nil {
-                                    print("Error retrieving querries")
-                                } else  if querySnapshot != nil {
-                                    //                for document in querySnapshot.documents {
-                                    let data = querySnapshot!.data()
-                                    if data != nil {
-                                        self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
-                                    }
-                                    if self.dictionary != nil {
-                                        for key in self.dictionary!.keys {
-                                            print(key)
-                                            if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970{
-                                                if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
-                                                    emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
-                                                    print("LION", lastSundayDate!, key)
-                                                } else {
-                                                    emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
-                                                }
-                                            }
-                                        }
-                                        print(emotionCount)
-                                    }
-                                }
-                            }
-                            
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
-                //            let view = UIActivityIndicatorView()
-                            self.activityView.isHidden = true
-                            self.activityView.stopAnimating()
-                            self.pieView.isHidden = false
-                            print(emotionCount)
-                            self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
-                            let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "neutral"]
-                            let maxEmotionValue = emotionCount.values.max()
-                            print("MAX VALUE", maxEmotionValue)
-                            var maxEmotionKeys = [String]()
-                            if maxEmotionValue != nil {
-                                if maxEmotionValue != 0 {
-                                    self.numberOfDaysLabel.isHidden = false
-                                    for key in emotionCount.keys {
-                                        if emotionCount[key] == maxEmotionValue {
-                                            maxEmotionKeys.append(key)
-                                        }
-                                    }
-                                    print("Max Emotion Keys", maxEmotionKeys)
-                                    if maxEmotionKeys.count != 0 {
-                                        self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
-                                        if (maxEmotionKeys[0] == "joy") {
-                                            self.captionImage.image = UIImage(named: "JoyResults")
-                                        } else if (maxEmotionKeys[0] == "sadness") {
-                                            self.captionImage.image = UIImage(named: "SadnessResults")
-                                        } else if (maxEmotionKeys[0] == "anger") {
-                                            self.captionImage.image = UIImage(named: "AngerResults")
-                                        } else if (maxEmotionKeys[0] == "fear") {
-                                            self.captionImage.image = UIImage(named: "FearResults")
-                                        } else if (maxEmotionKeys[0] == "neutral") {
-                                            self.captionImage.image = UIImage(named: "NeutralResults")
-                                        }
-            //                            }
-                                    }
-                                } else {
-                                    self.captionLabel.text = "No Data For This Week"
-                                }
+                if self.dictionary != nil && self.dictionary?.count != 0 {
+                    print("KEYS", self.dictionary!.keys)
+                    for key in self.dictionary!.keys {
+                        print(key)
+                        if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970{
+                            if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
+                                emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
                             } else {
-                                self.pieView.isHidden = true
-                                self.captionLabel.text = "No Data For This Week"
-                                
+                                emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
                             }
-        
+                        }
+                    }
+                }
+            }
         }
+            self.dictionary = nil
+        db.collection("users").document(uid!).collection("\(components.year!)").document ("\(components.month!)").getDocument { (querySnapshot, err) in
+                if err != nil {
+                    print("Error retrieving querries")
+                } else  if querySnapshot != nil {
+                        let data = querySnapshot!.data()
+                        if data != nil {
+//                            self.dictionary?.removeAll()
+                            self.newMonthDictionary = data!["user_sentiment"] as! [String : [String : Any]]
+                            print("New Month Dictionary", self.dictionary)
+                        }
+                    if self.newMonthDictionary != nil {
+                            for key in self.newMonthDictionary!.keys {
+                                if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970  {
+//                                        print("date", key)
+                                        if emotionCount.keys.contains(self.newMonthDictionary![key]!["emotion"] as! String) {
+                                            emotionCount[self.newMonthDictionary![key]!["emotion"] as! String]! += 1
+                                                    print(emotionCount)
+                                        } else {
+                                            emotionCount[self.newMonthDictionary![key]!["emotion"] as! String] = 1
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                db.collection("users").document(uid!).collection("\(components.year!)").document ("\(components.month!)").getDocument { (querySnapshot, err) in
+                    if err != nil {
+                        print("Error retrieving querries")
+                    } else  if querySnapshot != nil {
+                                    //                for document in querySnapshot.documents {
+                        let data = querySnapshot!.data()
+                        if data != nil {
+                            self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
+                        }
+                        if self.dictionary != nil {
+                            for key in self.dictionary!.keys {
+                            print(key)
+                            if df.date(from: key)!.timeIntervalSince1970 >= lastSundayDate!.timeIntervalSince1970 && df.date(from: key)!.timeIntervalSince1970 <= Date().timeIntervalSince1970{
+                                    if emotionCount.keys.contains(self.dictionary![key]!["emotion"] as! String) {
+                                            emotionCount[self.dictionary![key]!["emotion"] as! String]! += 1
+                                        print("LION", lastSundayDate!, key)
+                                    } else {
+                                        emotionCount[self.dictionary![key]!["emotion"] as! String] = 1
+                                    }
+                                }
+                            }
+                            print(emotionCount)
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
+                //            let view = UIActivityIndicatorView()
+                self.activityView.isHidden = true
+                self.activityView.stopAnimating()
+                self.pieView.isHidden = false
+                print(emotionCount)
+                self.setCharts(emotionLabels: ["joy", "sadness", "neutral", "anger", "fear"], emotionCount: [emotionCount["joy"] ?? 0, emotionCount["sadness"] ?? 0, emotionCount["neutral"] ?? 0, emotionCount["anger"]  ?? 0, emotionCount["fear"] ?? 0])
+                let grammarDict = ["sadness" : "sad", "joy" : "happy", "fear" : "afraid", "anger" : "angry", "neutral" : "neutral"]
+                let maxEmotionValue = emotionCount.values.max()
+                print("MAX VALUE", maxEmotionValue)
+                var maxEmotionKeys = [String]()
+                if maxEmotionValue != nil {
+                    if maxEmotionValue != 0 {
+                        self.numberOfDaysLabel.isHidden = false
+                        for key in emotionCount.keys {
+                            if emotionCount[key] == maxEmotionValue {
+                                maxEmotionKeys.append(key)
+                            }
+                        }
+                        print("Max Emotion Keys", maxEmotionKeys)
+                        if maxEmotionKeys.count != 0 {
+                            self.captionLabel.text = "This week, you typically seem to be \(grammarDict[maxEmotionKeys[0]]!)"
+                            if (maxEmotionKeys[0] == "joy") {
+                                self.captionImage.image = UIImage(named: "JoyResults")
+                            } else if (maxEmotionKeys[0] == "sadness") {
+                                self.captionImage.image = UIImage(named: "SadnessResults")
+                            } else if (maxEmotionKeys[0] == "anger") {
+                                self.captionImage.image = UIImage(named: "AngerResults")
+                            } else if (maxEmotionKeys[0] == "fear") {
+                                self.captionImage.image = UIImage(named: "FearResults")
+                            } else if (maxEmotionKeys[0] == "neutral") {
+                                self.captionImage.image = UIImage(named: "NeutralResults")
+                            }
+                        }
+                    } else {
+                        self.captionLabel.text = "No Data For This Week"
+                    }
+                } else {
+                    self.pieView.isHidden = true
+                    self.captionLabel.text = "No Data For This Week"
+                }
+            }
     }
     
     func setCharts(emotionLabels :[String], emotionCount: [Int]) {
@@ -270,7 +267,6 @@ class WeeklyViewController: UIViewController {
             }
         }
         //        print(dataEntries[1].data)
-        print("PeePoo", emotionCount)
         if numZeroEntries != 5 {
             let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "Number of Days")
             let noZeroFormatter = NumberFormatter()

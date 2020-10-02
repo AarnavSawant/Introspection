@@ -43,22 +43,10 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     var number: Int?
     override func viewDidLoad() {
         Analytics.logEvent("entered_Home_Screen", parameters: nil)
-//        UserDefaults.standard.set(nil, forKey: "NotificationTime")
-//        UserDefaults.standard.set(nil, forKey: "NotificationsEnabledInApp")
         print("Notifications Enabled", UIApplication.shared.isRegisteredForRemoteNotifications)
-//        var practiceDict = [String : [String : Any]]()
-//        for i in 0...1200 {
-//            practiceDict["\(i)"] = ["timestamp" : 12345678, "emotion" : "joy", "text" : "The Bears still suck"]
-//        }
-//        UserDefaults.standard.set(practiceDict, forKey: "test_dict")
-//        print("COUNT", UserDefaults.standard.dictionary(forKey: "test_dict"))
+
         
 
-//        scrollTextView.crawlingSpeed = 20.0
-//        scrollTextView.text = ""
-//        scrollTextView.xAngle = 1
-//        scrollTextView.inclinationRatio = 3.0
-//        scrollTextView.font = UIFont(name: "Helvetica", size: 24)
         print("SIGNED IN QUESTION", UserDefaults.standard.bool(forKey: "signed_in"))
         print("UID", UserDefaults.standard.string(forKey: "uid"))
 //        print(UserDefaults.standard.object(forKey: "emailAddress"))

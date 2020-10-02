@@ -110,42 +110,46 @@ class ConfirmViewController: UIViewController {
             var textToPOSArray =  [Int : String]()
             textArray = text.lowercased().components(separatedBy: " ")
             for i in 0...textArray.count-1{
-                print(textArray[i])
+                print("Word \(i + 1) from the given text", textArray[i])
                 if contraction_mapping.keys.contains(textArray[i]) {
                     textArray[i] = contraction_mapping[textArray[i]]!
                 }
             }
             var fullText = textArray.joined(separator: " ")
+            let negatedText = textArray.joined(separator: " ")
+            print("TextToPOSArray", textToPOSArray)
+            var cleanedTextArray = [String]()
+            cleanedTextArray = fullText.lowercased().components(separatedBy: CharacterSet.punctuationCharacters).joined().components(separatedBy: " ")
+            print(cleanedTextArray)
             let tagger = NSLinguisticTagger(tagSchemes: [.lexicalClass], options: 0)
             tagger.string = fullText
-            let range = NSRange(location: 0, length: text.utf16.count)
+            let range = NSRange(location: 0, length: fullText.utf16.count)
             let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace]
             var wordNum = 0
             tagger.enumerateTags(in: range, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange, _ in
                 if let tag = tag {
-                    let word = (text as NSString).substring(with: tokenRange)
-                    print("Packers Baby \(word): \(tag)")
+                    let word = (fullText as NSString).substring(with: tokenRange)
+                    print("\(word): \(tag)")
                     textToPOSArray[wordNum] = tag.rawValue
                     wordNum += 1
                 }
             }
             var shouldNegate = false
-            for i in 0...textArray.count {
+            for i in 0..<textArray.count {
+                print("Should Negate \(textArray[i])", shouldNegate)
                 if shouldNegate {
                     if ["Noun", "Pronoun"].contains(textToPOSArray[i]) {
                         shouldNegate = false
                     }
-                    textArray[i] = "neg" + textArray[i]
-                } else if ["not"].contains(textArray[i]) {
+                    cleanedTextArray[i] = "neg" + cleanedTextArray[i]
+                }
+                if ["not"].contains(cleanedTextArray[i]) {
+                    cleanedTextArray[i] = ""
                     shouldNegate = true
                 }
                 
             }
-            let negatedText = textArray.joined(separator: " ")
-            print("TextToPOSArray", textToPOSArray)
-            var cleanedTextArray = [String]()
-            cleanedTextArray = negatedText.lowercased().components(separatedBy: CharacterSet.punctuationCharacters).joined().components(separatedBy: " ")
-            print(cleanedTextArray)
+            print("CLEANED TEXT for Sequence", cleanedTextArray)
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
                 if (dict[cleanedTextArray[i]] != nil && !["sleep", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"].contains(cleanedTextArray[i])) {
@@ -157,7 +161,7 @@ class ConfirmViewController: UIViewController {
                     
                 }
             }
-            print(sequenceArray)
+            print("Sequence Array for Model", sequenceArray)
             return pad_sequences(arr: sequenceArray)
     }
     override func viewDidLoad() {
@@ -220,7 +224,6 @@ class ConfirmViewController: UIViewController {
 //        view.heightAnchor.constraint(equalToConstant: 24).isActive = true
 //        view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 106).isActive = true
 //        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 661).isActive = true
-        print("Warriors", emailAddress)
         super.viewDidLoad()
         let navbar = self.navigationController as! ResultsNavController
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
@@ -229,30 +232,30 @@ class ConfirmViewController: UIViewController {
         discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "september_24") as! [String : Double]
+        let dictionary = readJSONFromFile(filename: "october_1") as! [String : Double]
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = Model()
-        if let predictions = try? new_model.predictions(inputs: [ModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = EmotionAIModel()
+        if let predictions = try? new_model.predictions(inputs: [EmotionAIModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
                     predictedClass = key.key
                 }
             }
-            print(max_pred)
+            print("Max Probability for Model", max_pred)
         }
-        print(predictedClass)
+        print("Predicted Class", predictedClass)
         if predictedClass == "joy" {
             if max_pred < 0.55 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
-            if max_pred < 0.94{
+            if max_pred < 0.75{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.55 {
+            if max_pred < 0.55{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
@@ -294,9 +297,7 @@ class ConfirmViewController: UIViewController {
         vc.howWasYourDayLabel.text = "How was your day?"
         vc.TranscribedText.text = "Answering this question will let us assess your stress level"
         UserDefaults.standard.set(true, forKey: "should_query")
-        print(UserDefaults.standard.set(true, forKey: "should_query"))
-//        let email = UserDefaults.standard.string(forKey: "emailAddress")
-//        print(tabBarController.selectedIndex)
+        print("Should Query", UserDefaults.standard.set(true, forKey: "should_query"))
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy MM dd"
         let db = Firestore.firestore()
@@ -357,7 +358,7 @@ class ConfirmViewController: UIViewController {
                 }
             db.collection("users").document(uid!).collection("\(current_year)").document("\(current_month)").getDocument { (querySnapshot, err) in
                     if err != nil {
-                        print("ERROR ERROR ERROR")
+                        print("ERROR ERROR ERROR READING FROM FIREBASE IN CONFIRM VC")
                     } else {
                         let data = querySnapshot?.data()
                         if data != nil {

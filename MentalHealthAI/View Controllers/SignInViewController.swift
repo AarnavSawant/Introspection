@@ -363,7 +363,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
         }
     }
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        print("The BEARS STILL SUCK")
+        print("Requesting Authorization")
         if let credential = authorization.credential as? ASAuthorizationAppleIDCredential{
             UserDefaults.standard.set(credential.user, forKey: "appleIDUserCredential")
             guard let nonce = currentNonce else {
@@ -385,7 +385,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                 UserDefaults.standard.set("Apple", forKey: "sign_in_method")
                 print("Notification Time", UserDefaults.standard.string(forKey: "NotificationTime"))
                 if (UserDefaults.standard.string(forKey: "NotificationTime") == nil) {
-                        print("Inside the if condition")
+                        print("Inside the Notification Time if condition")
 //                    if (UserDefaults.standard.string(forKey: "NotificationTime") != "NOT ENABLED") {
                         self.setDefaultNotification()
 //                    }

@@ -78,7 +78,6 @@ class YearlyViewController: UIViewController {
                         for document in documents! {
                             let data = document.data()
                             if data != nil {
-                                print("PIZZA")
                                 self.dictionary = data["user_sentiment"] as! [String : [String : Any]]
                                 print("Dictionary", self.dictionary)
                                 for key in self.dictionary!.keys {

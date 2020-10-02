@@ -83,7 +83,6 @@ class MonthlyViewController: UIViewController {
                 } else {
                     let data = querySnapshot?.data()
                     if data != nil {
-                        print("PIZZA")
                         self.dictionary = data!["user_sentiment"] as! [String : [String : Any]]
                         print("Dictionary", self.dictionary)
                         var emotionCount = [String : Int]()
@@ -133,7 +132,6 @@ class MonthlyViewController: UIViewController {
             }
         }
     }
-    //        print("CheeseHead", emotionList)
         
     @IBAction func didClickCalendarButton(_ sender: Any) {
         let vc = self.tabBarController as! MainTabBarController

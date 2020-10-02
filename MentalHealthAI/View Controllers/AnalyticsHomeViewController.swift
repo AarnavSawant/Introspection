@@ -19,7 +19,36 @@ class AnalyticsHomeViewController: UIViewController {
     @IBOutlet weak var YearlyButton: UIButton!
     @IBOutlet weak var weeklyButton: UIButton!
     
+
+    
     override func viewDidLoad() {
+        
+//        layer0.shadowOpacity = 1
+//        layer0.shadowRadius = 4
+//        layer0.shadowOffset = CGSize(width: 0, height: 1)
+//        layer0.bounds = shadows.bounds
+//        layer0.position = shadows.center
+//        shadows.layer.addSublayer(layer0)
+
+//        var shapes = UIView()
+//        shapes.frame = view.frame
+//        shapes.clipsToBounds = true
+//        MonthlyButton.addSubview(shapes)
+
+//        let layer1 = CALayer()
+//        layer1.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
+//        layer1.bounds = shapes.bounds
+//        layer1.position = shapes.center
+//        shapes.layer.addSublayer(layer1)
+
+//        shapes.layer.cornerRadius = 10
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("entered_Analytics_Screen", parameters: nil)
         let navView = UIView()
         let label = UILabel()
         label.text = "introspection"
@@ -54,15 +83,6 @@ class AnalyticsHomeViewController: UIViewController {
         df.dateFormat = "yyyy"
         thisYearLabel.text = df.string(from: Date())
         theBreakdownLabel.text = df.string(from: Date())
-//        var shadows = UIView()
-//        print("FRAME", MonthlyButton.frame)
-//        shadows.frame = view.frame
-//        shadows.clipsToBounds = false
-//        MonthlyButton.addSubview(shadows)
-
-//        let shadowPath0 = UIBezierPath(roundedRect: MonthlyButton.bounds, cornerRadius: 10)
-//        let layer0 = CALayer()
-//        layer0.shadowPath = shadowPath0.cgPath
         MonthlyButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15).cgColor
         MonthlyButton.layer.shadowRadius = 4
         MonthlyButton.layer.shadowOpacity = 1.0
@@ -82,32 +102,6 @@ class AnalyticsHomeViewController: UIViewController {
         breakdownButton.layer.shadowRadius = 4
         breakdownButton.layer.shadowOpacity = 1.0
         breakdownButton.layer.cornerRadius = 10
-//        layer0.shadowOpacity = 1
-//        layer0.shadowRadius = 4
-//        layer0.shadowOffset = CGSize(width: 0, height: 1)
-//        layer0.bounds = shadows.bounds
-//        layer0.position = shadows.center
-//        shadows.layer.addSublayer(layer0)
-
-//        var shapes = UIView()
-//        shapes.frame = view.frame
-//        shapes.clipsToBounds = true
-//        MonthlyButton.addSubview(shapes)
-
-//        let layer1 = CALayer()
-//        layer1.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
-//        layer1.bounds = shapes.bounds
-//        layer1.position = shapes.center
-//        shapes.layer.addSublayer(layer1)
-
-//        shapes.layer.cornerRadius = 10
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        Analytics.logEvent("entered_Analytics_Screen", parameters: nil)
     }
     
 
