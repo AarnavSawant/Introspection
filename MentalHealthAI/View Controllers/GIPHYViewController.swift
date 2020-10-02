@@ -96,7 +96,7 @@ class GIPHYViewController: UIViewController {
         print("DAY", current_day)
         print("MONTH", current_month)
         print("YEAR", current_year)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) {
             let uid = Auth.auth().currentUser?.uid
             let cal = Calendar.current
             let current_year = cal.component(.year, from: Date())
@@ -154,7 +154,7 @@ class GIPHYViewController: UIViewController {
                     //                cell.gifURL = url as! String
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.75) {
             print("Max Term", maxTerm)
 //        if maxTimestamp != 0.0 {
             let lastDate = Date.init(timeIntervalSince1970: maxTimestamp)
@@ -169,7 +169,7 @@ class GIPHYViewController: UIViewController {
                     let month = calendar.monthSymbols[calendar.component(.month, from: lastDate) - 1]
                     let year = calendar.component(.year, from: lastDate)
                     self.dayLabel.text = "\(currentMonthString) \(day), \(year)"
-                    }
+                }
                 self.activityView.stopAnimating()
                 self.activityView.isHidden = true
                 self.gifView.image = UIImage.gif(url: gifURL)
@@ -202,30 +202,23 @@ class GIPHYViewController: UIViewController {
                 }
     //            }
             } else {
-                self.emotionLabel.text = "Oops...No GIF Available."
-                self.cheerLabel.text = "Make sure that you have logged an introspection and come back to this tab."
+                self.emotionLabel.text = "We hope you are having a great day!"
+                let terms = ["cute_dog", "doggy", "tenor"]
+                let num = Int.random(in: 0...2)
+                let term = terms[num]
+                self.gifView.image = UIImage.gif(name: term)
+                let dateFormatter = DateFormatter()
+                let day = calendar.component(.day, from: Date())
+                let month = calendar.monthSymbols[calendar.component(.month, from: lastDate) - 1]
+                let year = calendar.component(.year, from: Date())
+                self.dayLabel.text = "\(currentMonthString) \(day), \(year)"
+                self.cheerLabel.text = "Keep Introspecting to get more personalized GIFS."
                 self.activityView.isHidden = true
             }
         }
     }
     
-    func searchGifs(for searchText: String) {
-        network.fetchGIFs(searchTerm: searchText) { gifArray in
-            if gifArray != nil {
-                print(gifArray!.gifs.count)
-                self.gifs = gifArray!.gifs
-                let randomNumber = Int.random(in: 0..<gifArray!.gifs.count)
-                let gifURL = self.gifs[randomNumber].getGIFURL()
-                UserDefaults.standard.set(gifURL, forKey: "lastGIF")
-                UserDefaults.standard.set(false, forKey: "shouldSearch")
-//                let gifURL = UserDefaults.standard.string(forKey: "lastGIF")
-//                if UserDefaults.standard.url(forKey: "lastGIF") != nil {
-                    self.gifView.image = UIImage.gif(url: gifURL)
-//                }
-            }
-            
-        }
-    }
+
     
     
 

@@ -197,7 +197,7 @@ class WeeklyViewController: UIViewController {
                             }
                             
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
                 //            let view = UIActivityIndicatorView()
                             self.activityView.isHidden = true
                             self.activityView.stopAnimating()

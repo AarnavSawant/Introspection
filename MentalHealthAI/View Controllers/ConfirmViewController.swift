@@ -84,8 +84,8 @@ class ConfirmViewController: UIViewController {
             "oughtn't": "ought not", "oughtn't've": "ought not have", "shan't": "shall not",
             "sha'n't": "shall not", "shan't've": "shall not have", "she'd": "she would",
             "she'd've": "she would have", "she'll": "she will", "she'll've": "she will have",
-            "she's": "she is", "should've": "should have", "shouldn't": "should not",
-            "shouldn't've": "should not have", "so've": "so have","so's": "so as",
+            "she's": "she is", "should've": "should have", "shouldn\'t": "should not",
+            "shouldn\'t've": "should not have", "so've": "so have","so's": "so as",
             "this's": "this is",
             "that'd": "that would", "that'd've": "that would have","that's": "that is",
             "there'd": "there would", "there'd've": "there would have","there's": "there is",
@@ -107,6 +107,7 @@ class ConfirmViewController: UIViewController {
             "you'd": "you would", "you'd've": "you would have", "you'll": "you will",
             "you'll've": "you will have", "you're": "you are", "you've": "you have" ]
             var textArray =  [String]()
+            var textToPOSArray =  [Int : String]()
             textArray = text.lowercased().components(separatedBy: " ")
             for i in 0...textArray.count-1{
                 print(textArray[i])
@@ -114,13 +115,40 @@ class ConfirmViewController: UIViewController {
                     textArray[i] = contraction_mapping[textArray[i]]!
                 }
             }
+            var fullText = textArray.joined(separator: " ")
+            let tagger = NSLinguisticTagger(tagSchemes: [.lexicalClass], options: 0)
+            tagger.string = fullText
+            let range = NSRange(location: 0, length: text.utf16.count)
+            let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace]
+            var wordNum = 0
+            tagger.enumerateTags(in: range, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange, _ in
+                if let tag = tag {
+                    let word = (text as NSString).substring(with: tokenRange)
+                    print("Packers Baby \(word): \(tag)")
+                    textToPOSArray[wordNum] = tag.rawValue
+                    wordNum += 1
+                }
+            }
+            var shouldNegate = false
+            for i in 0...textArray.count {
+                if shouldNegate {
+                    if ["Noun", "Pronoun"].contains(textToPOSArray[i]) {
+                        shouldNegate = false
+                    }
+                    textArray[i] = "neg" + textArray[i]
+                } else if ["not"].contains(textArray[i]) {
+                    shouldNegate = true
+                }
+                
+            }
+            let negatedText = textArray.joined(separator: " ")
+            print("TextToPOSArray", textToPOSArray)
             var cleanedTextArray = [String]()
-            let fullText = textArray.joined(separator: " ")
-            cleanedTextArray = fullText.lowercased().components(separatedBy: CharacterSet.punctuationCharacters).joined().components(separatedBy: " ")
+            cleanedTextArray = negatedText.lowercased().components(separatedBy: CharacterSet.punctuationCharacters).joined().components(separatedBy: " ")
             print(cleanedTextArray)
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
-                if (dict[cleanedTextArray[i]] != nil && !["dog", "math", "exam", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"].contains(cleanedTextArray[i])) {
+                if (dict[cleanedTextArray[i]] != nil && !["sleep", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"].contains(cleanedTextArray[i])) {
                     let num = dict[cleanedTextArray[i]] as! Double
                     if (num <= 5500.0) {
                         sequenceArray.append(dict[cleanedTextArray[i]] as! Double)
@@ -201,11 +229,11 @@ class ConfirmViewController: UIViewController {
         discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "september_22") as! [String : Double]
+        let dictionary = readJSONFromFile(filename: "september_24") as! [String : Double]
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = GRUDLModel()
-        if let predictions = try? new_model.predictions(inputs: [GRUDLModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = Model()
+        if let predictions = try? new_model.predictions(inputs: [ModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
@@ -216,19 +244,19 @@ class ConfirmViewController: UIViewController {
         }
         print(predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.44 {
+            if max_pred < 0.55 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
-            if max_pred < 0.87{
+            if max_pred < 0.94{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.6{
+            if max_pred < 0.55 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
-            if max_pred < 0.65{
+            if max_pred < 0.88{
                 predictedClass = "neutral"
             }
         }

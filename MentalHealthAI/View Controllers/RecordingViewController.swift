@@ -235,7 +235,7 @@ class RecordingViewController: UIViewController {
             }
         })
         let recordFormat = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordFormat) { (buffer, where) in
+        inputNode.installTap(onBus: 0, bufferSize: 2048, format: recordFormat) { (buffer, where) in
             recognitionRequest.append(buffer)
         }
         audioEngine.prepare()

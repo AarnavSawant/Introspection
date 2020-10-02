@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		840B497F251AD14A0094F95D /* GRUDLModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 840B497E251AD14A0094F95D /* GRUDLModel.mlmodel */; };
 		840B4985251AD1560094F95D /* september_22.json in Resources */ = {isa = PBXBuildFile; fileRef = 840B4984251AD1560094F95D /* september_22.json */; };
+		840B498F251EBDE00094F95D /* Model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 840B498E251EBDDB0094F95D /* Model.mlmodel */; };
+		840B4995251EBDEB0094F95D /* september_24.json in Resources */ = {isa = PBXBuildFile; fileRef = 840B4994251EBDEB0094F95D /* september_24.json */; };
+		840B499C252034430094F95D /* doggy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 840B499B252034430094F95D /* doggy.gif */; };
+		840B49A2252034530094F95D /* cute_dog.gif in Resources */ = {isa = PBXBuildFile; fileRef = 840B49A1252034520094F95D /* cute_dog.gif */; };
+		840B49A825269E990094F95D /* EmotionAIModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 840B49A725269E970094F95D /* EmotionAIModel.mlmodel */; };
+		840B49AE25269EAB0094F95D /* october_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 840B49AD25269EAB0094F95D /* october_1.json */; };
 		841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B332A24BAF1210005311E /* MainTabBarController.swift */; };
 		842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */; };
 		842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */; };
@@ -101,6 +107,12 @@
 		840107712503137C00C2A823 /* tenor.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tenor.gif; sourceTree = "<group>"; };
 		840B497E251AD14A0094F95D /* GRUDLModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GRUDLModel.mlmodel; sourceTree = "<group>"; };
 		840B4984251AD1560094F95D /* september_22.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_22.json; sourceTree = "<group>"; };
+		840B498E251EBDDB0094F95D /* Model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Model.mlmodel; sourceTree = "<group>"; };
+		840B4994251EBDEB0094F95D /* september_24.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_24.json; sourceTree = "<group>"; };
+		840B499B252034430094F95D /* doggy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = doggy.gif; sourceTree = "<group>"; };
+		840B49A1252034520094F95D /* cute_dog.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cute_dog.gif; sourceTree = "<group>"; };
+		840B49A725269E970094F95D /* EmotionAIModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionAIModel.mlmodel; sourceTree = "<group>"; };
+		840B49AD25269EAB0094F95D /* october_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = october_1.json; sourceTree = "<group>"; };
 		841B332A24BAF1210005311E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsNavController.swift; sourceTree = "<group>"; };
@@ -241,6 +253,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		840B499A2520341C0094F95D /* Local GIFs */ = {
+			isa = PBXGroup;
+			children = (
+				840B49A1252034520094F95D /* cute_dog.gif */,
+				840B499B252034430094F95D /* doggy.gif */,
+				840107712503137C00C2A823 /* tenor.gif */,
+			);
+			path = "Local GIFs";
+			sourceTree = "<group>";
+		};
 		84571F3D24D55FCE004AE9A3 /* Swift Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,8 +310,10 @@
 		847D870124C2CF91000254D9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				840B49A725269E970094F95D /* EmotionAIModel.mlmodel */,
 				840B497E251AD14A0094F95D /* GRUDLModel.mlmodel */,
 				8427FC552511E3280006CEF4 /* IntrospectionAppleModel.mlmodel */,
+				840B498E251EBDDB0094F95D /* Model.mlmodel */,
 				8427FC59251290ED0006CEF4 /* DLModel.mlmodel */,
 				8427FC512511D70E0006CEF4 /* IntrospectionIOSModel.mlmodel */,
 				845C60A125114367002C73C5 /* EmotionDLModel.mlmodel */,
@@ -302,7 +326,9 @@
 			isa = PBXGroup;
 			children = (
 				84CE72E825114458004C683B /* september_14.json */,
+				840B49AD25269EAB0094F95D /* october_1.json */,
 				8427FC5B251290F60006CEF4 /* september_16v2.json */,
+				840B4994251EBDEB0094F95D /* september_24.json */,
 				840B4984251AD1560094F95D /* september_22.json */,
 				845C60A325114374002C73C5 /* september_10.json */,
 				845C60972508A2B2002C73C5 /* september_9.json */,
@@ -348,6 +374,7 @@
 		8498B21524ADD0F10083E8A7 /* MentalHealthAI */ = {
 			isa = PBXGroup;
 			children = (
+				840B499A2520341C0094F95D /* Local GIFs */,
 				84EF337B24DFF13E00C4A06B /* Fonts */,
 				84EF337A24DAAF3100C4A06B /* Resources */,
 				8437D9EC24D956D400D0FDB3 /* MentalHealthAI.entitlements */,
@@ -360,7 +387,6 @@
 				8498B21624ADD0F10083E8A7 /* AppDelegate.swift */,
 				8498B21824ADD0F10083E8A7 /* SceneDelegate.swift */,
 				84571F1924CE9590004AE9A3 /* GoogleService-Info.plist */,
-				840107712503137C00C2A823 /* tenor.gif */,
 				8498B21C24ADD0F10083E8A7 /* Main.storyboard */,
 				8498B21F24ADD0F60083E8A7 /* Assets.xcassets */,
 				845E267E24BDB6CB00615B4B /* DayCell.swift */,
@@ -552,16 +578,20 @@
 				84452BA9251148DE00FE6DE0 /* SF-Pro-Display-RegularItalic.otf in Resources */,
 				84452BAA251148DE00FE6DE0 /* SF-Pro-Display-Regular.otf in Resources */,
 				84452BAB251148DE00FE6DE0 /* SF-Pro-Display-Bold.otf in Resources */,
+				840B4995251EBDEB0094F95D /* september_24.json in Resources */,
 				840B4985251AD1560094F95D /* september_22.json in Resources */,
 				8427FC5C251290F70006CEF4 /* september_16v2.json in Resources */,
 				84452BAC251148DE00FE6DE0 /* SF-Pro-Text-Regular.otf in Resources */,
+				840B499C252034430094F95D /* doggy.gif in Resources */,
 				84452BAD251148DE00FE6DE0 /* SF-Pro-Text-Medium.otf in Resources */,
 				84452BAE251148DE00FE6DE0 /* SF-Pro-Display-Light.otf in Resources */,
 				84452BAF251148DE00FE6DE0 /* SF-Pro-Display-Semibold.otf in Resources */,
+				840B49A2252034530094F95D /* cute_dog.gif in Resources */,
 				84452BB0251148DE00FE6DE0 /* SF-Pro-Display-Heavy.otf in Resources */,
 				84452BB1251148DE00FE6DE0 /* SF-Pro.ttf in Resources */,
 				84452BB3251148DE00FE6DE0 /* tenor.gif in Resources */,
 				84452BB4251148DE00FE6DE0 /* Assets.xcassets in Resources */,
+				840B49AE25269EAB0094F95D /* october_1.json in Resources */,
 				84452BA82511471A00FE6DE0 /* GoogleService-Info.plist in Resources */,
 				8498B22324ADD0F60083E8A7 /* LaunchScreen.storyboard in Resources */,
 				8498B21E24ADD0F10083E8A7 /* Main.storyboard in Resources */,
@@ -740,6 +770,7 @@
 				84571F3F24D55FED004AE9A3 /* GifNetwork.swift in Sources */,
 				8478E30024E7A91400BE81C3 /* FeedbackNavController.swift in Sources */,
 				84571F2C24D1461A004AE9A3 /* ReflectViewController.swift in Sources */,
+				840B498F251EBDE00094F95D /* Model.mlmodel in Sources */,
 				844E845F24BD9A2F00A336EC /* RecapViewController.swift in Sources */,
 				84571F3C24D55D74004AE9A3 /* GIPHYViewController.swift in Sources */,
 				845E267F24BDB6CB00615B4B /* DayCell.swift in Sources */,
@@ -758,6 +789,7 @@
 				84FD72D124F62A0C00622085 /* GIPHYNavController.swift in Sources */,
 				844E845324BBD0CA00A336EC /* ConfirmViewController.swift in Sources */,
 				840B497F251AD14A0094F95D /* GRUDLModel.mlmodel in Sources */,
+				840B49A825269E990094F95D /* EmotionAIModel.mlmodel in Sources */,
 				8498B21924ADD0F10083E8A7 /* SceneDelegate.swift in Sources */,
 				84571F3024D2B8BF004AE9A3 /* MonthlyViewController.swift in Sources */,
 				842BABDB24FCE49700F1B243 /* PrivacyPolicyViewController.swift in Sources */,
