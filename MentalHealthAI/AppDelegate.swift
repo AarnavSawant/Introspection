@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func registerForPushNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, err) in
-            print("Permission Granted 1234: ", granted)
+            print("Permission Granted for Notifications: ", granted)
         }
     }
 //
@@ -40,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
+        registerForPushNotifications()
         return true
     }
 

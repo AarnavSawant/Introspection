@@ -225,6 +225,11 @@ class UserProfileViewController: UIViewController {
     }
     
 
+    @IBAction func didClickPrivacyPolicyButton(_ sender: Any) {
+        if let url = URL(string: "https://drive.google.com/file/d/1kNfAmzBsOVfqIm3Knrfv_OJ3P3dSoNrn/view?usp=sharing") {
+            UIApplication.shared.open(url)
+        }
+    }
     @IBAction func switchValuesDidChange(_ sender: UISwitch) {
         print("VALUE CHANGED")
         if (sender.isOn) {

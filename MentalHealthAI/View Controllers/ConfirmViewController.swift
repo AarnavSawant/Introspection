@@ -63,7 +63,7 @@ class ConfirmViewController: UIViewController {
             return mlArray!
             }
         func textsToSequences(text: String, dict: [String: Double]) -> MLMultiArray {
-            let contraction_mapping = ["hard" : "difficult","ain\'t": "is not", "aren\'t": "are not","can\'t": "cant",
+            let contraction_mapping = ["tired" :"tiring", "hard" : "difficult","ain\'t": "is not", "aren\'t": "are not","can\'t": "cant",
             "can\'t've": "cannot have", "'cause": "because", "could\'ve": "could have",
             "couldn\'t": "could not", "couldn\'t've": "could not have","didn\'t": "did not",
             "doesn't": "does not", "don't": "do not", "hadn't": "had not",
@@ -150,11 +150,12 @@ class ConfirmViewController: UIViewController {
                 
             }
             print("CLEANED TEXT for Sequence", cleanedTextArray)
+            let stopwordsList = ["ok", "english", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "dads", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot", "math", "today", "hot", "ran", "teacher","pretty","very", "really","super","feeling", "feel", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their", "theirs", "themselves", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from","in", "out", "on", "off", "over", "under", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "", " ", "inside", "study", "meetings" ,"sleep", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"]
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
-                if (dict[cleanedTextArray[i]] != nil && !["sleep", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"].contains(cleanedTextArray[i])) {
+                if (dict[cleanedTextArray[i]] != nil && !stopwordsList.contains(cleanedTextArray[i])) {
                     let num = dict[cleanedTextArray[i]] as! Double
-                    if (num <= 5500.0) {
+                    if (num <= 7500.0) {
                         sequenceArray.append(dict[cleanedTextArray[i]] as! Double)
                         
                     }
@@ -232,11 +233,11 @@ class ConfirmViewController: UIViewController {
         discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "october_1") as! [String : Double]
+        let dictionary = readJSONFromFile(filename: "october_2_official") as! [String : Double]
         let sequenceArray = textsToSequences(text: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = EmotionAIModel()
-        if let predictions = try? new_model.predictions(inputs: [EmotionAIModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = EmotionPredictionModel()
+        if let predictions = try? new_model.predictions(inputs: [EmotionPredictionModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
@@ -247,7 +248,7 @@ class ConfirmViewController: UIViewController {
         }
         print("Predicted Class", predictedClass)
         if predictedClass == "joy" {
-            if max_pred < 0.55 {
+            if max_pred < 0.43 {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
@@ -255,11 +256,11 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.55{
+            if max_pred < 0.45{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
-            if max_pred < 0.88{
+            if max_pred < 0.74{
                 predictedClass = "neutral"
             }
         }
