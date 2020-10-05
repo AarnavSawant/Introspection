@@ -44,7 +44,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
 	<string>1018132025294181</string>
 	<key>FacebookDisplayName</key>
@@ -71,6 +71,8 @@
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Your Speech will be detected tapping the Start Button</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We only use the photo Firebase provides us with for the profile photo</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Speak and watch your words turn into text!</string>
 	<key>UIAppFonts</key>

@@ -77,12 +77,16 @@ class AnalyticsHomeViewController: UIViewController {
          var df = DateFormatter()
         df.dateFormat = "MMM dd"
         thisWeekLabel.text = "\(df.string(from: lastSundayDate!))-\(df.string(from: nextSundayDate!))"
+        thisWeekLabel.alpha = 0.6
         df.dateFormat = "MMMM, yyyy"
         thisMonthLabel.text = df.string(from: Date())
+        thisMonthLabel.alpha = 0.6
         
         df.dateFormat = "yyyy"
         thisYearLabel.text = df.string(from: Date())
+        thisYearLabel.alpha = 0.6
         theBreakdownLabel.text = df.string(from: Date())
+        theBreakdownLabel.alpha = 0.6
         MonthlyButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15).cgColor
         MonthlyButton.layer.shadowRadius = 4
         MonthlyButton.layer.shadowOpacity = 1.0

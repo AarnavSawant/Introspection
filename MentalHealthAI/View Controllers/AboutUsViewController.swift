@@ -11,6 +11,7 @@ import Firebase
 
 class AboutUsViewController: UIViewController {
 
+    @IBOutlet weak var aboutMeTextView: UITextView!
     @IBOutlet weak var aboutMeLabel: UILabel!
     @IBOutlet weak var missionStatementLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
@@ -18,7 +19,7 @@ class AboutUsViewController: UIViewController {
         Analytics.logEvent("entered_AboutUs_Screen", parameters: nil)
         let navView = UIView()
         let label = UILabel()
-        aboutMeLabel.text = "Hi! My name is Aarnav and I am the founder of Introspection.  From a very young age, I have always been fascinated by how data and technology can help humanity. My Dad’s work in AI further accelerated my interest and journey to explore the world of AI.\n\nMy early work started with projecting NFL statistics and making English Premier League game predictions before continuing with games such as online Poker. Since last year, I have focused more on Deep Learning and have worked on projects such as Wildfire Detection and COVID-19 Sentiment Trends and Forecasting, while also programming for my robotics team at school. The COVID-19 pandemic personally impacted me, preventing me from hanging out with friends, playing soccer, and travelling.\n\nOne thing we always do as a family before we go to bed is to summarize our day, which helps us to stay positive and remain focused. I wanted to use my knowledge of AI to share our tradition with you all by creating a fun, simple and insightful product for you to use.\n\nIntrospection is a contemporary twist on the typical journaling app, providing users with instant gratification and actionable insights. Introspection hopes to provide people with the opportunity to slow down from this rapidly advancing world and take a second to reflect on what’s truly important, their emotional well-being."
+        aboutMeTextView.text = "Hi! My name is Aarnav and I am the founder of Introspection.  From a very young age, I have always been fascinated by how data and technology can help humanity. My Dad’s work in AI further accelerated my interest and journey to explore the world of AI.\n\nMy early work started with projecting NFL statistics and making English Premier League game predictions before continuing with games such as online Poker. Since last year, I have focused more on Deep Learning and have worked on projects such as Wildfire Detection and COVID-19 Sentiment Trends and Forecasting, while also programming for my robotics team at school.\n\nThe COVID-19 pandemic personally impacted me, preventing me from hanging out with friends, playing soccer, and travelling. One thing we always do as a family before we go to bed is to summarize our day, which helps us to stay positive and remain focused. I wanted to use my knowledge of AI to share our tradition with you all by creating a fun, simple and insightful product for you to use.\n\nIntrospection is a contemporary twist on the typical journaling app, providing users with instant gratification and actionable insights. Introspection hopes to provide people with the opportunity to slow down from this rapidly advancing world and take a second to reflect on what’s truly important, their emotional well-being."
         label.text = "About Us"
         label.sizeToFit()
         label.center = navView.frame.origin
