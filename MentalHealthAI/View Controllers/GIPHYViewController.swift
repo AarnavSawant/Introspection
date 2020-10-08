@@ -232,16 +232,24 @@ class GIPHYViewController: UIViewController {
     */
     @IBAction func didClickShareButton(_ sender: Any) {
         if self.gifShareURL != nil {
+            print("Halleleujah")
             var shareURL:NSURL = NSURL(string: self.gifShareURL!)!
             var shareData:NSData = NSData(contentsOf: shareURL as URL)!
-            
-            let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store"], applicationActivities: nil)
+            let appURL: URL = URL(string: "https://apps.apple.com/us/app/id1534465066")!
+            let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store", appURL], applicationActivities: nil)
+            vc.popoverPresentationController?.sourceView = self.view
             vc.modalPresentationStyle = .popover
             self.present(vc, animated: true, completion: nil)
         } else {
             let shareData = try! NSData(contentsOf: Bundle.main.url(forResource: "tenor", withExtension: "gif")!)
-            let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store"], applicationActivities: nil)
-            vc.modalPresentationStyle = .popover
+//            print(shareData)
+            let appURL: URL = URL(string: "https://apps.apple.com/us/app/id1534465066")!
+            let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store", appURL], applicationActivities: nil)
+            vc.popoverPresentationController?.sourceView = self.view
+//            vc.popoverPresentationController?.sourceRect = self.view.bounds
+            vc.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
+            
+//            vc.modalPresentationStyle = .popover
             self.present(vc, animated: true, completion: nil)
         }
     }

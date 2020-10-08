@@ -148,7 +148,7 @@ class RecordingViewController: UIViewController {
                         let nav_vc = tab_vc.viewControllers![tab_vc.selectedIndex] as! ReflectViewController
                         let vc = nav_vc.viewControllers[0] as! QuestionViewController
                         vc.howWasYourDayLabel.text = "Tell me a bit more about your day"
-                        vc.TranscribedText.text = "Oops! I can’t assess your stress level with so few words"
+                        vc.TranscribedText.text = "Oops! I need at least 8 words! The more, the better!"
 //                           SpeakButton.setTitle("Start", for: .normal)
 //                           TranscribedText.text = "Tell me a bit more about your day!"
                        }
@@ -283,7 +283,7 @@ class RecordingViewController: UIViewController {
                         let nav_vc = tab_vc.viewControllers![tab_vc.selectedIndex] as! ReflectViewController
                         let vc = nav_vc.viewControllers[0] as! QuestionViewController
                         vc.howWasYourDayLabel.text = "Tell me a bit more about your day"
-                        vc.TranscribedText.text = "Oops! I can’t assess your stress level with so few words!"
+                        vc.TranscribedText.text = "Oops! I need at least 8 words! The more, the better!"
 //                        self.SpeakButton.isEnabled = true
                         print("Yay")
 //                        self.SpeakButton.setTitle("Start", for: .normal)

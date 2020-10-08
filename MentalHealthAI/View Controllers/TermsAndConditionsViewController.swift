@@ -52,6 +52,7 @@ class TermsAndConditionsViewController: UIViewController {
         let myAttrString2 = NSMutableAttributedString(string: myString2, attributes: myAttribute)
 
         myAttrString.append(myAttrString2)
+        termsText.sizeToFit()
         termsText.attributedText = myAttrString
 
         // Do any additional setup after loading the view.

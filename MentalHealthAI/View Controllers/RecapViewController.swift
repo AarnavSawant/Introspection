@@ -102,8 +102,12 @@ class RecapViewController: UIViewController {
 //         var shareURL:NSURL = NSURL(string: self.gifShareURL!)!
 //        var shareData:NSData = NSData(contentsOf: shareURL as URL)!
         let shareData = try! NSData(contentsOf: Bundle.main.url(forResource: "tenor", withExtension: "gif")!)
-        let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store"], applicationActivities: nil)
+        let appURL: URL = URL(string: "https://apps.apple.com/us/app/id1534465066")!
+        let vc = UIActivityViewController(activityItems: [shareData as Any, "Check out Introspection in the App Store", appURL], applicationActivities: nil)
         vc.modalPresentationStyle = .popover
+        vc.popoverPresentationController?.sourceView = self.view
+//            vc.popoverPresentationController?.sourceRect = self.view.bounds
+        vc.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -253,7 +257,7 @@ extension RecapViewController: JTACMonthViewDelegate {
                     } else if newcell.emotionForTheDay == "sadness" {
                         self.feelingsLabel.text =  "You were sad on this day"
                     } else if newcell.emotionForTheDay == "neutral" {
-                        self.feelingsLabel.text =  "You were okay on this day"
+                        self.feelingsLabel.text =  "You were neutral on this day"
                     } else {
                         self.feelingsLabel.text =  ""
                     }

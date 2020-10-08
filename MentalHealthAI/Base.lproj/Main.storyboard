@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3D8-vx-jyj">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1158,13 +1159,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5x3-RH-8Ex">
-                                <rect key="frame" x="31" y="445.33333333333331" width="313" height="131.99999999999994"/>
+                                <rect key="frame" x="31" y="475.33333333333326" width="313" height="102"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="S1q-E3-dw7">
-                                        <rect key="frame" x="0.0" y="0.0" width="313" height="132"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="313" height="102"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jfy-LR-oqa">
-                                                <rect key="frame" x="0.0" y="0.0" width="313" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="313" height="34"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="18"/>
                                                 <state key="normal" title="    About Us">
@@ -1175,7 +1176,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="182-ei-VV9">
-                                                <rect key="frame" x="0.0" y="44" width="313" height="44"/>
+                                                <rect key="frame" x="0.0" y="34" width="313" height="34"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="18"/>
                                                 <state key="normal" title="    Terms and Conditions">
@@ -1186,7 +1187,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsB-wc-2ek">
-                                                <rect key="frame" x="0.0" y="88.000000000000057" width="313" height="44"/>
+                                                <rect key="frame" x="0.0" y="68.000000000000057" width="313" height="34"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="18"/>
                                                 <state key="normal" title="    Privacy Policy">
@@ -1205,7 +1206,7 @@
                                         </constraints>
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="DVR-k9-MJ7">
-                                        <rect key="frame" x="173" y="88.000000000000057" width="140" height="44"/>
+                                        <rect key="frame" x="173" y="68.000000000000057" width="140" height="34"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1213,7 +1214,7 @@
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="GSQ-ro-mGB">
-                                        <rect key="frame" x="173" y="44" width="140" height="44"/>
+                                        <rect key="frame" x="173" y="34" width="140" height="34"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1221,7 +1222,7 @@
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="HEW-9H-iQ7">
-                                        <rect key="frame" x="173" y="0.0" width="140" height="44"/>
+                                        <rect key="frame" x="173" y="0.0" width="140" height="34"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1229,7 +1230,7 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Km-XR-n2L">
-                                        <rect key="frame" x="0.0" y="43.666666666666686" width="313" height="1"/>
+                                        <rect key="frame" x="0.0" y="33.666666666666686" width="313" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="RWF-1x-UUl"/>
@@ -1237,7 +1238,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKp-ON-TjA">
-                                        <rect key="frame" x="0.0" y="87.666666666666686" width="313" height="1"/>
+                                        <rect key="frame" x="0.0" y="67.666666666666686" width="313" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="2kT-0o-c9b"/>
@@ -1273,17 +1274,17 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fv5-2M-t8o">
-                                <rect key="frame" x="31" y="319" width="313" height="88"/>
+                                <rect key="frame" x="31" y="319" width="313" height="68"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YJu-Ya-Ozh">
-                                        <rect key="frame" x="0.0" y="43.666666666666686" width="313" height="1"/>
+                                        <rect key="frame" x="0.0" y="33.666666666666686" width="313" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="B10-K6-KQ7"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    Daily Reflect Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGc-0w-kuT">
-                                        <rect key="frame" x="0.0" y="5" width="225" height="29"/>
+                                        <rect key="frame" x="0.0" y="5" width="225" height="20.333333333333332"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="225" id="e93-mZ-RTz"/>
                                         </constraints>
@@ -1292,21 +1293,21 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ILY-E2-nMT">
-                                        <rect key="frame" x="254" y="4" width="51" height="31"/>
+                                        <rect key="frame" x="254" y="-0.33333333333331439" width="51" height="31"/>
                                         <color key="onTintColor" systemColor="linkColor"/>
                                         <connections>
                                             <action selector="switchValuesDidChange:" destination="Bs9-7e-eoL" eventType="valueChanged" id="1oZ-6v-nMB"/>
                                         </connections>
                                     </switch>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text=" 9:30 AM" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BsP-GC-b8d">
-                                        <rect key="frame" x="0.0" y="44.666666666666686" width="313" height="43.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="34.666666666666686" width="313" height="33.333333333333343"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="0.0008470588235" green="0.0015686274510000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="SFPro-Regular" family="SF Pro" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    Reminder Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZy-Up-BRT">
-                                        <rect key="frame" x="0.0" y="56.000000000000007" width="175" height="20.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="41" width="175" height="20.333333333333329"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="175" id="LNZ-pc-gCr"/>
@@ -1414,14 +1415,14 @@
             <objects>
                 <viewController id="2cK-Id-TVz" customClass="TermsAndConditionsViewController" customModule="Introspection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fSm-iw-TEk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="3750"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="4500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbA-mS-XVt">
-                                <rect key="frame" x="0.0" y="88" width="375" height="3579"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="4329"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6bE-Wb-w4l">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="3750"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="4250"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IntrospectionBeautiful" translatesAutoresizingMaskIntoConstraints="NO" id="uMv-Ts-o82">
                                                 <rect key="frame" x="192" y="0.0" width="198" height="170"/>
@@ -1438,10 +1439,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeU-zQ-gt0">
-                                                <rect key="frame" x="22" y="241" width="331" height="3500"/>
+                                                <rect key="frame" x="22" y="241" width="331" height="666"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="3500" id="Gv6-MX-mci"/>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="4000" id="Gv6-MX-mci"/>
                                                 </constraints>
                                                 <string key="text">Pellentesque aliquet nibh non risus interdum sagittis. Morbi a malesuada velit. Donec ante arcu, gravida vulputate nunc a, semper aliquet quam. In quis sodales massa. In dictum, elit at gravida tristique, augue ex porttitor quam, vitae hendrerit leo lacus quis justo. Nam vitae tristique elit. \n Quisque vestibulum viverra turpis sit amet ullamcorper. Aliquam erat volutpat. Pellentesque vel metus et quam viverra ornare. Suspendisse semper nulla vel risus posuere, sagittis laoreet leo ultrices. Quisque sagittis enim a urna porta, non gravida massa suscipit. Sed ultricies pharetra nibh, ac luctus justo placerat ut. Duis quam lectus, bibendum eget facilisis volutpat, laoreet nec lacus. Aenean vel eros id arcu dapibus venenatis id quis lectus. Nunc ornare felis sed nisi porta hendrerit. Maecenas ligula diam, luctus a cursus at, pulvinar vitae magna. Duis vel hendrerit justo. Curabitur feugiat eros nulla, non commodo mauris volutpat eu. In vitae augue vel sapien pellentesque semper quis ac nisl. Sed laoreet turpis vitae vehicula placerat. Vestibulum vehicula vulputate odio accumsan mattis. Mauris molestie eleifend nulla.</string>
                                                 <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="18"/>
@@ -1458,7 +1459,7 @@
                                             <constraint firstItem="v3U-kd-ZSP" firstAttribute="top" secondItem="uMv-Ts-o82" secondAttribute="bottom" constant="30" id="chC-J8-gF6"/>
                                             <constraint firstItem="uMv-Ts-o82" firstAttribute="top" secondItem="6bE-Wb-w4l" secondAttribute="top" id="dCW-I8-3bt"/>
                                             <constraint firstItem="v3U-kd-ZSP" firstAttribute="top" secondItem="6bE-Wb-w4l" secondAttribute="top" constant="200" id="jyU-XT-5s3"/>
-                                            <constraint firstAttribute="height" constant="3750" id="mGs-mb-6Ey"/>
+                                            <constraint firstAttribute="height" constant="4250" id="mGs-mb-6Ey"/>
                                             <constraint firstAttribute="trailing" secondItem="v3U-kd-ZSP" secondAttribute="trailing" id="msV-fb-75t"/>
                                             <constraint firstItem="v3U-kd-ZSP" firstAttribute="leading" secondItem="6bE-Wb-w4l" secondAttribute="leading" constant="22" id="uli-5j-MIX"/>
                                         </constraints>
@@ -1483,7 +1484,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Pai-2s-hhB"/>
-                    <size key="freeformSize" width="375" height="3750"/>
+                    <size key="freeformSize" width="375" height="4500"/>
                     <connections>
                         <outlet property="termsLabel" destination="v3U-kd-ZSP" id="mOw-r8-fP6"/>
                         <outlet property="termsText" destination="TeU-zQ-gt0" id="mMf-Z9-Mvu"/>
@@ -2386,7 +2387,7 @@
         <scene sceneID="Rkl-Tf-2io">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="h6y-zw-iPq" customClass="GIPHYNavController" customModule="Introspection" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="MyGIF" image="face.smiling" catalog="system" id="7jR-OX-cY7"/>
+                    <tabBarItem key="tabBarItem" title="MyGIF" image="smiley" catalog="system" id="7jR-OX-cY7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7Tq-sc-LxB">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -2595,10 +2596,10 @@
         <image name="Trash" width="24" height="24"/>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="chart.pie.fill" catalog="system" width="128" height="121"/>
-        <image name="face.smiling" catalog="system" width="128" height="121"/>
         <image name="introspection" width="229" height="37"/>
         <image name="lightbulb.fill" catalog="system" width="113" height="128"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="smiley" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
