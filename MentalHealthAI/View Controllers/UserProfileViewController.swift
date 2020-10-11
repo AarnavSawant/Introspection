@@ -76,7 +76,11 @@ class UserProfileViewController: UIViewController {
         logInMethodLabel.textColor = UIColor(red: 0.008, green: 0.02, blue: 0.039, alpha: 1)
         notificationTextField.alpha = 0.6
         notificationTextField.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        self.emailLabel.text = Auth.auth().currentUser!.email ?? ""
+        if logInMethod != "Apple" {
+            self.emailLabel.text = Auth.auth().currentUser!.email ?? ""
+        } else {
+            self.emailLabel.text =  ""
+        }
         self.nameLabel.text = Auth.auth().currentUser!.displayName ?? ""
         
         assistantView.backgroundColor = .white

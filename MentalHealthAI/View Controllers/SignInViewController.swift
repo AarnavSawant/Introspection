@@ -264,7 +264,7 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                                 print("Firebase Log In Done Successful")
                                 db.collection("users").document(authResult!.user.uid).getDocument { (document, err) in
                                     if !document!.exists {
-                                        db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult!.user.displayName, "uid" : authResult!.user.uid]) { (error) in
+                                        db.collection("users").document(authResult!.user.uid).setData(["display_name" : authResult?.user.displayName ?? "", "uid" : authResult!.user.uid]) { (error) in
                                             if error != nil {
                                                 print("Name not captured")
                                             }
@@ -295,8 +295,8 @@ class SignInViewController: UIViewController, GIDSignInDelegate, ASAuthorization
                                     var dateFormatter = DateFormatter()
                                     dateFormatter.dateFormat = "h:mm a"
                                     var components = DateComponents()
-                                    let date = dateFormatter.date(from: "9:50 PM")!
-                                    UserDefaults.standard.set("9:50 PM", forKey: "NotificationTime")
+                                    let date = dateFormatter.date(from: "9:30 PM")!
+                                    UserDefaults.standard.set("9:30 PM", forKey: "NotificationTime")
                                     let calendar = Calendar.current.dateComponents([.hour, .minute], from: date)
                                     let center = UNUserNotificationCenter.current()
                                     components.hour = calendar.hour
@@ -390,7 +390,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                         self.setDefaultNotification()
 //                    }
                 }
-                db.collection("users").document(result!.user.uid).setData(["first_name" : credential.fullName!.givenName, "last_name" : credential.fullName!.familyName, "uid" : result!.user.uid]) { (error) in
+                db.collection("users").document(result!.user.uid).setData(["first_name" : credential.fullName?.givenName ?? "", "last_name" : credential.fullName?.familyName ?? "", "uid" : result!.user.uid]) { (error) in
                     if error != nil {
                         print("Name not captured")
                     }
