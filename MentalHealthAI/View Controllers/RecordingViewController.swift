@@ -11,6 +11,7 @@ import Speech
 import FirebaseAnalytics
 //import StarWarsTextView
 class RecordingViewController: UIViewController {
+    var microPhoneEnabled: Bool?
     @IBOutlet weak var voiceImage: UIImageView!
     @IBOutlet weak var goAheadLabel: UILabel!
     var timer: Timer?
@@ -93,6 +94,19 @@ class RecordingViewController: UIViewController {
                                 print("Unknown Error")
                             }
                         }
+//                        switch AVAudioSession.sharedInstance().recordPermission {
+//                            case AVAudioSessionRecordPermission.granted:
+//                                microPhoneEnabled = true
+//                                print("Permission granted")
+//                            case AVAudioSessionRecordPermission.denied:
+//                                microPhoneEnabled = false
+//                                print("Pemission denied")
+//                            case AVAudioSessionRecordPermission.undetermined:
+//                                microPhoneEnabled = false
+//                                print("Request permission here")
+//                            default:
+//                                break
+//                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             print(self.shouldContinue)
                             if self.shouldContinue! {
@@ -107,7 +121,7 @@ class RecordingViewController: UIViewController {
         //                    self.stopButton.isEnabled = true
         //                    self.SpeakButton.isHidden = true
         //                        self.SpeakButton.isEnabled = false
-                            } else {
+                            } else if !(self.shouldContinue!){
                                 let alertController = UIAlertController(title: "Speech Recognition Required", message: "Please enable speech recognition in settings.", preferredStyle: UIAlertController.Style.alert)
 
                                 let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
@@ -198,6 +212,49 @@ class RecordingViewController: UIViewController {
         } catch {
             print("Error loading AVAudioSession Properties")
         }
+        switch AVAudioSession.sharedInstance().recordPermission {
+            case AVAudioSessionRecordPermission.granted:
+                microPhoneEnabled = true
+                print("Permission granted")
+            case AVAudioSessionRecordPermission.denied:
+                timer?.invalidate()
+                self.dismiss(animated: true, completion: nil)
+                let alertController = UIAlertController(title: "Microphone Required", message: "Please enable the microphone in settings.", preferredStyle: UIAlertController.Style.alert)
+
+                let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                    //Redirect to Settings app
+                    UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+                })
+
+                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
+                alertController.addAction(cancelAction)
+
+                alertController.addAction(okAction)
+
+                self.present(alertController, animated: true, completion: nil)
+                microPhoneEnabled = false
+                print("Pemission denied")
+            case AVAudioSessionRecordPermission.undetermined:
+                timer?.invalidate()
+                self.dismiss(animated: true, completion: nil)
+                let alertController = UIAlertController(title: "Microphone Required", message: "Please enable the microphone in settings.", preferredStyle: UIAlertController.Style.alert)
+
+                let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                    //Redirect to Settings app
+                    UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+                })
+
+                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
+                alertController.addAction(cancelAction)
+
+                alertController.addAction(okAction)
+
+                self.present(alertController, animated: true, completion: nil)
+                microPhoneEnabled = false
+                print("Request permission here")
+            default:
+                break
+        }
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
         guard let inputNode: AVAudioInputNode = audioEngine.inputNode else { //Singleton for Audio = InputNode
             fatalError("audioEngine has no input")
@@ -254,8 +311,8 @@ class RecordingViewController: UIViewController {
     @objc func changeTimerNumber() {
             print("Timer Changed Booooyah")
             number = number! + 1
-            self.timerLabel.text = "00:\(15 - number!)s"
-            if number == 15 {
+            self.timerLabel.text = "00:\(20 - number!)s"
+            if number == 20 {
     //        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
                 self.timer!.invalidate()
                 self.number = 0
