@@ -18,6 +18,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     var dictionary: [String : [String : Any]]?
     var shouldContinue: Bool?
      var isStillRunning:Bool?
+    @IBOutlet weak var typeButton: UIButton!
     @IBOutlet weak var howWasYourDayLabel: UILabel!
     @IBOutlet weak var TranscribedText: UILabel!
     @IBOutlet weak var transcribedTextView: UIView!
@@ -282,6 +283,10 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
                             }
         }
             return false
+    }
+    @IBAction func didClickTypeButton(_ sender: Any) {
+        print("HELLO")
+        self.performSegue(withIdentifier: "type", sender: self)
     }
     @IBAction func didClickStopButton(_ sender: Any) {
 //        scrollTextView.stopCrawlingAnimation()

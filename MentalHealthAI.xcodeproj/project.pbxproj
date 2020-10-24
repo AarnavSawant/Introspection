@@ -44,6 +44,7 @@
 		84571F3C24D55D74004AE9A3 /* GIPHYViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F3B24D55D74004AE9A3 /* GIPHYViewController.swift */; };
 		84571F3F24D55FED004AE9A3 /* GifNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F3E24D55FED004AE9A3 /* GifNetwork.swift */; };
 		84571F4124D5643B004AE9A3 /* GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84571F4024D5643B004AE9A3 /* GIF.swift */; };
+		8457E0422543D94B0002EB4B /* TypingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8457E0412543D94A0002EB4B /* TypingViewController.swift */; };
 		845E267F24BDB6CB00615B4B /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E267E24BDB6CB00615B4B /* DayCell.swift */; };
 		8478E2EB24E68C0700BE81C3 /* DayOfTheWeekService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478E2EA24E68C0700BE81C3 /* DayOfTheWeekService.swift */; };
 		8478E2F824E74C2900BE81C3 /* IntrospectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478E2F724E74C2900BE81C3 /* IntrospectionTests.swift */; };
@@ -135,6 +136,7 @@
 		84571F3E24D55FED004AE9A3 /* GifNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifNetwork.swift; sourceTree = "<group>"; };
 		84571F4024D5643B004AE9A3 /* GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIF.swift; sourceTree = "<group>"; };
 		84571F4424D6821B004AE9A3 /* july_31_v2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_31_v2.json; sourceTree = "<group>"; };
+		8457E0412543D94A0002EB4B /* TypingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingViewController.swift; sourceTree = "<group>"; };
 		845C60972508A2B2002C73C5 /* september_9.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_9.json; sourceTree = "<group>"; };
 		845C609B2509C506002C73C5 /* september_9_revised.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_9_revised.json; sourceTree = "<group>"; };
 		845C609F250BFBAD002C73C5 /* september_10.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_10.json; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				842BABD824FCDD2600F1B243 /* TermsAndConditionsViewController.swift */,
 				842BABDA24FCE49700F1B243 /* PrivacyPolicyViewController.swift */,
 				8427FC5D2516ABB40006CEF4 /* LaunchboardViewController.swift */,
+				8457E0412543D94A0002EB4B /* TypingViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -759,6 +762,7 @@
 				844E845F24BD9A2F00A336EC /* RecapViewController.swift in Sources */,
 				84571F3C24D55D74004AE9A3 /* GIPHYViewController.swift in Sources */,
 				845E267F24BDB6CB00615B4B /* DayCell.swift in Sources */,
+				8457E0422543D94B0002EB4B /* TypingViewController.swift in Sources */,
 				848A38F824C6D62800769850 /* AnalyticsHomeViewController.swift in Sources */,
 				8498B21B24ADD0F10083E8A7 /* QuestionViewController.swift in Sources */,
 				8437D9EB24D811A900D0FDB3 /* UserProfileViewController.swift in Sources */,
