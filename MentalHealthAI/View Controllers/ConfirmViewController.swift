@@ -65,7 +65,7 @@ class ConfirmViewController: UIViewController {
         func textsToSequences(text2: String, dict: [String: Double]) -> MLMultiArray {
             var text = text2.lowercased().components(separatedBy: CharacterSet.punctuationCharacters).joined()
             
-            let contraction_mapping = ["tired" :"tiring", "hard" : "difficult","aint": "is not", "arent": "are not","cant": "cant",
+            let contraction_mapping = ["negperfect" : "incomplete", "negnervous" : "calm", "negscared" : "calm","negmad" : "calm", "tired" :"tiring", "hard" : "difficult","aint": "is not", "arent": "are not","cant": "cant",
             "cantve": "cannot have", "cause": "because", "couldve": "could have",
             "couldnt": "could not", "couldntve": "could not have","didnt": "did not",
             "doesnt": "does not", "dont": "do not", "hadnt": "had not",
@@ -237,11 +237,11 @@ class ConfirmViewController: UIViewController {
         discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "october_2_official") as! [String : Double]
+        let dictionary = readJSONFromFile(filename: "october_31") as! [String : Double]
         let sequenceArray = textsToSequences(text2: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = EmotionPredictionModel()
-        if let predictions = try? new_model.predictions(inputs: [EmotionPredictionModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = EmotionDetectorModel()
+        if let predictions = try? new_model.predictions(inputs: [EmotionDetectorModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
@@ -256,7 +256,7 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
-            if max_pred < 0.75{
+            if max_pred < 0.69{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
@@ -264,7 +264,7 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
-            if max_pred < 0.74{
+            if max_pred < 0.58{
                 predictedClass = "neutral"
             }
         }
@@ -300,7 +300,7 @@ class ConfirmViewController: UIViewController {
         let nav_vc = tab_vc.viewControllers![tab_vc.selectedIndex] as! ReflectViewController
         let vc = nav_vc.viewControllers[0] as! QuestionViewController
         vc.howWasYourDayLabel.text = "How was your day?"
-        vc.TranscribedText.text = "Answering this question will let us assess your stress level"
+        vc.TranscribedText.text = "Answering this question will let us assess your emotions"
         UserDefaults.standard.set(true, forKey: "should_query")
         print("Should Query", UserDefaults.standard.set(true, forKey: "should_query"))
         let dateFormatter = DateFormatter()
@@ -395,7 +395,7 @@ class ConfirmViewController: UIViewController {
         let nav_vc = tab_vc.viewControllers![tab_vc.selectedIndex] as! ReflectViewController
         let vc = nav_vc.viewControllers[0] as! QuestionViewController
         vc.howWasYourDayLabel.text = "How was your day?"
-        vc.TranscribedText.text = "Answering this question will let us assess your stress level"
+        vc.TranscribedText.text = "Answering this question will let us assess your emotions."
     }
     
     func searchGifs(for searchText: String){

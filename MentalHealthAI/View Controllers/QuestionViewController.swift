@@ -43,6 +43,7 @@ class QuestionViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     var number: Int?
     override func viewDidLoad() {
+        typeButton.setTitleColor(UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1), for: .normal)
         Analytics.logEvent("entered_Home_Screen", parameters: nil)
         print("Notifications Enabled", UIApplication.shared.isRegisteredForRemoteNotifications)
 

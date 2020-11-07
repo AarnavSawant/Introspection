@@ -35,9 +35,9 @@ class TypingViewController: UIViewController, UITextViewDelegate {
 
         self.navigationItem.titleView = navView
         var barButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonPressed))
-        var submitButton = UIBarButtonItem(title: "Submit", style: .plain, target: nil, action: #selector(submitButtonPressed))
-        self.navigationItem.leftBarButtonItem = barButton
+        let submitButton = UIBarButtonItem(title: "Submit", style: .plain, target: nil, action: #selector(submitButtonPressed))
         self.navigationItem.rightBarButtonItem = submitButton
+        self.navigationItem.leftBarButtonItem = barButton
         self.navigationItem.titleView?.backgroundColor = UIColor(red: 0.216, green: 0.447, blue: 1, alpha: 1)
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
         let toolbar = UIToolbar()
@@ -54,10 +54,10 @@ class TypingViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
     }
     func textViewDidChange(_ textView: UITextView) {
-        print("SUCK ON MY COCK")
+//        print("SUCK ON MY COCK")
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
-        print("SUCK ON MY DICK")
+//        print("SUCK ON MY DICK")
         if TranscribedText.textColor  == UIColor.lightGray {
             TranscribedText.text = nil
             TranscribedText.textColor = .black
@@ -79,6 +79,7 @@ class TypingViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func submitButtonPressed() {
+        print("PIZZA", TranscribedText.text!)
         let words = TranscribedText.text!.components(separatedBy: " ").count
         if words >= 8 {
 //            print(TranscribedText.text!.count)
@@ -86,7 +87,7 @@ class TypingViewController: UIViewController, UITextViewDelegate {
             results_nav_vc.text = TranscribedText.text
             results_nav_vc.modalPresentationStyle = .fullScreen
             self.present(results_nav_vc, animated: true, completion: nil)
-        } else {
+        } else if words < 8 || TranscribedText.text.isEmpty {
             let alertController = UIAlertController(title: "Please type at least 8 words", message: "It helps us detect your emotion more accurately.", preferredStyle: UIAlertController.Style.alert)
             let alertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alertController.addAction(alertAction)
