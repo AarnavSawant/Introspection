@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84006416254D4B9A0070C8A9 /* SentimentDetectorModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84006415254D4B990070C8A9 /* SentimentDetectorModel.mlmodel */; };
 		8400641C254D4B9C0070C8A9 /* october_31_official.json in Resources */ = {isa = PBXBuildFile; fileRef = 8400641B254D4B9C0070C8A9 /* october_31_official.json */; };
-		84006422254E0DC60070C8A9 /* EmotionDetectorModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84006421254E0DC40070C8A9 /* EmotionDetectorModel.mlmodel */; };
 		84006428254E0DD80070C8A9 /* october_31.json in Resources */ = {isa = PBXBuildFile; fileRef = 84006427254E0DD80070C8A9 /* october_31.json */; };
+		8400642E2557D3A90070C8A9 /* november_7.json in Resources */ = {isa = PBXBuildFile; fileRef = 8400642D2557D3A80070C8A9 /* november_7.json */; };
 		840B4995251EBDEB0094F95D /* september_24.json in Resources */ = {isa = PBXBuildFile; fileRef = 840B4994251EBDEB0094F95D /* september_24.json */; };
 		840B499C252034430094F95D /* doggy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 840B499B252034430094F95D /* doggy.gif */; };
 		840B49A2252034530094F95D /* cute_dog.gif in Resources */ = {isa = PBXBuildFile; fileRef = 840B49A1252034520094F95D /* cute_dog.gif */; };
 		840B49AE25269EAB0094F95D /* october_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 840B49AD25269EAB0094F95D /* october_1.json */; };
+		84197E3625E24AE7002CE3C8 /* february_20.json in Resources */ = {isa = PBXBuildFile; fileRef = 84197E3525E24AE7002CE3C8 /* february_20.json */; };
+		84197E3C25E24AF5002CE3C8 /* YellowGRUModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84197E3B25E24AF5002CE3C8 /* YellowGRUModel.mlmodel */; };
 		841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B332A24BAF1210005311E /* MainTabBarController.swift */; };
 		842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */; };
 		842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */; };
+		84271A9125D9C55500B6F471 /* february_14-2.json in Resources */ = {isa = PBXBuildFile; fileRef = 84271A9025D9C55500B6F471 /* february_14-2.json */; };
 		8427FC5E2516ABB40006CEF4 /* LaunchboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8427FC5D2516ABB40006CEF4 /* LaunchboardViewController.swift */; };
 		842BABD324FA38C500F1B243 /* UserProfileNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD224FA38C500F1B243 /* UserProfileNavController.swift */; };
 		842BABD524FA3C8D00F1B243 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BABD424FA3C8D00F1B243 /* AboutUsViewController.swift */; };
@@ -57,6 +59,9 @@
 		847D870E24C2DBAC000254D9 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D870D24C2DBAC000254D9 /* FirstViewController.swift */; };
 		848A38F824C6D62800769850 /* AnalyticsHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848A38F724C6D62800769850 /* AnalyticsHomeViewController.swift */; };
 		848A38FA24C6D7F500769850 /* WeeklyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848A38F924C6D7F500769850 /* WeeklyViewController.swift */; };
+		84949F83256896D500B8E919 /* november_19.json in Resources */ = {isa = PBXBuildFile; fileRef = 84949F82256896D500B8E919 /* november_19.json */; };
+		84949F892569BD7700B8E919 /* CheesyModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84949F882569BD7700B8E919 /* CheesyModel.mlmodel */; };
+		84949F8F2569BD8200B8E919 /* november_20.json in Resources */ = {isa = PBXBuildFile; fileRef = 84949F8E2569BD8100B8E919 /* november_20.json */; };
 		8498B21724ADD0F10083E8A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B21624ADD0F10083E8A7 /* AppDelegate.swift */; };
 		8498B21924ADD0F10083E8A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B21824ADD0F10083E8A7 /* SceneDelegate.swift */; };
 		8498B21B24ADD0F10083E8A7 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498B21A24ADD0F10083E8A7 /* QuestionViewController.swift */; };
@@ -65,7 +70,7 @@
 		84D7FCA4252827C40091EF0B /* october_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 84D7FCA3252827C40091EF0B /* october_2.json */; };
 		84D7FCDE252835A20091EF0B /* october_2_final.json in Resources */ = {isa = PBXBuildFile; fileRef = 84D7FCDD252835A20091EF0B /* october_2_final.json */; };
 		84D7FCE42528408C0091EF0B /* october_2_official.json in Resources */ = {isa = PBXBuildFile; fileRef = 84D7FCE32528408C0091EF0B /* october_2_official.json */; };
-		84D7FCEA252840980091EF0B /* EmotionPredictionModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 84D7FCE9252840970091EF0B /* EmotionPredictionModel.mlmodel */; };
+		84DD86ED25D91CC20014595D /* february_14.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DD86EC25D91CC20014595D /* february_14.json */; };
 		84FD72D124F62A0C00622085 /* GIPHYNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD72D024F62A0C00622085 /* GIPHYNavController.swift */; };
 		84FD72D324F62E8500622085 /* CalendarNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD72D224F62E8500622085 /* CalendarNavController.swift */; };
 		AA54D36FC879392BE83A80BA /* Pods_MentalHealthAI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21EA894DBC1319397F6112 /* Pods_MentalHealthAI.framework */; };
@@ -103,19 +108,21 @@
 		2B21EA894DBC1319397F6112 /* Pods_MentalHealthAI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MentalHealthAI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30F5DF44AA48F1A96C21FB59 /* Pods-MentalHealthAITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAITests.debug.xcconfig"; path = "Target Support Files/Pods-MentalHealthAITests/Pods-MentalHealthAITests.debug.xcconfig"; sourceTree = "<group>"; };
 		82055F4587DFCE6C35FC00FA /* Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig"; path = "Target Support Files/Pods-MentalHealthAI-MentalHealthAIUITests/Pods-MentalHealthAI-MentalHealthAIUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		84006415254D4B990070C8A9 /* SentimentDetectorModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SentimentDetectorModel.mlmodel; sourceTree = "<group>"; };
 		8400641B254D4B9C0070C8A9 /* october_31_official.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = october_31_official.json; sourceTree = "<group>"; };
-		84006421254E0DC40070C8A9 /* EmotionDetectorModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionDetectorModel.mlmodel; sourceTree = "<group>"; };
 		84006427254E0DD80070C8A9 /* october_31.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = october_31.json; sourceTree = "<group>"; };
+		8400642D2557D3A80070C8A9 /* november_7.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = november_7.json; sourceTree = "<group>"; };
 		840107712503137C00C2A823 /* tenor.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tenor.gif; sourceTree = "<group>"; };
 		840B4984251AD1560094F95D /* september_22.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_22.json; sourceTree = "<group>"; };
 		840B4994251EBDEB0094F95D /* september_24.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_24.json; sourceTree = "<group>"; };
 		840B499B252034430094F95D /* doggy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = doggy.gif; sourceTree = "<group>"; };
 		840B49A1252034520094F95D /* cute_dog.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cute_dog.gif; sourceTree = "<group>"; };
 		840B49AD25269EAB0094F95D /* october_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = october_1.json; sourceTree = "<group>"; };
+		84197E3525E24AE7002CE3C8 /* february_20.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = february_20.json; sourceTree = "<group>"; };
+		84197E3B25E24AF5002CE3C8 /* YellowGRUModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = YellowGRUModel.mlmodel; sourceTree = "<group>"; };
 		841B332A24BAF1210005311E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		842166BA24E50C5900EC4FA9 /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		842166BC24E540AA00EC4FA9 /* ResultsNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsNavController.swift; sourceTree = "<group>"; };
+		84271A9025D9C55500B6F471 /* february_14-2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "february_14-2.json"; sourceTree = "<group>"; };
 		8427FC532511D7150006CEF4 /* september_15.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_15.json; sourceTree = "<group>"; };
 		8427FC572511E3340006CEF4 /* september_15_revised.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_15_revised.json; sourceTree = "<group>"; };
 		8427FC5B251290F60006CEF4 /* september_16v2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = september_16v2.json; sourceTree = "<group>"; };
@@ -163,6 +170,9 @@
 		848A38FD24CD487F00769850 /* july_24_v4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = july_24_v4.json; sourceTree = "<group>"; };
 		8490F36124E6608500EB21BD /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		8490F36224E6609F00EB21BD /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
+		84949F82256896D500B8E919 /* november_19.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = november_19.json; sourceTree = "<group>"; };
+		84949F882569BD7700B8E919 /* CheesyModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CheesyModel.mlmodel; sourceTree = "<group>"; };
+		84949F8E2569BD8100B8E919 /* november_20.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = november_20.json; sourceTree = "<group>"; };
 		8498B21324ADD0F10083E8A7 /* Introspection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Introspection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8498B21624ADD0F10083E8A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8498B21824ADD0F10083E8A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -179,7 +189,7 @@
 		84D7FCA3252827C40091EF0B /* october_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = october_2.json; sourceTree = "<group>"; };
 		84D7FCDD252835A20091EF0B /* october_2_final.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = october_2_final.json; sourceTree = "<group>"; };
 		84D7FCE32528408C0091EF0B /* october_2_official.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = october_2_official.json; sourceTree = "<group>"; };
-		84D7FCE9252840970091EF0B /* EmotionPredictionModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionPredictionModel.mlmodel; sourceTree = "<group>"; };
+		84DD86EC25D91CC20014595D /* february_14.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = february_14.json; sourceTree = "<group>"; };
 		84EF337C24DFF27200C4A06B /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		84EF337E24DFF3B600C4A06B /* SF-Pro-Display-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Heavy.otf"; sourceTree = "<group>"; };
 		84EF337F24DFF53700C4A06B /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
@@ -311,9 +321,8 @@
 		847D870124C2CF91000254D9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				84006415254D4B990070C8A9 /* SentimentDetectorModel.mlmodel */,
-				84006421254E0DC40070C8A9 /* EmotionDetectorModel.mlmodel */,
-				84D7FCE9252840970091EF0B /* EmotionPredictionModel.mlmodel */,
+				84197E3B25E24AF5002CE3C8 /* YellowGRUModel.mlmodel */,
+				84949F882569BD7700B8E919 /* CheesyModel.mlmodel */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,6 +330,12 @@
 		847D870224C2CFA8000254D9 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				84271A9025D9C55500B6F471 /* february_14-2.json */,
+				84197E3525E24AE7002CE3C8 /* february_20.json */,
+				84DD86EC25D91CC20014595D /* february_14.json */,
+				84949F8E2569BD8100B8E919 /* november_20.json */,
+				8400642D2557D3A80070C8A9 /* november_7.json */,
+				84949F82256896D500B8E919 /* november_19.json */,
 				84CE72E825114458004C683B /* september_14.json */,
 				84006427254E0DD80070C8A9 /* october_31.json */,
 				8400641B254D4B9C0070C8A9 /* october_31_official.json */,
@@ -579,7 +594,9 @@
 				84452BA9251148DE00FE6DE0 /* SF-Pro-Display-RegularItalic.otf in Resources */,
 				84452BAA251148DE00FE6DE0 /* SF-Pro-Display-Regular.otf in Resources */,
 				84452BAB251148DE00FE6DE0 /* SF-Pro-Display-Bold.otf in Resources */,
+				8400642E2557D3A90070C8A9 /* november_7.json in Resources */,
 				840B4995251EBDEB0094F95D /* september_24.json in Resources */,
+				84949F8F2569BD8200B8E919 /* november_20.json in Resources */,
 				84452BAC251148DE00FE6DE0 /* SF-Pro-Text-Regular.otf in Resources */,
 				840B499C252034430094F95D /* doggy.gif in Resources */,
 				84452BAD251148DE00FE6DE0 /* SF-Pro-Text-Medium.otf in Resources */,
@@ -588,10 +605,14 @@
 				84452BAF251148DE00FE6DE0 /* SF-Pro-Display-Semibold.otf in Resources */,
 				84006428254E0DD80070C8A9 /* october_31.json in Resources */,
 				840B49A2252034530094F95D /* cute_dog.gif in Resources */,
+				84197E3625E24AE7002CE3C8 /* february_20.json in Resources */,
 				84452BB0251148DE00FE6DE0 /* SF-Pro-Display-Heavy.otf in Resources */,
+				84949F83256896D500B8E919 /* november_19.json in Resources */,
 				84D7FCE42528408C0091EF0B /* october_2_official.json in Resources */,
+				84271A9125D9C55500B6F471 /* february_14-2.json in Resources */,
 				84452BB1251148DE00FE6DE0 /* SF-Pro.ttf in Resources */,
 				84D7FCDE252835A20091EF0B /* october_2_final.json in Resources */,
+				84DD86ED25D91CC20014595D /* february_14.json in Resources */,
 				84452BB3251148DE00FE6DE0 /* tenor.gif in Resources */,
 				84452BB4251148DE00FE6DE0 /* Assets.xcassets in Resources */,
 				840B49AE25269EAB0094F95D /* october_1.json in Resources */,
@@ -780,13 +801,13 @@
 				848A38F824C6D62800769850 /* AnalyticsHomeViewController.swift in Sources */,
 				8498B21B24ADD0F10083E8A7 /* QuestionViewController.swift in Sources */,
 				8437D9EB24D811A900D0FDB3 /* UserProfileViewController.swift in Sources */,
-				84006416254D4B9A0070C8A9 /* SentimentDetectorModel.mlmodel in Sources */,
 				84571F3424D3E8C8004AE9A3 /* BreakdownViewController.swift in Sources */,
 				842BABD724FA3DF200F1B243 /* AboutUsNavControllerViewController.swift in Sources */,
 				84571F2E24D16721004AE9A3 /* Contants.swift in Sources */,
 				8498B21724ADD0F10083E8A7 /* AppDelegate.swift in Sources */,
 				841B332B24BAF1210005311E /* MainTabBarController.swift in Sources */,
 				842BABD924FCDD2600F1B243 /* TermsAndConditionsViewController.swift in Sources */,
+				84949F892569BD7700B8E919 /* CheesyModel.mlmodel in Sources */,
 				84571F2024D02ECB004AE9A3 /* UserFeedbackViewController.swift in Sources */,
 				8427FC5E2516ABB40006CEF4 /* LaunchboardViewController.swift in Sources */,
 				84FD72D124F62A0C00622085 /* GIPHYNavController.swift in Sources */,
@@ -797,14 +818,13 @@
 				84571F3224D2BA47004AE9A3 /* YearlyViewController.swift in Sources */,
 				842166BB24E50C5900EC4FA9 /* RecordingViewController.swift in Sources */,
 				842BABD524FA3C8D00F1B243 /* AboutUsViewController.swift in Sources */,
+				84197E3C25E24AF5002CE3C8 /* YellowGRUModel.mlmodel in Sources */,
 				842166BD24E540AA00EC4FA9 /* ResultsNavController.swift in Sources */,
 				84571F4124D5643B004AE9A3 /* GIF.swift in Sources */,
 				8478E2EB24E68C0700BE81C3 /* DayOfTheWeekService.swift in Sources */,
 				848A38FA24C6D7F500769850 /* WeeklyViewController.swift in Sources */,
 				842BABD324FA38C500F1B243 /* UserProfileNavController.swift in Sources */,
 				847D870E24C2DBAC000254D9 /* FirstViewController.swift in Sources */,
-				84006422254E0DC60070C8A9 /* EmotionDetectorModel.mlmodel in Sources */,
-				84D7FCEA252840980091EF0B /* EmotionPredictionModel.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1031,7 +1051,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MentalHealthAI;
 				PRODUCT_NAME = Introspection;
 				SWIFT_VERSION = 5.0;
@@ -1054,7 +1074,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MentalHealthAI;
 				PRODUCT_NAME = Introspection;
 				SWIFT_VERSION = 5.0;

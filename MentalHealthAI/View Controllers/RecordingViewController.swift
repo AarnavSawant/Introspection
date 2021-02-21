@@ -256,7 +256,8 @@ class RecordingViewController: UIViewController {
                 break
         }
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        guard let inputNode: AVAudioInputNode = audioEngine.inputNode else { //Singleton for Audio = InputNode
+        let inputNode: AVAudioInputNode = audioEngine.inputNode
+        if inputNode == nil { //Singleton for Audio = InputNode
             fatalError("audioEngine has no input")
         }
         guard let recognitionRequest = recognitionRequest else {

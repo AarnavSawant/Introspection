@@ -65,7 +65,7 @@ class ConfirmViewController: UIViewController {
         func textsToSequences(text2: String, dict: [String: Double]) -> MLMultiArray {
             var text = text2.lowercased().components(separatedBy: CharacterSet.punctuationCharacters).joined()
             
-            let contraction_mapping = ["negperfect" : "incomplete", "negnervous" : "calm", "negscared" : "calm","negmad" : "calm", "tired" :"tiring", "hard" : "difficult","aint": "is not", "arent": "are not","cant": "cant",
+            let contraction_mapping = ["scaring" : "scared", "scare" : "scared", "hard" : "difficult","aint": "is not", "arent": "are not","cant": "cant",
             "cantve": "cannot have", "cause": "because", "couldve": "could have",
             "couldnt": "could not", "couldntve": "could not have","didnt": "did not",
             "doesnt": "does not", "dont": "do not", "hadnt": "had not",
@@ -154,12 +154,12 @@ class ConfirmViewController: UIViewController {
                 
             }
             print("CLEANED TEXT for Sequence", cleanedTextArray)
-            let stopwordsList = [" ", "ok", "english", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "dads", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot", "math", "today", "hot", "ran", "teacher","pretty","very", "really","super","feeling", "feel", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their", "theirs", "themselves", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from","in", "out", "on", "off", "over", "under", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "", " ", "inside", "study", "meetings" ,"sleep", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"]
+            let stopwordsList = [" ", "American", "ok", "english", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "dads", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot", "math", "today", "hot", "ran", "teacher","pretty","very", "really","super","feeling", "feel", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their", "theirs", "themselves", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from","in", "out", "on", "off", "over", "under", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "", " ", "inside", "study", "meetings" ,"sleep", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"]
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
                 if (dict[cleanedTextArray[i]] != nil && !stopwordsList.contains(cleanedTextArray[i])) {
                     let num = dict[cleanedTextArray[i]] as! Double
-                    if (num <= 7500.0) {
+                    if (num <= 10000.0) {
                         sequenceArray.append(dict[cleanedTextArray[i]] as! Double)
                         
                     }
@@ -237,11 +237,11 @@ class ConfirmViewController: UIViewController {
         discardButton.layer.cornerRadius = 0.5 * discardButton.bounds.size.width
         GetResultsButton.layer.cornerRadius = 0.5 * GetResultsButton.bounds.size.width
         super.viewDidLoad()
-        let dictionary = readJSONFromFile(filename: "october_31") as! [String : Double]
+        let dictionary = readJSONFromFile(filename: "february_20") as! [String : Double]
         let sequenceArray = textsToSequences(text2: TranscribedText.text, dict: dictionary)
         var max_pred = Double()
-        let new_model = EmotionDetectorModel()
-        if let predictions = try? new_model.predictions(inputs: [EmotionDetectorModelInput(tokenizedString: sequenceArray)]) {
+        let new_model = YellowGRUModel()
+        if let predictions = try? new_model.predictions(inputs: [YellowGRUModelInput(tokenizedString: sequenceArray)]) {
             max_pred = predictions[0].emotion.values.max()!
             for key in predictions[0].emotion {
                 if key.value == max_pred {
@@ -256,11 +256,11 @@ class ConfirmViewController: UIViewController {
                 predictedClass = "neutral"
             }
         } else if predictedClass == "anger" {
-            if max_pred < 0.69{
+            if max_pred < 0.77{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "sadness" {
-            if max_pred < 0.45{
+            if max_pred < 0.56{
                 predictedClass = "neutral"
             }
         } else if predictedClass == "fear" {
@@ -350,9 +350,7 @@ class ConfirmViewController: UIViewController {
                         print("ERROR RECEIVING QUERY FOR DAY OF THE WEEKS")
                     } else {
                         let data = querrySnapshot?.data()
-//                        if data!["day_of_the_week_dict"] != nil {
                         self.day_of_the_week_dict = (data?["day_of_the_week_dict"] as? [String : [String : Int]]) ?? nil
-//                        }
                         self.lastClass = data?["last class"] as? String
                         self.lastTimestamp = data?["timestamp"] as? Double ?? 0
                         var dayOfTheWeekService = DayOfTheWeekWriter(oldDictionary: self.day_of_the_week_dict, dayOfTheWeekString: dayOfTheWeekString, timestamp: self.lastTimestamp, date: testdate, previousClass: self.lastClass , predictionClass: self.predictedClass)

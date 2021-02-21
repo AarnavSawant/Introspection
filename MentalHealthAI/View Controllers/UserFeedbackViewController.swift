@@ -180,9 +180,11 @@ class UserFeedbackViewController: UIViewController {
         } else {
             submitButton.isEnabled = false
             let db = Firestore.firestore()
-            db.collection("feedback").addDocument(data: ["text" : inputText!, "emotion" : selectedEmotion, "feedback" : feedbackTextField.text!, "predicted_emotion" : predictedClass, "user_id" : Auth.auth().currentUser?.uid]) { (err) in
+            db.collection("feedbackNew").addDocument(data: ["text" : inputText!, "emotion" : selectedEmotion, "feedback" : feedbackTextField.text!, "predicted_emotion" : predictedClass, "user_id" : Auth.auth().currentUser?.uid]) { (err) in
                 if err == nil {
                     print("Success")
+                } else {
+                    print("Error Feedback", err.debugDescription)
                 }
             }
             let alertController = UIAlertController(title: "Thank you for your Feedback!", message: "We really appreciate it!", preferredStyle: UIAlertController.Style.alert)
