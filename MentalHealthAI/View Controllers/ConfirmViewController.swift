@@ -138,10 +138,11 @@ class ConfirmViewController: UIViewController {
                     wordNum += 1
                 }
             }
+            let stopwordsList = ["lot", "neglot", "American", "ok", "english", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "dads", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot", "math", "today", "hot", "ran", "teacher","pretty","very", "really","super","feeling", "feel", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their", "theirs", "themselves", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from","in", "out", "on", "off", "over", "under", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "", " ", "inside", "study", "meetings" ,"sleep", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"]
             var shouldNegate = false
             for i in 0..<textArray.count {
                 print("Should Negate \(textArray[i])", shouldNegate)
-                if shouldNegate {
+                if shouldNegate && !stopwordsList.contains(cleanedTextArray[i]) {
                     if ["Noun", "Pronoun"].contains(textToPOSArray[i]) {
                         shouldNegate = false
                     }
@@ -154,7 +155,6 @@ class ConfirmViewController: UIViewController {
                 
             }
             print("CLEANED TEXT for Sequence", cleanedTextArray)
-            let stopwordsList = [" ", "American", "ok", "english", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "dads", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot", "math", "today", "hot", "ran", "teacher","pretty","very", "really","super","feeling", "feel", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their", "theirs", "themselves", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from","in", "out", "on", "off", "over", "under", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "", " ", "inside", "study", "meetings" ,"sleep", "outside", "morning", "history", "dog", "math", "today", "hey","really", "feel", "feeling", "super", "very", "pretty", "sure", "raise", "drank", "ceiling", "hot"]
             var sequenceArray = [Double]()
             for i in 0...cleanedTextArray.count - 1 {
                 if (dict[cleanedTextArray[i]] != nil && !stopwordsList.contains(cleanedTextArray[i])) {
